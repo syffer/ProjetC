@@ -26,6 +26,9 @@
 #include "backgammon.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>		// time pour aléatoire
+
+
 
 struct Joueur {
 	Librairie librairie;
@@ -83,6 +86,7 @@ Joueur chargerJoueur( char* nomLibrairie ) {
 	joueur -> TakeDouble = (pfTakeDouble) extraireLibrairie( lib, "TakeDouble" );
 
 	// on vérifie si toutes les fonctions on bien été chargées
+	// /!\ ces fonctions peuvent faire sortir du programme principal ( exit(-1) )
 	if( !joueur -> InitLibrary ) erreurChargementFonction( nomLibrairie, "InitLibrary" );
 	if( !joueur -> StartMatch ) erreurChargementFonction( nomLibrairie, "StartMatch" );
 	if( !joueur -> StartGame ) erreurChargementFonction( nomLibrairie, "StartGame" );
@@ -127,6 +131,29 @@ int stringToPositiveInteger( const char* string, int* nombre ) {
 
 
 
+/*
+* Retourne un nombre généré aléatoirement entre min et max compris.
+*
+* @pre
+*	initialiser le générateur de nombre aléatoire avec srand(time(NULL)
+*
+*/
+int randomINT( int min, int max ) {
+	return ( rand() % max ) + min;
+}
+
+
+void lancerLesDes( unsigned char dices[2] ) {
+	dices[0] = (unsigned char) randomINT(1,6);
+	dices[1] = (unsigned char) randomINT(1,6);
+}
+
+void afficherDes( unsigned char dices[2] ) {
+	printf( " des : %i %i \n", dices[0], dices[1] );
+}
+
+
+
 int main( int argc, char* argv[] ) {
 
 	/*
@@ -160,14 +187,16 @@ int main( int argc, char* argv[] ) {
 
 
 	// chargement des joueurs
-	Joueur joueur1 = chargerJoueur( "libBot.dll" );
-	Joueur joueur2 = chargerJoueur( "libBot.dll" );
+	Joueur joueur1 = chargerJoueur( cheminLibrairie_1 );
+	Joueur joueur2 = chargerJoueur( cheminLibrairie_2 );
 
 
 	/*
 	*	déroulement d'une partie....
 	*
 	*/
+
+	srand( time(NULL) ); 		// initialise générateur aléatoire
 
 	unsigned int nbMoves;
 	unsigned char dices[2];
@@ -179,12 +208,28 @@ int main( int argc, char* argv[] ) {
 
 	
 	// ........................................................................... 
+	
+
+	lancerLesDes( dices );
+	afficherDes( dices );
+
+
+	// ??? score cible pour gagner un match ???
+	joueur1.StartMatch(-1);
+	joueur2.StartMatch(-1);
+
+
+
 	joueur1.StartGame( BLACK );
+	joueur2.StartGame( WHITE );
+
 
 	joueur1.EndGame();
 	joueur2.EndGame();
 
 
+	joueur1.EndMatch();
+	joueur2.EndMatch();
 
 
 	/*

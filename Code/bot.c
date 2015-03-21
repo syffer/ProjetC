@@ -32,6 +32,7 @@ void InitLibrary( char name[50] ) {
  */
 void StartMatch( const unsigned int target_score ) {
 	printf("StartMatch\n");
+	
 }
 
 
@@ -39,8 +40,10 @@ void StartMatch( const unsigned int target_score ) {
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
+	static maCouleur;
 	printf("StartGame\n");
 	maCouleur = p;
+	printf("%i \n ", maCouleur );
 }
 
 
@@ -48,7 +51,7 @@ void StartGame(Player p) {
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	printf( "ma couleur : %s \n", maCouleur );
+	printf("%i \n", maCouleur );
 	printf("EndGame\n");
 }
 
@@ -98,6 +101,13 @@ int TakeDouble( const SGameState * const gameState ) {
  */
 void PlayTurn( const SGameState * const gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	printf("PlayTurn\n");
+
+
+	if( dices[0] == dices[1] ) {
+		printf("dedoublement des des/dices \n");
+	}
+
+
 }
 
 

@@ -5,8 +5,7 @@
 
 
 # ensemble des exécutable à produire
-# on supprime ensuite les fichiers temporaires
-all:: libBot.dll libBot.so backgammon clean
+all:: libBot.dll libBot.so backgammon 
 
 
 # creation des librairies
