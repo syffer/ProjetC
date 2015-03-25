@@ -1,5 +1,8 @@
 
-
+/*
+	/!\ sur windows, on ne peut pas charger deux fois la même librairie !
+		(il ne veut pas charger uen librairie qui a été copiée)
+*/
 
 
 #include <stdio.h>

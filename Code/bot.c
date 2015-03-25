@@ -17,8 +17,6 @@ static Player maCouleur;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-	
-	//printf("InitLibrary\n");
 	strcpy(name,"AlphaBot");
 	score = 0;
 	maCouleur = NOBODY;
@@ -31,7 +29,6 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
-	//printf("StartMatch\n");
 	score = target_score;
 }
 

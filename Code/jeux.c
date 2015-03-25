@@ -10,9 +10,7 @@
 	#define fermerLibrairie(libType) FreeLibrary(libType)
 	//#define getError() GetLastError()
 
-	
 	char* getError() {
-		return NULL;
 		DWORD errorMessageID = GetLastError();
 
 		if( errorMessageID == 0 ) return NULL;
@@ -24,6 +22,7 @@
 
 		return messageBuffer;
 	}
+	
 #endif
 
 
@@ -49,7 +48,6 @@
 #include <time.h>		// time pour aléatoire
 #include <assert.h>		// assert pour vérifier si une allocation mémoire a bien été faite
 #include <stdlib.h>		// malloc
-#include <time.h>		// time pour aléatoire
 #include <stdio.h>
 #include <string.h>
 
@@ -240,7 +238,7 @@ void lancerLesDes( unsigned char dices[2] ) {
 *
 */
 int randomINT( int min, int max ) {
-	return ( rand() % max ) + min;
+	return ( rand() % (max-min+1) ) + min;
 }
 
 
