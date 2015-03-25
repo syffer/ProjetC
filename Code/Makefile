@@ -1,7 +1,10 @@
-
-# commentaire
-
 # http://www.labri.fr/perso/billaud/IUT/AP2-POO-0910/060-faire-makefile.pdf
+
+
+
+# pour récupérer : Linux Win32
+OS = 'echo -n %OS%'
+LINUX =%OS%
 
 
 # ensemble des exécutable à produire
@@ -22,7 +25,7 @@ bot.o: bot.c
 
 # creation de l'executable du jeu
 backgammon: backgammon.c
-	gcc -Wall backgammon.c -o backgammon
+	gcc -Wall backgammon.c jeux.c graphique.c -o backgammon -ldl
 
 
 
@@ -30,7 +33,10 @@ backgammon: backgammon.c
 # on supprime les fichiers temporaires
 # make clean
 clean::
+	@rm -f *.i
+	@rm -f *.s
 	@rm -f *.o
+	
 
 
 # on recrée tout les exécutables
@@ -40,3 +46,5 @@ mrproper::
 	rm -f libBot.dll
 	rm -f libBot.so 
 	rm -f backgammon
+	rm -f *.so
+	rm -f *.dll

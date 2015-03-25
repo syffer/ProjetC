@@ -6,8 +6,8 @@
  * Les nombres sont là pour faciliter les tests.
  */
 typedef enum {
-    BLACK = 0,
-    NOBODY = -1,
+    BLACK = -1,
+    NOBODY = 0,
     WHITE = 1
 } Player;
 
