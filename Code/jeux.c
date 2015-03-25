@@ -219,9 +219,6 @@ void afficherDes( unsigned char dices[2] ) {
 /*
 * Lance les dés
 *
-* @pre
-*	initialiser le générateur de nombre aléatoire avec srand(time(NULL))
-*
 */
 void lancerLesDes( unsigned char dices[2] ) {
 	dices[0] = (unsigned char) randomINT(1,6);
@@ -233,11 +230,16 @@ void lancerLesDes( unsigned char dices[2] ) {
 /*
 * Retourne un nombre généré aléatoirement entre min et max compris.
 *
-* @pre
-*	initialiser le générateur de nombre aléatoire avec srand(time(NULL)
-*
 */
 int randomINT( int min, int max ) {
+	
+	// on vérifie si le générateur aléatoire a été initialisé
+	static int generateurInitialise = 0;
+    if( ! generateurInitialise ) {		// si ce n'est pas le cas, on l'initialise
+        generateurInitialise = 1;
+        srand( time(NULL) );
+    }
+    
 	return ( rand() % (max-min+1) ) + min;
 }
 

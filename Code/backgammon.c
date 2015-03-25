@@ -8,8 +8,6 @@
 #include <stdio.h>
 #include <string.h>		// strlen(), strcmp()
 #include <stdlib.h>		// exit()
-#include <time.h>		// time pour aléatoire
-
 
 #include "backgammon.h"
 #include "jeux.h"
@@ -68,10 +66,6 @@ int main( int argc, char* argv[] ) {
 
 		librairie_copiee = 1;
 	}
-
-
-
-	srand( time(NULL) ); 		// initialise générateur aléatoire
 
 
 	// chargement des joueurs

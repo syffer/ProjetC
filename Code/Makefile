@@ -24,10 +24,19 @@ bot.o: bot.c
 
 
 # creation de l'executable du jeu
-backgammon: backgammon.c
-	gcc -Wall backgammon.c jeux.c graphique.c -o backgammon -ldl
+backgammon: backgammon.o jeux.o graphique.o
+	gcc -Wall backgammon.o jeux.o graphique.o -o backgammon -ldl
 
 
+backgammon.o: backgammon.c
+	gcc -Wall -c backgammon.c
+
+jeux.o: jeux.c
+	gcc -Wall -c jeux.c
+
+
+graphique.o: graphique.c
+	gcc -Wall -c graphique.c
 
 
 # on supprime les fichiers temporaires
