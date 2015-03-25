@@ -11,6 +11,7 @@ LINUX =%OS%
 all:: libBot.dll libBot.so backgammon 
 
 
+
 # creation des librairies
 libBot.dll: bot.o
 	gcc -shared -o libBot.dll bot.o
@@ -23,20 +24,30 @@ bot.o: bot.c
 
 
 
+
 # creation de l'executable du jeu
-backgammon: backgammon.o jeux.o graphique.o
-	gcc -Wall backgammon.o jeux.o graphique.o -o backgammon -ldl
+backgammon: backgammon.o arbitre.o graphique.o joueur.o verifications.o
+	gcc -Wall backgammon.o arbitre.o graphique.o joueur.o verifications.o -o backgammon -ldl
 
 
 backgammon.o: backgammon.c
 	gcc -Wall -c backgammon.c
 
-jeux.o: jeux.c
-	gcc -Wall -c jeux.c
 
+arbitre.o: arbitre.c
+	gcc -Wall -c arbitre.c
 
 graphique.o: graphique.c
 	gcc -Wall -c graphique.c
+
+joueur.o: joueur.c
+	gcc -Wall -c joueur.c
+	
+verifications.o: verifications.c
+	gcc -Wall -c verifications.c
+
+
+
 
 
 # on supprime les fichiers temporaires

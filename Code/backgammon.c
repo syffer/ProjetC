@@ -9,8 +9,9 @@
 #include <string.h>		// strlen(), strcmp()
 #include <stdlib.h>		// exit()
 
-#include "backgammon.h"
-#include "jeux.h"
+#include "verifications.h"
+#include "joueur.h"
+#include "arbitre.h"
 #include "graphique.h"
 
 
