@@ -22,7 +22,7 @@ bot.o: bot.c
 
 # creation de l'executable du jeu
 backgammon: backgammon.c
-	gcc -Wall backgammon.c -o backgammon
+	gcc -Wall backgammon.c -o backgammon `sdl-config --cflags --libs` 
 
 
 
