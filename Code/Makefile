@@ -63,8 +63,15 @@ clean::
 # fait "le grand menage"
 # make mrproper
 mrproper:: 	
-	rm -f libBot.dll
-	rm -f libBot.so 
-	rm -f backgammon
+	# fichiers temporaires
+	rm -f *.i
+	rm -f *.s
+	rm -f *.o
+	
+	#librairies
 	rm -f *.so
 	rm -f *.dll
+	
+	# l'exécutable
+	rm -f backgammon
+	rm -f backgammon.exe
