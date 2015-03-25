@@ -67,11 +67,9 @@ mrproper::
 	rm -f *.i
 	rm -f *.s
 	rm -f *.o
-	
 	#librairies
 	rm -f *.so
 	rm -f *.dll
-	
 	# l'exécutable
 	rm -f backgammon
 	rm -f backgammon.exe

@@ -76,3 +76,15 @@ int copierFichier( char* source, char* destination ) {
 
 
 
+
+
+int verifierLibrairies( char* cheminLibrairie_1, char* cheminLibrairie_2 ) {
+	
+	/*
+	*	A terminer à partir de la grosse partie dans le main à virer
+	*/
+	return -1;
+}
+
+
+
