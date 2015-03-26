@@ -1,21 +1,13 @@
 
-/*
-	/!\ sur windows, on ne peut pas charger deux fois la même librairie !
-		(il ne veut pas charger uen librairie qui a été copiée)
-*/
-
-
-#include <stdio.h>
-#include <string.h>		// strlen(), strcmp()
-#include <stdlib.h>		// exit()
-
 #include "verifications.h"
 #include "joueur.h"
 #include "arbitre.h"
 #include "graphique.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 
-
+#include <string.h>		// a virer apres
 
 int main( int argc, char* argv[] ) {
 
@@ -28,9 +20,11 @@ int main( int argc, char* argv[] ) {
 		printf(" 	%s <nbParties> <chemin librairie 1> <chemin librairie 2> \n", argv[0] );
 		exit( EXIT_FAILURE );
 	}
-	
+
+
 	char* cheminLibrairie_1 = "./libBot.so";	// chargement par défaut
-	char* cheminLibrairie_2 = "./libBot.so";					
+	char* cheminLibrairie_2 = "./libBot.so";
+
 
 	// on récupère les librairies entrées (qui sont optionnels)
 	if( argc >= 3 ) cheminLibrairie_1 = argv[2];
@@ -45,7 +39,6 @@ int main( int argc, char* argv[] ) {
 	}
 
 
-		
 	int tailleLibrairie_1 = strlen( cheminLibrairie_1 );
 	int tailleLibrairie_2 = strlen( cheminLibrairie_2 );
 	char librairie_1[ tailleLibrairie_1 + 10 ]; 	// "./" + chemin + ".copy"
@@ -64,6 +57,7 @@ int main( int argc, char* argv[] ) {
 	Joueur joueur2 = chargerJoueur( librairie_2 );
 
 
+    afficherPlateau(); // affichage de la fenêtre de jeu et de la partie grapique
 	jouerPartie( nbParties, joueur1, joueur2 );
 
 
