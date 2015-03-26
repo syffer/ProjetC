@@ -57,7 +57,7 @@ int main( int argc, char* argv[] ) {
 	Joueur joueur2 = chargerJoueur( librairie_2 );
 
 
-    afficherPlateau(); // affichage de la fenêtre de jeu et de la partie grapique
+    //afficherPlateau(); // affichage de la fenêtre de jeu et de la partie grapique
 	jouerPartie( nbParties, joueur1, joueur2 );
 
 
