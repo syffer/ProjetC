@@ -146,6 +146,23 @@ char* retournerPathDe(char dice)
     }
 }
 
+void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
+{
+    posDe1 -> x = 883;
+    posDe1 -> y = 360;
+
+    posDe2 -> x = 945;
+    posDe2 -> y = 360;
+}
+
+int randomINT( int min, int max )
+{
+	return ( rand() % max ) + min;
+}
 
 
-
+void lancerLesDes( unsigned char dices[2] )
+{
+	dices[0] = (unsigned char) randomINT(1,6);
+	dices[1] = (unsigned char) randomINT(1,6);
+}
