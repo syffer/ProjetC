@@ -1,5 +1,5 @@
 #include "graphique.h"
-#include "SDL/SDL.h"
+#include "arbitre.h"
 
 
 int afficherPlateau()
@@ -19,7 +19,6 @@ int afficherPlateau()
     SDL_Surface* de1;
     SDL_Surface* de2;
 
-    srand(time(NULL));
     char* pathCompletDe1 = "Images/Des/de1.bmp";
     char* pathCompletDe2 = "Images/Des/de1.bmp";
     SDL_Event event;
@@ -96,8 +95,14 @@ int afficherPlateau()
                             de2 = SDL_LoadBMP(pathCompletDe2);
 
                         break;
+
+                        default:
+                            break;
                     }
                 }
+                break;
+
+            default:
                 break;
              // end switch
         } // end of message processing
@@ -144,6 +149,8 @@ char* retournerPathDe(char dice)
             return "Images/Des/de5.bmp";
         case 6:
             return "Images/Des/de6.bmp";
+        default:
+            return NULL;
     }
 }
 
@@ -156,14 +163,4 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
     posDe2 -> y = 360;
 }
 
-int randomINT( int min, int max )
-{
-	return ( rand() % max ) + min;
-}
 
-
-void lancerLesDes( unsigned char dices[2] )
-{
-	dices[0] = (unsigned char) randomINT(1,6);
-	dices[1] = (unsigned char) randomINT(1,6);
-}
