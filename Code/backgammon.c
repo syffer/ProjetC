@@ -2,13 +2,13 @@
 // windows de merde qui n'est pas foutu d'avoir <dlfcn.h>
 #ifdef _WIN32
 	#include <windows.h>
-	
+
 	#define Librairie HMODULE
 	#define chargerLibrairie(nomLib) LoadLibrary(nomLib)
 	#define TypeFonction FARPROC
 	#define extraireLibrairie(libType, nomFonction) GetProcAddress(libType, nomFonction)
 	#define fermerLibrairie(libType) FreeLibrary(libType)
-	
+
 #endif
 
 #ifdef linux
@@ -55,7 +55,7 @@ void erreurChargementFonction( char* nomLib, char* nomFonction ) {
 /*
 * Charge une librairie statégie et retourne la structure joueur correspondante.
 * La structure joueur contiendra sa librairie (pour pouvoir la fermée plus tard) et ses propres fonctions
-* 
+*
 * Attention, cette fonction termine le programme avec exit(-1) si elle n'arrive pas à charger la librairie ou l'une des fonctions attendues
 *
 * @param char* nomLibrairie
@@ -65,7 +65,7 @@ void erreurChargementFonction( char* nomLib, char* nomFonction ) {
 *	la structure joueur contenant la librairie et les fonctions qui lui sont associé.
 */
 Joueur chargerJoueur( char* nomLibrairie ) {
-	
+
 	Librairie lib;
 
 	// on charge la librairie
@@ -103,7 +103,7 @@ Joueur chargerJoueur( char* nomLibrairie ) {
 * Convertie une chaine de caractere en nombre entier positif,
 * et place la valeur de ce nombre à l'adresse pointé par le pointeur *nombre
 *
-* @param const char* string 
+* @param const char* string
 *	la chaine a convertir en nombre entier positif
 *
 * @param int* nombre
@@ -148,10 +148,6 @@ void lancerLesDes( unsigned char dices[2] ) {
 	dices[1] = (unsigned char) randomINT(1,6);
 }
 
-void afficherDes( unsigned char dices[2] ) {
-	printf( " des : %i %i \n", dices[0], dices[1] );
-}
-
 
 
 int main( int argc, char* argv[] ) {
@@ -165,7 +161,7 @@ int main( int argc, char* argv[] ) {
 		printf(" 	%s <nbParties> <cheminStategie1> <cheminStrategie2>", argv[0] );
 		exit(-1);
 	}
-	
+
 	char* cheminLibrairie_1;
 	char* cheminLibrairie_2;
 
@@ -206,12 +202,11 @@ int main( int argc, char* argv[] ) {
 	joueur1.InitLibrary(nomBot1);
 	joueur2.InitLibrary(nomBot2);
 
-	
-	// ........................................................................... 
-	
+
+	// ...........................................................................
+
 
 	lancerLesDes( dices );
-	afficherDes( dices );
 
 
 	// ??? score cible pour gagner un match ???
