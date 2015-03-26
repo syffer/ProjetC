@@ -1,3 +1,4 @@
+#include "graphique.h"
 #include <SDL.h>
 
 int afficherPlateau()
@@ -144,3 +145,7 @@ char* retournerPathDe(char dice)
             return "Images/Des/de6.bmp";
     }
 }
+
+
+
+

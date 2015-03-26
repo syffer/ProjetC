@@ -8,7 +8,7 @@
 //
 
 unsigned int score;
-Player maCouleur;
+static Player maCouleur;
 
 
 /**
@@ -17,8 +17,6 @@ Player maCouleur;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-	
-	//printf("InitLibrary\n");
 	strcpy(name,"AlphaBot");
 	score = 0;
 	maCouleur = NOBODY;
@@ -31,8 +29,7 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
-	printf("StartMatch\n");
-	
+	score = target_score;
 }
 
 
@@ -40,10 +37,8 @@ void StartMatch( const unsigned int target_score ) {
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
-	static maCouleur;
-	printf("StartGame\n");
+	//printf("StartGame\n");
 	maCouleur = p;
-	printf("%i \n ", maCouleur );
 }
 
 
@@ -51,8 +46,7 @@ void StartGame(Player p) {
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	printf("%i \n", maCouleur );
-	printf("EndGame\n");
+	//printf("EndGame\n");
 }
 
 
@@ -60,7 +54,13 @@ void EndGame() {
  * Fin d'un match
  */
 void EndMatch() {
-	printf("EndMatch\n");
+	//printf("EndMatch\n");
+
+
+	///////////////////////////////////////////////
+	// LIBERATION PROPRE DE TOUTES LES RESSOURCES
+	//						TOUTES
+	///////////////////////////////////////////////
 }
 
 

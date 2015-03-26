@@ -1,0 +1,26 @@
+Binôme Interface
+    codage interface
+    developpement obligatoire sous librairie SDL
+    codage de l'arbitre
+    doit permettre de jouer à 0, un ou deux humains
+    doit lancer le jeu en ligne de commande (choix du nombre de parties et deux autres parametres optionnels : les url des stratégies à utiliser)
+    doit ressortir les résultats dans un fichier de log (sans écraser les précédents logs)
+
+
+Binôme IA
+    codage d'une ou plusieurs stratégies d'IA
+    le faire sous forme d'une librairie dynamique
+    doit fournir le code du chargement de la librairie
+    définir une API de dialogue entre l'executable et la libraire    OK
+
+
+Evaluation
+    rendu : le vendredi 10 avril
+    prend en compte :
+        - le fonctionnement général de l'appli (si ça plante ou non, etc)
+        - la qualité (gestion mémoire, etc)
+        - la propreté du code (commentaire, indentation, etc)
+    réaliser un readme && une documentation
+    
+    rapport & oral ???
+        
