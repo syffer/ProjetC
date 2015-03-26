@@ -4,8 +4,10 @@
 #include "arbitre.h"
 #include "graphique.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 
-
+#include <string.h>		// a virer apres
 
 
 int main( int argc, char* argv[] ) {

@@ -1,5 +1,6 @@
 #include "graphique.h"
-#include <SDL.h>
+#include "SDL/SDL.h"
+
 
 int afficherPlateau()
 {
