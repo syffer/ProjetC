@@ -49,7 +49,7 @@ int randomINT( int min, int max ) {
 
 
 
-void jouerPartie( int nbParties, Joueur* joueur1, Joueur* joueur2 ) {
+void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
 
 
 
@@ -58,10 +58,10 @@ void jouerPartie( int nbParties, Joueur* joueur1, Joueur* joueur2 ) {
 
 	char nomBot1[50];
 	char nomBot2[50];
-	joueur1 -> InitLibrary(nomBot1);
-	joueur2 -> InitLibrary(nomBot2);
+	joueur1.InitLibrary(nomBot1);
+	joueur2.InitLibrary(nomBot2);
 
-	printf(" %p \n %p \n ", joueur1 -> StartMatch, joueur2 -> StartMatch );
+	//printf(" %p \n %p \n ", joueur1.StartMatch, joueur2.StartMatch );
 	
 	// ........................................................................... 
 	
@@ -71,21 +71,21 @@ void jouerPartie( int nbParties, Joueur* joueur1, Joueur* joueur2 ) {
 
 
 	// ??? score cible pour gagner un match ???
-	joueur1 -> StartMatch(-1);
-	joueur2 -> StartMatch(-1);
+	joueur1.StartMatch(-1);
+	joueur2.StartMatch(-1);
 
 
 
-	joueur1 -> StartGame( WHITE );
-	joueur2 -> StartGame( BLACK );
+	joueur1.StartGame( WHITE );
+	joueur2.StartGame( BLACK );
 
 
-	joueur1 -> EndGame();
-	joueur2 -> EndGame();
+	joueur1.EndGame();
+	joueur2.EndGame();
 
 
-	joueur1 -> EndMatch();
-	joueur2 -> EndMatch();
+	joueur1.EndMatch();
+	joueur2.EndMatch();
 
 }
 

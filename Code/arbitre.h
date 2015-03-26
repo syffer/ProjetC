@@ -9,7 +9,7 @@ void lancerLesDes( unsigned char dices[2] );
 int randomINT( int min, int max );
 
 
-void jouerPartie( int nbParties, Joueur* joueur1, Joueur* joueur2 );
+void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 );
 
 
 #endif
