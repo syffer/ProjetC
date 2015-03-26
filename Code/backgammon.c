@@ -2,7 +2,6 @@
 #include "verifications.h"
 #include "joueur.h"
 #include "arbitre.h"
-
 #include "graphique.h"
 
 #include <stdio.h>
@@ -51,9 +50,6 @@ int main( int argc, char* argv[] ) {
 		exit( EXIT_FAILURE );
 	}
 
-
-
-	srand( time(NULL) ); 		// initialise générateur aléatoire
 
 
 	// chargement des joueurs

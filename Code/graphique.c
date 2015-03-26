@@ -2,6 +2,7 @@
 #include "arbitre.h"
 
 
+/*
 int afficherPlateau()
 {
 
@@ -48,10 +49,10 @@ int afficherPlateau()
     dstrect.x = (screen->w - plateau->w) / 2;
     dstrect.y = (screen->h - plateau->h) / 2;
 
-    SDL_Rect posDe1; // rect du dé1
-    SDL_Rect posDe2; // rect du dé2
+    SDL_Rect posDe1; // rect du dï¿½1
+    SDL_Rect posDe2; // rect du dï¿½2
 
-    //initialisation des dés
+    //initialisation des dï¿½s
     de1 = SDL_LoadBMP(pathCompletDe1);
     de2 = SDL_LoadBMP(pathCompletDe2);
     positionnerDes(&posDe1, &posDe2);
@@ -86,7 +87,7 @@ int afficherPlateau()
 
                             lancerLesDes(dices);
 
-                            // on actualise le chemin de l'image des dés
+                            // on actualise le chemin de l'image des dï¿½s
                             pathCompletDe1 = retournerPathDe(dices[0]);
                             pathCompletDe2 = retournerPathDe(dices[1]);
 
@@ -114,7 +115,7 @@ int afficherPlateau()
         // on applique l'image de fond
         SDL_BlitSurface(plateau, 0, screen, &dstrect);
 
-        // on applique l'image des dés
+        // on applique l'image des dï¿½s
         SDL_BlitSurface(de1, 0, screen, &posDe1);
         SDL_BlitSurface(de2, 0, screen, &posDe2);
         // DRAWING ENDS HERE
@@ -163,4 +164,4 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
     posDe2 -> y = 360;
 }
 
-
+*/
