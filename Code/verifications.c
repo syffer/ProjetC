@@ -76,3 +76,43 @@ int copierFichier( char* source, char* destination ) {
 
 
 
+void ajouterRepertoireCourant( char* chemin, char nouveauChemin[] ) {
+	
+	int taille = strlen(chemin);
+	
+	if( taille > 2 && chemin[0] == '.' && chemin[1] == '/' ) strcpy(nouveauChemin,chemin);
+	else {
+		strcpy(nouveauChemin, "./" );
+		strcat(nouveauChemin,chemin);
+	}
+
+}
+
+
+// retourne -1 si il y a eu une erreur lors de la copie, 0 sinon
+int verifierLibrairies( char* cheminLibrairie_1, char* cheminLibrairie_2, char* librairie_1, char* librairie_2, int* copieEffectuee ) {
+
+	// on ajoute les caracteres "./"
+	ajouterRepertoireCourant( cheminLibrairie_1, librairie_1 );
+	ajouterRepertoireCourant( cheminLibrairie_2, librairie_2 );
+
+
+	*copieEffectuee = 0;
+
+	// cas ou on entre deux fois la même librairie
+	// on copie la librairie pour pouvoir l'ouvrir deux fois
+	if( ! strcmp(librairie_1, librairie_2) ) {
+
+		strcat( librairie_2, ".copy" );
+
+		// on copie la librairie
+		if( copierFichier( librairie_1, librairie_2 ) ) return -1;
+
+		*copieEffectuee = 1;
+
+	}
+
+	return 0;
+
+}
+

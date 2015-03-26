@@ -27,7 +27,7 @@ bot.o: bot.c
 
 # creation de l'executable du jeu
 backgammon: backgammon.o arbitre.o graphique.o joueur.o verifications.o
-	gcc -Wall backgammon.o arbitre.o graphique.o joueur.o verifications.o -o backgammon -ldl
+	gcc -Wall backgammon.o arbitre.o graphique.o joueur.o verifications.o -o backgammon -ldl `sdl-config --cflags --libs`
 
 
 backgammon.o: backgammon.c
@@ -49,7 +49,6 @@ verifications.o: verifications.c
 
 
 
-
 # on supprime les fichiers temporaires
 # make clean
 clean::
@@ -67,11 +66,9 @@ mrproper::
 	rm -f *.i
 	rm -f *.s
 	rm -f *.o
-	
 	#librairies
 	rm -f *.so
 	rm -f *.dll
-	
 	# l'exécutable
 	rm -f backgammon
 	rm -f backgammon.exe
