@@ -27,7 +27,7 @@ bot.o: bot.c
 
 # creation de l'executable du jeu
 backgammon: backgammon.o arbitre.o graphique.o joueur.o verifications.o
-	gcc -Wall backgammon.o arbitre.o graphique.o joueur.o verifications.o -o backgammon -ldl
+	gcc -Wall backgammon.o arbitre.o graphique.o joueur.o verifications.o -o backgammon -ldl `sdl-config --cflags --libs`
 
 
 backgammon.o: backgammon.c
@@ -45,7 +45,6 @@ joueur.o: joueur.c
 	
 verifications.o: verifications.c
 	gcc -Wall -c verifications.c
-
 
 
 
