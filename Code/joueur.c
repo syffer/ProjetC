@@ -12,7 +12,7 @@
 /*
 * Charge une librairie statégie et retourne la structure joueur correspondante.
 * La structure joueur contiendra sa librairie (pour pouvoir la fermée plus tard) et ses propres fonctions
-* 
+*
 * Attention, cette fonction termine le programme avec exit(-1) si elle n'arrive pas à charger la librairie ou l'une des fonctions attendues
 *
 * @param char* nomLibrairie
@@ -22,15 +22,15 @@
 *	la structure joueur contenant la librairie et les fonctions qui lui sont associé.
 */
 Joueur* chargerJoueur( char nomLibrairie[] ) {
-	
+
 	// on charge la librairie
 	Librairie lib = chargerLibrairie( nomLibrairie );
 	if( !lib ) {	// lib == NULL
 		printf( " Erreur, impossible de charger la librairie : %s \n", nomLibrairie );
-		printf( " %s \n", getError() );
+		//printf( " %s \n", getError() );
 		exit( EXIT_FAILURE );
 	}
-	getError();    /* Clear any existing error */
+	//getError();    /* Clear any existing error */
 
 
 	int nbErreursDetectees = 0;
@@ -73,9 +73,24 @@ Joueur* chargerJoueur( char nomLibrairie[] ) {
 }
 
 
+#ifdef _WIN32
+    char* getError() {
+		DWORD errorMessageID = GetLastError();
+
+		if( errorMessageID == 0 ) return NULL;
+
+		LPSTR messageBuffer = NULL;
+
+		FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                                 NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+		return messageBuffer;
+	}
+#endif
+
 
 /*
-* Si une erreur est renvoyée par dlerror(), alors on affiche cette erreur et l'on renvoie 1, 
+* Si une erreur est renvoyée par dlerror(), alors on affiche cette erreur et l'on renvoie 1,
 * sinon on renvoie 0.
 *
 */

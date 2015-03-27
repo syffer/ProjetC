@@ -1,36 +1,19 @@
 #ifndef _joueur
     #define _joueur
 
-
-
 // windows de merde qui n'est pas foutu d'avoir <dlfcn.h>
 #ifdef _WIN32
 	#include <windows.h>
-	
+
 	#define Librairie HMODULE
 	#define chargerLibrairie(nomLib) LoadLibrary(nomLib)
 	#define TypeFonction FARPROC
 	#define extraireLibrairie(libType, nomFonction) GetProcAddress(libType, nomFonction)
 	#define fermerLibrairie(libType) FreeLibrary(libType)
-	//#define getError() GetLastError()
 
-	char* getError() {
-		DWORD errorMessageID = GetLastError();
+	char* getError();
 
-		if( errorMessageID == 0 ) return NULL;
-
-		LPSTR messageBuffer = NULL;
-
-		FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-                                 NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
-
-		return messageBuffer;
-	}
-	
-#endif
-
-
-#ifdef linux
+#else
 	#include <dlfcn.h>
 
 	#define Librairie void*
