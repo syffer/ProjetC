@@ -44,9 +44,9 @@ struct Joueur {
 typedef struct Joueur Joueur;
 
 
-Joueur* chargerJoueur( char nomLibrairie[] );
+Joueur chargerJoueur( char nomLibrairie[] );
 int dlerrorDetectee();
-void libererJoueur( Joueur* joueur );
+void libererJoueur( Joueur joueur );
 
 
 

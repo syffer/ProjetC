@@ -21,7 +21,8 @@
 * @return Joueur
 *	la structure joueur contenant la librairie et les fonctions qui lui sont associé.
 */
-Joueur* chargerJoueur( char nomLibrairie[] ) {
+
+Joueur chargerJoueur( char nomLibrairie[] ) {
 
 	// on charge la librairie
 	Librairie lib = chargerLibrairie( nomLibrairie );
@@ -35,37 +36,36 @@ Joueur* chargerJoueur( char nomLibrairie[] ) {
 
 	int nbErreursDetectees = 0;
 
-	Joueur* joueur = (Joueur*) malloc( sizeof(Joueur) );
-	assert(joueur);		// on vérifie que l'on a bien réussi à faire le malloc
+	Joueur joueur;
 
-	joueur -> librairie = lib;
+	joueur.librairie = lib;
 
-	joueur -> InitLibrary = (pfInitLibrary) extraireLibrairie( lib, "InitLibrary" );	// on extrait la fonction
+	joueur.InitLibrary = (pfInitLibrary) extraireLibrairie( lib, "InitLibrary" );	// on extrait la fonction
 	nbErreursDetectees += dlerrorDetectee();
 
-	joueur -> StartMatch = (pfStartMatch) extraireLibrairie( lib, "StartMatch" );
+	joueur.StartMatch = (pfStartMatch) extraireLibrairie( lib, "StartMatch" );
 	nbErreursDetectees += dlerrorDetectee();
 
-	joueur -> StartGame = (pfStartGame) extraireLibrairie( lib, "StartGame" );
+	joueur.StartGame = (pfStartGame) extraireLibrairie( lib, "StartGame" );
 	nbErreursDetectees += dlerrorDetectee();
 
-	joueur -> EndGame = (pfEndGame) extraireLibrairie( lib, "EndGame" );
+	joueur.EndGame = (pfEndGame) extraireLibrairie( lib, "EndGame" );
 	nbErreursDetectees += dlerrorDetectee();
 
-	joueur -> EndMatch = (pfEndMatch) extraireLibrairie( lib, "EndMatch" );
+	joueur.EndMatch = (pfEndMatch) extraireLibrairie( lib, "EndMatch" );
 	nbErreursDetectees += dlerrorDetectee();
 
-	joueur -> DoubleStack = (pfDoubleStack) extraireLibrairie( lib, "DoubleStack" );
+	joueur.DoubleStack = (pfDoubleStack) extraireLibrairie( lib, "DoubleStack" );
 	nbErreursDetectees += dlerrorDetectee();
 
-	joueur -> TakeDouble = (pfTakeDouble) extraireLibrairie( lib, "TakeDouble" );
+	joueur.TakeDouble = (pfTakeDouble) extraireLibrairie( lib, "TakeDouble" );
 	nbErreursDetectees += dlerrorDetectee();
 
 
 	// si il y a eu une erreur, on sort du programme OBLIGATOIREMENT
 	if( nbErreursDetectees ) {
 		fermerLibrairie( lib );
-		free(joueur);
+		//free(joueur);
 		exit( EXIT_FAILURE );
 	}
 
@@ -105,9 +105,9 @@ int dlerrorDetectee() {
 
 
 
-void libererJoueur( Joueur* joueur ) {
-	fermerLibrairie( joueur -> librairie );
-	free( joueur );
+void libererJoueur( Joueur joueur ) {
+	fermerLibrairie( joueur.librairie );
+	//free( joueur );
 }
 
 
