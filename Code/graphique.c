@@ -19,8 +19,8 @@ int afficherPlateau()
     SDL_Surface* de1;
     SDL_Surface* de2;
 
-    char* pathCompletDe1 = "Images/Des/de1.bmp";
-    char* pathCompletDe2 = "Images/Des/de1.bmp";
+    char* pathCompletDe1 = "./Images/Des/de1.bmp";
+    char* pathCompletDe2 = "./Images/Des/de1.bmp";
     SDL_Event event;
 
     unsigned char dices[2];
@@ -35,7 +35,7 @@ int afficherPlateau()
 
 
     // load an image
-    SDL_Surface* plateau = SDL_LoadBMP("Images/plateau.bmp");
+    SDL_Surface* plateau = SDL_LoadBMP("./Images/plateau.bmp");
 
     if (!plateau)
     {
@@ -138,17 +138,17 @@ char* retournerPathDe(char dice)
     switch(dice)
     {
         case 1:
-            return "Images/Des/de1.bmp";
+            return "./Images/Des/de1.bmp";
         case 2:
-            return "Images/Des/de2.bmp";
+            return "./Images/Des/de2.bmp";
         case 3:
-            return "Images/Des/de3.bmp";
+            return "./Images/Des/de3.bmp";
         case 4:
-            return "Images/Des/de4.bmp";
+            return "./Images/Des/de4.bmp";
         case 5:
-            return "Images/Des/de5.bmp";
+            return "./Images/Des/de5.bmp";
         case 6:
-            return "Images/Des/de6.bmp";
+            return "./Images/Des/de6.bmp";
         default:
             return NULL;
     }

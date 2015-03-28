@@ -2,7 +2,7 @@
 	#define _graphique
 
 
-#include "SDL/SDL.h"
+#include <SDL.h>
 
 
 

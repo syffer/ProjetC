@@ -28,11 +28,12 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 	Librairie lib = chargerLibrairie( nomLibrairie );
 	if( !lib ) {	// lib == NULL
 		printf( " Erreur, impossible de charger la librairie : %s \n", nomLibrairie );
-		//printf( " %s \n", getError() );
+		printf( " %s \n", getError() );
 		exit( EXIT_FAILURE );
 	}
-	//getError();    /* Clear any existing error */
+	getError();    /* Clear any existing error */
 
+    printf("%s\n",nomLibrairie);
 
 	int nbErreursDetectees = 0;
 
@@ -40,20 +41,31 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 
 	joueur.librairie = lib;
 
+    printf("init\n");
+
 	joueur.InitLibrary = (pfInitLibrary) extraireLibrairie( lib, "InitLibrary" );	// on extrait la fonction
 	nbErreursDetectees += dlerrorDetectee();
+
+    printf("start %p\n", joueur.InitLibrary );
 
 	joueur.StartMatch = (pfStartMatch) extraireLibrairie( lib, "StartMatch" );
 	nbErreursDetectees += dlerrorDetectee();
 
+    printf("game\n");
 	joueur.StartGame = (pfStartGame) extraireLibrairie( lib, "StartGame" );
 	nbErreursDetectees += dlerrorDetectee();
+
+    printf("end\n");
 
 	joueur.EndGame = (pfEndGame) extraireLibrairie( lib, "EndGame" );
 	nbErreursDetectees += dlerrorDetectee();
 
+    printf("end\n");
+
 	joueur.EndMatch = (pfEndMatch) extraireLibrairie( lib, "EndMatch" );
 	nbErreursDetectees += dlerrorDetectee();
+
+    printf("double\n");
 
 	joueur.DoubleStack = (pfDoubleStack) extraireLibrairie( lib, "DoubleStack" );
 	nbErreursDetectees += dlerrorDetectee();
@@ -75,6 +87,7 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 
 #ifdef _WIN32
     char* getError() {
+        return NULL;
 		DWORD errorMessageID = GetLastError();
 
 		if( errorMessageID == 0 ) return NULL;

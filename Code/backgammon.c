@@ -44,7 +44,7 @@ int main( int argc, char* argv[] ) {
 	char librairie_1[ tailleLibrairie_1 + 10 ]; 	// "./" + chemin + ".copy"
 	char librairie_2[ tailleLibrairie_2 + 10 ];
 
-	int librairie_copiee; 
+	int librairie_copiee;
 	if( verifierLibrairies( cheminLibrairie_1, cheminLibrairie_2, librairie_1, librairie_2, &librairie_copiee ) ) {
 		printf( " Erreur lors de la copie de la librairie. \n" );
 		exit( EXIT_FAILURE );
