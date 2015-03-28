@@ -47,6 +47,7 @@ void StartGame(Player p) {
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
+	maCouleur = NOBODY;
 }
 
 
@@ -144,6 +145,14 @@ void PlayTurn( const SGameState * const gameState, const unsigned char dices[2],
 
 
 	// on est obligé d'utiliser tout les dés SAUF lorsque ce n'est pas possible....
+	
+	// si on a des pions sur la barre, on est obligé de les sortir
+	if( gameState -> bar[ maCouleur ] ) {
+
+	}
+	else {
+
+	}
 
 }
 

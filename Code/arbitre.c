@@ -70,12 +70,12 @@ SGameState initialiserEtatJeux() {
 	SGameState etatJeux;
 
 	// pions sur la barre centrales (ceux pas encore en jeu)
-	etatJeux.bar[0] = 0;
-	etatJeux.bar[1] = 0;
+	etatJeux.bar[ BLACK ] = 0;
+	etatJeux.bar[ WHITE ] = 0;
 
 	// pions déjà sorties
-	etatJeux.out[0] = 0;
-	etatJeux.out[1] = 0;
+	etatJeux.out[ BLACK ] = 0;
+	etatJeux.out[ WHITE ] = 0;
 
 	// score des joueurs
 	etatJeux.whiteScore = 0;
