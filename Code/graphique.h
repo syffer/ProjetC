@@ -6,7 +6,7 @@
 
 
 
-int afficherPlateau();
+int afficherJeu();
 char* retournerPathDe(char dice);
 void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
 

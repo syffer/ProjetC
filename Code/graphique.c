@@ -1,21 +1,21 @@
 #include "graphique.h"
 #include "arbitre.h"
 
-
-int afficherPlateau()
+// Permet d'afficher la fenêtre de jeu
+int afficherJeu()
 {
 
-// initialize SDL video
+    // Initialisation de la SDL
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
-        printf( "Unable to init SDL: %s\n", SDL_GetError() );
+        printf( "Impossible de démarrer la fenêtre SDL : %s\n", SDL_GetError() );
         return 1;
     }
     // make sure SDL cleans up before exit
     atexit(SDL_Quit);
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(1200, 700, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    SDL_Surface* screen = SDL_SetVideoMode(1300, 700, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
     SDL_Surface* de1;
     SDL_Surface* de2;
 
@@ -27,11 +27,12 @@ int afficherPlateau()
 
     if ( !screen )
     {
-        printf("Unable to set 640x480 video: %s\n", SDL_GetError());
+        printf("Impossible d'afficher l'écran : %s\n", SDL_GetError());
         return 1;
     }
 
-    SDL_WM_SetCaption("Ma super fenetre SDL !", NULL);
+    // Titre de la fenêtre
+    SDL_WM_SetCaption("Backgammon", NULL);
 
 
     // load an image
@@ -39,7 +40,7 @@ int afficherPlateau()
 
     if (!plateau)
     {
-        printf("Unable to load bitmap: %s\n", SDL_GetError());
+        printf("Impossible de charger l'image bitmap: %s\n", SDL_GetError());
         return 1;
     }
 
@@ -54,9 +55,14 @@ int afficherPlateau()
     //initialisation des dés
     de1 = SDL_LoadBMP(pathCompletDe1);
     de2 = SDL_LoadBMP(pathCompletDe2);
+
+    // si impossible de charger les images des dés
+    if (!de1 || !de2)
+    {
+        printf("Impossible de charger l'image : %s", SDL_GetError());
+        return 1;
+    }
     positionnerDes(&posDe1, &posDe2);
-
-
 
     // program main loop
     int done = 0;
@@ -65,10 +71,10 @@ int afficherPlateau()
         // message processing loop
         SDL_WaitEvent(&event);
 
-            // check for messages
+            // Gestion des évènements
             switch (event.type)
             {
-                // exit if the window is closed
+                // sortie si on ferme la fenêtre
             case SDL_QUIT:
                 done = 1;
                 break;
@@ -78,11 +84,12 @@ int afficherPlateau()
                 {
                     switch(event.key.keysym.sym)
                     {
-                        // exit if ESCAPE is pressed
+                        // si appui sur touche echap
                         case SDLK_ESCAPE:
                             done = 1;
                         break;
-                        case SDLK_g:
+                        // si appui sur touche espace
+                        case SDLK_SPACE:
 
                             lancerLesDes(dices);
 
@@ -104,11 +111,10 @@ int afficherPlateau()
 
             default:
                 break;
-             // end switch
-        } // end of message processing
 
-        // DRAWING STARTS HERE
-        // clear screen
+        }
+        // Début de la partie pour redessiner les éléments
+        // réinitialisation de l'écran
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
         // on applique l'image de fond
@@ -117,22 +123,21 @@ int afficherPlateau()
         // on applique l'image des dés
         SDL_BlitSurface(de1, 0, screen, &posDe1);
         SDL_BlitSurface(de2, 0, screen, &posDe2);
-        // DRAWING ENDS HERE
 
-        // finally, update the screen :)
+        // On met à jour l'écran
         SDL_Flip(screen);
     } // end main loop
 
-    // free loaded bitmap
+    // libération des surfaces
     SDL_FreeSurface(plateau);
     SDL_FreeSurface(de1);
     SDL_FreeSurface(de2);
 
-    // all is well ;)
-    printf("Exited cleanly\n");
+    printf("Terminé correctement\n");
     return 0;
 }
 
+// retourne le chemin de l'image selon la valeur retournée par le lancement de dés
 char* retournerPathDe(char dice)
 {
     switch(dice)
@@ -154,6 +159,7 @@ char* retournerPathDe(char dice)
     }
 }
 
+// initialisation de la position des dés
 void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
 {
     posDe1 -> x = 883;
