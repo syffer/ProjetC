@@ -14,8 +14,12 @@ int afficherJeu()
     // make sure SDL cleans up before exit
     atexit(SDL_Quit);
 
-    // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(1300, 700, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    const SDL_VideoInfo *videoInfo = SDL_GetVideoInfo();
+
+    int maxW=videoInfo->current_w;
+    int maxH=videoInfo->current_h;
+  // create a new window
+    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_FULLSCREEN|SDL_DOUBLEBUF);
     SDL_Surface* de1;
     SDL_Surface* de2;
 
