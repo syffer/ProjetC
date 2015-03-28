@@ -2,8 +2,6 @@
 	#define _graphique
 
 
-//
-
 #ifdef _WIN32
 	#include <SDL.h>
 #else
