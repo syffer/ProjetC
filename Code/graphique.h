@@ -2,8 +2,13 @@
 	#define _graphique
 
 
-#include <SDL.h>
+//
 
+#ifdef _WIN32
+	#include <SDL.h>
+#else
+	#include "SDL/SDL.h"
+#endif
 
 
 int afficherJeu();
