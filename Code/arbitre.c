@@ -61,7 +61,7 @@ int remplirCase( Square* laCase, Player couleurJoueur, int nbDames ) {
 
 	laCase->owner = couleurJoueur;
 	laCase->nbDames = nbDames;
-	remplirCaseX(); // <---------------  Mettre les paramètres qui vont bien
+//	remplirCaseX(); // <---------------  Mettre les paramètres qui vont bien
 
 	return 0;
 }
