@@ -183,6 +183,7 @@ void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
 
 
 		while( 1 ) {  	// tant que la partie n'est pas terminée
+			break;
 
 			/* 
 				!!!! attention, pour le premier tour, le joueur blanc doit utiliser les premiers dés tirés
@@ -213,7 +214,6 @@ void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
 				etatJeux.turn = WHITE;
 
 			}
-
 
 
 		}

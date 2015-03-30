@@ -9,6 +9,7 @@
 // Dans la librairie
 //
 
+char nom[] = "Alphabot";
 unsigned int score;
 static Player maCouleur;
 
@@ -19,7 +20,7 @@ static Player maCouleur;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-	strcpy(name,"AlphaBot");
+	strcpy( name, nom );
 	score = 0;
 	maCouleur = NOBODY;
 }
@@ -155,8 +156,7 @@ SMove creerMouvement( int depart, int arrivee ) {
 */
 int peutDeplacerUnPion( SGameState* gameState, int depart, int nbCases ) {
 
-	// deplacement impossible, depassement de borne
-	if( depart < 0 || depart > 24 ) return 0;	
+	if( depart < 0 || depart > 24 ) return 0;		// deplacement impossible, depassement de borne
 	if( nbCases < 0 ) return 0;
 
 	Square caseDepart;
@@ -166,20 +166,16 @@ int peutDeplacerUnPion( SGameState* gameState, int depart, int nbCases ) {
 	}
 	else caseDepart = gameState -> board[ depart - 1 ];
 
-	// vérification de la case de départ
-	if( caseDepart.nbDames <= 0 ) return 0;			// pas de pions à déplacer
+	if( caseDepart.nbDames <= 0 ) return 0;			// pas de pions à déplacer sur la case de départ
 	if( caseDepart.owner != maCouleur ) return 0;	// les pions ne sont pas à moi
-
 
 	// le noir se déplace dans le sens normal, le blanc dans le sens inverse
 	int arrivee;
 	if( maCouleur == BLACK ) arrivee = depart + nbCases;
-	else if( depart == 0 ) arrivee = 24 - nbCases;		// je suis le WHITE
+	else if( depart == 0 ) arrivee = 25 - nbCases;		// je suis le WHITE
 	else arrivee = depart - nbCases;
 	
-
 	if( arrivee > 25 || arrivee < 0 ) arrivee = 25;
-
 
 	Square caseArrivee;
 	if( arrivee == 25 ) {
@@ -188,12 +184,9 @@ int peutDeplacerUnPion( SGameState* gameState, int depart, int nbCases ) {
 	}
 	else caseArrivee = gameState -> board[ arrivee - 1 ];
 
-
-	// verification de la case d'arrivée
 	if( caseArrivee.owner != maCouleur && caseArrivee.nbDames > 1 ) return 0;	// il y a plus d'un pion adverse sur la case d'arrivee
-
-	// si on veut sortir nos pions
-	if( arrivee == 25 ) {
+	
+	if( arrivee == 25 ) {	// si on veut sortir nos pions
 
 		if( gameState -> bar[maCouleur] ) return 0;		// il y a des pions sur la barre.
 
@@ -212,25 +205,40 @@ int peutDeplacerUnPion( SGameState* gameState, int depart, int nbCases ) {
 
 
 // ATTENTION ===> NE VERIFIE PAS SI ON PEUT DEPLACER LE PION !!!!!!
-/*
+// pre : appel de la fonction : peutBougerPion
 SMove deplacerUnPion( SGameState* gameState, int depart, int nbCases ) {
 
-	SMove mouvement = creerMouvement( depart, depart + nbCases );	// ---------------->>> FAUX AUSSI !!!!
+	// le noir se déplace dans le sens normal, le blanc dans le sens inverse
+	int arrivee;
+	if( maCouleur == BLACK ) arrivee = depart + nbCases;
+	else if( depart == 0 ) arrivee = 24 - nbCases;		// je suis le WHITE
+	else arrivee = depart - nbCases;
+
+	if( arrivee > 25 || arrivee < 0 ) arrivee = 25;
+
+
+	SMove mouvement = creerMouvement( depart, arrivee );	
+
+
+	// on bouge le pion du plateau
 
 	gameState -> board[depart].nbDames--;
-
-	if( ! gameState -> board[depart] ) { 	// == 0
+	if( ! gameState -> board[depart].nbDames ) { 	// == 0
 		gameState -> board[depart].owner = NOBODY;
 	}
 
-
-	//------------------------------------------------------------>>>> on ne verifie pas si il y a un adv ici !!!!!!!!!!!!!!
+	// on ne vérifie pas si il y a un adversaire ici	
 	gameState -> board[arrivee].nbDames++;
 	gameState -> board[arrivee].owner = maCouleur;
 
 	return mouvement;
 }
-*/
+
+
+
+int possedeDesPionsSurLaBarre( SGameState* gameState ) {
+	return gameState -> bar[ maCouleur ];
+}
 
 
 
@@ -247,63 +255,74 @@ SMove deplacerUnPion( SGameState* gameState, int depart, int nbCases ) {
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	
 
-	gameState -> board[0].nbDames++;
-
-	/*
-	unsigned char deplacements[4];
-	int nbDeplacements;
-	*/
-
-
 	*nbMove = 0;
 
 	// on est obligé d'utiliser tout les dés SAUF lorsque ce n'est pas possible....
 	ListeChainee* mesDes = getDices( dices ); 	// mes dés
 	
 	
-	//Cellule dice;
-
-	// si on a des pions sur la barre, on doit obligatoirement TOUS les sortir !
-	if( gameState -> bar[maCouleur] ) {
+	Cellule* dice;	// variable utilisée pour parcourir la liste des dés.
 
 
-		//dice = getPremierElement(mesDes);		
-		//while( gameState -> bar[maCouleur] && dice ) { 	// && dice != NULL (on a pas essayé d'utiliser tout mes dés)
+	// on est obligé de remettre en jeu TOUS nos pions
+	if( possedeDesPionsSurLaBarre(gameState) ) {
 
-			/*
-			if( pion_peut_sortir ) {
+		printf(" -> je dois rerentrer les pions sortie du plateau...\n");
 
-				// sortir le pion
-				// retirer le des de la liste
-				// ajouter le mouvement à la liste des mouvements
-				// nbMouvements++
-				// update gameState
+		dice = getPremierElement(mesDes);
+		while( gameState -> bar[maCouleur] ) {
 
-				moves[ *nbMove ] = bougerUnPion( gameState, 0, ... );
+			if( !dice ) break;
+
+			if( peutDeplacerUnPion( gameState, 0, getDonnee(dice) ) ) {
+				
+				printf("on peut bouger un pion avec ce dé...\n");
+
+				moves[ *nbMove ] = deplacerUnPion( gameState, 0, getDonnee(dice) );
 				*nbMove++;
-
-			}
-			// else passer au des suivant
 			
-			dice = getCelluleSuivante(dice);
 
-			*/
-
-			//break;
-		//}
-
+				dice = getCelluleSuivante(dice);
+				detruireCellule( mesDes, getCellulePrecedente(dice) );
+			}
+			else dice = getCelluleSuivante(dice);
+		}
 
 	}
-	
-	
+
+
 
 	/*
-
 	regarder si, avec les dés, on peut :
 	- prendre un pion adverse
 	- prendre un piont (au moins deux pions sur le même triangle)
 	(- créer une ancre ?)
 	*/
+
+
+	// si j'ai utilisé tout mes dés, ou qu'il y a encore des pions sur la barre (alors que j'ai utilisé tout les dés)
+	if( listeEstVide(mesDes) || possedeDesPionsSurLaBarre(gameState) ) return;
+
+
+	// si je n'ai pas utilisé tout mes dés, et qu'il n'y a plus rien en dehors du plateau
+
+	int i;
+	dice = getPremierElement(mesDes);
+	for( i = 1; i < 25; i++ ) {
+
+		if( ! dice ) break;
+
+		if( peutDeplacerUnPion(gameState, i, getDonnee(dice) ) ) {
+
+			moves[ *nbMove ] = deplacerUnPion( gameState, i, getDonnee(dice) );
+			*nbMove++;
+
+			dice = getCelluleSuivante(dice);
+			detruireCellule( mesDes, getCellulePrecedente(dice) );
+		}
+
+	}
+
 
 
 }
