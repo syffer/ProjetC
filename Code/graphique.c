@@ -27,6 +27,8 @@ int afficherJeu()
     char* pathCompletDe2 = "./Images/Des/de1.bmp";
     SDL_Event event;
 
+    Pion tabPions[30]; // tableau de pions des joueurs
+
     unsigned char dices[2];
 
     if ( !screen )
@@ -59,6 +61,12 @@ int afficherJeu()
     //initialisation des dés
     de1 = SDL_LoadBMP(pathCompletDe1);
     de2 = SDL_LoadBMP(pathCompletDe2);
+
+    int i;
+    for(i = 0; i< 30; i++)
+    {
+        creerPion(tabPions, i, 10*i, 50, "./Images/noir.bmp");
+    }
 
     // si impossible de charger les images des dés
     if (!de1 || !de2)
@@ -128,6 +136,11 @@ int afficherJeu()
         SDL_BlitSurface(de1, 0, screen, &posDe1);
         SDL_BlitSurface(de2, 0, screen, &posDe2);
 
+        for(i = 0; i < 30; i++)
+        {
+            SDL_BlitSurface(tabPions[i].imagePion, 0, screen, &tabPions[i].posPion);
+        }
+
         // On met à jour l'écran
         SDL_Flip(screen);
     } // end main loop
@@ -136,6 +149,11 @@ int afficherJeu()
     SDL_FreeSurface(plateau);
     SDL_FreeSurface(de1);
     SDL_FreeSurface(de2);
+
+    for(i = 0; i < 30; i++)
+        {
+            SDL_FreeSurface(tabPions[i].imagePion);
+        }
 
     printf("Terminé correctement\n");
     return 0;
@@ -171,6 +189,29 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
 
     posDe2 -> x = 945;
     posDe2 -> y = 360;
+}
+
+void creerPion(Pion pions[30], int positionPion, int posX, int posY, char* image){
+
+    Pion pion;
+    SDL_Rect* posPion;
+
+    posPion -> x = posX;
+    posPion -> y = posY;
+
+    pion.posPion = posPion;
+
+    SDL_Surface* imagePion = SDL_LoadBMP(image);
+    pion.imagePion = imagePion;
+
+    pions[positionPion] = pion;
+
+}
+
+positionnerPion(Pion *pion, SDL_Rect *pos){
+
+    pion -> posPion = pos;
+
 }
 
 
