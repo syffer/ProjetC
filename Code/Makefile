@@ -19,9 +19,8 @@ libBot.dll: bot.o
 libBot.so: bot.o
 	gcc -shared -o libBot.so bot.o
 
-bot.o: bot.c
-	gcc -c -fpic bot.c
-
+bot.o: bot.c ListeChainee.c
+	gcc -c -fpic bot.c ListeChainee.c
 
 
 

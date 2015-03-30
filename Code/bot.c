@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "backgammon.h"
-
+#include "ListeChainee.h"
 
 //////////////////////////////////////////////////////////
 // Dans la librairie
@@ -104,24 +104,133 @@ int TakeDouble( const SGameState * const gameState ) {
 
 
 
+ListeChainee* getDices( const unsigned char dices[2] ) {
 
-void getDeplacements( const unsigned char dices[2], unsigned char deplacements[4], int *nbDeplacements ) {
+	ListeChainee* liste = creerListeChainee();
 
 	// on a fait un double (exemple : 1-1 , 2-2 , ... 6-6 )
 	if( dices[0] == dices[1] ) {
-		*nbDeplacements = 4;
+		//*nbDeplacements = 4;
 		int i;
-		for( i = 0; i < 4; i++ ) deplacements[i] = dices[0];
+		for( i = 0; i < 4; i++ ) ajouterElementFin( liste, dices[0] );
 	}
 	else {
+		ajouterElementFin( liste, dices[0] );
+		ajouterElementFin( liste, dices[1] );
+		
+		/*
 		*nbDeplacements = 2;
 		deplacements[0] = dices[0];
 		deplacements[1] = dices[1];
+		*/
 	}
 
+	return liste;
 }
 
 
+// retourne NULL si les 
+// depart et arrivée entre 0 et 25
+// 0 : représente la barre
+// 25 : représente la sortie
+// autre : représente les cases du plateau
+// pre : 0 <= depart, arrivee <= 25
+SMove creerMouvement( int depart, int arrivee ) {
+
+	SMove mouvement;
+	mouvement.src_point = depart;
+	mouvement.dest_point = arrivee;
+
+	return mouvement;
+}
+
+
+
+// vrai si pion à la case depart peut etre depalcer de nbCases
+/*
+	convention :
+	- 0 : la barre (gamestate -> bar[macouleur] )
+	- 1 à 24 : le plateau 
+	- 25 : la sortie (out)
+*/
+int peutDeplacerUnPion( SGameState* gameState, int depart, int nbCases ) {
+
+	// deplacement impossible, depassement de borne
+	if( depart < 0 || depart > 24 ) return 0;	
+	if( nbCases < 0 ) return 0;
+
+	Square caseDepart;
+	if( depart == 0 ) {		// on est sur la barre
+		caseDepart.owner = maCouleur;
+		caseDepart.nbDames = gameState -> bar[maCouleur];
+	}
+	else caseDepart = gameState -> board[ depart - 1 ];
+
+	// vérification de la case de départ
+	if( caseDepart.nbDames <= 0 ) return 0;			// pas de pions à déplacer
+	if( caseDepart.owner != maCouleur ) return 0;	// les pions ne sont pas à moi
+
+
+	// le noir se déplace dans le sens normal, le blanc dans le sens inverse
+	int arrivee;
+	if( maCouleur == BLACK ) arrivee = depart + nbCases;
+	else if( depart == 0 ) arrivee = 24 - nbCases;		// je suis le WHITE
+	else arrivee = depart - nbCases;
+	
+
+	if( arrivee > 25 || arrivee < 0 ) arrivee = 25;
+
+
+	Square caseArrivee;
+	if( arrivee == 25 ) {
+		caseArrivee.owner = maCouleur;
+		caseArrivee.nbDames = gameState -> out[ maCouleur ];
+	}
+	else caseArrivee = gameState -> board[ arrivee - 1 ];
+
+
+	// verification de la case d'arrivée
+	if( caseArrivee.owner != maCouleur && caseArrivee.nbDames > 1 ) return 0;	// il y a plus d'un pion adverse sur la case d'arrivee
+
+	// si on veut sortir nos pions
+	if( arrivee == 25 ) {
+
+		if( gameState -> bar[maCouleur] ) return 0;		// il y a des pions sur la barre.
+
+		int i;
+		Square laCase;
+		int i_depart = (maCouleur == BLACK) ? 0 : 6;
+		for( i = i_depart; i < i_depart + 18; i++ ) {
+			laCase = gameState -> board[i];
+			if( laCase.owner == maCouleur && laCase.nbDames > 0 ) return 0;		// j'ai encore des pions hors du jar interieur adverse
+		}
+
+	}
+
+	return 1;
+}
+
+
+// ATTENTION ===> NE VERIFIE PAS SI ON PEUT DEPLACER LE PION !!!!!!
+/*
+SMove deplacerUnPion( SGameState* gameState, int depart, int nbCases ) {
+
+	SMove mouvement = creerMouvement( depart, depart + nbCases );	// ---------------->>> FAUX AUSSI !!!!
+
+	gameState -> board[depart].nbDames--;
+
+	if( ! gameState -> board[depart] ) { 	// == 0
+		gameState -> board[depart].owner = NOBODY;
+	}
+
+
+	//------------------------------------------------------------>>>> on ne verifie pas si il y a un adv ici !!!!!!!!!!!!!!
+	gameState -> board[arrivee].nbDames++;
+	gameState -> board[arrivee].owner = maCouleur;
+
+	return mouvement;
+}
+*/
 
 
 
@@ -134,25 +243,68 @@ void getDeplacements( const unsigned char dices[2], unsigned char deplacements[4
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-void PlayTurn( const SGameState * const gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
+// !!!!!!!!!!!!!!!!!!! on an enlevé les const pour 
+void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	
-	//printf("PlayTurn\n");
 
+	gameState -> board[0].nbDames++;
+
+	/*
 	unsigned char deplacements[4];
 	int nbDeplacements;
-	
-	getDeplacements( dices, deplacements, &nbDeplacements );
+	*/
 
+
+	*nbMove = 0;
 
 	// on est obligé d'utiliser tout les dés SAUF lorsque ce n'est pas possible....
+	ListeChainee* mesDes = getDices( dices ); 	// mes dés
 	
-	// si on a des pions sur la barre, on est obligé de les sortir
-	if( gameState -> bar[ maCouleur ] ) {
+	
+	//Cellule dice;
+
+	// si on a des pions sur la barre, on doit obligatoirement TOUS les sortir !
+	if( gameState -> bar[maCouleur] ) {
+
+
+		//dice = getPremierElement(mesDes);		
+		//while( gameState -> bar[maCouleur] && dice ) { 	// && dice != NULL (on a pas essayé d'utiliser tout mes dés)
+
+			/*
+			if( pion_peut_sortir ) {
+
+				// sortir le pion
+				// retirer le des de la liste
+				// ajouter le mouvement à la liste des mouvements
+				// nbMouvements++
+				// update gameState
+
+				moves[ *nbMove ] = bougerUnPion( gameState, 0, ... );
+				*nbMove++;
+
+			}
+			// else passer au des suivant
+			
+			dice = getCelluleSuivante(dice);
+
+			*/
+
+			//break;
+		//}
+
 
 	}
-	else {
+	
+	
 
-	}
+	/*
+
+	regarder si, avec les dés, on peut :
+	- prendre un pion adverse
+	- prendre un piont (au moins deux pions sur le même triangle)
+	(- créer une ancre ?)
+	*/
+
 
 }
 
