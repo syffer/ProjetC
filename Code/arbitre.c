@@ -33,14 +33,14 @@ void lancerLesDes( unsigned char dices[2] ) {
 *
 */
 int randomINT( int min, int max ) {
-	
+
 	// on vérifie si le générateur aléatoire a été initialisé
 	static int generateurInitialise = 0;
     if( ! generateurInitialise ) {		// si ce n'est pas le cas, on l'initialise
         generateurInitialise = 1;
         srand( time(NULL) );
     }
-    
+
 	return ( rand() % (max-min+1) ) + min;
 }
 
@@ -62,9 +62,9 @@ void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
 	joueur2.InitLibrary(nomBot2);
 
 	//printf(" %p \n %p \n ", joueur1.StartMatch, joueur2.StartMatch );
-	
-	// ........................................................................... 
-	
+
+	// ...........................................................................
+
 
 	lancerLesDes( dices );
 	afficherDes( dices );
@@ -88,7 +88,5 @@ void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
 	joueur2.EndMatch();
 
 }
-
-
 
 
