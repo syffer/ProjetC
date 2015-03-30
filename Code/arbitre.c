@@ -3,6 +3,7 @@
 
 #include "backgammon.h"
 #include "joueur.h"
+#include "graphique.h"
 #include <time.h>		// time
 #include <stdlib.h> 	// srand
 #include <stdio.h>		// printf()
@@ -46,14 +47,21 @@ int randomINT( int min, int max ) {
 
 
 
+/**
+* board : tableau des cases
+* numeroCase : la case à mettre
+* couleurJoueur : la couleur du joueur qui la possède
+* nbDames : le nombre de jetons à poser
+*/
+int remplirCase( Square* laCase, Player couleurJoueur, int nbDames ) {
+	if( !laCase ){
+    perror("laCase pointe vers rien du tout !");
+	return -1;
+	}
 
-
-
-int remplirCase( Square board[24], int numeroCase, Player couleurJoueur, int nbDames ) {
-	if( numeroCase >= 24 || numeroCase < 0 ) return -1;
-
-	board[ numeroCase ].owner = couleurJoueur;
-	board[ numeroCase ].nbDames = nbDames;
+	laCase->owner = couleurJoueur;
+	laCase->nbDames = nbDames;
+	remplirCaseX(); // <---------------  Mettre les paramètres qui vont bien
 
 	return 0;
 }
@@ -84,20 +92,8 @@ SGameState initialiserEtatJeux() {
 	// on initialise tout le plateau à "rien/personne/NOBODY"
 	int i;
 	for( i = 0; i < 24; i++ ) {
-		remplirCase( etatJeux.board, i, NOBODY, 0 );
+		remplirCase( &etatJeux.board[i], NOBODY, 0 );
 	}
-
-	// on remplit petit à petit le plateau
-	/*
-	remplirCase( etatJeux, 0, WHITE, 2 );
-	remplirCase( etatJeux, 5, BLACK, 5 );
-	remplirCase( etatJeux, 7, BLACK, 3 );
-	remplirCase( etatJeux, 11, WHITE, 5 );
-	remplirCase( etatJeux, 12, BLACK, 5 );
-	remplirCase( etatJeux, 16, WHITE, 3 );
-	remplirCase( etatJeux, 18, WHITE, 5 );
-	remplirCase( etatJeux, 23, BLACK, 2 );
-	*/
 
 	return etatJeux;
 }
@@ -105,20 +101,19 @@ SGameState initialiserEtatJeux() {
 
 
 void initialiserPlateau( Square board[24] ) {
-	remplirCase( board, 0, WHITE, 2 );
-	remplirCase( board, 5, BLACK, 5 );
-	remplirCase( board, 7, BLACK, 3 );
-	remplirCase( board, 11, WHITE, 5 );
-	remplirCase( board, 12, BLACK, 5 );
-	remplirCase( board, 16, WHITE, 3 );
-	remplirCase( board, 18, WHITE, 5 );
-	remplirCase( board, 23, BLACK, 2 );
+	remplirCase( &board[0], WHITE, 2 );
+	remplirCase( &board[5], BLACK, 5 );
+	remplirCase( &board[7], BLACK, 3 );
+	remplirCase( &board[11], WHITE, 5 );
+	remplirCase( &board[12], BLACK, 5 );
+	remplirCase( &board[16], WHITE, 3 );
+	remplirCase( &board[18], WHITE, 5 );
+	remplirCase( &board[23], BLACK, 2 );
 }
 
 
 const SGameState * const copierEtatJeux( SGameState etatJeux ) {
 	return NULL;
-
 }
 
 
