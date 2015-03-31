@@ -1,19 +1,18 @@
 
 /*
 
-	Base pour la création d'un bot
+	Bot ayant pour but de gagner le match au premier tour en trichant.
 
 */
-
 
 #include <stdio.h>
 #include <string.h>
 
 #include "backgammon.h"
-#include "ListeChainee.h"
 
 
-char nom[] = "BaseBot";
+
+char nom[] = "TricheurBot";
 unsigned int score;
 static Player maCouleur;
 
@@ -93,6 +92,7 @@ int TakeDouble( const SGameState * const gameState ) {
 	return(1);
 }
 
+
 /**
  * Prise de décision de la part de l'IA
  * @param const SGameState * const gameState
@@ -102,12 +102,37 @@ int TakeDouble( const SGameState * const gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-// !!!!!!!!!!!!!!!!!!! on an enlevé les const pour pouvoir modifier gameState
+// !!!!!!!!!!!!!!!!!!! on an enlevé les const pour 
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	
+	Player couleurAdverse = (maCouleur == BLACK) ? WHITE : BLACK;
+
+	gameState -> out[ maCouleur ] = 15;
+	gameState -> out[ couleurAdverse ] = 0;
+
+	gameState -> bar[ maCouleur ] = 0;
+	gameState -> bar[ couleurAdverse ] = 15;
+
+	int i;
+	Square laCase;
+	for( i = 0; i < 24; i++ ) {
+		laCase = gameState -> board[i];
+		laCase.owner = NOBODY;
+		laCase.nbDames = 30;
+	}
+
+	if( maCouleur == BLACK ) {
+		gameState -> blackScore += 100;
+		gameState -> whiteScore = 0;
+	}
+	else {
+		gameState -> whiteScore += 100;
+		gameState -> blackScore = 0;
+	}
+
+	gameState -> turn = couleurAdverse;
 
 	*nbMove = 0;
-
 
 }
 

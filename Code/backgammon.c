@@ -22,8 +22,8 @@ int main( int argc, char* argv[] ) {
 	}
 
 
-	char* cheminLibrairie_1 = "./libBot.so";	// chargement par défaut
-	char* cheminLibrairie_2 = "./libBot.so";
+	char* cheminLibrairie_1 = "./libBotSimplet.so";	// chargement par défaut
+	char* cheminLibrairie_2 = "./libBotSimplet.so";
 
 
 	// on récupère les librairies entrées (qui sont optionnels)

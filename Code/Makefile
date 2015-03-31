@@ -8,23 +8,30 @@ LINUX =%OS%
 
 
 # ensemble des exécutable à produire
-all:: libBot.dll libBot.so backgammon 
+all:: libBotSimplet.so libBotTricheur.so backgammon 
 
 
 
-# creation des librairies
-libBot.dll: bot.o
-	gcc -shared -o libBot.dll bot.o
+##### creation des librairies
 
-libBot.so: bot.o
-	gcc -shared -o libBot.so bot.o
+# bot simplet
+libBotSimplet.so: botSimplet.o
+	gcc -shared -o libBotSimplet.so botSimplet.o
 
-bot.o: bot.c ListeChainee.c
-	gcc -c -fpic bot.c ListeChainee.c
-
+botSimplet.o: botSimplet.c ListeChainee.c
+	gcc -c -fpic botSimplet.c ListeChainee.c
 
 
-# creation de l'executable du jeu
+# bot tricheur
+libBotTricheur.so: botTricheur.o
+	gcc -shared -o libBotTricheur.so botTricheur.o
+
+botTricheur.o: botTricheur.c 
+	gcc -c -fpic botTricheur.c
+
+
+
+##### creation de l'executable du jeu
 backgammon: backgammon.o arbitre.o graphique.o joueur.o verifications.o
 	gcc -Wall backgammon.o arbitre.o graphique.o joueur.o verifications.o -o backgammon -ldl `sdl-config --cflags --libs`
 
