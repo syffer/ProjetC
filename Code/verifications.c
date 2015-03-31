@@ -88,6 +88,11 @@ int copierFichier( char* source, char* destination ) {
 */
 void ajouterRepertoireCourant( char* chemin, char nouveauChemin[] ) {
 	
+	#ifdef _WIN32
+		strcpy(nouveauChemin, chemin);
+		return;
+	#endif
+
 	int taille = strlen(chemin);
 	
 	// il y a déjà la racine "./" au début de la chaine

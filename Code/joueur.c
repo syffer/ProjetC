@@ -9,6 +9,7 @@
 
 
 
+
 /*
 * Charge une librairie statégie et retourne la structure joueur correspondante.
 * La structure joueur contiendra sa librairie (pour pouvoir la fermée plus tard) et ses propres fonctions
@@ -73,6 +74,23 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 	return joueur;
 }
 
+
+
+#ifdef _WIN32
+    char* getError() {
+
+		DWORD errorMessageID = GetLastError();
+
+		if( errorMessageID == 0 ) return NULL;
+
+		LPSTR messageBuffer = NULL;
+
+		FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                                 NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+		return messageBuffer;
+	}
+#endif
 
 
 /*
