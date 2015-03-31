@@ -102,7 +102,6 @@ int TakeDouble( const SGameState * const gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-// !!!!!!!!!!!!!!!!!!! on an enlevé les const pour 
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	
 	Player couleurAdverse = (maCouleur == BLACK) ? WHITE : BLACK;
