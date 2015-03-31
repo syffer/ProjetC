@@ -270,7 +270,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	// on est obligé de remettre en jeu TOUS nos pions
 	if( possedeDesPionsSurLaBarre(gameState) ) {
 
-		printf(" -> je dois rerentrer les pions sortie du plateau...\n");
+		printf(" -> je dois rerentrer les pions sortis du plateau...\n");
 
 		dice = getPremierElement(mesDes);
 		while( gameState -> bar[maCouleur] ) {
@@ -298,7 +298,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	/*
 	regarder si, avec les dés, on peut :
 	- prendre un pion adverse
-	- prendre un piont (au moins deux pions sur le même triangle)
+	- prendre un point (au moins deux pions sur le même triangle)
 	(- créer une ancre ?)
 	*/
 
