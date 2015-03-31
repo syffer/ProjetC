@@ -149,8 +149,6 @@ int afficherJeu()
         SDL_BlitSurface(de1, 0, screen, &posDe1);
         SDL_BlitSurface(de2, 0, screen, &posDe2);
 
-
-
         // On met à jour l'écran
         SDL_Flip(screen);
     } // end main loop
@@ -159,6 +157,7 @@ int afficherJeu()
     SDL_FreeSurface(plateau);
     SDL_FreeSurface(de1);
     SDL_FreeSurface(de2);
+    freePlateau(s_plateau);
 
     printf("Terminé correctement\n");
     return 0;
@@ -314,4 +313,16 @@ void creerPlateau(Plateau *plateau)
 {
     plateau -> hauteur = 1280;
     plateau -> largeur = 752;
+}
+
+void freePlateau(Plateau *plateau)
+{
+    int i;
+    int j;
+
+    for(i = 0; i < 24; i++)
+    {
+        for(j = 0; j < plateau ->tabCases[i].nbPions; j++)
+            SDL_FreeSurface(plateau ->tabCases[i].tabPions[j].imagePion);
+    }
 }
