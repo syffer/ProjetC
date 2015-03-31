@@ -8,15 +8,24 @@ LINUX =%OS%
 
 
 # ensemble des exécutable à produire
-all:: libBotSimplet.so libBotTricheur.so backgammon 
+all:: backgammon libBotTricheur.so libBotSimplet.so libJoueur.so 
+
 
 
 
 ##### creation des librairies
 
+# librairie du joueur (réel)
+libJoueur.so: botJoueur.o
+	gcc -shared botJoueur.o -o libJoueur.so
+
+botJoueur.o: botJoueur.c
+	gcc -c -fpic botJoueur.c
+
+
 # bot simplet
 libBotSimplet.so: botSimplet.o
-	gcc -shared -o libBotSimplet.so botSimplet.o
+	gcc -shared botSimplet.o -o libBotSimplet.so 
 
 botSimplet.o: botSimplet.c ListeChainee.c
 	gcc -c -fpic botSimplet.c ListeChainee.c
@@ -24,10 +33,12 @@ botSimplet.o: botSimplet.c ListeChainee.c
 
 # bot tricheur
 libBotTricheur.so: botTricheur.o
-	gcc -shared -o libBotTricheur.so botTricheur.o
+	gcc -shared botTricheur.o -o libBotTricheur.so 
 
 botTricheur.o: botTricheur.c 
 	gcc -c -fpic botTricheur.c
+
+
 
 
 
