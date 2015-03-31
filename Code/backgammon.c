@@ -58,7 +58,7 @@ int main( int argc, char* argv[] ) {
 
 
     afficherJeu(); // affichage de la fenêtre de jeu et de la partie grapique
-	jouerPartie( nbParties, joueur1, joueur2 );
+	//jouerPartie( nbParties, joueur1, joueur2 );
 
 
 	/*

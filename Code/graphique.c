@@ -1,5 +1,7 @@
 #include "graphique.h"
 #include "arbitre.h"
+#include <stdlib.h>
+#include <windows.h>
 
 // Permet d'afficher la fenêtre de jeu
 int afficherJeu()
@@ -19,7 +21,7 @@ int afficherJeu()
     int maxW=videoInfo->current_w;
     int maxH=videoInfo->current_h;
   // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_FULLSCREEN|SDL_DOUBLEBUF);
+    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
     SDL_Surface* de1;
     SDL_Surface* de2;
 
@@ -27,7 +29,7 @@ int afficherJeu()
     char* pathCompletDe2 = "./Images/Des/de1.bmp";
     SDL_Event event;
 
-    Pion tabPions[30]; // tableau de pions des joueurs
+    Plateau s_plateau;
 
     unsigned char dices[2];
 
@@ -62,12 +64,6 @@ int afficherJeu()
     de1 = SDL_LoadBMP(pathCompletDe1);
     de2 = SDL_LoadBMP(pathCompletDe2);
 
-    int i;
-    for(i = 0; i< 30; i++)
-    {
-        creerPion(tabPions, i, 10*i, 50, "./Images/noir.bmp");
-    }
-
     // si impossible de charger les images des dés
     if (!de1 || !de2)
     {
@@ -75,9 +71,13 @@ int afficherJeu()
         return 1;
     }
     positionnerDes(&posDe1, &posDe2);
+    creerPlateau(&s_plateau);
+
+    initCases(&s_plateau);
 
     // program main loop
     int done = 0;
+
     while (done != 1)
     {
         // message processing loop
@@ -99,11 +99,11 @@ int afficherJeu()
                         // si appui sur touche echap
                         case SDLK_ESCAPE:
                             done = 1;
+                            printf("salut");
                         break;
                         // si appui sur touche espace
                         case SDLK_SPACE:
-
-                            lancerLesDes(dices);
+                                lancerLesDes(dices);
 
                             // on actualise le chemin de l'image des dés
                             pathCompletDe1 = retournerPathDe(dices[0]);
@@ -114,7 +114,9 @@ int afficherJeu()
                             de2 = SDL_LoadBMP(pathCompletDe2);
 
                         break;
+                        case SDLK_g:
 
+                        break;
                         default:
                             break;
                     }
@@ -129,17 +131,25 @@ int afficherJeu()
         // réinitialisation de l'écran
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
+
         // on applique l'image de fond
         SDL_BlitSurface(plateau, 0, screen, &dstrect);
+        int i, j;
+
+        /*for(i = 0; i < 24; i++)
+        {
+            for(j = 0; j < s_plateau.tabCases[i].nbPions; j++)
+            {
+                SDL_BlitSurface(s_plateau.tabCases[i].tabPions[j].imagePion, 0, plateau, &s_plateau.tabCases[i].tabPions[j].posPion );
+            }
+
+        }*/
 
         // on applique l'image des dés
         SDL_BlitSurface(de1, 0, screen, &posDe1);
         SDL_BlitSurface(de2, 0, screen, &posDe2);
 
-        for(i = 0; i < 30; i++)
-        {
-            SDL_BlitSurface(tabPions[i].imagePion, 0, screen, &tabPions[i].posPion);
-        }
+
 
         // On met à jour l'écran
         SDL_Flip(screen);
@@ -149,11 +159,6 @@ int afficherJeu()
     SDL_FreeSurface(plateau);
     SDL_FreeSurface(de1);
     SDL_FreeSurface(de2);
-
-    for(i = 0; i < 30; i++)
-        {
-            SDL_FreeSurface(tabPions[i].imagePion);
-        }
 
     printf("Terminé correctement\n");
     return 0;
@@ -191,27 +196,122 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
     posDe2 -> y = 360;
 }
 
-void creerPion(Pion pions[30], int positionPion, int posX, int posY, char* image){
+Pion creerPion(int posX, int posY, char* image){
 
     Pion pion;
-    SDL_Rect* posPion;
-
-    posPion -> x = posX;
-    posPion -> y = posY;
-
-    pion.posPion = posPion;
-
+    SDL_Rect* pos;
     SDL_Surface* imagePion = SDL_LoadBMP(image);
+
+   /* pos -> x = posX;
+    pos -> y = posY;*/
+
+    pion.posPion = pos;
+    //printf("x :%i - y : %i\n", pion.posPion.x, pion.posPion.y);
     pion.imagePion = imagePion;
 
-    pions[positionPion] = pion;
-
+    return pion;
 }
 
-positionnerPion(Pion *pion, SDL_Rect *pos){
+/**
+*Calcule la position que doit avoir le pion selon la case où on se déplace et le nombre de dames dessus.
+*/
+void positionnerPion(Pion *pion, Plateau plateau, Case case_pos, int numCase){
 
-    pion -> posPion = pos;
+    int hauteur_screen = plateau.hauteur;
+    int hauteurPion = 54;
+    int nbPions = case_pos.nbPions;
 
+    if(numCase >= 0 && numCase <= 11) // cases du bas
+    {
+        pion -> posPion -> x = case_pos.posX;
+        pion -> posPion -> y = hauteur_screen - nbPions * hauteurPion - hauteurPion;
+    }
+    else // cases du haut
+    {
+        pion -> posPion -> x = case_pos.posX;
+        pion -> posPion -> y = nbPions * hauteurPion;
+    }
 }
 
+/**
+*Initialise les cases du plateau avec leur bonne position
+**/
+void initCases(Plateau *plateau)
+{
+    int i;
+    int width = plateau ->largeur;
+    int height = plateau -> hauteur;
 
+    for(i = 0; i <= 5; i++) // partie inférieure droite
+    {
+        Case case_b;
+        width -= 84;
+        case_b.posX = width;
+        case_b.posY = height;
+
+        plateau -> tabCases[i] = case_b;
+        printf("x : %i - y : %i\n", case_b.posX, case_b.posY);
+    }
+
+    for(i = 18; i < 23; i++) // partie supérieure droite
+    {
+        Case case_b;
+        width -= 84;
+        case_b.posX = width;
+        case_b.posY = 0;
+
+        plateau -> tabCases[i] = case_b;
+        printf("x : %i - y : %i\n", case_b.posX, case_b.posY);
+    }
+
+    width = 628;
+    for(i = 6; i <= 11; i++) // partie inférieure gauche
+    {
+        Case case_b;
+        width -= 84;
+        case_b.posX = width;
+        case_b.posY = height;
+
+        plateau -> tabCases[i] = case_b;
+        printf("x : %i - y : %i\n", case_b.posX, case_b.posY);
+    }
+    width = 628;
+    for(i = 12; i <= 17; i++) // partie superieure gauche
+    {
+        Case case_b;
+        width -= 84;
+        case_b.posX = width;
+        case_b.posY = 0;
+
+        plateau -> tabCases[i] = case_b;
+        printf("x : %i - y : %i\n", case_b.posX, case_b.posY);
+    }
+}
+
+/**
+* initialise les pions aux bonnes cases
+**/
+void initPions(Plateau *plateau, SGameState gameState)
+{
+    int i;
+    int j;
+    for(i = 0; i < 24; i++)//pour chaque Square
+    {
+        for(j = 0; j < gameState.board[i].nbDames; j++) // pour chaque dame dans la case, on créé un pion et on l'ajoute à la case
+        {
+            Pion pion;
+            if(gameState.board[i].owner == WHITE) // si joueur blanc
+              pion  = creerPion(0,0, "./Images/blanc.bmp");
+            else if (gameState.board[i].owner == BLACK)// si joueur noir
+               pion = creerPion(0,0, "./Images/blanc.bmp");
+
+            plateau -> tabCases[i].tabPions[j] = pion; // ajout du pion dans la bonne case
+            plateau -> tabCases[i].nbPions ++;
+        }
+    }
+}
+void creerPlateau(Plateau *plateau)
+{
+    plateau -> hauteur = 1280;
+    plateau -> largeur = 752;
+}

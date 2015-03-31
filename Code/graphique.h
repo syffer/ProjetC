@@ -29,7 +29,28 @@ typedef struct{
 
 }Pion;
 
-void creerPion(Pion pions[30], int positionPion, int posX, int posY, char* image);
-void positionnerPion(Pion *pion, SDL_Rect *pos);
+typedef struct{
+
+    int posX;
+    int posY;
+    Pion tabPions[15];
+    int nbPions;
+}Case;
+
+typedef struct{
+
+    Case tabCases[24];
+    int bar[2];
+    int out[2];
+    int hauteur;
+    int largeur;
+
+}Plateau;
+
+Pion creerPion(int posX, int posY, char* image);
+void positionnerPion(Pion *pion, Plateau plateau, Case case_pos, int numCase);
+void initCases(Plateau *plateau);
+void initPions(Plateau *plateau, SGameState gameState);
+void creerPlateau(Plateau *plateau);
 
 #endif
