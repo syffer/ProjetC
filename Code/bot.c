@@ -307,19 +307,28 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	// si je n'ai pas utilisé tout mes dés, et qu'il n'y a plus rien en dehors du plateau
 
 	int i;
-	dice = getPremierElement(mesDes);
+	int position;
+
 	for( i = 1; i < 25; i++ ) {
 
-		if( ! dice ) break;
+		if( listeEstVide(mesDes) ) break;
 
-		if( peutDeplacerUnPion(gameState, i, getDonnee(dice) ) ) {
+		dice = getPremierElement(mesDes);
+		while( dice ) {
+		
+			position = (maCouleur == BLACK) ? i : 24 - i;
 
-			moves[ *nbMove ] = deplacerUnPion( gameState, i, getDonnee(dice) );
-			*nbMove++;
+			if( peutDeplacerUnPion(gameState, position, getDonnee(dice) ) ) {
 
-			dice = getCelluleSuivante(dice);
-			detruireCellule( mesDes, getCellulePrecedente(dice) );
+				moves[ *nbMove ] = deplacerUnPion( gameState, position, getDonnee(dice) );
+				*nbMove++;
+
+				dice = getCelluleSuivante(dice);
+				detruireCellule( mesDes, getCellulePrecedente(dice) );
+			}
+			else dice = getCelluleSuivante(dice);
 		}
+
 
 	}
 
