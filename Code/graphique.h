@@ -48,7 +48,7 @@ typedef struct{
 }Plateau;
 
 Pion creerPion(int posX, int posY, char* image);
-void positionnerPion(Pion *pion, Plateau plateau, Case case_pos, int numCase);
+void positionnerPion(Pion *pion, Plateau *plateau, Case case_pos, int numCase);
 void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);

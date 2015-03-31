@@ -157,7 +157,7 @@ int afficherJeu()
     SDL_FreeSurface(plateau);
     SDL_FreeSurface(de1);
     SDL_FreeSurface(de2);
-    freePlateau(s_plateau);
+    //freePlateau(&s_plateau);
 
     printf("Terminé correctement\n");
     return 0;
@@ -214,9 +214,9 @@ Pion creerPion(int posX, int posY, char* image){
 /**
 *Calcule la position que doit avoir le pion selon la case où on se déplace et le nombre de dames dessus.
 */
-void positionnerPion(Pion *pion, Plateau plateau, Case case_pos, int numCase){
+void positionnerPion(Pion *pion, Plateau *plateau, Case case_pos, int numCase){
 
-    int hauteur_screen = plateau.hauteur;
+    int hauteur_screen = plateau -> hauteur;
     int hauteurPion = 54;
     int nbPions = case_pos.nbPions;
 
@@ -306,6 +306,7 @@ void initPions(Plateau *plateau, SGameState gameState)
 
             plateau -> tabCases[i].tabPions[j] = pion; // ajout du pion dans la bonne case
             plateau -> tabCases[i].nbPions ++;
+            positionnerPion(&pion, plateau, plateau -> tabCases[i], i );
         }
     }
 }
