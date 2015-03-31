@@ -139,7 +139,6 @@ void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
 
 	int score = 5; 	// quel est le score à atteindre ??????
 
-
 	joueur1.StartMatch(score);
 	joueur2.StartMatch(score);
 

@@ -43,7 +43,7 @@ int afficherJeu()
     SDL_WM_SetCaption("Backgammon", NULL);
 
 
-    // load an image
+    // chargement de l'image du plateau
     SDL_Surface* plateau = SDL_LoadBMP("./Images/plateau.bmp");
 
     if (!plateau)
@@ -52,7 +52,7 @@ int afficherJeu()
         return 1;
     }
 
-    // centre the bitmap on screen
+    // centrer l'image à l'écran
     SDL_Rect dstrect;
     dstrect.x = (screen->w - plateau->w) / 2;
     dstrect.y = (screen->h - plateau->h) / 2;
@@ -70,9 +70,10 @@ int afficherJeu()
         printf("Impossible de charger l'image : %s", SDL_GetError());
         return 1;
     }
+
     positionnerDes(&posDe1, &posDe2);
     creerPlateau(&s_plateau);
-
+    //création des cases et affectation de leur position
     initCases(&s_plateau);
 
     // program main loop
@@ -185,7 +186,9 @@ char* retournerPathDe(char dice)
     }
 }
 
-// initialisation de la position des dés
+/**
+*Initialisation de la position des dés
+**/
 void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
 {
     posDe1 -> x = 883;
@@ -195,7 +198,11 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
     posDe2 -> y = 360;
 }
 
-Pion creerPion(int posX, int posY, char* image){
+/**
+*Créé un pion à la position spécifiéd et avec l'image spécifiée
+**/
+Pion creerPion(int posX, int posY, char* image)
+{
 
     Pion pion;
     SDL_Rect* pos;
@@ -306,7 +313,7 @@ void initPions(Plateau *plateau, SGameState gameState)
 
             plateau -> tabCases[i].tabPions[j] = pion; // ajout du pion dans la bonne case
             plateau -> tabCases[i].nbPions ++;
-            positionnerPion(&pion, plateau, plateau -> tabCases[i], i );
+            positionnerPion(&pion, plateau, plateau -> tabCases[i], i ); // positionnement du pion sur la case
         }
     }
 }
