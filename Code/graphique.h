@@ -24,8 +24,10 @@ void remplirCaseX(/*LA STRUCTURE MAGIQUE*/);
 
 typedef struct{
 
-    SDL_Rect* posPion;
+    SDL_Rect posPion;
     SDL_Surface* imagePion;
+    int largeurPion;
+    int hauteurPion;
 
 }Pion;
 

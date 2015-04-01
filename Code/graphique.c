@@ -2,6 +2,7 @@
 #include "arbitre.h"
 #include <stdlib.h>
 #include <windows.h>
+#include <math.h>
 
 // Permet d'afficher la fenêtre de jeu
 int afficherJeu()
@@ -30,6 +31,7 @@ int afficherJeu()
     SDL_Event event;
 
     Plateau s_plateau;
+
 
     unsigned char dices[2];
 
@@ -64,6 +66,9 @@ int afficherJeu()
     de1 = SDL_LoadBMP(pathCompletDe1);
     de2 = SDL_LoadBMP(pathCompletDe2);
 
+
+
+
     // si impossible de charger les images des dés
     if (!de1 || !de2)
     {
@@ -75,14 +80,17 @@ int afficherJeu()
     creerPlateau(&s_plateau);
     //création des cases et affectation de leur position
     initCases(&s_plateau);
-
+    //initPions(&s_plateau, etatJeux);
+    Pion p = creerPion(130, 100, "./Images/noir.bmp");
+    SDL_SetColorKey(p.imagePion, SDL_SRCCOLORKEY, SDL_MapRGB(p.imagePion->format, 255, 255, 255));
     // program main loop
     int done = 0;
+    int tempsPrecedent = 0, tempsActuel = 0;
 
     while (done != 1)
     {
         // message processing loop
-        SDL_WaitEvent(&event);
+        SDL_PollEvent(&event);
 
             // Gestion des évènements
             switch (event.type)
@@ -124,10 +132,19 @@ int afficherJeu()
                 }
                 break;
 
+                case SDL_MOUSEBUTTONUP:
+                    if (event.button.button == SDL_BUTTON_LEFT)
+                    {
+                        deplacerPionVers(&p, event.button.x, event.button.y, tempsPrecedent);
+                    }
+
+                break;
+
             default:
                 break;
 
         }
+
         // Début de la partie pour redessiner les éléments
         // réinitialisation de l'écran
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
@@ -135,7 +152,9 @@ int afficherJeu()
 
         // on applique l'image de fond
         SDL_BlitSurface(plateau, 0, screen, &dstrect);
-        int i, j;
+
+        SDL_BlitSurface(p.imagePion, 0, screen, &p.posPion);
+        //int i, j;
 
         /*for(i = 0; i < 24; i++)
         {
@@ -159,7 +178,7 @@ int afficherJeu()
     SDL_FreeSurface(de1);
     SDL_FreeSurface(de2);
     //freePlateau(&s_plateau);
-
+    SDL_FreeSurface(p.imagePion);
     printf("Terminé correctement\n");
     return 0;
 }
@@ -205,19 +224,52 @@ Pion creerPion(int posX, int posY, char* image)
 {
 
     Pion pion;
-    SDL_Rect* pos;
+    SDL_Rect pos;
     SDL_Surface* imagePion = SDL_LoadBMP(image);
 
-   /* pos -> x = posX;
-    pos -> y = posY;*/
+    pos.x = posX;
+    pos.y = posY;
 
+    pion.hauteurPion = 59;
+    pion.largeurPion = 57;
     pion.posPion = pos;
     //printf("x :%i - y : %i\n", pion.posPion.x, pion.posPion.y);
     pion.imagePion = imagePion;
 
     return pion;
 }
+void deplacerPionVers(Pion *pion, int x, int y, int tempsPrecedent)
+{
+    int distanceX = fabs(pion -> posPion.x - x);
+    int distanceY = fabs(pion -> posPion.y - y);
+    int tempsActuel;
 
+
+        tempsActuel = SDL_GetTicks();
+        distanceX = fabs(pion -> posPion.x - x);
+        distanceY = fabs(pion -> posPion.y - y);
+    int increpentPos = 10;
+        if (tempsActuel - tempsPrecedent > 30) /* Si 30 ms se sont écoulées depuis le dernier tour de boucle */
+        {
+            if(distanceX > 0 && distanceY > 0)
+            {
+                if(pion -> posPion.x < x)
+                    pion -> posPion.x +=increpentPos;
+                else if(pion -> posPion.x > x)
+                    pion -> posPion.x -=increpentPos;
+
+
+                if(pion -> posPion.y < y)
+                    pion -> posPion.y +=increpentPos;
+                else if(pion -> posPion.y > y)
+                    pion -> posPion.y -=increpentPos;
+
+
+                tempsPrecedent = tempsActuel;
+            }
+
+        }
+}
 /**
 *Calcule la position que doit avoir le pion selon la case où on se déplace et le nombre de dames dessus.
 */
@@ -229,13 +281,13 @@ void positionnerPion(Pion *pion, Plateau *plateau, Case case_pos, int numCase){
 
     if(numCase >= 0 && numCase <= 11) // cases du bas
     {
-        pion -> posPion -> x = case_pos.posX;
-        pion -> posPion -> y = hauteur_screen - nbPions * hauteurPion - hauteurPion;
+        pion -> posPion.x = case_pos.posX;
+        pion-> posPion.y = hauteur_screen - nbPions * hauteurPion - hauteurPion;
     }
     else // cases du haut
     {
-        pion -> posPion -> x = case_pos.posX;
-        pion -> posPion -> y = nbPions * hauteurPion;
+        pion -> posPion.x = case_pos.posX;
+        pion -> posPion.y = nbPions * hauteurPion;
     }
 }
 
