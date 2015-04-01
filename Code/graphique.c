@@ -22,7 +22,7 @@ int afficherJeu()
     int maxW=videoInfo->current_w;
     int maxH=videoInfo->current_h;
   // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_FULLSCREEN|SDL_DOUBLEBUF);
     SDL_Surface* de1;
     SDL_Surface* de2;
 
@@ -135,7 +135,7 @@ int afficherJeu()
                 case SDL_MOUSEBUTTONUP:
                     if (event.button.button == SDL_BUTTON_LEFT)
                     {
-                        deplacerPionVers(&p, event.button.x, event.button.y, tempsPrecedent);
+                        deplacerPionVers(&p, 1, tempsPrecedent, s_plateau);
                     }
 
                 break;
@@ -238,8 +238,11 @@ Pion creerPion(int posX, int posY, char* image)
 
     return pion;
 }
-void deplacerPionVers(Pion *pion, int x, int y, int tempsPrecedent)
+void deplacerPionVers(Pion *pion, int numCase, int tempsPrecedent, Plateau plateau)
 {
+    int x = plateau.tabCases[numCase].posX;
+    int y= plateau.tabCases[numCase].posY - pion -> hauteurPion;
+
     int distanceX = fabs(pion -> posPion.x - x);
     int distanceY = fabs(pion -> posPion.y - y);
     int tempsActuel;
@@ -371,8 +374,8 @@ void initPions(Plateau *plateau, SGameState gameState)
 }
 void creerPlateau(Plateau *plateau)
 {
-    plateau -> hauteur = 1280;
-    plateau -> largeur = 752;
+    plateau -> hauteur = 752;
+    plateau -> largeur = 1280;
 }
 
 void freePlateau(Plateau *plateau)
