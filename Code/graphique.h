@@ -50,9 +50,10 @@ typedef struct{
 }Plateau;
 
 Pion creerPion(int posX, int posY, char* image);
-void positionnerPion(Pion *pion, Plateau *plateau, Case case_pos, int numCase);
+SDL_Rect positionnerPion(Plateau *plateau, Case case_pos, int numCase);
 void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);
+void deplacerPionVers(Pion *pion, int numCase, int tempsPrecedent, Plateau plateau, Case case_b, SDL_Rect posPion);
 
 #endif
