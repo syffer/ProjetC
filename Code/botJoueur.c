@@ -1,7 +1,8 @@
 
 /*
 
-	
+	Cas où un joueur joue et non un bot
+	bot non fini
 
 */
 

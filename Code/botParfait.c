@@ -2,6 +2,7 @@
 /*
 
 	Bot cherchant à gagner le plus vite possible et en bloquant un maximum l'adversaire
+	Bot non fini
 
 */
 

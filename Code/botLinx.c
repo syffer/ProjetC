@@ -1,7 +1,8 @@
 
 /*
 
-	Base pour la création d'un bot
+	Bot qui étudie la map et qui sélectionne les meilleurs coups
+	bot non fini
 
 */
 
