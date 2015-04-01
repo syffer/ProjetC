@@ -30,3 +30,8 @@ squatter le plus le terrain pour bloquer l'adversaire et le limiter dans ses dé
 il faut regarder pour chaque dé le nombre de pion pouvant le jouer
 si ce nombre est égal à 1 alors jouer le pion en priorité
 si ce nombre est égal à 0 alors il faut regarder sur l'autre dé (le dé jouable si il y en a un) si un déplacement va permettre de jouer celui dont le nombre est à 0
+
+
+==> des liens utiles pour les stratégies et les règles
+http://www.back-gammon.fr/strategies-et-astuces/
+http://www.backgammonclub.fr/probabilites.html
