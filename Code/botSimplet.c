@@ -254,7 +254,7 @@ int possedeDesPionsSurLaBarre( SGameState* gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-// !!!!!!!!!!!!!!!!!!! on an enlevé les const pour pouvoir modifier gameState
+// !!!!!!!!!!!!!!!!!!! on a enlevé les const pour pouvoir modifier gameState
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	
 
