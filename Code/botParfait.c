@@ -12,7 +12,7 @@
 #include "ListeChainee.h"
 
 
-char nom[] = "LinxBot";
+char nom[] = "PerfectBot";
 unsigned int score;
 static Player maCouleur;
 
