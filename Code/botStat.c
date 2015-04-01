@@ -2,6 +2,7 @@
 /*
 
 	Bot dont le comportement se base sur des statistiques
+	// à réfléchir
 
 */
 
@@ -168,85 +169,4 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	*nbMove = 0;
 	
-	/*****
-	 * 
-	 * 	*nbMove = 0;
-
-	// on est obligé d'utiliser tout les dés SAUF lorsque ce n'est pas possible....
-	ListeChainee* mesDes = getDices( dices ); 	// mes dés
-	
-	
-	Cellule* dice;	// variable utilisée pour parcourir la liste des dés.
-
-
-	// on est obligé de remettre en jeu TOUS nos pions
-	if( possedeDesPionsSurLaBarre(gameState) ) {
-
-		printf(" -> je dois rerentrer les pions sortis du plateau...\n");
-
-		dice = getPremierElement(mesDes);
-		while( gameState -> bar[maCouleur] ) {
-
-			if( !dice ) break;
-
-			if( peutDeplacerUnPion( gameState, 0, getDonnee(dice) ) ) {
-				
-				printf("on peut bouger un pion avec ce dé...\n");
-
-				moves[ *nbMove ] = deplacerUnPion( gameState, 0, getDonnee(dice) );
-				*nbMove++;
-			
-
-				dice = getCelluleSuivante(dice);
-				detruireCellule( mesDes, getCellulePrecedente(dice) );
-			}
-			else dice = getCelluleSuivante(dice);
-		}
-
-	}
-
-
-
-	
-	regarder si, avec les dés, on peut :
-	- prendre un pion adverse
-	- prendre un point (au moins deux pions sur le même triangle)
-	(- créer une ancre ?)
-	
-
-
-	// si j'ai utilisé tout mes dés, ou qu'il y a encore des pions sur la barre (alors que j'ai utilisé tout les dés)
-	if( listeEstVide(mesDes) || possedeDesPionsSurLaBarre(gameState) ) return;
-
-
-	// si je n'ai pas utilisé tout mes dés, et qu'il n'y a plus rien en dehors du plateau
-
-	int i;
-	int position;
-
-	for( i = 1; i < 25; i++ ) {
-
-		if( listeEstVide(mesDes) ) break;
-
-		dice = getPremierElement(mesDes);
-		while( dice ) {
-		
-			position = (maCouleur == BLACK) ? i : 24 - i;
-
-			if( peutDeplacerUnPion(gameState, position, getDonnee(dice) ) ) {
-
-				moves[ *nbMove ] = deplacerUnPion( gameState, position, getDonnee(dice) );
-				*nbMove++;
-
-				dice = getCelluleSuivante(dice);
-				detruireCellule( mesDes, getCellulePrecedente(dice) );
-			}
-			else dice = getCelluleSuivante(dice);
-		}
-
-
-	}
-	 * ****/
-
-
 }
