@@ -184,7 +184,14 @@ void ajouterMouvementAuCoup( Coup* coup, SMove mouvement ) {
 	coup -> nbMouvements++; 
 }
 
-
+void ajouterMouvementAuCoupDevant( Coup* coup, SMove mouvement ) {
+	int i;
+	for( i = 0; i < coup -> nbMouvements - 1; i++ ) {
+		coup -> mouvements[i+1] = coup -> mouvements[i];
+	}
+	coup -> mouvements[0] = mouvement;
+	coup -> nbMouvements++;
+}
 
 
 
@@ -194,13 +201,16 @@ void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, ListeChain
 	Cellule* leDe;
 	unsigned char valeurDe;
 
-	Coup coup;
+	Coup* coup;
+	Coup coupsSuivants[ 15*15*15*15 ];
+	int nbCoupsSuivants = 0;
 	SMove mouvement;
 	SGameState newGameState;
 
+
 	*nbCoupsPossibles = 0;
 
-	int i;
+	int i, j;
 	for( i = 0; i < 25; i++ ) {	 // pour chaque cases du tableau
 		
 		laCase = getCaseReelle( gameState, maCouleur, i );
@@ -217,27 +227,31 @@ void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, ListeChain
 				mouvement = creerMouvementJoueur( maCouleur, i, valeurDe );
 				newGameState = deplacerUnPion( *gameState, maCouleur, mouvement );
 
-				coup = coups[ *nbCoupsPossibles ];
-				initialiserCoup( &coup );
-				ajouterMouvementAuCoup( &coup, mouvement );
-
-
+				nbCoupsSuivants = 0;
 				detruireCellule( dices, leDe );
-				if( ! listeEstVide(dices) ) {
+				
+				if( listeEstVide(dices) ) {
 
-					// pas bon non plus
-					//calculerCoupsPossibles( newGameState, maCouleur, dices, coups, nbCoupsPossibles );
-					/*
-					*
-					*	NON FINIE !!!!!!!!!!!!
-					*
-					*/
+					coup = &coups[ *nbCoupsPossibles ];
+					initialiserCoup( coup );
+					ajouterMouvementAuCoup( coup, mouvement );
+					*nbCoupsPossibles++;
+				}
+				else {
 
+					calculerCoupsPossibles( &newGameState, maCouleur, dices, coupsSuivants, &nbCoupsSuivants );
+
+					for( j = 0; j < nbCoupsSuivants; j++ ) {
+						ajouterMouvementAuCoupDevant( &coupsSuivants[j], mouvement );
+						coups[ *nbCoupsPossibles ] = coupsSuivants[j];
+						*nbCoupsPossibles++;
+					}
 
 				}
+
 				ajouterElementDebut( dices, valeurDe );
 				
-
+				printf("------\n");
 
 				*nbCoupsPossibles++;
 			}

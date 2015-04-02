@@ -6,16 +6,17 @@
 
 */
 
-
-#include <stdio.h>
-#include <string.h>
-
 #include "backgammon.h"
 #include "fonctionsBot.h"
 #include "ListeChainee.h"
+
+#include <stdio.h>
+#include <string.h>
 #include <math.h>  			// pow
 
+
 static Bot bot;
+
 
 /**
  * Initialiser la librairie
@@ -107,19 +108,22 @@ int TakeDouble( const SGameState * const gameState ) {
 // !!!!!!!!!!!!!!!!!!! on a enlevé les const pour pouvoir modifier gameState
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	
-
 	*nbMove = 0;
 
+	Player maCouleur = bot.maCouleur;
 	
 	ListeChainee* lesDes = getDices( dices );
-	
 	int nbDes = getNbElements(lesDes);
-	int nbCoupsMax = (int)pow( 15, nbDes );
-	Coup coups[ nbCoupsMax ];
-	
-	
-	
 
+	int nbCoupsMax = (int)pow( 15, nbDes );
+	int nbCoups = 0;
+	Coup coups[ nbCoupsMax ];
+
+	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups, &nbCoups );
+
+
+
+	
 }
 
 

@@ -117,7 +117,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	
 	
 	Cellule* dice;	// variable utilisée pour parcourir la liste des dés.
-
+	SMove mouv;
 
 	// on est obligé de remettre en jeu TOUS nos pions
 	if( possedeDesPionsSurLaBarre(gameState,maCouleur) ) {
@@ -133,9 +133,10 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 				
 				printf("on peut bouger un pion avec ce dé...\n");
 
-				moves[ *nbMove ] = deplacerUnPion( gameState, maCouleur, 0, getDonnee(dice) );
+				moves[ *nbMove ] = creerMouvementJoueur( maCouleur, 0, getDonnee(dice) );
+				deplacerUnPion( *gameState, maCouleur, moves[*nbMove] );
 				*nbMove++;
-			
+				
 
 				dice = getCelluleSuivante(dice);
 				detruireCellule( mesDes, getCellulePrecedente(dice) );
@@ -175,7 +176,8 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 			if( peutDeplacerUnPion(gameState, maCouleur, position, getDonnee(dice) ) ) {
 
-				moves[ *nbMove ] = deplacerUnPion( gameState, maCouleur, position, getDonnee(dice) );
+				moves[ *nbMove ] = creerMouvementJoueur( maCouleur, 0, getDonnee(dice) );
+				deplacerUnPion( *gameState, maCouleur, moves[*nbMove] );
 				*nbMove++;
 
 				dice = getCelluleSuivante(dice);

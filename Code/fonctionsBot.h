@@ -35,6 +35,16 @@ typedef struct Coup Coup;
 ListeChainee* getDices( const unsigned char dices[2] );
 
 
+Square getCaseReelle( SGameState* gameState, Player maCouleur, int i );
+int possedeDesPionsSurLaBarre( SGameState* gameState, Player maCouleur );
+int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int nbCases );
+SGameState deplacerUnPion( SGameState gameState, Player maCouleur, SMove mouvement );
+SMove creerMouvement( int depart, int arrivee );
+SMove creerMouvementJoueur( Player maCouleur, int depart, int nbCases );
+void initialiserCoup( Coup* coup );
+void ajouterMouvementAuCoup( Coup* coup, SMove mouvement );
+void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, ListeChainee* dices, Coup coups[], int* nbCoupsPossibles );
+
 
 
 
