@@ -268,3 +268,53 @@ void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, ListeChain
 
 
 
+
+
+void triRapide_rec( Coup tableau[], pFonctionComparaison f_comparaison, int borneInf, int borneSup ) {
+
+	if( borneInf >= borneSup ) return;
+
+	// définition du pivot
+	int pivot = borneInf;
+
+	int j = borneSup;		// on placera les éléments "supérieurs" à la fin du tableau
+	Data tmp;				// pour échanger les valeurs
+	int resultatComparaison;
+
+	while( pivot < j ) {
+
+		resultatComparaison = (*f_comparaison)( tableau[pivot], tableau[pivot+1] );		// au lieu d'utiliser >=, on utilise (*f_comparaison) >= 0
+
+		// t[ pivot ] >= t[ pivot+1 ]
+		if( resultatComparaison >= 0 ) {
+
+			tmp = tableau[ pivot ];
+			tableau[ pivot ] = tableau[ pivot+1 ];
+			tableau[ pivot+1 ] = tmp;
+
+			pivot++;
+		}
+		else {
+
+			tmp = tableau[ pivot + 1 ];
+			tableau[ pivot + 1 ] = tableau[ j ];
+			tableau[ j ] = tmp;
+
+			j--;
+		}
+
+	}
+
+	triRapide_rec( tableau, f_comparaison, borneInf, pivot - 1 );
+	triRapide_rec( tableau, f_comparaison, pivot + 1, borneSup );
+}
+
+
+void triRapide( Coup tableau[], int taille, pFonctionComparaison f_comparaison ) {
+	triRapide_rec( tableau, f_comparaison, 0, taille-1 );
+}
+
+
+int test( Coup c1, Coup c2) {
+	return 1;
+}

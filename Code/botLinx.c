@@ -121,9 +121,19 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups, &nbCoups );
 
+	triRapide( coups, nbCoups, test );
+
+	if( nbCoups <= 0 ) return;
 
 
-	
+	*nbMove = coups[0].nbMouvements;
+	int i;
+	for( i = 0; i < nbCoups; i++ ) {
+		moves[i] = coups[0].mouvements[i];
+	}
+
+
+
 }
 
 
