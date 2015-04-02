@@ -123,167 +123,142 @@ const SGameState const copierEtatJeux( SGameState etatJeux ) {
 
 
 
-void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
+void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
 
-	char nomBot1[50];
-	char nomBot2[50];
-	joueur1.InitLibrary(nomBot1);
-	joueur2.InitLibrary(nomBot2);
+	char nomJoueurBlanc[50];
+	char nomJoueurNoir[50];
+	joueurBlanc.InitLibrary(nomJoueurBlanc);
+	joueurNoir.InitLibrary(nomJoueurNoir);
 
-	Joueur jW, jB; //joueur blanc et joueur noir
+    // variables de jeux
+    SMove moves[4];
+    unsigned int nbMoves = 0;
+    unsigned char dices[2];
+    //unsigned int triesb = 2, triesw = 2;    // ---------------------------->> pourquoi ne pas faire la même chose qu'avec les couleurs juste en dessous ??
+    //unsigned int couleur[2]; //les couleurs du j1 puis du j2
+    unsigned int tries[2] = {2, 2};
 
+    SGameState etatJeux = initialiserEtatJeux();
+    SGameState etatCopie;
+    Joueur joueur;
 
-	// variables de jeux
-	unsigned int nbMoves;
-	SMove moves[4];
-	unsigned char dices[2];
-	unsigned int triesb = 2, triesw = 2;
-	unsigned int couleur[2]; //les couleurs du j1 puis du j2
+    int score = 5;
 
-	SGameState etatCopie, etatJeux = initialiserEtatJeux(); 	// /!\ a initialiser (tableau de cases, nb points ....)
+    joueurBlanc.StartMatch(score);
+    joueurNoir.StartMatch(score);
 
-	int score = 5, etatValide; 	// quel est le score à atteindre ??????
-
-
-	joueur1.StartMatch(score);
-	joueur2.StartMatch(score);
-
-	int i;
-	for( i = 0; i < nbParties; i++ ) {
-
-		printf("-> partie %i \n", i+1 );
-		//SDL --> afficher début partie i
-
-		initialiserPlateau( etatJeux.board );
-		//SDL --> Mettre les jetons sur le plateau
-
-		// on lance les dés jusqu'a ce que l'on obtienne deux nombre différents
-		do
-		{
-			lancerLesDes(dices);
-		} while( dices[0] == dices[1] );
+    int premierTour;
 
 
-		// convention pour le début : le joueur 1 a jeté le dés à l'indice 0
-		if( dices[0] > dices[1] ) {
-			joueur1.StartGame( WHITE );
-            couleur[0]=WHITE;
-            jW = joueur1;
-			joueur2.StartGame( BLACK );
-			couleur[1]=BLACK;
-			jB = joueur2;
+    int i;
+    for( i = 0; i < nbParties; i++ ) {
 
-		}
-		else {
-			joueur1.StartGame( BLACK );
-			joueur2.StartGame( WHITE );
-			couleur[1]=WHITE;
-			couleur[0]=BLACK;
-			jW = joueur2;
-			jB = joueur1;
+        printf("(arbitre) -> partie %i \n", i+1 );
+        //SDL --> afficher début partie i
 
-		}
-        int premierTour = 1;
+        initialiserPlateau( etatJeux.board );
+        //SDL --> Mettre les jetons sur le plateau
 
-		while( !finPartie(etatJeux,triesw,triesb) ) {  	// tant que la partie n'est pas terminée
 
-			/*
-				!!!! attention, pour le premier tour, le joueur blanc doit utiliser les premiers dés tirés
-				(ceux utilisé pour déterminé qui est noir et qui est blanc)
+        // on lance les dés jusqu'a ce que l'on obtienne deux nombre différents
+        do
+        {
+            lancerLesDes(dices);
+        } while( dices[0] == dices[1] );
+        afficherDes(dices);
 
-			*/
-			if(!premierTour){
-                lancerLesDes(dices);
-			}
-			premierTour = 0;
+        joueurBlanc.StartGame(WHITE);
+        joueurNoir.StartGame(BLACK);
+
+        // convention pour le début : le joueur 1 a jeté le dés à l'indice 0
+        if( dices[0] > dices[1] ) {
+            joueur = joueurBlanc;
+            etatJeux.turn = WHITE;
+        }
+        else {
+            joueur = joueurNoir;
+            etatJeux.turn = BLACK;
+        }
+
+        premierTour = 1;
+        while( !finPartie(etatJeux,tries) ) {
+            /*
+                !!!! attention, pour le premier tour, le joueur blanc doit utiliser les premiers dés tirés
+                (ceux utilisé pour déterminé qui est noir et qui est blanc)
+
+            */
+            
+
+            if( ! premierTour ) lancerLesDes(dices);
+            premierTour = 0;
 
             ///// HISTOIRE DES MISES --> on passe pour l'instant
-			// si le joueur a le videau, alors le proposer à l'autre de le prendre
-			// puis demander au 1er joueur si il accept ou non la nouvelle mise
-			//
+            // si le joueur a le videau, alors le proposer à l'autre de le prendre
+            // puis demander au 1er joueur si il accept ou non la nouvelle mise
+            //
+            /*
+            if (j1DoubleStack(&gameState))
+                j2TakeDouble(&gameState);
+            */
 
-			/*
-
-			if (j1DoubleStack(&gameState))
-				j2TakeDouble(&gameState);
-			*/
-            //////////
-
-            etatValide = 0;
             etatCopie = copierEtatJeux(etatJeux);
-            //Penser à COPIER LES DES !!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            if(!etatValide){
-                //On lui donne ici normalement l'état copié
-                if(etatJeux.turn == WHITE) jW.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesw );
-                else jB.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesb );
-                //on vérifie que ce que veut faire le joueur est correct
-                if(!verifierCoup(etatJeux,dices,moves,nbMoves)){
-                    //coup foireux !
-                    if(etatJeux.turn == WHITE){
-                         triesw--;
-                         if(triesw==0) etatValide = 1;
-                    }
-                    else{
-                         triesb--;
-                         if(triesb==0) etatValide = 1;
-                    }
-                }else{
-                    //coup valide, on modifie la gameState (qui va appeler les fonctions graphiques) et on passe le tour
-                    modifierMap(etatJeux,moves,nbMoves,etatJeux.turn);
-                    etatValide = 1;
-                }
-            }//fin tour
+            /* if bizarre enlevé */
 
-			etatJeux.turn = !etatJeux.turn; //on change le tour
+            //if(etatJeux.turn == WHITE) jW.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesw );
+            //else jB.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesb );
 
+            joueur.PlayTurn( &etatCopie, dices, moves, &nbMoves, 0 );
 
+            //on vérifie que ce que veut faire le joueur est correct
+            
+            if( ! verifierCoup(etatJeux,dices,moves,nbMoves) ){
 
-		}//fin de la manche
+                //coup foireux !
+                tries[ etatJeux.turn ]--;
+                //if( tries[ etatJeux.turn ] == 0 ) etatValide = 1;
 
+            }
+            else {
+                //coup valide, on modifie la gameState (qui va appeler les fonctions graphiques) et on passe le tour
+                modifierMap(etatJeux,moves,nbMoves,etatJeux.turn);
+            }
+            
 
+            etatJeux.turn = (etatJeux.turn == WHITE) ? BLACK : WHITE;
 
-		joueur1.EndGame();
-		joueur2.EndGame();
-		printf("-> fin de la partie %i \n", i+1 );
-	}//fin du match
+            break;
+        }
 
-	joueur1.EndMatch();
-	joueur2.EndMatch();
-	printf("fin du match\n");
+        printf("(arbitre)-> fin de la partie %i \n", i+1 );
+        joueurBlanc.EndGame();
+        joueurNoir.EndGame();
+        
 
+    }
 
-
-
-	// model :
-	// j1StartMatch(5);
-	// 	//*****// à faire pour chaque jeu
-	// 	j1StartGame(BLACK);
-	// 		//*****// pour chaque joueur, tant que ce n'est pas fini
-	// 		if (j1DoubleStack(&gameState))
-	// 			j2TakeDouble(&gameState);
-	// 		j1PlayTurn(&gameState,dices,moves,&nbMoves,3);
-	// 	j1EndGame();
-
-	// j1EndMatch();
+    printf("(arbitre) fin du match\n");
+    joueurBlanc.EndMatch();
+    joueurNoir.EndMatch();
+    
 
 }
 
-int finPartie(SGameState etatJeux, int triesw, int triesb){
+int finPartie(SGameState etatJeux, unsigned int tries[2] ){
     //perte due aux fautes de jeu
-    if(!triesw){
+    if( ! tries[WHITE] ) {
         printf("joueur blanc perd par faute de jeu !");
         return 1;
     }
-    if(!triesb){
+    if( ! tries[BLACK] ) {
         printf("joueur noir perd par faute de jeu !");
         return 1;
     }
-    if(etatJeux.out[0] == 15){
+    if( etatJeux.out[0] == 15 ) {
         printf("joueur blanc à gagné !");
         return 1;
     }
-    if(etatJeux.out[1] == 15){
+    if( etatJeux.out[1] == 15 ) {
         printf("joueur noir à gagné !");
         return 1;
     }
@@ -379,6 +354,6 @@ void choperDestination(SGameState etatJeux,SMove move,int couleur_src){
 
 //calculer le maximum de coups possibles par un joueur
 int calculerMaxCoup(SGameState etatJeux ,unsigned char dices[2], SMove moves[4], int nbMoves){
-
+    return 0;
 }
 
