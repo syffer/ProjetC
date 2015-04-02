@@ -249,6 +249,11 @@ void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, ListeChain
 
 				}
 
+				/*
+					manque les caracteristiques de comparaisons du coup !!!!!!!!!!!!!!!!!!!!!!!!
+
+				*/
+
 				ajouterElementDebut( dices, valeurDe );
 				
 				printf("------\n");
