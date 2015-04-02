@@ -342,6 +342,7 @@ SDL_Rect positionnerPion(Plateau *plateau, Case *case_pos, int numCase){
     {
         pos.x = case_pos->posX;
         pos.y = case_pos->posY + nbPions * hauteurPion; // 87 = largeur du bandeau au dessus du plateau de jeu
+
     }
 
     return pos;
