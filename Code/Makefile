@@ -8,7 +8,7 @@ LINUX =%OS%
 
 
 # ensemble des exécutable à produire
-all:: backgammon libBotTricheur.so libBotSimplet.so libJoueur.so 
+all:: backgammon libBotTricheur.so libBotSimplet.so libBotLinx.so libJoueur.so 
 
 
 
@@ -23,20 +23,28 @@ botJoueur.o: botJoueur.c
 	gcc -c -fpic botJoueur.c
 
 
+# librairie linx
+libBotLinx.so: botLinx.o
+	gcc -shared -fpic botLinx.o -o libBotLinx.so
+	
+botLinx.o: botLinx.c fonctionsBot.c
+	gcc -fpic -c botLinx.c fonctionsBot.c
+
+
 # bot simplet
 libBotSimplet.so: botSimplet.o
 	gcc -shared botSimplet.o -o libBotSimplet.so 
 
-botSimplet.o: botSimplet.c ListeChainee.c
-	gcc -c -fpic botSimplet.c ListeChainee.c
+botSimplet.o: botSimplet.c ListeChainee.c fonctionsBot.c
+	gcc -c -fpic botSimplet.c ListeChainee.c fonctionsBot.c
 
 
 # bot tricheur
 libBotTricheur.so: botTricheur.o
 	gcc -shared botTricheur.o -o libBotTricheur.so 
 
-botTricheur.o: botTricheur.c 
-	gcc -c -fpic botTricheur.c
+botTricheur.o: botTricheur.c fonctionsBot.c
+	gcc -c -fpic botTricheur.c fonctionsBot.c
 
 
 
@@ -78,7 +86,7 @@ clean::
 # on recrée tout les exécutables
 # fait "le grand menage"
 # make mrproper
-mrproper:: 	
+mrpropre:: 	
 	# fichiers temporaires
 	rm -f *.i
 	rm -f *.s

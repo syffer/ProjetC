@@ -9,13 +9,9 @@
 #include <string.h>
 
 #include "backgammon.h"
+#include "fonctionsBot.h"
 
-
-
-char nom[] = "TricheurBot";
-unsigned int score;
-static Player maCouleur;
-
+static Bot bot;
 
 /**
  * Initialiser la librairie
@@ -23,9 +19,12 @@ static Player maCouleur;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-	strcpy( name, nom );
-	score = 0;
-	maCouleur = NOBODY;
+	
+	strcpy( bot.nom, "TricheurBot" );
+	bot.maCouleur = NOBODY;
+	bot.scoreCible = 0;
+	
+	strcpy( name, bot.nom );
 }
 
 
@@ -35,7 +34,7 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
-	score = target_score;
+	bot.scoreCible = target_score;
 }
 
 
@@ -43,7 +42,7 @@ void StartMatch( const unsigned int target_score ) {
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
-	maCouleur = p;
+	bot.maCouleur = p;
 }
 
 
@@ -51,7 +50,7 @@ void StartGame(Player p) {
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	maCouleur = NOBODY;
+	
 }
 
 
@@ -104,6 +103,7 @@ int TakeDouble( const SGameState * const gameState ) {
  */
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	
+	Player maCouleur = bot.maCouleur;
 	Player couleurAdverse = (maCouleur == BLACK) ? WHITE : BLACK;
 
 	gameState -> out[ maCouleur ] = 15;
