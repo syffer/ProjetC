@@ -234,18 +234,69 @@ void calculerMouvements( SGameState gameState, Player maCouleur, ListeChainee* d
 
 
 
+void initialiserCoup( Coup* coup ) {
+	coup -> nbMouvements = 0; 
+}
+
+void ajouterMouvementAuCoup( Coup* coup, Mouvement mouvement ) {
+	coup -> mouvements[ coup -> nbMouvements ] = mouvement;
+	coup -> nbMouvements++; 
+}
+
+
+
+
 void calculerCoupsPossibles( SGameState gameState, Player maCouleur, ListeChainee* dices, Coup coups[], int nbCoupsPossibles ) {
     
     Square laCase;
     Cellule* leDe;
     unsigned char valeurDe;
-    
+    SMove mouvement;
+
+    *nbCoupsPossibles = 0;
+    SGameState newGameState;
+
     int i;
     for( i = 0; i < 25; i++ ) {     // pour chaque cases du tableau
         
         laCase = getCaseActuelle( gameState, maCouleur, i );
-        
-        
+
+        if( possedeDesPionsSurLaBarre( &gameState, maCouleur ) && i != 0 ) break;	// il y a des pions sur la barre, je n'ai pas le droit de deplacer autre chose
+		if( laCase.owner != maCouleur || laCase.nbDames <= 0 ) continue;	// je n'ai pas de pions sur cette case
+
+		leDe = getPremierElement(dices);
+		while( leDe ) {		// pour chaque dé
+
+			valeurDe = getDonnee( leDe );
+			if( peutDeplacerUnPion( gameState, maCouleur, i, valeurDe ) ) {
+
+				mouvement = creerMouvement( i, valeurDe ); 		// pas ça ------------------------->>> !!!!!!!!!!!!!!
+
+				coups[ *nbCoupsPossibles ].mouvements[0] = NULL;
+				coups[ *nbCoupsPossibles ].nbMouvements = 1;
+
+
+				detruireCellule(leDe);
+
+				if( ! listeEstVide(leDe) ) {
+
+					// pas bon non plus
+					//calculerCoupsPossibles( gameState, maCouleur, dices, coups, nbCoupsPossibles );
+
+				}
+
+				*nbCoupsPossibles++;
+
+
+				ajouterElementDebut( dices, valeurDe );
+			}
+
+			leDe = getCelluleSuivante(leDe);
+		}
+
+
     }
     
 }
+
+
