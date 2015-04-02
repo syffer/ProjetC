@@ -1,25 +1,29 @@
 #include "graphique.h"
 #include "arbitre.h"
+#include <unistd.h>
+
+#define ICI printf("ICIIIIII\n");
+
 
 // Permet d'afficher la fenêtre de jeu
-int afficherJeu()
+int afficherJeu(SDL_Surface *tabafree[])
 {
 
     // Initialisation de la SDL
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
-        printf( "Impossible de démarrer la fenêtre SDL : %s\n", SDL_GetError() );
-        return 1;
+        perror( "Impossible de démarrer la fenêtre SDL : \n");
+        exit(1);
     }
     // make sure SDL cleans up before exit
     atexit(SDL_Quit);
 
     const SDL_VideoInfo *videoInfo = SDL_GetVideoInfo();
 
-    int maxW=videoInfo->current_w;
-    int maxH=videoInfo->current_h;
+    //int maxW=videoInfo->current_w;
+    //int maxH=videoInfo->current_h;
   // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_FULLSCREEN|SDL_DOUBLEBUF);
+    SDL_Surface* screen = SDL_SetVideoMode(1300, 800, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
     SDL_Surface* de1;
     SDL_Surface* de2;
 
@@ -27,7 +31,7 @@ int afficherJeu()
     char* pathCompletDe2 = "./Images/Des/de1.bmp";
     SDL_Event event;
 
-    Pion tabPions[30]; // tableau de pions des joueurs
+    Pion* tabPions = malloc(sizeof(Pion)*30); // tableau de pions des joueurs
 
     unsigned char dices[2];
 
@@ -61,8 +65,8 @@ int afficherJeu()
     //initialisation des dés
     de1 = SDL_LoadBMP(pathCompletDe1);
     de2 = SDL_LoadBMP(pathCompletDe2);
-
     int i;
+
     for(i = 0; i< 30; i++)
     {
         creerPion(tabPions, i, 10*i, 50, "./Images/noir.bmp");
@@ -74,8 +78,9 @@ int afficherJeu()
         printf("Impossible de charger l'image : %s", SDL_GetError());
         return 1;
     }
-    positionnerDes(&posDe1, &posDe2);
 
+    positionnerDes(&posDe1, &posDe2);
+/*
     // program main loop
     int done = 0;
     while (done != 1)
@@ -125,6 +130,7 @@ int afficherJeu()
                 break;
 
         }
+
         // Début de la partie pour redessiner les éléments
         // réinitialisation de l'écran
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
@@ -144,11 +150,27 @@ int afficherJeu()
         // On met à jour l'écran
         SDL_Flip(screen);
     } // end main loop
+    */
+    // réinitialisation de l'écran
+    SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
+    // on applique l'image de fond
+    SDL_BlitSurface(plateau, 0, screen, &dstrect);
+    // on applique l'image des dés
+    SDL_BlitSurface(de1, 0, screen, &posDe1);
+    SDL_BlitSurface(de2, 0, screen, &posDe2);
+    for(i = 0; i < 30; i++)
+    {
+        SDL_BlitSurface(tabPions[i].imagePion, 0, screen, tabPions[i].posPion);
+    }
+    // On met à jour l'écran
+    SDL_Flip(screen);
+
 
     // libération des surfaces
-    SDL_FreeSurface(plateau);
-    SDL_FreeSurface(de1);
-    SDL_FreeSurface(de2);
+    tabafree[0] = plateau;
+    tabafree[1] = de1;
+    tabafree[2] = de2;
+
 
     for(i = 0; i < 30; i++)
         {
@@ -192,14 +214,13 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
 }
 
 void creerPion(Pion pions[30], int positionPion, int posX, int posY, char* image){
-
     Pion pion;
-    SDL_Rect* posPion;
+    SDL_Rect posPion;
 
-    posPion -> x = posX;
-    posPion -> y = posY;
+    posPion.x = posX;
+    posPion.y = posY;
 
-    pion.posPion = posPion;
+    pion.posPion = &posPion;
 
     SDL_Surface* imagePion = SDL_LoadBMP(image);
     pion.imagePion = imagePion;
@@ -208,10 +229,32 @@ void creerPion(Pion pions[30], int positionPion, int posX, int posY, char* image
 
 }
 
-positionnerPion(Pion *pion, SDL_Rect *pos){
+void positionnerPion(Pion *pion, SDL_Rect *pos){
 
     pion -> posPion = pos;
 
 }
 
+void actualiserDes(unsigned char dices[2]){
+    // on actualise le chemin de l'image des dés
+    /*
+    pathCompletDe1 = retournerPathDe(dices[0]);
+    pathCompletDe2 = retournerPathDe(dices[1]);
+
+    de1 = SDL_LoadBMP(pathCompletDe1);
+    de2 = SDL_LoadBMP(pathCompletDe2);
+    */
+}
+
+void remplirCaseX(Square* laCase, Player couleurJoueur, int nbDames){
+
+}
+
+void afficherDeplacement(SMove move){
+
+}
+
+void afficherDeplacementX(SMove move){
+
+}
 

@@ -3,14 +3,16 @@
 #include "joueur.h"
 #include "arbitre.h"
 #include "graphique.h"
+#define ICI printf("ICIIIIII\n");
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include <string.h>		// a virer apres
 
 int main( int argc, char* argv[] ) {
-
+    int i;
 	/*
 	*	vérification des paramètres entrés par l'utilisateur
 	*/
@@ -56,9 +58,16 @@ int main( int argc, char* argv[] ) {
 	Joueur joueur1 = chargerJoueur( librairie_1 );
 	Joueur joueur2 = chargerJoueur( librairie_2 );
 
+    SDL_Surface *tabafree[3];
+    afficherJeu(tabafree); // affichage de la fenêtre de jeu et de la partie grapique
+    //Jouer les parties
+    jouerPartie( nbParties, joueur1, joueur2 );
 
-    afficherJeu(); // affichage de la fenêtre de jeu et de la partie grapique
-	jouerPartie( nbParties, joueur1, joueur2 );
+    for(i=0;i<3;i++){
+        SDL_FreeSurface(tabafree[i]);
+    }
+
+
 
 
 	/*
@@ -79,4 +88,3 @@ int main( int argc, char* argv[] ) {
 
 	return 0;
 }
-

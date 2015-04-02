@@ -17,10 +17,16 @@
     #define NB_CASES_LARGEUR 12 // 12 cases de largeur
 
 #endif // DEF_CONSTANTES
-int afficherJeu();
+
+/*
+* Démarrer la SDL, charger l'écran et le plateau
+*/
+int afficherJeu(SDL_Surface *tabafree[]);
+
+
 char* retournerPathDe(char dice);
 void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
-void remplirCaseX(/*LA STRUCTURE MAGIQUE*/);
+
 
 typedef struct{
 
@@ -31,5 +37,13 @@ typedef struct{
 
 void creerPion(Pion pions[30], int positionPion, int posX, int posY, char* image);
 void positionnerPion(Pion *pion, SDL_Rect *pos);
+
+//A implémenter
+void remplirCaseX(Square* laCase, Player couleurJoueur, int nbDames); //remplir la case de N pions de couleur donnée en param
+void afficherTitre(); //affiche un titre sur le plateau annonçant le tour du joueur ou le début de la partie
+void actualiserDes(unsigned char dices[2]);
+void afficherDeplacementX(SMove move);
+
+
 
 #endif
