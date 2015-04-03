@@ -8,7 +8,7 @@ LINUX =%OS%
 
 
 # ensemble des exécutable à produire
-all:: backgammon libBotTricheur.so libBotSimplet.so libBotLinx.so libJoueur.so 
+all:: backgammon libBotTricheur.so libBotSimplet.so libBotLinx.so libJoueur.so libBotRandom.so libBotAntiJeu.so
 
 
 
@@ -45,8 +45,22 @@ libBotTricheur.so: botTricheur.o fonctionsBot.o ListeChainee.o
 
 botTricheur.o: botTricheur.c
 	gcc -fpic -c botTricheur.c 
+	
+# bot random
+libBotRandom.so: botRandom.o fonctionsBot.o ListeChainee.o
+	gcc -shared botRandom.o fonctionsBot.o ListeChainee.o -o libBotRandom.so 
 
+botRandom.o: botRandom.c
+	gcc -fpic -c botRandom.c 
 
+# bot anti jeu
+libBotAntiJeu.so: botAntiJeu.o fonctionsBot.o ListeChainee.o
+	gcc -shared botAntiJeu.o fonctionsBot.o ListeChainee.o -o libBotAntiJeu.so 
+
+botAntiJeu.o: botAntiJeu.c
+	gcc -fpic -c botAntiJeu.c 
+	
+	
 
 fonctionsBot.o: fonctionsBot.c
 	gcc -fpic -c fonctionsBot.c 

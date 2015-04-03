@@ -5,6 +5,7 @@
  
 #include "fonctionsBot.h"
 #include <stdio.h>
+#include <time.h>
 
 
 
@@ -462,3 +463,54 @@ int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_comprai
 	return 0;
 }
 
+/**
+ * Fonction permettant de générer un nombre aléatoire compris dans les bornes
+ * @param min : la valeur minimum de l'intervalle
+ * @param max : la valeur maximale de l'intervalle
+ * @return : l'entier généré
+ * */
+int random_bot(int min,int max)
+{
+	int valeur_generee;
+	srand(time(NULL));
+	valeur_generee= (rand()%(max-min))+min;
+	return valeur_generee;
+}
+
+/**
+ * Fonction  
+ * @param :
+ * @return : 
+ * */
+int calculeCout( SGameState* gameState ) {
+
+	Player maCouleur = gameState -> turn;
+
+	int totalePoints = 0;
+
+	int i;
+	for( i = 0; i < 24; i++ ) {
+
+		if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints+3;
+		else if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 0 ) totalePoints+2;
+		else if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints+2;
+		else if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames > 1 ) totalePoints++;
+	}
+
+	return totalePoints;
+}
+
+/**
+ * Fonction sélectionnant le meilleur coup entre deux
+ * @param c1 : le premier coup
+ * @param c2 : le deuxième coup
+ * @return : un entier (booleen)
+ * */
+int comparerDeuxCoups( Coup c1, Coup c2 ) {
+
+	int nbPointsC1 = calculeCout( &c1.gameState );
+	int nbPointsC2 = calculeCout( &c2.gameState );
+
+	return nbPointsC1 > nbPointsC2;
+
+}

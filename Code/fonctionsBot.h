@@ -57,5 +57,9 @@ typedef int (fonctionComparaisonCoups)(Coup c1, Coup c2);
 int maximiserPoints( Coup c1, Coup c2 );
 int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, Coup* coupMaximum ) ;
 
+int random_bot(int min,int max);
+int calculerCout( SGameState* gameState );
+int comparerDeuxCoups( Coup c1, Coup c2 );
+
 
 #endif

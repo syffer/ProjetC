@@ -23,4 +23,40 @@ Evaluation
     réaliser un readme && une documentation
     
     rapport & oral ???
-        
+    
+    
+- un Readme indiquant vos principales stratégies ou les particularités de votre code
+
+- le code en lui-même, dans lequel je peux facilement repérer ce qui est de l’ordre de la GUI, de l’IA, et commun (par exemple dans des sous-rep distincts). Ce code doit être compilable directement via un Makefile et dans ce dernier, vous devez prévoir une entrée spécifique de compilation pour la GUI et une pour l’IA ; l’entrée all appelant les 2 entrées.
+
+- Le code doit être compilable sur les machines de TP (C002 ou C003) sur lesquelles ont été installées les librairies suivantes :
+
+                * libsdl2-dev
+
+                * libsdl2-image-dev
+
+                * libsdl2-mixer-dev
+
+                * libsdl2-net-dev
+
+                * libsdl2-ttf-dev
+
+                * libsdl2-gfx-dev
+
+                * libsdl1.2-dev
+
+                * libsdl-gfx1.2-dev
+
+                * libsdl-image1.2-dev
+
+                * libsdl-mixer1.2-dev
+
+                * libsdl-net1.2-dev
+
+                * libsdl-sound1.2-dev
+
+                * libsdl-ttf2.0-dev
+
+ 
+
+Si ces 3 conditions ne sont pas respectées, vous ne serez notés que sur 1/3 des points…
