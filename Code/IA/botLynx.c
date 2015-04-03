@@ -108,7 +108,7 @@ int TakeDouble( const SGameState * const gameState ) {
  *	nombre d'essais restants (3 initialement).
  */
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	// on a enlever les 'const' de 'dameState' pour pouvoir le manipuler
+	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
 
 	*nbMove = 0;
 
@@ -124,7 +124,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	// on en choisi un parmit tout les coups possible, selon un certain critère
 	Coup meilleurCoup;
-	getCoupMaximum( coups, maximiserPoints, &meilleurCoup );
+	getCoupMaximum( coups, comparerDeuxCoups, &meilleurCoup );
 
 
 	// on plase les mouvements du coup dans le tableaux envoyé à l'arbitre

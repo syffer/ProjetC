@@ -104,6 +104,7 @@ int TakeDouble( const SGameState * const gameState ) {
  *	nombre d'essais restants (3 initialement).
  */
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
+	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
 	
 	Player maCouleur = bot.maCouleur;
 	Player couleurAdverse = (maCouleur == BLACK) ? WHITE : BLACK;

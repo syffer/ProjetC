@@ -6,8 +6,10 @@
 #include "fonctionsBot.h"
 
 #include <stdio.h>
-#include <time.h>
 
+
+#include <time.h>
+#include <stdlib.h>
 
 
 // duplique les dés si nécéssaire, si l'on a deux dés identiques au départ, on doit avoir 4 dés à l'arrivée
@@ -434,9 +436,9 @@ int calculerCout( SGameState* gameState ) {
 	int i;
 	for( i = 0; i < 24; i++ ) {
 
-		if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints+3;
-		else if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 0 ) totalePoints+2;
-		else if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints+2;
+		if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints += 3;
+		else if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 0 ) totalePoints += 2;
+		else if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints += 2;
 		else if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames > 1 ) totalePoints++;
 	}
 
@@ -450,16 +452,16 @@ int calculerCout( SGameState* gameState ) {
  * @param c2 : le deuxième coup
  * @return : un entier (booleen)
  * */
-int comparerDeuxCoups( int fonction ( SGameState* gameState ), Coup c1, Coup c2 ) {
+int comparerDeuxCoups( Coup c1, Coup c2 ) {
 
-	int nbPointsC1 = fonction( &c1.gameState );
-	int nbPointsC2 = fonction( &c2.gameState );
+	int nbPointsC1 = getNbPointsPrit( &c1.gameState );
+	int nbPointsC2 = getNbPointsPrit( &c2.gameState );
 
 	return nbPointsC1 > nbPointsC2;
 
 }
 
-int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, int fonctionCalculCout ( SGameState* gameState ), Coup* coupMaximum ) {
+int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, Coup* coupMaximum ) {
 
 	int nbCoups = getNbElements(listeCoups);
 	if( nbCoups == 0 ) {
@@ -478,7 +480,7 @@ int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_comprai
 		cellule = getCelluleSuivante(cellule);
 		coup = getDonnee(cellule);
 
-		if( f_compraison(fonctionCalculCout, coup, coupMax) ) coupMax = coup; 
+		if( f_compraison(coup, coupMax) ) coupMax = coup; 
 
 	}
 

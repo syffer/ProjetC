@@ -109,41 +109,64 @@ int TakeDouble( const SGameState * const gameState ) {
  *	nombre d'essais restants (3 initialement).
  */
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	// on a enlever les 'const' de 'dameState' pour pouvoir le manipuler
+	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
 
 	*nbMove = 0;
 	
 	Player maCouleur = bot.maCouleur;
 	printf(" je suis %i \n", maCouleur );
 
+
 	unsigned char lesDes[4];
 	getDices( dices, lesDes );
 
-	ListeChainee* coups = creerListeChainee();
-	Cellule* cellule = getPremierElement(coups);
-	Coup coup_aleatoire;
 
+	ListeChainee* coups = creerListeChainee();
 	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
+
+
+	Cellule* cellule = getPremierElement(coups);
+	Coup coupAleatoire;
+
+	
 	
 	int aleatoire = random_bot(0,getNbElements(coups));
 	
+
+
 	printf("YOLO %i // %i\n",aleatoire,getNbElements(coups));
 	
-	while( aleatoire>0) 
-	{
+
+	while( cellule ) {
+
+		if( aleatoire == 0 ) {
+			coupAleatoire = getDonnee(cellule);
+			break;
+		}
+
 		cellule = getCelluleSuivante(cellule);
 		aleatoire--;
 	}
-	coup_aleatoire = getDonnee(cellule);
-	
-	*nbMove = coup_aleatoire.nbMouvements;
 
-	int i;
-	for( i = 0; i < *nbMove; i++ ) {
-		moves[i] = coup_aleatoire.mouvements[i];
+	// il n'y a pas eu d'erreur lors de la récupération du coup aléatoirement
+	if( cellule ) {		// si on a parcourut toute la liste et que le nombre aléatoire n'a jamais été égale à 0 ==> problématique 
+
+
+		*nbMove = coupAleatoire.nbMouvements;
+
+		int i;
+		for( i = 0; i < *nbMove; i++ ) {
+			moves[i] = coupAleatoire.mouvements[i];
+		}
+
+		afficherCoup(coupAleatoire);
+
+
 	}
+	else printf("WTF\n");
 
-	afficherCoup(coup_aleatoire);
+
+	
 	
 	printf("___fin___\n");
 }
