@@ -113,85 +113,47 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	Player maCouleur = bot.maCouleur;
 
-	// // on est obligé d'utiliser tout les dés SAUF lorsque ce n'est pas possible....
-	// ListeChainee* mesDes = getDices( dices ); 	// mes dés
-	
-	// printf("INCICICIC\n");
-	
-	// Cellule* dice;	// variable utilisée pour parcourir la liste des dés.
-	// Cellule* tmp;
-	// SMove mouv;
-
-	// // on est obligé de remettre en jeu TOUS nos pions
-	// if( possedeDesPionsSurLaBarre(gameState,maCouleur) ) {
-
-	// 	printf(" -> je dois rerentrer les pions sortis du plateau...\n");
-
-	// 	dice = getPremierElement(mesDes);
-	// 	while( gameState -> bar[maCouleur] ) {
-
-	// 		if( !dice ) break;
-
-	// 		if( peutDeplacerUnPion( gameState, maCouleur, 0, getDonnee(dice) ) ) {
-				
-	// 			moves[ *nbMove ] = creerMouvementJoueur( maCouleur, 0, getDonnee(dice) );
-	// 			deplacerUnPion( *gameState, maCouleur, moves[*nbMove], gameState );
-	// 			*nbMove++;
-
-	// 			dice = getCelluleSuivante(dice);
-	// 			detruireCellule( mesDes, getCellulePrecedente(dice) );
-	// 		}
-	// 		else dice = getCelluleSuivante(dice);
-	// 	}
-
-	// }
+	// on est obligé d'utiliser tout les dés SAUF lorsque ce n'est pas possible....
+	unsigned char mesDes[4];
+	getDices( dices, mesDes );
+	SMove mouvement;
 
 
+	// si je n'ai pas utilisé tout mes dés, et qu'il n'y a plus rien en dehors du plateau
 
-	
-	// regarder si, avec les dés, on peut :
-	// - prendre un pion adverse
-	// - prendre un point (au moins deux pions sur le même triangle)
-	// (- créer une ancre ?)
-	
+	int i, j;
+	int position;
+
+	for( i = 0; i < 25; i++ ) {
+
+		if( possedeDesPionsSurLaBarre(gameState,maCouleur) && i != 0 ) break;
+
+		if( maCouleur == WHITE || i == 0 ) position = i; 	// je suis le WHITE, ou je suis sur la barre
+		else position = 24 - i;
 
 
-	// // si j'ai utilisé tout mes dés, ou qu'il y a encore des pions sur la barre (alors que j'ai utilisé tout les dés)
-	// if( listeEstVide(mesDes) || possedeDesPionsSurLaBarre(gameState,maCouleur) ) return;
-
-
-	// // si je n'ai pas utilisé tout mes dés, et qu'il n'y a plus rien en dehors du plateau
-
-	// int i;
-	// int position;
-
-	// for( i = 1; i < 25; i++ ) {
-
-	// 	if( listeEstVide(mesDes) ) break;
-
-	// 	dice = getPremierElement(mesDes);
-	// 	while( dice ) {
+		for( j = 0; j < 4; j++ ) {
 		
-	// 		position = (maCouleur == WHITE) ? i : 25 - i;
+			if( peutDeplacerUnPion(gameState, maCouleur, position, mesDes[j] ) ) {
 
-	// 		if( peutDeplacerUnPion(gameState, maCouleur, position, getDonnee(dice) ) ) {
-
-	// 			printf(" -> je bouge un pion de la case %i de %i cases \n", position, getDonnee(dice) );
-
-	// 			moves[ *nbMove ] = creerMouvementJoueur( maCouleur, 0, getDonnee(dice) );
-	// 			deplacerUnPion( *gameState, maCouleur, moves[*nbMove], gameState );
-	// 			*nbMove++;
-
-	// 			tmp = dice;
-	// 			dice = getCelluleSuivante(dice);
-	// 			detruireCellule( mesDes, tmp );
-
-	// 		}
-	// 		else dice = getCelluleSuivante(dice);
-	// 	}
+				printf(" -> je bouge un pion de la case %i de %i cases \n", position, mesDes[j] );
 
 
-	// }
+				initialiserMouvement( &mouvement, maCouleur, position, mesDes[j] );
+
+				moves[ *nbMove ] = mouvement;
+				*nbMove++;
+
+				deplacerUnPion( gameState, maCouleur, mouvement );
+				
+				mesDes[j] = 0;
+
+			}
+
+		}
+
+
+	}
 
 
 
