@@ -17,7 +17,7 @@ int main( int argc, char* argv[] ) {
 
 	if( argc <= 1 ) {
 		printf(" Erreur, il manque les parametres : \n");
-		printf(" 	%s <nbParties> <chemin librairie 1> <chemin librairie 2> \n", argv[0] );
+		printf(" 	%s <nbPoints> <chemin librairie 1> <chemin librairie 2> \n", argv[0] );
 		exit( EXIT_FAILURE );
 	}
 
@@ -31,9 +31,9 @@ int main( int argc, char* argv[] ) {
 	if( argc >= 4 ) cheminLibrairie_2 = argv[3];
 
 	// on récupère le nombre de parties à jouer
-	int nbParties;
-	if( stringToPositiveInteger(argv[1],&nbParties) ) {
-		printf(" Erreur, le parametre representant le nombre de parties n'est pas valide. \n");
+	int nbPoints;
+	if( stringToPositiveInteger(argv[1],&nbPoints) ) {
+		printf(" Erreur, le parametre representant le nombre de points n'est pas valide. \n");
 		printf(" Ce parametre doit etre un entier positif. \n");
 		exit( EXIT_FAILURE );
 	}
@@ -58,7 +58,7 @@ int main( int argc, char* argv[] ) {
 
 
     //afficherPlateau(); // affichage de la fenêtre de jeu et de la partie grapique
-	jouerPartie( nbParties, joueur1, joueur2 );
+	jouerPartie( nbPoints, joueur1, joueur2 );
 
 
 	/*

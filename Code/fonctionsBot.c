@@ -4,27 +4,27 @@
  * */
  
 #include "fonctionsBot.h"
+#include <stdio.h>
 
 
 
-// rend les dés sous forme d'une liste chainée
-ListeChainee* getDices( const unsigned char dices[2] ) {
-
-	ListeChainee* liste = creerListeChainee();
+// duplique les dés si nécéssaire, si l'on a deux dés identiques au départ, on doit avoir 4 dés à l'arrivée
+// on place la valeur 0 pour un dé qui n'existe pas
+void getDices( const unsigned char dices[2], unsigned char newDices[4] ) {
 
 	// on a fait un double (exemple : 1-1 , 2-2 , ... 6-6 )
 	if( dices[0] == dices[1] ) {
+
 		int i;
-		for( i = 0; i < 4; i++ ) ajouterElementFin( liste, dices[0] );
+		for( i = 0; i < 4; i++ ) newDices[i] = dices[0];
 	}
 	else {
-		ajouterElementFin( liste, dices[0] );
-		ajouterElementFin( liste, dices[1] );
+		newDices[0] = dices[0];
+		newDices[1] = dices[1];
+		newDices[2] = newDices[3] = 0;
 	}
 
-	return liste;
 }
-
 
 
 
@@ -39,15 +39,16 @@ Square getCaseReelle( SGameState* gameState, Player maCouleur, int i ) {
 	
 	Square laCase;
 	
-	if( i != 0 ) laCase = gameState -> board[ i - 1 ]; 		// cas particulier : la barre est représentée par 0
-	else if( i == 25 ) {
+	if( i == 0 ){								// 0 représente la barre
+		laCase.owner = maCouleur;
+		laCase.nbDames = gameState -> bar[ maCouleur ];
+	} 	
+	else if( i == 25 ) {						// 25 représente la sortie (out)
 		laCase.owner = maCouleur;
 		laCase.nbDames = gameState -> out[ maCouleur ];
 	}
-	else {		
-		laCase.owner = maCouleur;
-		laCase.nbDames = gameState -> bar[ maCouleur ];
-	}
+	else laCase = gameState -> board[ i - 1 ]; 	// sinon la case est sur le plateau 
+
 	
 	return laCase;
 }
@@ -69,23 +70,21 @@ int possedeDesPionsSurLaBarre( SGameState* gameState, Player maCouleur ) {
 int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int nbCases ) {
 
 	if( depart < 0 || depart > 24 ) return 0;		// deplacement impossible, depassement de borne
-	if( nbCases < 0 ) return 0;
+	if( nbCases <= 0 ) return 0;
+
+	SMove mouvement;
+	initialiserMouvement( &mouvement, maCouleur, depart, nbCases );
+	int arrivee = mouvement.dest_point;
 
 	Square caseDepart = getCaseReelle( gameState, maCouleur, depart );
+	Square caseArrivee = getCaseReelle( gameState, maCouleur, arrivee );
 
+	// verification de la case de départ
 	if( caseDepart.nbDames <= 0 ) return 0;			// pas de pions à déplacer sur la case de départ
 	if( caseDepart.owner != maCouleur ) return 0;	// les pions ne sont pas à moi
 
-	// le noir se déplace dans le sens normal, le blanc dans le sens inverse
-	int arrivee;
-	if( maCouleur == BLACK ) arrivee = depart + nbCases;
-	else if( depart == 0 ) arrivee = 25 - nbCases;		// je suis le WHITE
-	else arrivee = depart - nbCases;
-	
-	if( arrivee > 25 || arrivee < 0 ) arrivee = 25;
 
-	Square caseArrivee = getCaseReelle( gameState, maCouleur, arrivee );
-	
+	// verification de la case d'arrivee
 	if( caseArrivee.owner != maCouleur && caseArrivee.nbDames > 1 ) return 0;	// il y a plus d'un pion adverse sur la case d'arrivee
 	
 	if( arrivee == 25 ) {	// si on veut sortir nos pions
@@ -94,7 +93,7 @@ int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int
 
 		int i;
 		Square laCase;
-		int i_depart = (maCouleur == BLACK) ? 0 : 6;
+		int i_depart = (maCouleur == WHITE) ? 0 : 6;
 		for( i = i_depart; i < i_depart + 18; i++ ) {
 			laCase = gameState -> board[i];
 			if( laCase.owner == maCouleur && laCase.nbDames > 0 ) return 0;		// j'ai encore des pions hors du jar interieur adverse
@@ -106,220 +105,360 @@ int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int
 }
 
 
+/*
+void afficherPeutDeplacer( SGameState* gameState ) {
+
+	printf(" je suis WHITE\n" );
+	int i, j;
+	for( i = 0; i < 25; i++ ) {
+
+		printf(" case %i : ", i );
+		for( j = 1; j <= 6; j++ ) {
+
+			if( peutDeplacerUnPion(gameState, WHITE, i, j) ) printf( " %i", j );
+			else printf( "  " );
+
+		}
+		printf("\n");
+		
+	}
+
+
+	printf("\n je suis BLACK\n" );
+	for( i = 0; i < 25; i++ ) {
+
+		printf(" case %i : ", i );
+		for( j = 1; j <= 6; j++ ) {
+
+			if( peutDeplacerUnPion(gameState, BLACK, i, j) ) printf( " %i", j );
+			else printf( "  " );
+
+		}
+		printf("\n");
+		
+	}
+
+}
+*/
 
 
 
-/* déplace un pion sur le plateau du jeu, retourne le nouvel état du jeu.
+/* déplace un pion sur le plateau du jeu
 *
 * Attention : ne vérifie pas si l'on peut déplacer le pion, il faut pour cela appeler une autre fonction AVANT celle ci
 *
 */
-SGameState deplacerUnPion( SGameState gameState, Player maCouleur, SMove mouvement ) {
+void deplacerUnPion( SGameState* gameState, Player maCouleur, SMove mouvement ) {
 
 	int depart = mouvement.src_point;
 	int arrivee = mouvement.dest_point;
 
-	// on bouge le pion du plateau
-	gameState.board[depart].nbDames--;
-	if( ! gameState.board[depart].nbDames ) { 	// == 0
-		gameState.board[depart].owner = NOBODY;
+	if( depart == 0 ) {
+		gameState -> bar[ maCouleur ]--;
+	}
+	else {
+
+		gameState -> board[ depart - 1 ].nbDames--;
+		if( ! gameState -> board[ depart - 1 ].nbDames ) { 	// == 0
+			gameState -> board[ depart - 1 ].owner = NOBODY;
+		}
+
 	}
 
-	// on ne vérifie pas si il y a un adversaire ici	
-	gameState.board[arrivee].nbDames++;
-	gameState.board[arrivee].owner = maCouleur;
 
-	return gameState;
+
+	if( arrivee == 25 ) {
+		gameState -> out[maCouleur]++;
+	}
+	else {
+		// on ne vérifie pas si il y a un adversaire ici	
+		gameState -> board[ arrivee - 1 ].nbDames++;
+		gameState -> board[ arrivee - 1 ].owner = maCouleur;
+	}
+
 }
 
 
 
 
 
-
-
-/*	crée un nouveau mouvement du point 'depart' au point 'arrivee'
-*	
-*	0 <= depart, arriveee <= 25
-*/
-SMove creerMouvement( int depart, int arrivee ) {
-
-	SMove mouvement;
-	mouvement.src_point = depart;
-	mouvement.dest_point = arrivee;
-
-	return mouvement;
-}
-
-
-/*
-*	Crée un mouvement en fonction :
-*		- de la couleur du joueur (pour le sens de déplacement)
-*		- de la case de départ
-*		- du nombre de cases à parcourir lors du déplacement
-*
-* précondition : 	0 <= depart <= 25
-*					nbCases > 0
-*/
-SMove creerMouvementJoueur( Player maCouleur, int depart, int nbCases ) {
+void initialiserMouvement( SMove* mouvement, Player maCouleur, int depart, int nbCases ) {
 
 	int arrivee;
-	if( maCouleur == BLACK ) arrivee = depart + nbCases;
-	else if( depart == 0 ) arrivee = 25 - nbCases;		// je suis le WHITE
+	if( maCouleur == WHITE ) arrivee = depart + nbCases;
+	else if( depart == 0 ) arrivee = 25 - nbCases;		// je suis le BLACK
 	else arrivee = depart - nbCases;
 
-	return creerMouvement( depart, arrivee );
+	if( arrivee > 25 || arrivee <= 0 ) arrivee = 25;	
+
+	mouvement -> src_point = depart;
+	mouvement -> dest_point = arrivee;
 }
 
 
 
 
-// initialise un coup vide (pas de mouvements)
-void initialiserCoup( Coup* coup ) {
-	coup -> nbMouvements = 0; 
+
+
+
+void afficherGameState( SGameState gameState ) {
+	printf("\n");
+	char* nom;
+	int i;
+	for( i = 0; i < 24; i++ ) {
+
+		if( gameState.board[i].owner == BLACK ) nom = "BLACK";
+		else if( gameState.board[i].owner == WHITE  ) nom = "WHITE";
+		else nom = "NOBODY";
+
+		printf( "   case %i nbDames %i %s \n", i+1, gameState.board[i].nbDames, nom );
+	}
+	printf("\n");
 }
+
+
+
+
+
+
+
+
+void initialiserCoup( Coup* coup, SGameState gameState, unsigned char dices[4] ) {
+	
+	coup -> nbMouvements = 0;
+	
+	coup -> gameState = gameState;
+	
+	int i;
+	for( i = 0; i < 4; i++ ) {
+		coup -> dices[i] = dices[i];
+	}
+
+}
+
 
 void ajouterMouvementAuCoup( Coup* coup, SMove mouvement ) {
-	coup -> mouvements[ coup -> nbMouvements ] = mouvement;
-	coup -> nbMouvements++; 
-}
 
-void ajouterMouvementAuCoupDevant( Coup* coup, SMove mouvement ) {
-	int i;
-	for( i = 0; i < coup -> nbMouvements - 1; i++ ) {
-		coup -> mouvements[i+1] = coup -> mouvements[i];
-	}
-	coup -> mouvements[0] = mouvement;
+	coup -> mouvements[ coup -> nbMouvements ] = mouvement;
 	coup -> nbMouvements++;
 }
 
 
 
-void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, ListeChainee* dices, Coup coups[], int* nbCoupsPossibles ) {
-	
-	Square laCase;
-	Cellule* leDe;
-	unsigned char valeurDe;
-
-	Coup* coup;
-	Coup coupsSuivants[ 15*15*15*15 ];
-	int nbCoupsSuivants = 0;
+void afficherCoup( Coup coup ) {
 	SMove mouvement;
-	SGameState newGameState;
+	int i;
+	printf(" nbMouvements : %i \n", coup.nbMouvements);
+	for( i = 0; i < coup.nbMouvements; i++ ) {
+		mouvement = coup.mouvements[i];
+		printf(" mouvement %i : de %i a %i \n", i, mouvement.src_point, mouvement.dest_point );
+	}
+}
+
+void afficherCoups( ListeChainee* listeCoups ) {
+
+	int i;
+
+	Coup coup;
+	Cellule* cellule = getPremierElement(listeCoups);
+
+	while( cellule ) {
+
+		printf("-------- COUP \n");
+
+		coup = getDonnee(cellule);
+
+		afficherCoup(coup);
+
+		cellule = getCelluleSuivante(cellule);
+	}
+
+}
 
 
-	*nbCoupsPossibles = 0;
 
-	int i, j;
-	for( i = 0; i < 25; i++ ) {	 // pour chaque cases du tableau
-		
-		laCase = getCaseReelle( gameState, maCouleur, i );
 
-		if( possedeDesPionsSurLaBarre( gameState, maCouleur ) && i != 0 ) break;	// il y a des pions sur la barre, je n'ai pas le droit de deplacer autre chose
-		if( laCase.owner != maCouleur || laCase.nbDames <= 0 ) continue;	// je n'ai pas de pions sur cette case
 
-		leDe = getPremierElement(dices);
-		while( leDe ) {		// pour chaque dé
+void calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups ) {
 
-			valeurDe = getDonnee( leDe );
-			if( peutDeplacerUnPion( gameState, maCouleur, i, valeurDe ) ) {
+	Square laCase;
+	
+	Coup coup;
+	Coup nouveauCoup;
+	SGameState* gameState;
+	SMove mouvement;
 
-				mouvement = creerMouvementJoueur( maCouleur, i, valeurDe );
-				newGameState = deplacerUnPion( *gameState, maCouleur, mouvement );
+	int ancienCoupObsolete = 0;
 
-				nbCoupsSuivants = 0;
-				detruireCellule( dices, leDe );
-				
-				if( listeEstVide(dices) ) {
+	int i, j;	// pour parcourir les cases et les dés
+	int h = 1;
 
-					coup = &coups[ *nbCoupsPossibles ];
-					initialiserCoup( coup );
-					ajouterMouvementAuCoup( coup, mouvement );
-					*nbCoupsPossibles++;
+	Cellule* celluleAsupprimer;
+	Cellule* cellule = getPremierElement(listeCoups);
+	while( cellule ) {
+
+
+		coup = getDonnee(cellule);
+		gameState = &(coup.gameState);
+
+		for( i = 0; i < 25; i++ ) {		// pour chaque case
+
+
+			if( possedeDesPionsSurLaBarre( gameState, maCouleur ) && i != 0 ) break;	// il y a des pions sur la barre, je n'ai pas le droit de deplacer autre chose
+
+			laCase = getCaseReelle( gameState, maCouleur, i );
+			if( laCase.owner != maCouleur || laCase.nbDames <= 0 ) continue;	// je n'ai pas de pions sur cette case
+
+
+			for( j = 0; j < 4; j++ ) {		// pour chaque dé
+
+				if( peutDeplacerUnPion( gameState, maCouleur, i, coup.dices[j] ) ) {
+
+					initialiserMouvement( &mouvement, maCouleur, i, coup.dices[j] );
+					nouveauCoup = coup;
+
+					ajouterMouvementAuCoup( &nouveauCoup, mouvement );
+					deplacerUnPion( &(nouveauCoup.gameState), maCouleur, mouvement );
+					nouveauCoup.dices[j] = 0;
+
+					ajouterElementFin( listeCoups, nouveauCoup );
+
+					ancienCoupObsolete = 1;
 				}
-				else {
 
-					calculerCoupsPossibles( &newGameState, maCouleur, dices, coupsSuivants, &nbCoupsSuivants );
 
-					for( j = 0; j < nbCoupsSuivants; j++ ) {
-						ajouterMouvementAuCoupDevant( &coupsSuivants[j], mouvement );
-						coups[ *nbCoupsPossibles ] = coupsSuivants[j];
-						*nbCoupsPossibles++;
-					}
-
-				}
-
-				/*
-					manque les caracteristiques de comparaisons du coup !!!!!!!!!!!!!!!!!!!!!!!!
-
-				*/
-
-				ajouterElementDebut( dices, valeurDe );
-				
-				printf("------\n");
-
-				*nbCoupsPossibles++;
 			}
 
-			leDe = getCelluleSuivante(leDe);
+
 		}
 
+		cellule = getCelluleSuivante(cellule);
+
+
+		if( ancienCoupObsolete ) {
+
+			celluleAsupprimer = getCellulePrecedente(cellule);
+			detruireCellule( listeCoups, celluleAsupprimer );
+
+			ancienCoupObsolete = 0;
+		}
 
 	}
+
+}
+
+
+
+
+void calculerCoupsPossiblesInitiaux( SGameState* gameState, Player maCouleur, unsigned char dices[4], ListeChainee* listeCoups ) {
+
+	Square laCase;
+	Cellule* cellule;
+	Coup coup;
+	SMove mouvement;
 	
-}
 
 
+	int i, j;
+	for( i = 0; i < 25; i++ ) {		// pour chaque case 
+
+		if( possedeDesPionsSurLaBarre( gameState, maCouleur ) && i != 0 ) break;	// il y a des pions sur la barre, je n'ai pas le droit de deplacer autre chose
+		
+
+		laCase = getCaseReelle( gameState, maCouleur, i );
+		if( laCase.owner != maCouleur || laCase.nbDames <= 0 ) continue;	// je n'ai pas de pions sur cette case
+
+		
+		for( j = 0; j < 4; j++ ) {	// pour chaque dé
 
 
+			if( peutDeplacerUnPion( gameState, maCouleur, i, dices[j] ) ) {
 
 
+				initialiserMouvement( &mouvement, maCouleur, i, dices[j] );
 
-void triRapide_rec( Coup tableau[], pFonctionComparaison f_comparaison, int borneInf, int borneSup ) {
+				initialiserCoup( &coup, *gameState, dices );
 
-	if( borneInf >= borneSup ) return;
+				ajouterMouvementAuCoup( &coup, mouvement );
 
-	// définition du pivot
-	int pivot = borneInf;
 
-	int j = borneSup;		// on placera les éléments "supérieurs" à la fin du tableau
-	Data tmp;				// pour échanger les valeurs
-	int resultatComparaison;
+				deplacerUnPion( &(coup.gameState), maCouleur, mouvement );
+				coup.dices[j] = 0;
 
-	while( pivot < j ) {
+				cellule = ajouterElementFin( listeCoups, coup );
+				
+			}
 
-		resultatComparaison = (*f_comparaison)( tableau[pivot], tableau[pivot+1] );		// au lieu d'utiliser >=, on utilise (*f_comparaison) >= 0
-
-		// t[ pivot ] >= t[ pivot+1 ]
-		if( resultatComparaison >= 0 ) {
-
-			tmp = tableau[ pivot ];
-			tableau[ pivot ] = tableau[ pivot+1 ];
-			tableau[ pivot+1 ] = tmp;
-
-			pivot++;
-		}
-		else {
-
-			tmp = tableau[ pivot + 1 ];
-			tableau[ pivot + 1 ] = tableau[ j ];
-			tableau[ j ] = tmp;
-
-			j--;
 		}
 
 	}
 
-	triRapide_rec( tableau, f_comparaison, borneInf, pivot - 1 );
-	triRapide_rec( tableau, f_comparaison, pivot + 1, borneSup );
 }
 
 
-void triRapide( Coup tableau[], int taille, pFonctionComparaison f_comparaison ) {
-	triRapide_rec( tableau, f_comparaison, 0, taille-1 );
+void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, unsigned char dices[4], ListeChainee* listeCoups ) {
+
+	calculerCoupsPossiblesInitiaux( gameState, maCouleur, dices, listeCoups );
+
+	calculerCoupsPossiblesSuivants( maCouleur, listeCoups );
+
 }
 
 
-int test( Coup c1, Coup c2) {
-	return 1;
+
+
+int getNbPointsPrit( SGameState* gameState ) {
+
+	Player maCouleur = gameState -> turn;
+
+	int totalePoints = 0;
+
+	int i;
+	for( i = 0; i < 24; i++ ) {
+
+		if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames > 1 ) totalePoints++;
+	}
+
+	return totalePoints;
 }
+
+
+int maximiserPoints( Coup c1, Coup c2 ) {
+
+	int nbPointsC1 = getNbPointsPrit( &c1.gameState );
+	int nbPointsC2 = getNbPointsPrit( &c2.gameState );
+
+	return nbPointsC1 > nbPointsC2;
+
+}
+
+
+
+int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, Coup* coupMaximum ) {
+
+	int nbCoups = getNbElements(listeCoups);
+	if( nbCoups == 0 ) {
+		printf("la liste est vide, pas de maximum \n");
+		return -1;
+	}
+
+	Cellule* cellule = getPremierElement(listeCoups);
+	Coup coupMax = getDonnee(cellule);
+	Coup coup;
+
+
+	int i;
+	for( i = 1; i < nbCoups; i++ ) {
+
+		cellule = getCelluleSuivante(cellule);
+		coup = getDonnee(cellule);
+
+		if( f_compraison(coup, coupMax) ) coupMax = coup; 
+
+	}
+
+	*coupMaximum = coupMax;
+
+	return 0;
+}
+

@@ -96,6 +96,7 @@ int TakeDouble( const SGameState * const gameState ) {
 	return(1);
 }
 
+
 /**
  * Prise de décision de la part de l'IA
  * @param const SGameState * const gameState
@@ -111,28 +112,32 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	*nbMove = 0;
 
 	Player maCouleur = bot.maCouleur;
+	printf(" je suis %i \n", maCouleur );
+
+	unsigned char lesDes[4];
+	getDices( dices, lesDes );
+
+	ListeChainee* coups = creerListeChainee();
+	Coup meilleurCoup;
+
+	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
+
+	//afficherCoups( coups );
+
 	
-	ListeChainee* lesDes = getDices( dices );
-	int nbDes = getNbElements(lesDes);
-
-	int nbCoupsMax = (int)pow( 15, nbDes );
-	int nbCoups = 0;
-	Coup coups[ nbCoupsMax ];
-
-	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups, &nbCoups );
-
-	triRapide( coups, nbCoups, test );
-
-	if( nbCoups <= 0 ) return;
+	getCoupMaximum( coups, maximiserPoints, &meilleurCoup );
 
 
-	*nbMove = coups[0].nbMouvements;
+	*nbMove = meilleurCoup.nbMouvements;
+
 	int i;
-	for( i = 0; i < nbCoups; i++ ) {
-		moves[i] = coups[0].mouvements[i];
+	for( i = 0; i < *nbMove; i++ ) {
+		moves[i] = meilleurCoup.mouvements[i];
 	}
 
-
+	afficherCoup(meilleurCoup);
+	
+	printf("___fin___\n");
 
 }
 

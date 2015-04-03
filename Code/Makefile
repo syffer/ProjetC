@@ -20,33 +20,39 @@ libJoueur.so: botJoueur.o
 	gcc -shared botJoueur.o -o libJoueur.so
 
 botJoueur.o: botJoueur.c
-	gcc -c -fpic botJoueur.c
+	gcc -fpic -c botJoueur.c
 
 
 # librairie linx
-libBotLinx.so: botLinx.o
-	gcc -shared -fpic botLinx.o -o libBotLinx.so
+libBotLinx.so: botLinx.o fonctionsBot.o ListeChainee.o
+	gcc -shared botLinx.o fonctionsBot.o ListeChainee.o -o libBotLinx.so
 	
-botLinx.o: botLinx.c fonctionsBot.c
-	gcc -fpic -c botLinx.c fonctionsBot.c
+botLinx.o: botLinx.c
+	gcc -fpic -c botLinx.c 
 
 
 # bot simplet
-libBotSimplet.so: botSimplet.o
-	gcc -shared botSimplet.o -o libBotSimplet.so 
+libBotSimplet.so: botSimplet.o fonctionsBot.o ListeChainee.o
+	gcc -shared botSimplet.o fonctionsBot.o ListeChainee.o -o libBotSimplet.so 
 
-botSimplet.o: botSimplet.c ListeChainee.c fonctionsBot.c
-	gcc -c -fpic botSimplet.c ListeChainee.c fonctionsBot.c
+botSimplet.o: botSimplet.c
+	gcc -fpic -c botSimplet.c 
 
 
 # bot tricheur
-libBotTricheur.so: botTricheur.o
-	gcc -shared botTricheur.o -o libBotTricheur.so 
+libBotTricheur.so: botTricheur.o fonctionsBot.o ListeChainee.o
+	gcc -shared botTricheur.o fonctionsBot.o ListeChainee.o -o libBotTricheur.so 
 
-botTricheur.o: botTricheur.c fonctionsBot.c
-	gcc -c -fpic botTricheur.c fonctionsBot.c
+botTricheur.o: botTricheur.c
+	gcc -fpic -c botTricheur.c 
 
 
+
+fonctionsBot.o: fonctionsBot.c
+	gcc -fpic -c fonctionsBot.c 
+
+ListeChainee.o: ListeChainee.c
+	gcc -fpic -c ListeChainee.c
 
 
 

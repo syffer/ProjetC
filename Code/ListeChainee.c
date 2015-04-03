@@ -1,6 +1,7 @@
 
 #include "ListeChainee.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 struct Cellule {
 	Donnee valeur;
@@ -145,10 +146,39 @@ int getNbElements( ListeChainee* liste ) {
 }
 
 
+
+
+/*
+void afficherListe( ListeChainee* liste ) {
+
+	printf("\n NULL -> ");
+
+	Cellule* cellule = getPremierElement( liste );
+	while( cellule ) {
+		printf( " %i -> ", getDonnee(cellule) );
+		cellule = getCelluleSuivante(cellule);
+	}
+	printf(" NULL\n ");
+
+	cellule = getDernierElement( liste );
+	while( cellule ) {
+		printf( " %i <- ", getDonnee(cellule) );
+		cellule = getCellulePrecedente(cellule);
+	}
+
+
+}
+*/
+
+
+
+
+
 void detruireCellule( ListeChainee* liste, Cellule* cellule ) {
+
 	if( cellule == liste -> premier ) liste -> premier = cellule -> suivant;
 	else cellule -> precedent -> suivant = cellule -> suivant;
-
+	
 	if( cellule == liste -> dernier ) liste -> dernier = cellule -> precedent;
 	else cellule -> suivant -> precedent = cellule -> precedent;
 

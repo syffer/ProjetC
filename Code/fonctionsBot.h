@@ -6,63 +6,56 @@
 #include "ListeChainee.h"
 
 
+
+
 // signature des fonctions communes
 struct Bot {
 	
 	char nom[50];
 	Player maCouleur;
-	unsigned int scoreCible;	// ??
+	unsigned int scoreCible;
 	
-	SGameState gameState;	   // ??
+	SGameState gameState;	  // ??
 	
 };
 typedef struct Bot Bot;
 
 
 
-
-// combinaison de mouvements
-struct Coup {
-	
-	SMove mouvements[4];
-	int nbMouvements;
-
-};
-typedef struct Coup Coup;
-
-
-
-ListeChainee* getDices( const unsigned char dices[2] );
-
+void getDices( const unsigned char dices[2], unsigned char newDices[4] );
 
 Square getCaseReelle( SGameState* gameState, Player maCouleur, int i );
 int possedeDesPionsSurLaBarre( SGameState* gameState, Player maCouleur );
 int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int nbCases );
-SGameState deplacerUnPion( SGameState gameState, Player maCouleur, SMove mouvement );
+void deplacerUnPion( SGameState* gameState, Player maCouleur, SMove mouvement );
 
-SMove creerMouvement( int depart, int arrivee );
-SMove creerMouvementJoueur( Player maCouleur, int depart, int nbCases );
+void afficherGameState( SGameState gameState );
 
-void initialiserCoup( Coup* coup );
+
+
+void initialiserMouvement( SMove* mouvement, Player maCouleur, int depart, int nbCases );
+
+
+void initialiserCoup( Coup* coup, SGameState gameState, unsigned char dices[4] );
 void ajouterMouvementAuCoup( Coup* coup, SMove mouvement );
+void afficherCoup( Coup coup );
 
-void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, ListeChainee* dices, Coup coups[], int* nbCoupsPossibles );
 
+void calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups );
+void calculerCoupsPossiblesInitiaux( SGameState* gameState, Player maCouleur, unsigned char dices[4], ListeChainee* listeCoups );
+void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, unsigned char dices[4], ListeChainee* listeCoups );
+void afficherCoup( Coup coup );
+void afficherCoups( ListeChainee* listeCoups );
 
 /*
-chaque fonction de comparaison renvoie :
-- 1 si la première valeur est supérieur à la seconde,
-- 0 si les deux valeurs sont égales (au niveau des rangs)
-- -1 si la première valeur est inférieur à la seconde
+	retourne :
+		- 1 si le c1 > c2
+		- 0 si c1 == c2
+		- -1 si c1 < c2
 */
-
-typedef int (*pFonctionComparaison)( Coup c1, Coup c2 );
-int test( Coup c1, Coup c2);
-
-typedef Coup Data;
-void triRapide_rec( Data tableau[], pFonctionComparaison f_comparaison, int borneInf, int borneSup );
-void triRapide( Data tableau[], int taille, pFonctionComparaison f_comparaison );
-
+typedef int (fonctionComparaisonCoups)(Coup c1, Coup c2);
+int maximiserPoints( Coup c1, Coup c2 );
+int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, Coup* coupMaximum ) ;
 
 
 #endif

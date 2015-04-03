@@ -2,9 +2,27 @@
 	#define _ListeChainee
 
 
-typedef int Donnee;
+#include "backgammon.h"
+
+// combinaison de mouvements
+struct Coup {
+	
+	SMove mouvements[4];
+	int nbMouvements;
+
+	SGameState gameState;
+	unsigned char dices[4];
+	
+};
+typedef struct Coup Coup;
+
+
+
+typedef Coup Donnee;
 typedef struct Cellule Cellule;
 typedef struct ListeChainee ListeChainee;
+
+
 
 
 /* operations sur les cellules */
@@ -26,6 +44,8 @@ Cellule* ajouterElementApres( ListeChainee* liste, Cellule* cellule, Donnee vale
 Cellule* getPremierElement( ListeChainee* liste );
 Cellule* getDernierElement( ListeChainee* liste );
 int getNbElements( ListeChainee* liste );
+
+//void afficherListe( ListeChainee* liste );
 
 void detruireCellule( ListeChainee* liste, Cellule* cellule_aDetruire );
 void detruireListeChainee( ListeChainee* liste );
