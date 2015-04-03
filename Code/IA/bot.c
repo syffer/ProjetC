@@ -1,18 +1,18 @@
 
 /*
 
-	Bot qui étudie la map et qui sélectionne les meilleurs coups
-	bot non fini
+	Base pour la création d'un bot
+	Ce bot ne fait rien du tout
 
 */
 
-#include "backgammon.h"
-#include "fonctionsBot.h"
-#include "ListeChainee.h"
 
 #include <stdio.h>
 #include <string.h>
-#include <math.h>  			// pow
+
+#include "../Commun/backgammon.h"
+#include "ListeChainee.h"
+#include "fonctionsBot.h"
 
 
 static Bot bot;
@@ -25,7 +25,7 @@ static Bot bot;
  */
 void InitLibrary( char name[50] ) {
 	
-	strcpy( bot.nom, "LinxBot" );
+	strcpy( bot.nom, "BaseBot" );
 	bot.maCouleur = NOBODY;
 	bot.scoreCible = 0;
 	
@@ -96,7 +96,6 @@ int TakeDouble( const SGameState * const gameState ) {
 	return(1);
 }
 
-
 /**
  * Prise de décision de la part de l'IA
  * @param const SGameState * const gameState
@@ -106,44 +105,13 @@ int TakeDouble( const SGameState * const gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-// !!!!!!!!!!!!!!!!!!! on a enlevé les const pour pouvoir modifier gameState
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	
+	// on a enlever les 'const' de 'dameState' pour pouvoir le manipuler
+
 	*nbMove = 0;
 
-	Player maCouleur = bot.maCouleur;
-	printf(" je suis %i \n", maCouleur );
-
-	unsigned char lesDes[4];
-	getDices( dices, lesDes );
-
-	ListeChainee* coups = creerListeChainee();
-	Coup meilleurCoup;
-
-	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
-
-	//afficherCoups( coups );
-
-	
-	getCoupMaximum( coups, maximiserPoints, &meilleurCoup );
-
-
-	*nbMove = meilleurCoup.nbMouvements;
-
-	int i;
-	for( i = 0; i < *nbMove; i++ ) {
-		moves[i] = meilleurCoup.mouvements[i];
-	}
-
-	afficherCoup(meilleurCoup);
-	
-	printf("___fin___\n");
 
 }
-
-
-
-
 
 
 

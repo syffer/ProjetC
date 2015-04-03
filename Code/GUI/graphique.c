@@ -1,5 +1,7 @@
+
 #include "graphique.h"
-#include "arbitre.h"
+
+//#include "arbitre.h"
 
 
 /*

@@ -2,7 +2,7 @@
 	#define _ListeChainee
 
 
-#include "backgammon.h"
+#include "../Commun/backgammon.h"
 
 // combinaison de mouvements
 struct Coup {

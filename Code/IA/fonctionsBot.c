@@ -4,6 +4,7 @@
  * */
  
 #include "fonctionsBot.h"
+
 #include <stdio.h>
 
 
@@ -240,7 +241,7 @@ void initialiserCoup( Coup* coup, SGameState gameState, unsigned char dices[4] )
 void ajouterMouvementAuCoup( Coup* coup, SMove mouvement ) {
 
 	coup -> mouvements[ coup -> nbMouvements ] = mouvement;
-	coup -> nbMouvements++;
+	coup -> nbMouvements += 1;
 }
 
 
@@ -257,14 +258,14 @@ void afficherCoup( Coup coup ) {
 
 void afficherCoups( ListeChainee* listeCoups ) {
 
-	int i;
+	int i = 0;
 
 	Coup coup;
 	Cellule* cellule = getPremierElement(listeCoups);
 
 	while( cellule ) {
 
-		printf("-------- COUP \n");
+		printf("-------- COUP %i \n", i);
 
 		coup = getDonnee(cellule);
 
@@ -291,7 +292,6 @@ void calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups 
 	int ancienCoupObsolete = 0;
 
 	int i, j;	// pour parcourir les cases et les dés
-	int h = 1;
 
 	Cellule* celluleAsupprimer;
 	Cellule* cellule = getPremierElement(listeCoups);
@@ -353,12 +353,9 @@ void calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups 
 void calculerCoupsPossiblesInitiaux( SGameState* gameState, Player maCouleur, unsigned char dices[4], ListeChainee* listeCoups ) {
 
 	Square laCase;
-	Cellule* cellule;
 	Coup coup;
 	SMove mouvement;
 	
-
-
 	int i, j;
 	for( i = 0; i < 25; i++ ) {		// pour chaque case 
 
@@ -385,8 +382,7 @@ void calculerCoupsPossiblesInitiaux( SGameState* gameState, Player maCouleur, un
 				deplacerUnPion( &(coup.gameState), maCouleur, mouvement );
 				coup.dices[j] = 0;
 
-				cellule = ajouterElementFin( listeCoups, coup );
-				
+				ajouterElementFin( listeCoups, coup );
 			}
 
 		}

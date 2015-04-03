@@ -1,17 +1,23 @@
 
 /*
 
-	Bot ayant pour but de gagner le match au premier tour en trichant.
+	Bot jouant aléatoirement 
+	Bot non fini
 
 */
+
 
 #include <stdio.h>
 #include <string.h>
 
-#include "backgammon.h"
+#include "../Commun/backgammon.h"
 #include "fonctionsBot.h"
+#include "ListeChainee.h"
+
 
 static Bot bot;
+
+
 
 /**
  * Initialiser la librairie
@@ -19,8 +25,8 @@ static Bot bot;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-	
-	strcpy( bot.nom, "TricheurBot" );
+
+	strcpy( bot.nom, "RandomBot" );
 	bot.maCouleur = NOBODY;
 	bot.scoreCible = 0;
 	
@@ -92,6 +98,7 @@ int TakeDouble( const SGameState * const gameState ) {
 }
 
 
+
 /**
  * Prise de décision de la part de l'IA
  * @param const SGameState * const gameState
@@ -102,39 +109,10 @@ int TakeDouble( const SGameState * const gameState ) {
  *	nombre d'essais restants (3 initialement).
  */
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	
-	Player maCouleur = bot.maCouleur;
-	Player couleurAdverse = (maCouleur == BLACK) ? WHITE : BLACK;
-
-	gameState -> out[ maCouleur ] = 15;
-	gameState -> out[ couleurAdverse ] = 0;
-
-	gameState -> bar[ maCouleur ] = 0;
-	gameState -> bar[ couleurAdverse ] = 15;
-
-	int i;
-	Square laCase;
-	for( i = 0; i < 24; i++ ) {
-		laCase = gameState -> board[i];
-		laCase.owner = NOBODY;
-		laCase.nbDames = 30;
-	}
-
-	if( maCouleur == BLACK ) {
-		gameState -> blackScore += 100;
-		gameState -> whiteScore = 0;
-	}
-	else {
-		gameState -> whiteScore += 100;
-		gameState -> blackScore = 0;
-	}
-
-	gameState -> turn = couleurAdverse;
+	// on a enlever les 'const' de 'dameState' pour pouvoir le manipuler
 
 	*nbMove = 0;
+	
+
 
 }
-
-
-
-

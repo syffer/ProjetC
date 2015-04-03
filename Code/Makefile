@@ -1,105 +1,117 @@
 # http://www.labri.fr/perso/billaud/IUT/AP2-POO-0910/060-faire-makefile.pdf
 
+CFLAGS=-Wall 
 
 
-# pour récupérer : Linux Win32
-OS = 'echo -n %OS%'
-LINUX =%OS%
+all:: ia gui commun
 
 
-# ensemble des exécutable à produire
-all:: backgammon libBotTricheur.so libBotSimplet.so libBotLinx.so libJoueur.so 
-
-
-
-
-##### creation des librairies
-
-# librairie du joueur (réel)
-libJoueur.so: botJoueur.o
-	gcc -shared botJoueur.o -o libJoueur.so
-
-botJoueur.o: botJoueur.c
-	gcc -fpic -c botJoueur.c
-
-
-# librairie linx
-libBotLinx.so: botLinx.o fonctionsBot.o ListeChainee.o
-	gcc -shared botLinx.o fonctionsBot.o ListeChainee.o -o libBotLinx.so
-	
-botLinx.o: botLinx.c
-	gcc -fpic -c botLinx.c 
-
-
-# bot simplet
-libBotSimplet.so: botSimplet.o fonctionsBot.o ListeChainee.o
-	gcc -shared botSimplet.o fonctionsBot.o ListeChainee.o -o libBotSimplet.so 
-
-botSimplet.o: botSimplet.c
-	gcc -fpic -c botSimplet.c 
-
-
-# bot tricheur
-libBotTricheur.so: botTricheur.o fonctionsBot.o ListeChainee.o
-	gcc -shared botTricheur.o fonctionsBot.o ListeChainee.o -o libBotTricheur.so 
-
-botTricheur.o: botTricheur.c
-	gcc -fpic -c botTricheur.c 
-
-
-
-fonctionsBot.o: fonctionsBot.c
-	gcc -fpic -c fonctionsBot.c 
-
-ListeChainee.o: ListeChainee.c
-	gcc -fpic -c ListeChainee.c
-
-
+################## Commun
 
 ##### creation de l'executable du jeu
-backgammon: backgammon.o arbitre.o graphique.o joueur.o verifications.o
-	gcc -Wall backgammon.o arbitre.o graphique.o joueur.o verifications.o -o backgammon -ldl `sdl-config --cflags --libs`
+commun:: backgammon.o arbitre.o graphique.o joueur.o verifications.o
+	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o -o backgammon -ldl `sdl-config --cflags --libs`
 
 
-backgammon.o: backgammon.c
-	gcc -Wall -c backgammon.c
+backgammon.o: Commun/backgammon.c
+	gcc $(CFLAGS) -c Commun/backgammon.c -o Commun/backgammon.o
 
 
-arbitre.o: arbitre.c
-	gcc -Wall -c arbitre.c
+arbitre.o: Commun/arbitre.c
+	gcc $(CFLAGS) -c Commun/arbitre.c -o Commun/arbitre.o
 
-graphique.o: graphique.c
-	gcc -Wall -c graphique.c
+joueur.o: Commun/joueur.c
+	gcc $(CFLAGS) -c Commun/joueur.c -o Commun/joueur.o
 
-joueur.o: joueur.c
-	gcc -Wall -c joueur.c
-	
-verifications.o: verifications.c
-	gcc -Wall -c verifications.c
 
+verifications.o: Commun/verifications.c
+	gcc $(CFLAGS) -c Commun/verifications.c -o Commun/verifications.o
 
 
 
-# on supprime les fichiers temporaires
-# make clean
+################## IA
+ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so 
+
+# manque bot joueur
+
+# manque bot parfait ??
+
+# manque bot anti jeu
+
+###### bot Lynx
+libBotLynx.so: botLynx.o fonctionsBot.o ListeChainee.o
+	gcc -shared IA/botLynx.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotLynx.so 
+
+botLynx.o: IA/botLynx.c
+	gcc $(CFLAGS) -o IA/botLynx.o -fpic -c IA/botLynx.c
+
+
+###### bot simplet
+libBotSimplet.so: botSimplet.o fonctionsBot.o ListeChainee.o
+	gcc -shared IA/botSimplet.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotSimplet.so 
+
+botSimplet.o: IA/botSimplet.c
+	gcc $(CFLAGS) -o IA/botSimplet.o -fpic -c IA/botSimplet.c
+
+
+###### bot random
+libBotRandom.so: botRandom.o fonctionsBot.o ListeChainee.o
+	gcc -shared IA/botRandom.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotRandom.so 
+
+botRandom.o: IA/botRandom.c
+	gcc $(CFLAGS) -o IA/botRandom.o -fpic -c IA/botRandom.c
+
+
+###### bot tricheur
+libBotTricheur.so: botTricheur.o fonctionsBot.o ListeChainee.o
+	gcc -shared IA/botTricheur.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotTricheur.so 
+
+botTricheur.o: IA/botTricheur.c
+	gcc $(CFLAGS) -o IA/botTricheur.o -fpic -c IA/botTricheur.c
+
+
+
+###### fichiers utilisés par tous les bots
+fonctionsBot.o: IA/fonctionsBot.c
+	gcc $(CFLAGS) -o IA/fonctionsBot.o -fpic -c IA/fonctionsBot.c 
+
+ListeChainee.o: IA/ListeChainee.c
+	gcc $(CFLAGS) -o IA/ListeChainee.o -fpic -c IA/ListeChainee.c 
+
+
+
+
+
+
+################## GUI
+gui:: graphique.o
+
+graphique.o: GUI/graphique.c
+	gcc $(CFLAGS) -c GUI/graphique.c -o GUI/graphique.o
+
+
+
+
+
+################## suppression fichiers
+
+### supprime les fichiers intermediaires
 clean::
-	@rm -f *.i
-	@rm -f *.s
-	@rm -f *.o
-	
-
-
-# on recrée tout les exécutables
-# fait "le grand menage"
-# make mrproper
-mrpropre:: 	
 	# fichiers temporaires
-	rm -f *.i
-	rm -f *.s
-	rm -f *.o
-	#librairies
-	rm -f *.so
-	rm -f *.dll
-	# l'exécutable
+	rm -rf *.i IA/*.i GUI/*.i Commun/*.i
+	rm -rf *.s IA/*.s GUI/*.s Commun/*.s
+	rm -rf *.o IA/*.o GUI/*.o Commun/*.o
+
+
+
+### supprimes tous les fichies créer
+mrproper::	clean
+	# librairies
+	rm -rf IA/*.so 
+	rm -rf IA/*.dll
+	# exécutable
 	rm -f backgammon
 	rm -f backgammon.exe
+
+
+

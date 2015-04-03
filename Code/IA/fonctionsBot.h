@@ -2,7 +2,7 @@
 	#define _fonctionsBot
 
 
-#include "backgammon.h"
+#include "../Commun/backgammon.h"
 #include "ListeChainee.h"
 
 
@@ -15,7 +15,7 @@ struct Bot {
 	Player maCouleur;
 	unsigned int scoreCible;
 	
-	SGameState gameState;	  // ??
+	SGameState gameState;	  // ?? va t'on l'utiliser ?
 	
 };
 typedef struct Bot Bot;

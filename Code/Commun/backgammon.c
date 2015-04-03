@@ -2,7 +2,6 @@
 #include "verifications.h"
 #include "joueur.h"
 #include "arbitre.h"
-#include "graphique.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,8 +21,8 @@ int main( int argc, char* argv[] ) {
 	}
 
 
-	char* cheminLibrairie_1 = "./libBotSimplet.so";	// chargement par défaut
-	char* cheminLibrairie_2 = "./libBotSimplet.so";
+	char* cheminLibrairie_1 = "./IA/libBotSimplet.so";	// chargement par défaut
+	char* cheminLibrairie_2 = "./IA/libBotSimplet.so";
 
 
 	// on récupère les librairies entrées (qui sont optionnels)

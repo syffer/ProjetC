@@ -2,15 +2,15 @@
 /*
 
 	Bot ne faisant qu'avancer ses pions les plus éloignés.
-
+	Bot non fini (manque la gestion du videau)
 */
 
 #include <stdio.h>
 #include <string.h>
 
-#include "backgammon.h"
-#include "ListeChainee.h"
+#include "../Commun/backgammon.h"
 #include "fonctionsBot.h"
+#include "ListeChainee.h"
 
 
 static Bot bot;
@@ -107,8 +107,7 @@ int TakeDouble( const SGameState * const gameState ) {
 // !!!!!!!!!!!!!!!!!!! on a enlevé les const pour pouvoir modifier gameState
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	
-	printf("debut\n");
-
+	
 	*nbMove = 0;
 
 	Player maCouleur = bot.maCouleur;
@@ -142,7 +141,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 				initialiserMouvement( &mouvement, maCouleur, position, mesDes[j] );
 
 				moves[ *nbMove ] = mouvement;
-				*nbMove++;
+				*nbMove += 1;
 
 				deplacerUnPion( gameState, maCouleur, mouvement );
 				
