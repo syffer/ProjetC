@@ -113,6 +113,37 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	*nbMove = 0;
 	
+	Player maCouleur = bot.maCouleur;
+	printf(" je suis %i \n", maCouleur );
 
+	unsigned char lesDes[4];
+	getDices( dices, lesDes );
 
+	ListeChainee* coups = creerListeChainee();
+	Cellule* cellule = getPremierElement(coups);
+	Coup coup_aleatoire;
+
+	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
+	
+	int aleatoire = random_bot(0,getNbElements(coups));
+	
+	printf("YOLO %i // %i\n",aleatoire,getNbElements(coups));
+	
+	while( aleatoire>0) 
+	{
+		cellule = getCelluleSuivante(cellule);
+		aleatoire--;
+	}
+	coup_aleatoire = getDonnee(cellule);
+	
+	*nbMove = coup_aleatoire.nbMouvements;
+
+	int i;
+	for( i = 0; i < *nbMove; i++ ) {
+		moves[i] = coup_aleatoire.mouvements[i];
+	}
+
+	afficherCoup(coup_aleatoire);
+	
+	printf("___fin___\n");
 }

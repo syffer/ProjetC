@@ -32,11 +32,11 @@ verifications.o: Commun/verifications.c
 ################## IA
 ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so 
 
-# manque bot joueur
+# manque bot joueur  libJoueur.so
 
-# manque bot parfait ??
+# manque bot parfait ??  libBotParfait.so
 
-# manque bot anti jeu
+# manque bot anti jeu  libBotAntiJeu.so
 
 ###### bot Lynx
 libBotLynx.so: botLynx.o fonctionsBot.o ListeChainee.o
@@ -66,10 +66,36 @@ botRandom.o: IA/botRandom.c
 libBotTricheur.so: botTricheur.o fonctionsBot.o ListeChainee.o
 	gcc -shared IA/botTricheur.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotTricheur.so 
 
+<<<<<<< HEAD
 botTricheur.o: IA/botTricheur.c
 	gcc $(CFLAGS) -o IA/botTricheur.o -fpic -c IA/botTricheur.c
+=======
+botTricheur.o: botTricheur.c
+	gcc -fpic -c botTricheur.c 
+	
+# bot random
+libBotRandom.so: botRandom.o fonctionsBot.o ListeChainee.o
+	gcc -shared botRandom.o fonctionsBot.o ListeChainee.o -o libBotRandom.so 
 
+botRandom.o: botRandom.c
+	gcc -fpic -c botRandom.c 
 
+# bot anti jeu
+libBotAntiJeu.so: botAntiJeu.o fonctionsBot.o ListeChainee.o
+	gcc -shared botAntiJeu.o fonctionsBot.o ListeChainee.o -o libBotAntiJeu.so 
+>>>>>>> b3b9b03d3f24f538a8d2d730d0d9016cd4fdc69e
+
+botAntiJeu.o: botAntiJeu.c
+	gcc -fpic -c botAntiJeu.c 
+	
+# bot parfait
+libBotParfait.so: botParfait.o fonctionsBot.o ListeChainee.o
+	gcc -shared botParfait.o fonctionsBot.o ListeChainee.o -o libBotParfait.so 
+
+botParfait.o: botParfait.c
+	gcc -fpic -c botParfait.c 
+	
+	
 
 ###### fichiers utilisés par tous les bots
 fonctionsBot.o: IA/fonctionsBot.c

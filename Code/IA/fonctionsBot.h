@@ -53,9 +53,13 @@ void afficherCoups( ListeChainee* listeCoups );
 		- 0 si c1 == c2
 		- -1 si c1 < c2
 */
-typedef int (fonctionComparaisonCoups)(Coup c1, Coup c2);
-int maximiserPoints( Coup c1, Coup c2 );
-int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, Coup* coupMaximum ) ;
+typedef int (fonctionComparaisonCoups)(int fonction ( SGameState* gameState ), Coup c1, Coup c2);
+int getNbPointsPrit( SGameState* gameState );
+int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, int fonctionCalculCout ( SGameState* gameState ), Coup* coupMaximum ) ;
+
+int random_bot(int min,int max);
+int calculerCout( SGameState* gameState );
+int comparerDeuxCoups(int fonction ( SGameState* gameState ), Coup c1, Coup c2 );
 
 
 #endif

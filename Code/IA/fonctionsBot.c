@@ -6,6 +6,7 @@
 #include "fonctionsBot.h"
 
 #include <stdio.h>
+#include <time.h>
 
 
 
@@ -419,18 +420,46 @@ int getNbPointsPrit( SGameState* gameState ) {
 }
 
 
-int maximiserPoints( Coup c1, Coup c2 ) {
+/**
+ * Fonction  
+ * @param :
+ * @return : 
+ * */
+int calculerCout( SGameState* gameState ) {
 
-	int nbPointsC1 = getNbPointsPrit( &c1.gameState );
-	int nbPointsC2 = getNbPointsPrit( &c2.gameState );
+	Player maCouleur = gameState -> turn;
+
+	int totalePoints = 0;
+
+	int i;
+	for( i = 0; i < 24; i++ ) {
+
+		if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints+3;
+		else if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 0 ) totalePoints+2;
+		else if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints+2;
+		else if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames > 1 ) totalePoints++;
+	}
+
+	return totalePoints;
+}
+
+/**
+ * Fonction sélectionnant le meilleur coup entre deux
+ * @param fonction : la fonction de calcul de points
+ * @param c1 : le premier coup
+ * @param c2 : le deuxième coup
+ * @return : un entier (booleen)
+ * */
+int comparerDeuxCoups( int fonction ( SGameState* gameState ), Coup c1, Coup c2 ) {
+
+	int nbPointsC1 = fonction( &c1.gameState );
+	int nbPointsC2 = fonction( &c2.gameState );
 
 	return nbPointsC1 > nbPointsC2;
 
 }
 
-
-
-int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, Coup* coupMaximum ) {
+int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, int fonctionCalculCout ( SGameState* gameState ), Coup* coupMaximum ) {
 
 	int nbCoups = getNbElements(listeCoups);
 	if( nbCoups == 0 ) {
@@ -449,7 +478,7 @@ int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_comprai
 		cellule = getCelluleSuivante(cellule);
 		coup = getDonnee(cellule);
 
-		if( f_compraison(coup, coupMax) ) coupMax = coup; 
+		if( f_compraison(fonctionCalculCout, coup, coupMax) ) coupMax = coup; 
 
 	}
 
@@ -458,3 +487,16 @@ int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_comprai
 	return 0;
 }
 
+/**
+ * Fonction permettant de générer un nombre aléatoire compris dans les bornes
+ * @param min : la valeur minimum de l'intervalle
+ * @param max : la valeur maximale de l'intervalle
+ * @return : l'entier généré
+ * */
+int random_bot(int min,int max)
+{
+	int valeur_generee;
+	srand(time(NULL));
+	valeur_generee= (rand()%(max-min))+min;
+	return valeur_generee;
+}

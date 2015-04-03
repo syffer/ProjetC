@@ -126,6 +126,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	Coup meilleurCoup;
 	getCoupMaximum( coups, maximiserPoints, &meilleurCoup );
 
+
 	// on plase les mouvements du coup dans le tableaux envoyé à l'arbitre
 	*nbMove = meilleurCoup.nbMouvements;
 
