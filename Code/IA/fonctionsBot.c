@@ -446,6 +446,45 @@ int calculerCout( SGameState* gameState ) {
 }
 
 /**
+ * Fonction  
+ * @param :
+ * @return : 
+ * */
+int calculerMeilleurCoup( SGameState* gameState ) {
+
+	Player maCouleur = gameState -> turn;
+
+	int totalePoints = 0;
+
+	int i;
+	for( i = 0; i < 24; i++ ) {
+
+		if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints += 3;
+		else if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 0 ) totalePoints += 2;
+		else if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints += 3;
+		else if( gameState -> board[i].owner == maCouleur && gameState -> board[i].nbDames > 1 ) totalePoints++;
+		else totalePoints--;
+	}
+
+	return totalePoints;
+}
+
+/**
+ * Fonction sélectionnant le meilleur coup entre deux
+ * @param c1 : le premier coup
+ * @param c2 : le deuxième coup
+ * @return : un entier (booleen)
+ * */
+int comparerMeilleurCoup( Coup c1, Coup c2 ) {
+
+	int nbPointsC1 = calculerMeilleurCoup( &c1.gameState );
+	int nbPointsC2 = calculerMeilleurCoup( &c2.gameState );
+
+	return nbPointsC1 > nbPointsC2;
+
+}
+
+/**
  * Fonction sélectionnant le meilleur coup entre deux
  * @param c1 : le premier coup
  * @param c2 : le deuxième coup

@@ -2,7 +2,6 @@
 /*
 
 	Bot jouant aléatoirement 
-	Bot non fini
 
 */
 

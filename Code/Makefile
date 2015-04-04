@@ -30,7 +30,7 @@ verifications.o: Commun/verifications.c
 
 
 ################## IA
-ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so libBotAntiJeu.so
+ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so libBotAntiJeu.so libBotParfait.so
 
 # manque bot joueur  libJoueur.so
 #libJoueur.so: botJoueur.o ....
@@ -40,12 +40,12 @@ ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so libBotAnti
 #	gcc $(CFLAGS) -o IA/botJoueur.o -fpic -c IA/botJoueur.c
 #
 
-# manque bot parfait ??  libBotParfait.so
-#libBotParfait.so: botParfait.o fonctionsBot.o ListeChainee.o
-#	gcc -shared IA/botParfait.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotParfait.so 
-#
-#botParfait.o: botParfait.c
-#	gcc $(CFLAGS) -o IA/botParfait.o -fpic -c IA/botParfait.c 
+###### bot parfait
+libBotParfait.so: botParfait.o fonctionsBot.o ListeChainee.o
+	gcc -shared IA/botParfait.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotParfait.so 
+
+botParfait.o: IA/botParfait.c
+	gcc $(CFLAGS) -o IA/botParfait.o -fpic -c IA/botParfait.c 
 
 
 ###### bot anti jeu

@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "backgammon.h"
+#include "../Commun/backgammon.h"
 #include "ListeChainee.h"
 #include "fonctionsBot.h"
 
@@ -110,6 +110,30 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	
 
 	*nbMove = 0;
+
+	Player maCouleur = bot.maCouleur;
+	printf(" je suis %i \n", maCouleur );
+
+	unsigned char lesDes[4];
+	getDices( dices, lesDes );
+
+	ListeChainee* coups = creerListeChainee();
+	Coup meilleurCoup;
+
+	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
+
+	getCoupMaximum( coups, comparerMeilleurCoup,  &meilleurCoup );
+
+
+	*nbMove = meilleurCoup.nbMouvements;
+
+	int i;
+	for( i = 0; i < *nbMove; i++ ) {
+		moves[i] = meilleurCoup.mouvements[i];
+	}
+
+	//afficherCoup(meilleurCoup);
+	detruireListeChainee(coups);
 	
 
 
