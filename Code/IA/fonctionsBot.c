@@ -151,13 +151,14 @@ void afficherPeutDeplacer( SGameState* gameState ) {
 *
 * Attention : ne vérifie pas si l'on peut déplacer le pion, il faut pour cela appeler une autre fonction AVANT celle ci
 *
+*	retourne 0 si tout s'est bien passé, -1 sinon.
 */
-void deplacerUnPion( SGameState* gameState, Player maCouleur, SMove mouvement ) {
+int deplacerUnPion( SGameState* gameState, Player maCouleur, SMove mouvement ) {
 
 	int depart = mouvement.src_point;
 	int arrivee = mouvement.dest_point;
 
-	if( depart == 0 ) {
+	if( depart == 0 ) {		// depart sur la barre
 		gameState -> bar[ maCouleur ]--;
 	}
 	else {
@@ -169,17 +170,37 @@ void deplacerUnPion( SGameState* gameState, Player maCouleur, SMove mouvement ) 
 
 	}
 
+	Player couleurAdversaire = (maCouleur == WHITE) ? BLACK : WHITE;
 
 
 	if( arrivee == 25 ) {
 		gameState -> out[maCouleur]++;
 	}
 	else {
-		// on ne vérifie pas si il y a un adversaire ici	
-		gameState -> board[ arrivee - 1 ].nbDames++;
-		gameState -> board[ arrivee - 1 ].owner = maCouleur;
+
+		Player couleurCase = gameState -> board[ arrivee - 1 ].owner;
+		int nbDamesSurLaCase = gameState -> board[ arrivee - 1 ].nbDames;
+
+		// si l'arrivée est déja à moi
+		if( couleurCase == maCouleur ) {
+			gameState -> board[ arrivee - 1 ].nbDames += 1;
+		}
+		else if( couleurCase == NOBODY ) {
+			gameState -> board[ arrivee - 1 ].nbDames += 1;
+			gameState -> board[ arrivee - 1 ].owner = maCouleur;
+		}
+		else if( couleurCase == couleurAdversaire && nbDamesSurLaCase == 1 ) {
+			gameState -> board[ arrivee - 1 ].owner = maCouleur;
+			gameState -> bar[ couleurAdversaire ] += 1;
+		}
+		else {
+			printf("ERREUR \n");
+			return -1;
+		}
+
 	}
 
+	return 0;
 }
 
 

@@ -27,7 +27,7 @@ void getDices( const unsigned char dices[2], unsigned char newDices[4] );
 Square getCaseReelle( SGameState* gameState, Player maCouleur, int i );
 int possedeDesPionsSurLaBarre( SGameState* gameState, Player maCouleur );
 int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int nbCases );
-void deplacerUnPion( SGameState* gameState, Player maCouleur, SMove mouvement );
+int deplacerUnPion( SGameState* gameState, Player maCouleur, SMove mouvement );
 
 void afficherGameState( SGameState gameState );
 
