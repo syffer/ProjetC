@@ -89,8 +89,6 @@ int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int
 
 
 	// verification de la case d'arrivee
-	if( caseArrivee.owner != maCouleur && caseArrivee.nbDames > 1 ) return 0;	// il y a plus d'un pion adverse sur la case d'arrivee
-	
 	if( arrivee == 25 ) {	// si on veut sortir nos pions
 
 		if( gameState -> bar[maCouleur] ) return 0;		// il y a des pions sur la barre.
@@ -104,6 +102,7 @@ int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int
 		}
 
 	}
+	else if( caseArrivee.owner != maCouleur && caseArrivee.nbDames > 1 ) return 0;	// il y a plus d'un pion adverse sur la case d'arrivee
 
 	return 1;
 }
@@ -296,6 +295,8 @@ void afficherCoups( ListeChainee* listeCoups ) {
 		afficherCoup(coup);
 
 		cellule = getCelluleSuivante(cellule);
+
+		i++;
 	}
 
 }
