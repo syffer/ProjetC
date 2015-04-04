@@ -166,7 +166,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	else printf("WTF\n");
 
 
-	
+	detruireListeChainee(coups);
 	
 	printf("___fin___\n");
 }

@@ -30,7 +30,7 @@ verifications.o: Commun/verifications.c
 
 
 ################## IA
-ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so 
+ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so libBotAntiJeu.so
 
 # manque bot joueur  libJoueur.so
 #libJoueur.so: botJoueur.o ....
@@ -49,11 +49,11 @@ ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so
 
 
 ###### bot anti jeu
-#libBotAntiJeu.so: botAntiJeu.o fonctionsBot.o ListeChainee.o
-#	gcc -shared IA/botAntiJeu.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotAntiJeu.so 
-#
-#botAntiJeu.o: IA/botAntiJeu.c
-#	gcc $(CFLAGS) -o IA/botAntiJeu.o -fpic -c IA/botAntiJeu.c
+libBotAntiJeu.so: botAntiJeu.o fonctionsBot.o ListeChainee.o
+	gcc -shared IA/botAntiJeu.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotAntiJeu.so 
+
+botAntiJeu.o: IA/botAntiJeu.c
+	gcc $(CFLAGS) -o IA/botAntiJeu.o -fpic -c IA/botAntiJeu.c
 
 
 ###### bot Lynx

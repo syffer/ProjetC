@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "backgammon.h"
+#include "../Commun/backgammon.h"
 #include "ListeChainee.h"
 #include "fonctionsBot.h"
 
