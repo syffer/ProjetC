@@ -60,9 +60,11 @@ int getNbPointsPrit( SGameState* gameState );
 */
 typedef int (fonctionComparaisonCoups)(Coup c1, Coup c2);
 int comparerAntiJeu( Coup c1, Coup c2 );
-int calculerMeilleurCoup( SGameState* gameState );
 int comparerMeilleurCoup( Coup c1, Coup c2 );
 int comparerDeuxCoups( Coup c1, Coup c2 );
+
+int calculerMeilleurCoup( SGameState* gameState );
+
 
 
 int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, Coup* coupMaximum );
