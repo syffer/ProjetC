@@ -447,6 +447,21 @@ int calculerCout( SGameState* gameState ) {
 
 /**
  * Fonction sélectionnant le meilleur coup entre deux
+ * @param c1 : le premier coup
+ * @param c2 : le deuxième coup
+ * @return : un entier (booleen)
+ * */
+int comparerAntiJeu( Coup c1, Coup c2 ) {
+
+	int nbPointsC1 = calculerCout( &c1.gameState );
+	int nbPointsC2 = calculerCout( &c2.gameState );
+
+	return nbPointsC1 > nbPointsC2;
+
+}
+
+/**
+ * Fonction sélectionnant le meilleur coup entre deux
  * @param fonction : la fonction de calcul de points
  * @param c1 : le premier coup
  * @param c2 : le deuxième coup

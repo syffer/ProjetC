@@ -122,7 +122,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
 
-	getCoupMaximum( coups, comparerDeuxCoups, calculerCout, &meilleurCoup );
+	getCoupMaximum( coups, comparerAntiJeu,  &meilleurCoup );
 
 
 	*nbMove = meilleurCoup.nbMouvements;

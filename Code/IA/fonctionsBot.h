@@ -59,6 +59,7 @@ int getNbPointsPrit( SGameState* gameState );
 		- -1 si c1 < c2
 */
 typedef int (fonctionComparaisonCoups)(Coup c1, Coup c2);
+int comparerAntiJeu( Coup c1, Coup c2 );
 int comparerDeuxCoups( Coup c1, Coup c2 );
 
 
