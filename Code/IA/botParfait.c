@@ -116,9 +116,9 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	unsigned char lesDes[4];
 	unsigned char dice[2] = {6,6};
-	printf( " des : %c %c \n", dice[0], dice[1] );
+	printf( " des : %d %d \n", dice[0], dice[1] );
 	getDices( dice, lesDes );
-	printf( " des : %c %c %c %c \n", lesDes[0], lesDes[1], lesDes[2], lesDes[3] );
+	printf( " des : %d %d %d %d \n", lesDes[0], lesDes[1], lesDes[2], lesDes[3] );
 
 	ListeChainee* coups = creerListeChainee();
 	Coup meilleurCoup;
