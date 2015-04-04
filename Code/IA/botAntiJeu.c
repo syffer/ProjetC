@@ -133,6 +133,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	}
 
 	afficherCoup(meilleurCoup);
+	detruireListeChainee(coups);
 	
 	printf("___fin___\n");
 }
