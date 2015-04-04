@@ -132,10 +132,6 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	int aleatoire = random_bot(0,getNbElements(coups));
 	
 
-
-	printf("YOLO %i // %i\n",aleatoire,getNbElements(coups));
-	
-
 	while( cellule ) {
 
 		if( aleatoire == 0 ) {

@@ -115,11 +115,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	printf(" je suis %i \n", maCouleur );
 
 	unsigned char lesDes[4];
-	unsigned char dice[2] = {6,6};
-	printf( " des : %i %d \n", dice[0], dice[1] );
-
-	getDices( dice, lesDes );
-	printf( " des : %i %i %i %i \n", lesDes[0], lesDes[1], lesDes[2], lesDes[3] );
+	getDices( dices, lesDes );
 
 
 	ListeChainee* coups = creerListeChainee();
@@ -137,7 +133,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 		moves[i] = meilleurCoup.mouvements[i];
 	}
 
-	//afficherCoup(meilleurCoup);
+	afficherCoup(meilleurCoup);
 	detruireListeChainee(coups);
 	
 
