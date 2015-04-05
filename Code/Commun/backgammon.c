@@ -25,7 +25,7 @@ int main( int argc, char* argv[] ) {
 	char* cheminLibrairie_2 = "./IA/libBotSimplet.so";
 
 
-	// on récupère les librairies entrées (qui sont optionnelles)
+	// on récupère les librairies entrées (qui sont optionnels)
 	if( argc >= 3 ) cheminLibrairie_1 = argv[2];
 	if( argc >= 4 ) cheminLibrairie_2 = argv[3];
 
@@ -43,9 +43,23 @@ int main( int argc, char* argv[] ) {
 	char librairie_1[ tailleLibrairie_1 + 10 ]; 	// "./" + chemin + ".copy"
 	char librairie_2[ tailleLibrairie_2 + 10 ];
 
+	printf(" librairies avant changements : \n");
+	printf(" - %s \n", cheminLibrairie_1);
+	printf(" - %s \n", cheminLibrairie_2);
+	printf(" - %s \n", librairie_1);
+	printf(" - %s \n", librairie_2);
+
+
 	int librairie_copiee;
 	if( verifierLibrairies( cheminLibrairie_1, cheminLibrairie_2, librairie_1, librairie_2, &librairie_copiee ) ) {
 		printf( " Erreur lors de la copie de la librairie. \n" );
+
+		printf("\n librairies apres changements : \n");
+		printf(" - %s \n", cheminLibrairie_1);
+		printf(" - %s \n", cheminLibrairie_2);
+		printf(" - %s \n", librairie_1);
+		printf(" - %s \n", librairie_2);
+
 		exit( EXIT_FAILURE );
 	}
 
@@ -55,16 +69,10 @@ int main( int argc, char* argv[] ) {
 	Joueur joueur1 = chargerJoueur( librairie_1 );
 	Joueur joueur2 = chargerJoueur( librairie_2 );
 
-    //SDL_Surface *tabafree[3];
-    //afficherJeu(tabafree); // affichage de la fenêtre de jeu et de la partie grapique
-    printf("début partie\n");
+
+    //afficherPlateau(); // affichage de la fenêtre de jeu et de la partie grapique
 	jouerPartie( nbPoints, joueur1, joueur2 );
 
-    /*
-    for(i=0;i<3;i++){
-        SDL_FreeSurface(tabafree[i]);
-    }
-	*/
 
 	/*
 	*	libération des ressources utilisées
