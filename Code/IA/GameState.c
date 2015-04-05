@@ -263,9 +263,17 @@ int getNbCasesSecurisees( SGameState* gameState, Player maCouleur ) {
 // retourne la probabilité qu'un joueur se fasse prendre un pion au prochain tour
 double getProbabilitePerdreUnPion( SGameState* gameState, Player maCouleur ) {
 
-	int valeurDes[25] = {0};
-
+	int valeurDes[25] =  {0};
+	
 	getEloignementsPointsNonSecurisees( gameState, maCouleur, valeurDes );
+
+	/*
+	int i;
+	for( i = 0; i < 25; i++ ) {
+		printf( " %i", valeurDes[i] );
+	}
+	printf("\n");
+	*/
 
 	return getProbabiliteeDeFaireUnDesDes(valeurDes);
 }
@@ -282,12 +290,12 @@ void getEloignementsPointsNonSecurisees( SGameState* gameState, Player maCouleur
 	int j_arrivee = 24;
 
 	if( maCouleur == BLACK ) {	// les pions blancs avances dans l'autre sens
-		j_depart *= -1;
-		j_arrivee *= -1;
+		j_depart = -24;
+		j_arrivee = -1;
 	}
 
 	int i, j;
-	for( i = 1; i < 24; i++ ) {		// on parcours chaque case du plateau
+	for( i = 1; i < 25; i++ ) {		// on parcours chaque case du plateau
 
 		caseDepart = getCaseReelle( gameState, maCouleur,  i );
 
@@ -295,9 +303,9 @@ void getEloignementsPointsNonSecurisees( SGameState* gameState, Player maCouleur
 		// ou la case est sécurisée (a plus d'une dame)
 		if( ! caseEstAuJoueur(caseDepart, maCouleur) || caseEstSecurisee(caseDepart) ) continue;	
 
-		for( j = i + j_depart; j < i + j_arrivee; j += j_depart ) {
+		for( j = i + j_depart; j < i + j_arrivee; j++ ) {
 
-			if( j > 25 || j < 0 ) break;	// dépassement de borne du plateau
+			if( j > 25 || j < 0 ) continue;	// dépassement de borne du plateau
 
 			if( maCouleur == WHITE && j == 25 ) caseArrivee = getCaseReelle( gameState, couleurAdversaire, 0 );
 			else caseArrivee = getCaseReelle( gameState, couleurAdversaire, j );
@@ -321,20 +329,25 @@ double getProbabiliteeDeFaireUnDesDes( int valeurDes[25] ) {
 	int i, j;
 
 	for( i = 1; i <= 6; i++ ) {		// on lance le 1er dé
+
+		
+
 		for( j = 1; j <= 6; j++ ) {		// on lance le 2eme dé
 
 			if( valeurDes[i] ) nbLances += 1;		// on fait l'une des valeurs recherchées avec le 1er dé
-			if( valeurDes[j] ) nbLances += 1; 		
-			if( valeurDes[i+j] ) nbLances += 1;		// on fait l'une des valeurs recherchées avec la somme des deux dés
+			else if( valeurDes[j] ) nbLances += 1; 		// on fait l'une des valeurs recherchées avec le 2eme dé
 
-			if( i == j ) {		// cas ou l'on possède 4 dés
+			else if( valeurDes[i+j] ) nbLances += 1;		// on fait l'une des valeurs recherchées avec la somme des deux dés
 
-				if( valeurDes[3*i] ) nbLances += 1;
-				if( valeurDes[4*i] ) nbLances += 1;
+			else if( i == j ) {		// cas ou l'on possède 4 dés
+
+				if( valeurDes[3*i] || valeurDes[4*i] ) nbLances += 1;
 			}
 
 		}
 	}
+
+	printf( " %i %lf \n", nbLances, (double)nbLances/36 );
 
 	// on divise par 36 car il y a 36 lancés de dés possible
 	return (double)nbLances / 36.0;

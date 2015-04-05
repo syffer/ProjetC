@@ -65,7 +65,7 @@ void calculerCaracteristiquesCoup( Coup* coup ) {
 	Square laCase;
 
 	int i;
-	for( i = 1; i < 24; i++ ) {
+	for( i = 1; i < 25; i++ ) {
 
 		laCase = getCaseReelle( gameState, maCouleur, i );
 
@@ -142,8 +142,8 @@ int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 ) {
 	double probabilitePertePion_c1 = c1 -> probabilitePertePion;
 	double probabilitePertePion_c2 = c2 -> probabilitePertePion;
 
-	if( probabilitePertePion_c1 > probabilitePertePion_c2 ) return 1;
-	else if( probabilitePertePion_c1 < probabilitePertePion_c2 ) return -1;
+	if( probabilitePertePion_c1 < probabilitePertePion_c2 ) return 1;		// on cherche a avoir la probabilitée la plus proche de 0
+	else if( probabilitePertePion_c1 > probabilitePertePion_c2 ) return -1;
 	else return 0;
 }
 

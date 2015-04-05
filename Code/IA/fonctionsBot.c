@@ -12,6 +12,9 @@
 
 
 
+
+
+
 // retourne tous les coups qu'un joueur peut faire, et les stoque dans une liste chainée
 void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, unsigned char dices[4], ListeChainee* listeCoups ) {
 
@@ -131,7 +134,7 @@ void calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups 
 
 
 void calculerCaracteristiquesCoups( ListeChainee* listeCoups ) {
-	
+
 	appliquerFonctionSurElement( listeCoups, calculerCaracteristiquesCoup );
 }
 
