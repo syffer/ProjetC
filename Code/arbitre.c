@@ -118,7 +118,20 @@ void initialiserPlateau( Square board[24] ) {
 
 
 const SGameState const copierEtatJeux( SGameState etatJeux ) {
-	return etatJeux;
+	SGameState copie;
+	copie.bar[0] = etatJeux.bar[0];
+	copie.bar[1] = etatJeux.bar[1];
+	copie.out[0] = etatJeux.out[0];
+	copie.out[1] = etatJeux.out[1];
+	//copie de la board
+	int i;
+	for(i=0;i<25;i++){
+        copie.board[i].nbDames = etatJeux.board[i].nbDames;
+        copie.board[i].owner = etatJeux.board[i].owner;
+	}
+	copie.turn = etatJeux.turn;
+	//pour l'instant on copie que ça
+	return copie;
 }
 
 
@@ -139,6 +152,8 @@ void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
 	unsigned char dices[2];
 	unsigned int triesb = 2, triesw = 2;
 	unsigned int couleur[2]; //les couleurs du j1 puis du j2
+	SMove bonsCoups[4];
+	SMove move; //move utilisé une fois...
 
 	SGameState etatCopie, etatJeux = initialiserEtatJeux(); 	// /!\ a initialiser (tableau de cases, nb points ....)
 
@@ -218,7 +233,7 @@ void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
                 if(etatJeux.turn == WHITE) jW.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesw );
                 else jB.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesb );
                 //on vérifie que ce que veut faire le joueur est correct
-                if(!verifierCoup(etatJeux,dices,moves,nbMoves)){
+                if(!verifierCoup(etatJeux,dices,moves,nbMoves,bonsCoups)){
                     //coup foireux !
                     if(etatJeux.turn == WHITE){
                          triesw--;
@@ -229,8 +244,16 @@ void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 ) {
                          if(triesb==0) etatValide = 1;
                     }
                 }else{
-                    //coup valide, on modifie la gameState (qui va appeler les fonctions graphiques) et on passe le tour
-                    modifierMap(etatJeux,moves,nbMoves,etatJeux.turn);
+                    //coup valide, on modifie la gameState, on appele les fonctions graphiques et on passe le tour
+                    for(i=0;i<nbMoves;i++){
+                        if(etatJeux.board[bonsCoups[i].dest_point-1].owner == -etatJeux.turn){ //on vérifie ici pour afficher le déplacement d'un jeton mangé
+                            move.src_point = bonsCoups[i].dest_point;
+                            move.dest_point = 0;
+                            afficherDeplacementX(move);
+                        }
+                        jouerCoup(etatJeux,bonsCoups[i],etatJeux.turn);
+                        afficherDeplacementX(bonsCoups[i]);
+                    }
                     etatValide = 1;
                 }
             }//fin tour
@@ -290,95 +313,262 @@ int finPartie(SGameState etatJeux, int triesw, int triesb){
     return 0;
 }
 
-int verifierCoup(SGameState etatJeux ,unsigned char dices[2], SMove moves[4], int nbMoves){
+//la couleur est dans etatJeux.turn
+int verifierCoup(SGameState etatJeux ,unsigned char dices[2], SMove moves[4], int nbMoves, SMove bonsCoups[4]){
+    int x=calculerMaxCoup(etatJeux,dices, etatJeux.turn);
+    if(x != nbMoves){
+        printf("Le joueur n'a pas maximisé le nombre de coups");
+        printf("Coups du joueur : %d",nbMoves);
+        printf("Coups possibles : %d",x);
+        return 0;
+    }
+    SGameState copie = copierEtatJeux(etatJeux);
+    int modificationEffectuee, i, nbCoupsRestants = nbMoves;
+    int movesEffectues[4] = {0,0,0,0};
+
+    while(nbCoupsRestants != 0){
+        modificationEffectuee = 0;
+        for(i=0;i<nbMoves;i++){
+            //si le move n'a pas déjà été fait
+            if(movesEffectues[i] = 0){
+                //on regarde si on peut jouer le coup
+                if(coupPossible(etatJeux.board,moves[i],etatJeux.turn)){
+                    //on le joue, on le définit comme joué, on réduit le nombre de coups restants
+                    jouerCoup(etatJeux,moves[i],etatJeux.turn);
+                    movesEffectues[i] = 1;
+
+                    //on ajoute le coups aux bons coups, ce qui permet de gagner du temps après lorsqu'on les fera un par un dans l'ordre
+                    bonsCoups[nbMoves-nbCoupsRestants] = moves[i];
+
+                    nbCoupsRestants--;
+                    //on a fait une modif
+                    modificationEffectuee = 1;
+                }
+            }
+        }
+        if(modificationEffectuee == 0) return 0;
+    }
     return 1;
 }
 
-void modifierMap(SGameState etatJeux, SMove moves[4], int nbMoves, int couleur){
-    int testMoves; //doit changer à chaque fois, sinon il y a une erreur
-    int i;
-    SMove move;
-    while(nbMoves != 0){
-        testMoves = nbMoves;
-        for(i=0;i<nbMoves;i++){
-            move = moves[i];
-            if(move.src_point == 0){//bar
-                if(etatJeux.board[move.dest_point-1].owner == -couleur){//si la destination est une case adverse
-                    allerVersAdverse(etatJeux,move,couleur);
-                }
-                etatJeux.bar[couleur]--;
-                //la destination devient notre
-                choperDestination(etatJeux,move,couleur);
-                //afficher graphiquement
-                afficherDeplacementX(move);
-                nbMoves--; //un mouvement à été effectué
-            }
-            //si on est pas dans le bar
-            else{
-                //si la source est la fin, ya un sérieux problème
-                if(move.src_point >= 25){
-                    perror("GROS PROBLEME ! la source est la fin >_<'");
-                    exit(1);
-                }
-                //si la source n'est pas une de nos cases, c'est qu'on peut pas encore jouer ce coup
-                //sinon on fait le coup
-                if(etatJeux.board[move.src_point-1].owner == couleur){
-                    if(etatJeux.board[move.dest_point-1].owner == -couleur){//si la destination est une case adverse
-                        allerVersAdverse(etatJeux,move,couleur);
-                    }
-                    //on perd une dame à la source
-                    etatJeux.board[move.src_point-1].nbDames--;
-                    //si ya plus de dames sur la source, elle devient NOBODY
-                    if(!etatJeux.board[move.src_point-1].nbDames){
-                        etatJeux.board[move.src_point-1].owner = NOBODY;
-                    }
-                    //la destination devient notre
-                    choperDestination(etatJeux,move,couleur);
-                    //afficher graphiquement
-                    afficherDeplacementX(move);
-                    nbMoves--; //un mouvement à été effectué
-                }
-            }
-
-        }
-        if(testMoves == nbMoves){
-            perror("aucun déplacement n'a pu être effectué !");
-            exit(1);
-        }
-    }
-}
-
-//Utilisée si on fait un déplacement vers une case adverse
-void allerVersAdverse(SGameState etatJeux, SMove move, int couleur_src){
-    //la case doit contenir 1 jeton, sinon error
-    if(etatJeux.board[move.dest_point].nbDames != 1){
-        perror("nombre de pions adverses différent de 1, il aurait pas du pouvoir prendre cette case");
-        exit(1);
-    }
-    //on mange le pion adverse --> on le met dans bar
-    etatJeux.board[move.dest_point-1].nbDames = 0;
-    etatJeux.bar[!couleur_src]++;
-    SMove virerAdversaire = {move.dest_point,25*couleur_src}; //le bar de blanc est 0, le bar de noir est 25...
-    afficherDeplacementX(virerAdversaire);
-
-    etatJeux.board[move.dest_point-1].owner == couleur_src;
-    //il reste plus qu'à déplacer le pion sur la case adverse
-}
-
-//choper la destination, en gros tester si c'est pas la fin
-void choperDestination(SGameState etatJeux,SMove move,int couleur_src){
-    //vérifier si c'est la fin ou pas
-    if(move.dest_point==25){
-        etatJeux.out[couleur_src]++;
-    }else{
-        //on augmente le nbDame et on s'assure que la case est bien à nous
-        etatJeux.board[move.dest_point-1].nbDames++;
-        etatJeux.board[move.dest_point-1].owner = couleur_src;
-    }
-}
 
 //calculer le maximum de coups possibles par un joueur
-int calculerMaxCoup(SGameState etatJeux ,unsigned char dices[2], SMove moves[4], int nbMoves){
+int calculerMaxCoup(SGameState etatJeux, unsigned char dices[2], int couleur){
+    //combien on peut faire de coups avec les dés qu'on à
+    unsigned int coups[4];
+    int nbCoups = 0, coupsJoues = 0;
+    transformerDesEnCoups(dices, coups, &nbCoups);
 
+
+    //copie de gameState
+    SGameState copieGame = copierEtatJeux(etatJeux);
+
+    //on enlève les coups obligatoires dus au bar
+    coupsJoues = jouerBar(copieGame, coups, &nbCoups, couleur);
+
+    if(nbCoups == 0){
+        return coupsJoues;
+    }else if(nbCoups == 1){
+        return coupsJoues + algoCoupPareil(copieGame,coups[0],1,couleur);
+    }else{
+        //il y a au moins deux coups.
+        //si les dés sont les même, on prend le premier algo, sinon le deuxième
+        if(coups[0] == coups[1]){
+            return coupsJoues + algoCoupPareil(copieGame,*coups,nbCoups, couleur);
+        }else{
+            if(nbCoups != 2){
+                perror("PAS NORMAL : erreur pas possible à ce stade, on ne doit pas pouvoir faire l'algo de dés différents si il y en a plus de 2");
+                exit(1);
+            }
+            return coupsJoues + algoCoupDifferent(copieGame,coups, couleur);
+        }
+    }
 }
 
+///fonctions pour vérifier nombre de coups
+void transformerDesEnCoups(unsigned char dices[2], unsigned int coups[4], int* nbCoups){
+    if(dices[0] == dices[1]){
+        unsigned int num = (unsigned int) dices[0];
+        coups[0] = num;
+        coups[1] = num;
+        coups[2] = num;
+        coups[3] = num;
+        *nbCoups = 4;
+    }else{
+        unsigned int num1, num2;
+        num1 = (unsigned int) dices[0];
+        num2 = (unsigned int) dices[1];
+        coups[0] = num1;
+        coups[1] = num2;
+        *nbCoups = 2;
+    }
+}
+
+//retourne le nombre de coups joués
+int jouerBar(SGameState etatJeux, int coups[4],int* nbCoups, int couleur){
+    if(etatJeux.bar[couleur] == 0){
+        return 0;
+    }
+    //cas particulier à traiter : un jeton en bar, et 2 dés différents --> il peut perdre un coup si il joue mal
+    //on traite donc le cas ici, fais chier...
+    if(*nbCoups > 1 && etatJeux.bar[couleur] == 1 && coups[0] != coups[1]){
+        //si on peut pas faire le coup avec le premier dé
+        if(!coupPossible(etatJeux.board,faireMove(0,coups[0],couleur),couleur)){
+            *nbCoups--;
+            return jouerBar(etatJeux,&coups[1],nbCoups,couleur); //on réapplique l'algo avec un dé
+        }else if(!coupPossible(etatJeux.board,faireMove(0,coups[1],couleur),couleur)){
+            *nbCoups--;
+            return jouerBar(etatJeux,&coups[0],nbCoups,couleur); //on réapplique l'algo avec l'autre dé
+        }else{
+            //les deux dés peuvent être joués, fais chier...
+            //on teste avec le premier dé
+            int dest;
+            if(couleur = WHITE) dest = coups[0];
+            else dest = 25-coups[0];
+
+            etatJeux.board[dest-1].nbDames++;
+            etatJeux.board[dest-1].owner = couleur;
+            etatJeux.bar[couleur]  = 0;
+            //on applique l'algo à dés unique sur cette map
+            if(algoCoupPareil(etatJeux,coups[1],1,couleur) == 1) return 2;
+            else{
+                //le test avec le premier dé n'a pasfonctionné, on annule et on teste avec le deuxième
+                etatJeux.board[dest-1].nbDames--;
+                if(etatJeux.board[dest-1].nbDames == 0) etatJeux.board[dest-1].owner = NOBODY;
+                jouerCoup(etatJeux,faireMove(0,coups[1],couleur),couleur);
+                return 1+algoCoupPareil(etatJeux,coups[0],1,couleur);
+            }
+        }
+    }
+    //la on est dans un cas normal, c'est bon, ouf !
+    int coupsJoues = 0;
+    int coupATester = *nbCoups-1;
+    SMove move;
+    int coupsRestants[4] = {0,0,0,0}, courant = 0; //servent à recrééer le tableau de coups
+    while(etatJeux.bar[couleur] != 0 && coupATester != -1){
+        move = faireMove(0,coups[coupATester],couleur);
+        if(coupPossible(etatJeux.board,move,couleur)){
+            jouerCoup(etatJeux,move,couleur);
+            *nbCoups--;
+            coupsJoues++;
+        }else{
+            coupsRestants[courant] = coups[coupATester];
+            courant++;
+        }
+        coupATester--;
+    }
+    coups = coupsRestants; //coups deviennent les coups restants --> A TESTER !!! j'ai jamais fait ça !
+    return coupsJoues;
+}
+
+//retourne le nombre de coups joués
+int algoCoupPareil(SGameState etatJeux, unsigned int coup, int nbCoups, int couleur){
+    int coupJoues = 0;
+    SMove move;
+    int courant; //case courante à tester
+    if(couleur == WHITE) courant = 1;
+    else courant = 24;
+    while(nbCoups != 0 && courant != 0 && courant != 25){
+        if(etatJeux.board[courant-1].owner == couleur){
+            move = faireMove(courant-1,coup,couleur);
+            while(nbCoups != 0 && coupPossible(etatJeux.board,move,couleur)){
+                jouerCoup(etatJeux,move,couleur);
+                coupJoues++;
+                nbCoups--;
+            }
+        }else{
+            if(couleur == WHITE) courant++;
+            else courant--;
+        }
+    }
+    return coupJoues;
+}
+
+
+int algoCoupDifferent(SGameState etatJeux, int coup[2], int couleur){
+    //si on en trouve un qui peut se faire que avec un dé, on le fait puis on lance l'autre algo avec le dé restant.
+    //on peut regarder aussi si un pion peut être joué avec les deux dés et qu'il y a au moins deux pions
+    int coupJoues = 0;
+    SMove move1, move2, move3;
+    int courant; //case courante à tester
+    if(couleur == WHITE) courant = 1;
+    else courant = 24;
+    int iJetonChiant = 0,coup1,coup2;
+    while(courant != 0 && courant != 25){
+        if(etatJeux.board[courant-1].owner == couleur){
+            move1 = faireMove(courant-1,coup[0],couleur);
+            move2 = faireMove(courant-1,coup[1],couleur);
+            move3 = faireMove(courant-1,coup[0]+coup[1],couleur);
+            coup1 = coupPossible(etatJeux.board,move1,couleur);
+            coup2 = coupPossible(etatJeux.board,move2,couleur);
+            if(coup1 && coup2){
+                //les deux coups sont possibles
+                //s'il y a au moins 2 jetons, c'est bon
+                //si ya qu'un jeton mais qu'on peut faire la somme des dés, c'est bon aussi
+                if(etatJeux.board[courant-1].nbDames >= 2 || coupPossible(etatJeux.board,move3,couleur)) return 2;
+                //sinon on ajoute ce pion au tableau des "jetons chiants", mais on a pas besoin de savoir sa valeur, juste le nombre de jeton Chiants
+                //si on ajoute le deuxième jeton chiant, c'est bon car on a deux jetons différents où on peut faire les deux combinaisons
+                if(iJetonChiant == 1) return 2;
+                iJetonChiant++;
+            }else if(coup1){
+                jouerCoup(etatJeux,move1,couleur);
+                return 1 + algoCoupPareil(etatJeux,coup[1],1,couleur);
+            }else if(coup2){
+                jouerCoup(etatJeux,move2,couleur);
+                return 1 + algoCoupPareil(etatJeux,coup[0],1,couleur);
+            }//sinon on peut rien faire avec ce jeton
+        }
+        //passer au jeton suivant
+        if(couleur == WHITE) courant++;
+        else courant--;
+    }
+    return iJetonChiant; //si y'en a 1, alors on peut jouer qu'un coup, sinon on peut en jouer aucun
+}
+
+int coupPossible(Square board[], SMove move, int couleur){
+    if(move.dest_point == 25) return 1;
+    //sinon faut que ça soit pas une case adverse, ou alors y a qu'un jeton
+    else return (board[move.dest_point-1].owner != -couleur || board[move.dest_point-1].nbDames == 1);
+}
+
+void jouerCoup(SGameState etatJeux, SMove move, int couleur){
+    if(move.src_point == 0){
+         etatJeux.bar[couleur]--;
+         //si c'est une case adverse, on mange le pion
+         if(etatJeux.board[move.dest_point-1].owner == -couleur){
+            etatJeux.bar[-couleur]++;
+            etatJeux.board[move.dest_point-1].nbDames = 0;
+         }
+         etatJeux.board[move.dest_point-1].nbDames++;
+         etatJeux.board[move.dest_point-1].owner = couleur;
+
+    }
+    else if(move.dest_point == 25){
+         etatJeux.out[couleur]++;
+         etatJeux.board[move.src_point-1].nbDames--;
+         if(etatJeux.board[move.src_point-1].nbDames == 0) etatJeux.board[move.src_point-1].owner = NOBODY;
+    }else{
+        etatJeux.board[move.src_point-1].nbDames--;
+        if(etatJeux.board[move.src_point-1].nbDames == 0) etatJeux.board[move.src_point-1].owner = NOBODY;
+        //si c'est une case adverse, on mange le pion
+         if(etatJeux.board[move.dest_point-1].owner == -couleur){
+            etatJeux.bar[-couleur]++;
+            etatJeux.board[move.dest_point-1].nbDames = 0;
+         }
+         etatJeux.board[move.dest_point-1].owner = couleur;
+         etatJeux.board[move.dest_point-1].nbDames++;
+    }
+}
+
+SMove faireMove(int src, int numDe, int couleur){
+    int dest;
+    if(couleur == WHITE){
+        dest = src + dest;
+        if(dest > 25) dest = 25;
+    }else{
+        dest = src - dest;
+        if(dest < 1) dest = 25;
+    }
+    SMove move = {src,dest};
+    return move;
+}
