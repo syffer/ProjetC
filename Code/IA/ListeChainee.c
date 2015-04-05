@@ -151,6 +151,10 @@ int getNbElements( ListeChainee* liste ) {
 
 
 
+
+
+
+
 /*
 void afficherListe( ListeChainee* liste ) {
 

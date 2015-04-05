@@ -28,7 +28,7 @@ void getDices( const unsigned char dices[2], unsigned char newDices[4] ) {
 
 
 
-
+// retourne la couleur de l'adversaire, ou NOBODY si on entre NOBODY
 Player getCouleurAdverse( Player maCouleur ) {
 	if( maCouleur == WHITE ) return BLACK;
 	else if( maCouleur == BLACK ) return WHITE;
@@ -84,15 +84,17 @@ Square getCaseReelle( SGameState* gameState, Player maCouleur, int i ) {
 	return laCase;
 }
 
-
+// renvoie vrai si la case appartient au joueur, faux sinon
 int caseEstAuJoueur( Square laCase, Player couleurJoueur ) {
 	return laCase.owner == couleurJoueur;
 }
 
+// retourne vrai si la case est sécurisée (ne peut pas être prise par un autre joueur)
 int caseEstSecurisee( Square laCase ) {
 	return laCase.nbDames > 1;
 }
 
+// retourne vrai si la case possède au moins 1 pion
 int casePossedeDesPions( Square laCase ) {
 	return laCase.nbDames > 0;
 }
@@ -236,7 +238,7 @@ void afficherGameState( SGameState gameState ) {
 
 
 
-
+// retourne le nombre de cases sécurisées d'un joueur
 int getNbCasesSecurisees( SGameState* gameState, Player maCouleur ) {
 
 	int totaleCasesSecurisees = 0;
@@ -247,7 +249,7 @@ int getNbCasesSecurisees( SGameState* gameState, Player maCouleur ) {
 
 		laCase = getCaseReelle( gameState, maCouleur, i );
 
-		if( caseEstAuJoueur(laCase,maCouleur) && laCase.nbDames > 1 ) totaleCasesSecurisees++;
+		if( caseEstAuJoueur(laCase,maCouleur) && caseEstSecurisee(laCase) ) totaleCasesSecurisees++;
 	}
 
 	return totaleCasesSecurisees;
@@ -258,7 +260,7 @@ int getNbCasesSecurisees( SGameState* gameState, Player maCouleur ) {
 
 
 
-
+// retourne la probabilité qu'un joueur se fasse prendre un pion au prochain tour
 double getProbabilitePerdreUnPion( SGameState* gameState, Player maCouleur ) {
 
 	int valeurDes[25] = {0};
@@ -275,7 +277,6 @@ void getEloignementsPointsNonSecurisees( SGameState* gameState, Player maCouleur
 	Player couleurAdversaire = getCouleurAdverse(maCouleur);
 
 	int eloigement;
-
 
 	int j_depart = 1;
 	int j_arrivee = 24;
