@@ -63,6 +63,9 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 	joueur.TakeDouble = (pfTakeDouble) extraireLibrairie( lib, "TakeDouble" );
 	nbErreursDetectees += dlerrorDetectee();
 
+	joueur.PlayTurn = (pfPlayTurn) extraireLibrairie( lib, "PlayTurn" );
+	nbErreursDetectees += dlerrorDetectee();
+
 
 	// si il y a eu une erreur, on sort du programme OBLIGATOIREMENT
 	if( nbErreursDetectees ) {
