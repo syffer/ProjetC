@@ -2,40 +2,37 @@
 #include "verifications.h"
 #include "joueur.h"
 #include "arbitre.h"
-#include "graphique.h"
-#define ICI printf("ICIIIIII\n");
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
 
-#include <string.h>		// a virer apres
 
 int main( int argc, char* argv[] ) {
-	
+
 	/*
 	*	vérification des paramètres entrés par l'utilisateur
 	*/
 
 	if( argc <= 1 ) {
 		printf(" Erreur, il manque les parametres : \n");
-		printf(" 	%s <nbParties> <chemin librairie 1> <chemin librairie 2> \n", argv[0] );
+		printf(" 	%s <nbPoints> <chemin librairie 1> <chemin librairie 2> \n", argv[0] );
 		exit( EXIT_FAILURE );
 	}
 
 
-	char* cheminLibrairie_1 = "./libBot.so";	// chargement par défaut
-	char* cheminLibrairie_2 = "./libBot.so";
+	char* cheminLibrairie_1 = "./IA/libBotSimplet.so";	// chargement par défaut
+	char* cheminLibrairie_2 = "./IA/libBotSimplet.so";
 
 
-	// on récupère les librairies entrées (qui sont optionnels)
+	// on récupère les librairies entrées (qui sont optionnelles)
 	if( argc >= 3 ) cheminLibrairie_1 = argv[2];
 	if( argc >= 4 ) cheminLibrairie_2 = argv[3];
 
 	// on récupère le nombre de parties à jouer
-	int nbParties;
-	if( stringToPositiveInteger(argv[1],&nbParties) ) {
-		printf(" Erreur, le parametre representant le nombre de parties n'est pas valide. \n");
+	int nbPoints;
+	if( stringToPositiveInteger(argv[1],&nbPoints) ) {
+		printf(" Erreur, le parametre representant le nombre de points n'est pas valide. \n");
 		printf(" Ce parametre doit etre un entier positif. \n");
 		exit( EXIT_FAILURE );
 	}
@@ -58,19 +55,16 @@ int main( int argc, char* argv[] ) {
 	Joueur joueur1 = chargerJoueur( librairie_1 );
 	Joueur joueur2 = chargerJoueur( librairie_2 );
 
-    SDL_Surface *tabafree[3];
+    //SDL_Surface *tabafree[3];
     //afficherJeu(tabafree); // affichage de la fenêtre de jeu et de la partie grapique
-    
-    //Jouer les parties
-    jouerPartie( nbParties, joueur1, joueur2 );
+    printf("début partie\n");
+	jouerPartie( nbPoints, joueur1, joueur2 );
 
     /*
     for(i=0;i<3;i++){
         SDL_FreeSurface(tabafree[i]);
     }
 	*/
-
-
 
 	/*
 	*	libération des ressources utilisées
@@ -90,3 +84,4 @@ int main( int argc, char* argv[] ) {
 
 	return 0;
 }
+

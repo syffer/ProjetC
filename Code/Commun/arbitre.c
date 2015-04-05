@@ -3,12 +3,13 @@
 
 #include "backgammon.h"
 #include "joueur.h"
-#include "graphique.h"
+#include "../GUI/graphique.h"
 #include <time.h>		// time
 #include <stdlib.h> 	// srand
 #include <stdio.h>		// printf()
 #define ICI printf("ICIIIIII\n");
 #include <unistd.h>
+
 
 /*
 * Affiche le contenu du tableau contenant la valeurs des dés.
@@ -26,7 +27,6 @@ void afficherDes( unsigned char dices[2] ) {
 void lancerLesDes( unsigned char dices[2] ) {
 	dices[0] = (unsigned char) randomINT(1,6);
 	dices[1] = (unsigned char) randomINT(1,6);
-	actualiserDes(dices);
 }
 
 
@@ -55,14 +55,14 @@ int randomINT( int min, int max ) {
 * couleurJoueur : la couleur du joueur qui la possède
 * nbDames : le nombre de jetons à poser
 */
-int remplirCase( Square* laCase, Player couleurJoueur, int nbDames ) {
-	if( !laCase ){
+int remplirCase( Square board[], int laCase, int couleurJoueur, int nbDames ) {
+	if( laCase < 0 || laCase > 23 ){
     perror("laCase pointe vers rien du tout !");
-	return -1;
+	exit(EXIT_FAILURE);
 	}
 
-	laCase->owner = couleurJoueur;
-	laCase->nbDames = nbDames;
+	board[laCase].owner = couleurJoueur;
+	board[laCase].nbDames = nbDames;
 	if(nbDames != 0){
 	remplirCaseX(laCase, couleurJoueur, nbDames);//mettre le nombre de pions qu'il faut dans chaque case !
 	}
@@ -70,6 +70,8 @@ int remplirCase( Square* laCase, Player couleurJoueur, int nbDames ) {
 
 	return 0;
 }
+
+
 
 
 
@@ -81,7 +83,7 @@ SGameState initialiserEtatJeux() {
 	etatJeux.bar[ BLACK ] = 0;
 	etatJeux.bar[ WHITE ] = 0;
 
-	// pions déjà sortis
+	// pions déjà sorties
 	etatJeux.out[ BLACK ] = 0;
 	etatJeux.out[ WHITE ] = 0;
 
@@ -97,7 +99,7 @@ SGameState initialiserEtatJeux() {
 	// on initialise tout le plateau à "rien/personne/NOBODY"
 	int i;
 	for( i = 0; i < 24; i++ ) {
-		remplirCase( &etatJeux.board[i], NOBODY, 0 );
+		remplirCase( etatJeux.board, i, NOBODY, 0 );
 	}
 
 	return etatJeux;
@@ -106,16 +108,15 @@ SGameState initialiserEtatJeux() {
 
 
 void initialiserPlateau( Square board[24] ) {
-	remplirCase( &board[0], WHITE, 2 );
-	remplirCase( &board[5], BLACK, 5 );
-	remplirCase( &board[7], BLACK, 3 );
-	remplirCase( &board[11], WHITE, 5 );
-	remplirCase( &board[12], BLACK, 5 );
-	remplirCase( &board[16], WHITE, 3 );
-	remplirCase( &board[18], WHITE, 5 );
-	remplirCase( &board[23], BLACK, 2 );
+	remplirCase( board, 0, WHITE, 2 );
+	remplirCase( board, 5, BLACK, 5 );
+	remplirCase( board, 7, BLACK, 3 );
+	remplirCase( board, 11, WHITE, 5 );
+	remplirCase( board, 12, BLACK, 5 );
+	remplirCase( board, 16, WHITE, 3 );
+	remplirCase( board, 18, WHITE, 5 );
+	remplirCase( board, 23, BLACK, 2 );
 }
-
 
 const SGameState const copierEtatJeux( SGameState etatJeux ) {
 	SGameState copie;
@@ -135,7 +136,6 @@ const SGameState const copierEtatJeux( SGameState etatJeux ) {
 }
 
 
-
 void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
 
 	char nomJoueurBlanc[50];
@@ -147,19 +147,22 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
     SMove moves[4];
     unsigned int nbMoves = 0;
     unsigned char dices[2];
+
+    printf("initialisation etat Jeux\n");
     SGameState etatJeux = initialiserEtatJeux();
     SGameState etatCopie;
 
 	unsigned int triesb = 2, triesw = 2;
-	unsigned int couleur[2]; //les couleurs du j1 puis du j2
+	//unsigned int couleur[2]; //les couleurs du j1 puis du j2
 	SMove bonsCoups[4];
 	SMove move; //move utilisé une fois...
     int score = 5;
 
+    printf("envoi du startMatch aux joueurs\n");
     joueurBlanc.StartMatch(score);
     joueurNoir.StartMatch(score);
 
-    int premierTour, etatValide;
+    int etatValide;
 
 
     int i;
@@ -183,6 +186,7 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
         afficherDes(dices);
 
         while(!finPartie(etatJeux,triesw,triesb)){
+            printf("C'est au tour du joueur de couleur %d\n",etatJeux.turn);
             etatValide = 0;
             etatCopie = copierEtatJeux(etatJeux);
             //Penser à COPIER LES DES !!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -191,6 +195,7 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
                 //On lui donne ici normalement l'état copié
                 if(etatJeux.turn == WHITE) joueurBlanc.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesw );
                 else joueurNoir.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesb );
+                printf("Le joueur a donné son ordre\n");
                 //on vérifie que ce que veut faire le joueur est correct
                 if(!verifierCoup(etatJeux,dices,moves,nbMoves,bonsCoups)){
                     //coup foireux !
@@ -272,11 +277,11 @@ int verifierCoup(SGameState etatJeux ,unsigned char dices[2], SMove moves[4], in
         modificationEffectuee = 0;
         for(i=0;i<nbMoves;i++){
             //si le move n'a pas déjà été fait
-            if(movesEffectues[i] = 0){
+            if(movesEffectues[i] == 0){
                 //on regarde si on peut jouer le coup
-                if(coupPossible(etatJeux.board,moves[i],etatJeux.turn)){
+                if(coupPossible(copie.board,moves[i],copie.turn)){
                     //on le joue, on le définit comme joué, on réduit le nombre de coups restants
-                    jouerCoup(etatJeux,moves[i],etatJeux.turn);
+                    jouerCoup(copie,moves[i],copie.turn);
                     movesEffectues[i] = 1;
 
                     //on ajoute le coups aux bons coups, ce qui permet de gagner du temps après lorsqu'on les fera un par un dans l'ordre
@@ -347,7 +352,7 @@ void transformerDesEnCoups(unsigned char dices[2], unsigned int coups[4], int* n
 }
 
 //retourne le nombre de coups joués
-int jouerBar(SGameState etatJeux, int coups[4],int* nbCoups, int couleur){
+int jouerBar(SGameState etatJeux, unsigned int coups[4],int* nbCoups, int couleur){
     if(etatJeux.bar[couleur] == 0){
         return 0;
     }
@@ -356,16 +361,16 @@ int jouerBar(SGameState etatJeux, int coups[4],int* nbCoups, int couleur){
     if(*nbCoups > 1 && etatJeux.bar[couleur] == 1 && coups[0] != coups[1]){
         //si on peut pas faire le coup avec le premier dé
         if(!coupPossible(etatJeux.board,faireMove(0,coups[0],couleur),couleur)){
-            *nbCoups--;
+            *nbCoups = *nbCoups-1;
             return jouerBar(etatJeux,&coups[1],nbCoups,couleur); //on réapplique l'algo avec un dé
         }else if(!coupPossible(etatJeux.board,faireMove(0,coups[1],couleur),couleur)){
-            *nbCoups--;
+            *nbCoups = *nbCoups - 1;
             return jouerBar(etatJeux,&coups[0],nbCoups,couleur); //on réapplique l'algo avec l'autre dé
         }else{
             //les deux dés peuvent être joués, fais chier...
             //on teste avec le premier dé
             int dest;
-            if(couleur = WHITE) dest = coups[0];
+            if(couleur == WHITE) dest = coups[0];
             else dest = 25-coups[0];
 
             etatJeux.board[dest-1].nbDames++;
@@ -386,12 +391,12 @@ int jouerBar(SGameState etatJeux, int coups[4],int* nbCoups, int couleur){
     int coupsJoues = 0;
     int coupATester = *nbCoups-1;
     SMove move;
-    int coupsRestants[4] = {0,0,0,0}, courant = 0; //servent à recrééer le tableau de coups
+    unsigned int coupsRestants[4] = {0,0,0,0}, courant = 0; //servent à recrééer le tableau de coups
     while(etatJeux.bar[couleur] != 0 && coupATester != -1){
         move = faireMove(0,coups[coupATester],couleur);
         if(coupPossible(etatJeux.board,move,couleur)){
             jouerCoup(etatJeux,move,couleur);
-            *nbCoups--;
+            *nbCoups = *nbCoups-1;
             coupsJoues++;
         }else{
             coupsRestants[courant] = coups[coupATester];
@@ -427,10 +432,9 @@ int algoCoupPareil(SGameState etatJeux, unsigned int coup, int nbCoups, int coul
 }
 
 
-int algoCoupDifferent(SGameState etatJeux, int coup[2], int couleur){
+int algoCoupDifferent(SGameState etatJeux, unsigned int coup[2], int couleur){
     //si on en trouve un qui peut se faire que avec un dé, on le fait puis on lance l'autre algo avec le dé restant.
     //on peut regarder aussi si un pion peut être joué avec les deux dés et qu'il y a au moins deux pions
-    int coupJoues = 0;
     SMove move1, move2, move3;
     int courant; //case courante à tester
     if(couleur == WHITE) courant = 1;
@@ -506,12 +510,14 @@ void jouerCoup(SGameState etatJeux, SMove move, int couleur){
 SMove faireMove(int src, int numDe, int couleur){
     int dest;
     if(couleur == WHITE){
-        dest = src + dest;
+        dest = src + numDe;
         if(dest > 25) dest = 25;
     }else{
-        dest = src - dest;
+        dest = src - numDe;
         if(dest < 1) dest = 25;
     }
     SMove move = {src,dest};
     return move;
 }
+
+

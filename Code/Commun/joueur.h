@@ -13,7 +13,9 @@
 
 	char* getError();
 
-#else
+#endif
+
+#ifdef linux
 	#include <dlfcn.h>
 
 	#define Librairie void*

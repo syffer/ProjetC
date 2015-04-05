@@ -1,7 +1,7 @@
 /////////// Strutures � utiliser
 #ifndef _backgammon
     #define _backgammon
-
+    
 /**
  * @brief D�finit quel joueur contr�le la case.
  *
