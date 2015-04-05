@@ -13,7 +13,7 @@ int randomINT( int min, int max );
 
 const SGameState const copierEtatJeux( SGameState etatJeux );
 void jouerPartie( int nbParties, Joueur joueur1, Joueur joueur2 );
-int finPartie(SGameState etatJeux, int tries1, int tries2); //indique si c'est fini ou pas
+int finPartie(SGameState etatJeux, int triesw, int triesb); //indique si c'est fini ou pas
 int verifierCoup(SGameState etatJeux ,unsigned char dices[2], SMove moves[4], int nbMoves, SMove bonsCoups[4]);
 //void modifierMap(SGameState etatJeux, SMove moves[4], int nbMoves, int couleur);
 //void allerVersAdverse(SGameState etatJeux, SMove move, int couleur_src);

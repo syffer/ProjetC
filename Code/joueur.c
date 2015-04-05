@@ -33,44 +33,34 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 	}
 	getError();    /* Clear any existing error */
 
-    printf("%s\n",nomLibrairie);
-
 	int nbErreursDetectees = 0;
 
 	Joueur joueur;
 
 	joueur.librairie = lib;
 
-    printf("init\n");
-
 	joueur.InitLibrary = (pfInitLibrary) extraireLibrairie( lib, "InitLibrary" );	// on extrait la fonction
 	nbErreursDetectees += dlerrorDetectee();
-
-    printf("start %p\n", joueur.InitLibrary );
 
 	joueur.StartMatch = (pfStartMatch) extraireLibrairie( lib, "StartMatch" );
 	nbErreursDetectees += dlerrorDetectee();
 
-    printf("game\n");
 	joueur.StartGame = (pfStartGame) extraireLibrairie( lib, "StartGame" );
 	nbErreursDetectees += dlerrorDetectee();
-
-    printf("end\n");
 
 	joueur.EndGame = (pfEndGame) extraireLibrairie( lib, "EndGame" );
 	nbErreursDetectees += dlerrorDetectee();
 
-    printf("end\n");
-
 	joueur.EndMatch = (pfEndMatch) extraireLibrairie( lib, "EndMatch" );
 	nbErreursDetectees += dlerrorDetectee();
-
-    printf("double\n");
 
 	joueur.DoubleStack = (pfDoubleStack) extraireLibrairie( lib, "DoubleStack" );
 	nbErreursDetectees += dlerrorDetectee();
 
 	joueur.TakeDouble = (pfTakeDouble) extraireLibrairie( lib, "TakeDouble" );
+	nbErreursDetectees += dlerrorDetectee();
+
+	joueur.PlayTurn = (pfPlayTurn) extraireLibrairie( lib, "PlayTurn");
 	nbErreursDetectees += dlerrorDetectee();
 
 

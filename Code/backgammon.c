@@ -12,7 +12,7 @@
 #include <string.h>		// a virer apres
 
 int main( int argc, char* argv[] ) {
-    int i;
+	
 	/*
 	*	vérification des paramètres entrés par l'utilisateur
 	*/
@@ -59,14 +59,16 @@ int main( int argc, char* argv[] ) {
 	Joueur joueur2 = chargerJoueur( librairie_2 );
 
     SDL_Surface *tabafree[3];
-    afficherJeu(tabafree); // affichage de la fenêtre de jeu et de la partie grapique
+    //afficherJeu(tabafree); // affichage de la fenêtre de jeu et de la partie grapique
+    
     //Jouer les parties
     jouerPartie( nbParties, joueur1, joueur2 );
 
+    /*
     for(i=0;i<3;i++){
         SDL_FreeSurface(tabafree[i]);
     }
-
+	*/
 
 
 
