@@ -154,7 +154,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 			moves[i] = coupAleatoire.mouvements[i];
 		}
 
-		afficherCoup(coupAleatoire);
+		afficherCoup(&coupAleatoire);
 
 
 	}

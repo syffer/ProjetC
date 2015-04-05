@@ -133,7 +133,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 		moves[i] = meilleurCoup.mouvements[i];
 	}
 
-	afficherCoup(meilleurCoup);
+	afficherCoup(&meilleurCoup);
 	
 
 	detruireListeChainee(coups);

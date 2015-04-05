@@ -25,8 +25,8 @@ typedef struct Bot Bot;
 void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, unsigned char dices[4], ListeChainee* listeCoups );
 void calculerCoupsPossiblesInitiaux( SGameState* gameState, Player maCouleur, unsigned char dices[4], ListeChainee* listeCoups );
 void calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups );
-
-
+void calculerCaracteristiquesCoups( ListeChainee* listeCoups );
+void afficherCoups( ListeChainee* listeCoups );
 
 
 

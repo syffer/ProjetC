@@ -4,18 +4,12 @@
  * */
 
 
-/* 
-
-
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-#include <math.h>
-*/
-
 
 
 #include "fonctionsBot.h"
+
+
+
 
 
 // retourne tous les coups qu'un joueur peut faire, et les stoque dans une liste chainée
@@ -24,6 +18,8 @@ void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, unsigned c
 	calculerCoupsPossiblesInitiaux( gameState, maCouleur, dices, listeCoups );
 
 	calculerCoupsPossiblesSuivants( maCouleur, listeCoups );
+
+	calculerCaracteristiquesCoups( listeCoups );
 }
 
 
@@ -52,12 +48,9 @@ void calculerCoupsPossiblesInitiaux( SGameState* gameState, Player maCouleur, un
 
 				initialiserMouvement( &mouvement, maCouleur, i, dices[j] );
 
-				initialiserCoup( &coup, *gameState, dices );
+				initialiserCoup( &coup, *gameState, dices, maCouleur );
 
-				ajouterMouvementAuCoup( &coup, mouvement );
-
-				deplacerUnPion( &(coup.gameState), maCouleur, mouvement );		
-				coup.dices[j] = 0;	// indique que je viens d'utiliser le dé
+				ajouterMouvementAuCoup( &coup, mouvement, j );
 
 				ajouterElementFin( listeCoups, coup );
 			}
@@ -106,11 +99,9 @@ void calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups 
 				if( peutDeplacerUnPion( gameState, maCouleur, i, coup.dices[j] ) ) {
 
 					initialiserMouvement( &mouvement, maCouleur, i, coup.dices[j] );
-					nouveauCoup = coup;
+					nouveauCoup = coup;		// on copie le coup d'origine, pour lui rajouté un mouvement
 
-					ajouterMouvementAuCoup( &nouveauCoup, mouvement );
-					deplacerUnPion( &(nouveauCoup.gameState), maCouleur, mouvement );
-					nouveauCoup.dices[j] = 0;
+					ajouterMouvementAuCoup( &nouveauCoup, mouvement, j );
 
 					ajouterElementFin( listeCoups, nouveauCoup );
 
@@ -139,10 +130,19 @@ void calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups 
 }
 
 
+void calculerCaracteristiquesCoups( ListeChainee* listeCoups ) {
+	
+	appliquerFonctionSurElement( listeCoups, calculerCaracteristiquesCoup );
+}
 
 
 
 
+
+void afficherCoups( ListeChainee* listeCoups ) {
+
+	appliquerFonctionSurElement( listeCoups, afficherCoup );
+}
 
 
 
@@ -183,61 +183,5 @@ void afficherPeutDeplacer( SGameState* gameState ) {
 }
 */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-int getCoupMaximum( ListeChainee* listeCoups, fonctionComparaisonCoups f_compraison, Coup* coupMaximum ) {
-
-	int nbCoups = getNbElements(listeCoups);
-	if( nbCoups == 0 ) {
-		printf("la liste est vide, pas de maximum \n");
-		return -1;
-	}
-
-	Cellule* cellule = getPremierElement(listeCoups);
-	Coup coupMax = getDonnee(cellule);
-	Coup coup;
-
-
-	int i;
-	for( i = 1; i < nbCoups; i++ ) {
-
-		cellule = getCelluleSuivante(cellule);
-		coup = getDonnee(cellule);
-
-		if( f_compraison(coup, coupMax) ) coupMax = coup; 
-
-	}
-
-	*coupMaximum = coupMax;
-
-	return 0;
-}
-*/
 
 

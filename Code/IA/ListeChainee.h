@@ -9,7 +9,14 @@
 
 
 typedef Coup Donnee;
+
+
+
 typedef struct Cellule Cellule;
+
+
+
+
 typedef struct ListeChainee ListeChainee;
 
 
@@ -51,6 +58,10 @@ typedef int (p_fonctionComparaisonDonnee)( Donnee* c1, Donnee* c2 );
 int getDonneeMax( ListeChainee* liste, p_fonctionComparaisonDonnee comparaison, Donnee* donneeMax );
 
 
+
+
+typedef void (p_fonctionElement)(Donnee* donnee);
+void appliquerFonctionSurElement( ListeChainee* liste, p_fonctionElement fonctionElement );
 
 
 #endif

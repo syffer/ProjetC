@@ -123,20 +123,22 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
 
 	// on en choisi un parmit tout les coups possible, selon un certain critère
-	Coup meilleurCoup;
-	getDonneeMax( coups, comparerDeuxCoups, &meilleurCoup );
+	Coup coupChoisi;
+	getDonneeMax( coups, comparerCoups_Securitee, &coupChoisi );
 
 
 	// on plase les mouvements du coup dans le tableaux envoyé à l'arbitre
-	*nbMove = meilleurCoup.nbMouvements;
+	*nbMove = coupChoisi.nbMouvements;
 
 	int i;
 	for( i = 0; i < *nbMove; i++ ) {
-		moves[i] = meilleurCoup.mouvements[i];
+		moves[i] = coupChoisi.mouvements[i];
 	}
 
-	//afficherCoups(coups);
+	afficherCoup(&coupChoisi);
 	
+	afficherCoups(coups);
+
 	detruireListeChainee(coups);
 }
 

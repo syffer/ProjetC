@@ -6,19 +6,18 @@
 #include <stdio.h>
 
 
+
 struct Cellule {
 	Donnee valeur;
-	Cellule* suivant;
-	Cellule* precedent;
+	struct Cellule* suivant;
+	struct Cellule* precedent;
 };
 
 struct ListeChainee {
 	int nbElements;
-	Cellule* premier;
-	Cellule* dernier;
+	struct Cellule* premier;
+	struct Cellule* dernier;
 };
-
-
 
 
 
@@ -250,3 +249,19 @@ int getDonneeMax( ListeChainee* liste, p_fonctionComparaisonDonnee comparaison, 
 	return 0;
 }
 
+
+
+
+
+void appliquerFonctionSurElement( ListeChainee* liste, p_fonctionElement fonctionElement ) {
+
+	Cellule* cellule = getPremierElement(liste);
+
+	while( cellule ) {
+
+		fonctionElement( &(cellule -> valeur) );
+
+		cellule = getCelluleSuivante(cellule);
+	}
+
+}
