@@ -3,18 +3,8 @@
 
 
 #include "../Commun/backgammon.h"
-
-// combinaison de mouvements
-struct Coup {
-	
-	SMove mouvements[4];
-	int nbMouvements;
-
-	SGameState gameState;
-	unsigned char dices[4];
-	
-};
-typedef struct Coup Coup;
+#include "GameState.h"
+#include "Coup.h"
 
 
 
@@ -31,7 +21,7 @@ Cellule* getCellulePrecedente( Cellule* cellule );
 Donnee getDonnee( Cellule* cellule );
 
 
-/* operations dur la liste */
+/* operations sur la liste */
 
 ListeChainee* creerListeChainee();
 
@@ -45,10 +35,20 @@ Cellule* getPremierElement( ListeChainee* liste );
 Cellule* getDernierElement( ListeChainee* liste );
 int getNbElements( ListeChainee* liste );
 
-//void afficherListe( ListeChainee* liste );
-
 void detruireCellule( ListeChainee* liste, Cellule* cellule_aDetruire );
 void detruireListeChainee( ListeChainee* liste );
+
+
+
+/*
+	retourne :
+		1  si c1 > c2
+		0  si c1 == c2
+		-1 si c1 < c2
+*/
+typedef int (p_fonctionComparaisonDonnee)( Donnee* c1, Donnee* c2 );
+
+int getDonneeMax( ListeChainee* liste, p_fonctionComparaisonDonnee comparaison, Donnee* donneeMax );
 
 
 

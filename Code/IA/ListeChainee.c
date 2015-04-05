@@ -1,7 +1,10 @@
 
 #include "ListeChainee.h"
+#include "Coup.h"
+
 #include <stdlib.h>
 #include <stdio.h>
+
 
 struct Cellule {
 	Donnee valeur;
@@ -216,4 +219,30 @@ void detruireListeChainee( ListeChainee* liste ) {
 
 
 
+int getDonneeMax( ListeChainee* liste, p_fonctionComparaisonDonnee comparaison, Donnee* donneeMax ) {
+
+	int nbCoups = getNbElements(liste);
+	if( nbCoups == 0 ) {
+		printf("la liste est vide, pas de maximum \n");
+		return -1;
+	}
+
+	Cellule* cellule = getPremierElement(liste);
+	Donnee donneeMaximale = getDonnee(cellule);
+	Donnee donneeActuelle;
+
+
+	int i;
+	for( i = 1; i < nbCoups; i++ ) {
+
+		cellule = getCelluleSuivante(cellule);
+		donneeActuelle = getDonnee(cellule);
+
+		if( comparaison(&donneeActuelle, &donneeMaximale) ) donneeMaximale = donneeActuelle; 
+	}
+
+	*donneeMax = donneeMaximale;
+
+	return 0;
+}
 

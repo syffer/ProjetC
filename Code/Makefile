@@ -6,31 +6,35 @@ CFLAGS=-Wall
 all:: ia gui commun
 
 
+
+
 ################## Commun
 
 ##### creation de l'executable du jeu
-commun:: backgammon.o arbitre.o graphique.o joueur.o verifications.o
+commun:: backgammon
+
+backgammon: Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o
 	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o -o backgammon -ldl `sdl-config --cflags --libs`
 
-
-backgammon.o: Commun/backgammon.c
+Commun/backgammon.o: Commun/backgammon.c
 	gcc $(CFLAGS) -c Commun/backgammon.c -o Commun/backgammon.o
 
-
-arbitre.o: Commun/arbitre.c
+Commun/arbitre.o: Commun/arbitre.c
 	gcc $(CFLAGS) -c Commun/arbitre.c -o Commun/arbitre.o
 
-joueur.o: Commun/joueur.c
+Commun/joueur.o: Commun/joueur.c
 	gcc $(CFLAGS) -c Commun/joueur.c -o Commun/joueur.o
 
-
-verifications.o: Commun/verifications.c
+Commun/verifications.o: Commun/verifications.c
 	gcc $(CFLAGS) -c Commun/verifications.c -o Commun/verifications.o
 
 
 
+
+
+
 ################## IA
-ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so libBotAntiJeu.so libBotParfait.so
+ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotParfait.so
 
 # manque bot joueur  libJoueur.so
 #libJoueur.so: botJoueur.o ....
@@ -41,71 +45,80 @@ ia:: libBotTricheur.so libBotRandom.so libBotSimplet.so libBotLynx.so libBotAnti
 #
 
 ###### bot parfait
-libBotParfait.so: botParfait.o fonctionsBot.o ListeChainee.o
-	gcc -shared IA/botParfait.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotParfait.so 
+IA/libBotParfait.so: IA/botParfait.o IA/fonctionsBot.so 
+	gcc -shared IA/botParfait.o IA/fonctionsBot.so -o IA/libBotParfait.so 
 
-botParfait.o: IA/botParfait.c
+IA/botParfait.o: IA/botParfait.c
 	gcc $(CFLAGS) -o IA/botParfait.o -fpic -c IA/botParfait.c 
 
 
 ###### bot anti jeu
-libBotAntiJeu.so: botAntiJeu.o fonctionsBot.o ListeChainee.o
-	gcc -shared IA/botAntiJeu.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotAntiJeu.so 
+IA/libBotAntiJeu.so: IA/botAntiJeu.o IA/fonctionsBot.so 
+	gcc -shared IA/botAntiJeu.o IA/fonctionsBot.so -o IA/libBotAntiJeu.so 
 
-botAntiJeu.o: IA/botAntiJeu.c
+IA/botAntiJeu.o: IA/botAntiJeu.c
 	gcc $(CFLAGS) -o IA/botAntiJeu.o -fpic -c IA/botAntiJeu.c
 
 
 ###### bot Lynx
-libBotLynx.so: botLynx.o fonctionsBot.o ListeChainee.o
-	gcc -shared IA/botLynx.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotLynx.so 
+IA/libBotLynx.so: IA/botLynx.o IA/fonctionsBot.so
+	gcc -shared IA/botLynx.o IA/fonctionsBot.so -o IA/libBotLynx.so 
 
-botLynx.o: IA/botLynx.c
+IA/botLynx.o: IA/botLynx.c
 	gcc $(CFLAGS) -o IA/botLynx.o -fpic -c IA/botLynx.c
 
 
 ###### bot simplet
-libBotSimplet.so: botSimplet.o fonctionsBot.o ListeChainee.o
-	gcc -shared IA/botSimplet.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotSimplet.so 
+IA/libBotSimplet.so: IA/botSimplet.o IA/fonctionsBot.so
+	gcc -shared IA/botSimplet.o IA/fonctionsBot.so -o IA/libBotSimplet.so 
 
-botSimplet.o: IA/botSimplet.c
+IA/botSimplet.o: IA/botSimplet.c
 	gcc $(CFLAGS) -o IA/botSimplet.o -fpic -c IA/botSimplet.c
 
 
 ###### bot random
-libBotRandom.so: botRandom.o fonctionsBot.o ListeChainee.o
-	gcc -shared IA/botRandom.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotRandom.so 
+IA/libBotRandom.so: IA/botRandom.o IA/fonctionsBot.so 
+	gcc -shared IA/botRandom.o IA/fonctionsBot.so -o IA/libBotRandom.so 
 
-botRandom.o: IA/botRandom.c
+IA/botRandom.o: IA/botRandom.c
 	gcc $(CFLAGS) -o IA/botRandom.o -fpic -c IA/botRandom.c
 
 
 ###### bot tricheur
-libBotTricheur.so: botTricheur.o fonctionsBot.o ListeChainee.o
-	gcc -shared IA/botTricheur.o IA/fonctionsBot.o IA/ListeChainee.o -o IA/libBotTricheur.so 
+IA/libBotTricheur.so: IA/botTricheur.o IA/fonctionsBot.so
+	gcc -shared IA/botTricheur.o IA/fonctionsBot.so -o IA/libBotTricheur.so 
 
 
-botTricheur.o: IA/botTricheur.c
+IA/botTricheur.o: IA/botTricheur.c
 	gcc $(CFLAGS) -o IA/botTricheur.o -fpic -c IA/botTricheur.c
 
-	
+
 
 ###### fichiers utilisés par tous les bots
-fonctionsBot.o: IA/fonctionsBot.c
+IA/fonctionsBot.so: IA/fonctionsBot.o IA/ListeChainee.o IA/Coup.o IA/GameState.o
+	gcc -shared IA/fonctionsBot.o IA/ListeChainee.o IA/Coup.o IA/GameState.o -o IA/fonctionsBot.so 
+
+
+IA/fonctionsBot.o: IA/fonctionsBot.c 
 	gcc $(CFLAGS) -o IA/fonctionsBot.o -fpic -c IA/fonctionsBot.c 
 
-ListeChainee.o: IA/ListeChainee.c
+IA/ListeChainee.o: IA/ListeChainee.c 
 	gcc $(CFLAGS) -o IA/ListeChainee.o -fpic -c IA/ListeChainee.c 
 
+IA/Coup.o: IA/Coup.c 
+	gcc $(CFLAGS) -o IA/Coup.o -fpic -c IA/Coup.c 
+
+IA/GameState.o: IA/GameState.c 
+	gcc $(CFLAGS) -o IA/GameState.o -fpic -c IA/GameState.c 
 
 
 
 
 
 ################## GUI
-gui:: graphique.o
+gui:: GUI/graphique.o
 
-graphique.o: GUI/graphique.c
+GUI/graphique.o: GUI/graphique.c
 	gcc $(CFLAGS) -c GUI/graphique.c -o GUI/graphique.o
 
 

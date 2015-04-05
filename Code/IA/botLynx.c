@@ -124,7 +124,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	// on en choisi un parmit tout les coups possible, selon un certain critère
 	Coup meilleurCoup;
-	getCoupMaximum( coups, comparerDeuxCoups, &meilleurCoup );
+	getDonneeMax( coups, comparerDeuxCoups, &meilleurCoup );
 
 
 	// on plase les mouvements du coup dans le tableaux envoyé à l'arbitre
@@ -135,7 +135,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 		moves[i] = meilleurCoup.mouvements[i];
 	}
 
-	afficherCoups(coups);
+	//afficherCoups(coups);
 	
 	detruireListeChainee(coups);
 }
