@@ -14,7 +14,7 @@
 #ifndef DEF_CONSTANTES
 #define DEF_CONSTANTES
 
-    #define TAILLE_CASE      80 // 80 px de large pour chaque case
+    #define TAILLE_CASE      84 // 84 px de large pour chaque case
     #define NB_CASES_LARGEUR 12 // 12 cases de largeur
 
 #endif // DEF_CONSTANTES
