@@ -1,9 +1,10 @@
 #ifndef _graphique
 	#define _graphique
 
-
+#include <SDL/SDL_ttf.h>
 #ifdef _WIN32
 	#include <SDL.h>
+
 #else
 	#include "SDL/SDL.h"
 #endif
@@ -26,8 +27,6 @@ typedef struct{
 
     SDL_Rect posPion;
     SDL_Surface* imagePion;
-    int largeurPion;
-    int hauteurPion;
 
 }Pion;
 
@@ -54,7 +53,9 @@ SDL_Rect positionnerPion(Plateau *plateau, Case *case_pos, int numCase);
 void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);
-void deplacerPionVers(Pion *pion, int numCase, int tempsPrecedent, Plateau plateau, Case *case_b, SDL_Rect posPion);
+void deplacerPionVers(Pion *pion, int tempsPrecedent, SDL_Rect posPion);
 void movePion(SMove move, Plateau *plateau, int tempsPrecedent);
+void updateOutGraphic(SDL_Surface *outJoueur, int numJoueur, Plateau *plateau, SDL_Surface *ecran);
+Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre);
 
 #endif
