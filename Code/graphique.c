@@ -11,10 +11,10 @@ void initialiserFenetre() {
 }
 
 void fermerFenetre() {
-    
+
 }
 
-void initialiserPlateau( SGameState* gameState ) {
+void initialiserPlateauGraphique( SGameState* gameState ) {
 
 }
 
