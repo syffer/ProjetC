@@ -19,7 +19,7 @@ int initialiserFenetre() {
         return -1;
     }
 
-    //démarrage de la bibliothèque ttf pour écrire du texte
+    // démarrage de la bibliothèque ttf pour écrire du texte
     if( TTF_Init() == -1 ) {
         fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
         //exit(EXIT_FAILURE);
@@ -31,7 +31,7 @@ int initialiserFenetre() {
 
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    SDL_Surface* screen = SDL_SetVideoMode( HAUTEUR_FENETRE, LARGEUR_FENETRE, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
     if ( !screen ) {
         printf("Impossible d'afficher l'écran : %s\n", SDL_GetError());
         return -1;
@@ -40,6 +40,18 @@ int initialiserFenetre() {
     // Titre de la fenêtre
     SDL_WM_SetCaption("Backgammon", NULL);
 
+
+    // chargement de l'image du plateau
+    SDL_Surface* plateau = SDL_LoadBMP("./Images/plateau.bmp");
+
+    if ( ! plateau ) {
+        printf("Impossible de charger l'image bitmap: %s\n", SDL_GetError());
+        return -1;
+    }
+
+
+    // polices d'écriture sur le plateau
+    TTF_Font *stake = TTF_OpenFont("angelina.ttf", 30);
 
 
     return 0;
