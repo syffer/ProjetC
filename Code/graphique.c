@@ -273,8 +273,6 @@ int afficherJeu()
     s_plateau.tabCases[0].tabPions[1] = p2;
     s_plateau.tabCases[0].nbPions = 2;
 
-    int tempsPrecedent = 0, tempsActuel;
-
     SDL_Rect pos1 = positionnerPion(&s_plateau, &s_plateau.tabCases[0], 0);
    // printf("Position du pion : x : %d - y : %d\n", pos.x, pos.y);
    //initialisation de la position des 2 pions
