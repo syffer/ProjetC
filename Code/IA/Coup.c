@@ -104,10 +104,6 @@ void afficherCoups( ListeChainee* listeCoups ) {
 */
 
 
-int nbCasesSecurisees;
-	int nbCases2Pions;
-	double probabilitePertePion;
-
 
 int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 ) {
 	int nbCasesSecurisees_c1 = c1 -> nbCasesSecurisees;

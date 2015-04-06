@@ -80,8 +80,13 @@ void EndMatch() {
  *	vrai si on propose de doubler : faux sinon
  */
 int DoubleStack( const SGameState * const gameState ) {
-	// on ne double jamais la mise
-	return(0);		
+
+	int coefficientEloignementOut = getCoefficientEloignementOut( gameState, bot.maCouleur );
+	int coefficientEloignementOut_adverse = getCoefficientEloignementOut( gameState, getCouleurAdverse(bot.maCouleur) );
+
+	if( coefficientEloignementOut > 90 ) return 0;
+	else return 1;	// on double la mise si il n'y a plus beaucoup de pions
+
 }
 
 
@@ -93,8 +98,42 @@ int DoubleStack( const SGameState * const gameState ) {
  *	vrai si on accepte la nouvelle mise ; faux sinon
  */
 int TakeDouble( const SGameState * const gameState ) {
-	// on ne refuse jamais la nouvelle mise
-	return(1);
+
+	int monScore;
+	int scoreAdverse;
+
+	if( bot.maCouleur == WHITE ) {
+		monScore = gameState -> whiteScore;
+		scoreAdverse = gameState -> blackScore;
+	}	
+	else {
+		monScore = gameState -> blackScore;
+		scoreAdverse = gameState -> whiteScore;
+	}
+
+	int scoreRestant = bot.scoreCible - monScore;
+	int scoreRestant_adverse = bot.scoreCible - scoreAdverse;
+
+
+	if( gameState -> stake >= scoreRestant_adverse ) return 1;	// on abandonne pas une partie qui nous fait perdre le match
+
+	//if( monScore < scoreAdverse ) return 1;
+
+
+	int coefficientEloignementOut = getCoefficientEloignementOut( gameState, bot.maCouleur );
+	int coefficientEloignementOut_adverse = getCoefficientEloignementOut( gameState, getCouleurAdverse(bot.maCouleur) );
+
+	if( coefficientEloignementOut > 90 ) {
+
+		if( coefficientEloignementOut_adverse > 90 ) return 1;	// partie équilibrée
+		else return 0;		// l'adversaire a l'avantage 
+	}
+	else {
+
+		if( coefficientEloignementOut_adverse > 90 ) return 1;	// j'ai l'avantage
+		else return 1;		// partie équilibrée
+	}	
+
 }
 
 

@@ -347,7 +347,7 @@ double getProbabiliteeDeFaireUnDesDes( int valeurDes[25] ) {
 		}
 	}
 
-	printf( " %i %lf \n", nbLances, (double)nbLances/36 );
+	//printf( " %i %lf \n", nbLances, (double)nbLances/36 );
 
 	// on divise par 36 car il y a 36 lancés de dés possible
 	return (double)nbLances / 36.0;
@@ -358,6 +358,55 @@ double getProbabiliteeDeFaireUnDesDes( int valeurDes[25] ) {
 
 
 
+
+
+
+int getNbPionsOrJarInterieur( SGameState* gameState, Player maCouleur ) {
+
+	int nbPionsOrJarInterieur = gameState -> bar[ maCouleur ];
+
+	int i_depart = (maCouleur == WHITE) ? 7 : 1;
+
+	Square laCase;
+	int i;
+	for( i = i_depart; i < i_depart + 18; i++ ) {
+
+		laCase = getCaseReelle( gameState, maCouleur, i );
+
+		if( ! caseEstAuJoueur(laCase, maCouleur) || ! casePossedeDesPions(laCase) ) continue;
+
+		nbPionsOrJarInterieur += laCase.nbDames;
+	}
+
+	return nbPionsOrJarInterieur;
+}
+
+
+
+int getCoefficientEloignementOut( SGameState* gameState, Player maCouleur ) {
+
+	int coefficient = 0;
+
+	Square laCase;
+
+	int eloignement;
+	int depart = (maCouleur == WHITE) ? 25 : 0;		// on retire 25 au blanc à cause du sens
+
+	int i;
+	for( i = 0; i < 25; i++ ) {
+
+		laCase = getCaseReelle( gameState, maCouleur, i );
+
+		if( ! caseEstAuJoueur(laCase,maCouleur) || ! casePossedeDesPions(laCase) ) continue;
+
+		if( maCouleur == BLACK && i == 0 ) eloignement = 25;	// la barre noire est la plus éloignée du out blanc (mais elle est représentée par 0)
+		else eloignement = abs( depart - i ); 
+
+		coefficient += laCase.nbDames * eloignement;
+	}
+
+	return coefficient;
+}
 
 
 
