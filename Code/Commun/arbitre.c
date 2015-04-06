@@ -211,7 +211,7 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
                 }else{
                     //coup valide, on modifie la gameState, on appele les fonctions graphiques et on passe le tour
                     for(i=0;i<nbMoves;i++){
-                        if(etatJeux.board[bonsCoups[i].dest_point-1].owner == -etatJeux.turn){ //on vérifie ici pour afficher le déplacement d'un jeton mangé
+                        if(etatJeux.board[bonsCoups[i].dest_point-1].owner == !etatJeux.turn){ //on vérifie ici pour afficher le déplacement d'un jeton mangé
                             move.src_point = bonsCoups[i].dest_point;
                             move.dest_point = 0;
                             afficherDeplacementX(move);
@@ -223,7 +223,7 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
                 }
             }//fin tour
             //on change le tour du joueur
-            etatJeux.turn = -etatJeux.turn;
+            etatJeux.turn = !etatJeux.turn;
         }
         printf("(arbitre)-> fin de la partie %i \n", i+1 );
         joueurBlanc.EndGame();
@@ -475,15 +475,15 @@ int algoCoupDifferent(SGameState etatJeux, unsigned int coup[2], int couleur){
 int coupPossible(Square board[], SMove move, int couleur){
     if(move.dest_point == 25) return 1;
     //sinon faut que ça soit pas une case adverse, ou alors y a qu'un jeton
-    else return (board[move.dest_point-1].owner != -couleur || board[move.dest_point-1].nbDames == 1);
+    else return (board[move.dest_point-1].owner != (!couleur) || board[move.dest_point-1].nbDames == 1);
 }
 
 void jouerCoup(SGameState etatJeux, SMove move, int couleur){
     if(move.src_point == 0){
          etatJeux.bar[couleur]--;
          //si c'est une case adverse, on mange le pion
-         if(etatJeux.board[move.dest_point-1].owner == -couleur){
-            etatJeux.bar[-couleur]++;
+         if(etatJeux.board[move.dest_point-1].owner == (!couleur)){
+            etatJeux.bar[(!couleur)]++;
             etatJeux.board[move.dest_point-1].nbDames = 0;
          }
          etatJeux.board[move.dest_point-1].nbDames++;
@@ -498,8 +498,8 @@ void jouerCoup(SGameState etatJeux, SMove move, int couleur){
         etatJeux.board[move.src_point-1].nbDames--;
         if(etatJeux.board[move.src_point-1].nbDames == 0) etatJeux.board[move.src_point-1].owner = NOBODY;
         //si c'est une case adverse, on mange le pion
-         if(etatJeux.board[move.dest_point-1].owner == -couleur){
-            etatJeux.bar[-couleur]++;
+         if(etatJeux.board[move.dest_point-1].owner == (!couleur)){
+            etatJeux.bar[(!couleur)]++;
             etatJeux.board[move.dest_point-1].nbDames = 0;
          }
          etatJeux.board[move.dest_point-1].owner = couleur;
