@@ -76,10 +76,10 @@ int afficherJeu()
     posStake.x = 80;
     posStake.y = 300;
     //mise courante de la partie
-    TTF_Font *stake = TTF_OpenFont("arial.ttf", 10);
+    TTF_Font *stake = TTF_OpenFont("angelina.ttf", 30);
 
     SDL_Color couleurNoire = {0, 0, 0};
-    SDL_Surface *s_stake;
+    SDL_Surface* s_stake;
     s_stake = TTF_RenderGlyph_Blended(stake, "Blabla", couleurNoire);
 
     // si impossible de charger les images des dés
@@ -210,7 +210,7 @@ int afficherJeu()
         // on applique l'image des dés
         SDL_BlitSurface(de1, 0, screen, &posDe1);
         SDL_BlitSurface(de2, 0, screen, &posDe2);
-        SDL_BlitSurface(s_stake, 0, plateau, &posStake);
+        SDL_BlitSurface(s_stake, NULL, plateau, &posStake);
         // On met à jour l'écran
         SDL_Flip(screen);
     } // end main loop
@@ -562,10 +562,12 @@ void initPions(Plateau *plateau, SGameState gameState)
             else if (gameState.board[i].owner == BLACK)// si joueur noir
                pion = creerPion(0,0, "./Images/blanc.bmp");
 
-            plateau -> tabCases[i].tabPions[j] = pion; // ajout du pion dans la bonne case
-            plateau -> tabCases[i].nbPions ++;
             SDL_Rect pos = positionnerPion(plateau, &plateau -> tabCases[i], i ); // positionnement du pion sur la case
             pion.posPion = pos;
+
+            plateau -> tabCases[i].tabPions[j] = pion; // ajout du pion dans la bonne case
+            plateau -> tabCases[i].nbPions ++;
+
         }
     }
 }
