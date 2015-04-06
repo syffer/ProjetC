@@ -7,10 +7,13 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>		// abs()
+
 
 #include "../Commun/backgammon.h"
 #include "fonctionsBot.h"
 #include "ListeChainee.h"
+
 
 
 static Bot bot;
@@ -121,14 +124,17 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	// si je n'ai pas utilisé tout mes dés, et qu'il n'y a plus rien en dehors du plateau
 
 	int i, j;
+	
 	int position;
+	int a_retirer = (maCouleur == WHITE) ? 0 : 25;
 
 	for( i = 0; i < 25; i++ ) {
 
 		if( joueurPossedeDesPionsSurLaBarre(gameState,maCouleur) && i != 0 ) break;
 
-		if( maCouleur == WHITE || i == 0 ) position = i; 	// je suis le WHITE, ou je suis sur la barre
-		else position = 24 - i;
+
+		if( i == 0 ) position = 0;		// je suis sur la barre
+		else position = abs( a_retirer - i );
 
 
 		for( j = 0; j < 4; j++ ) {
