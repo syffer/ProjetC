@@ -49,10 +49,22 @@ int initialiserFenetre() {
         return -1;
     }
 
+    // centrer l'image à l'écran
+    SDL_Rect positionImage;
+    positionImage.x = 0;
+    positionImage.y = 0;
+
+    // on applique l'image de fond
+    SDL_BlitSurface( plateau, 0, screen, &positionImage );
+
+    
 
     // polices d'écriture sur le plateau
     TTF_Font *stake = TTF_OpenFont("angelina.ttf", 30);
 
+
+    // On met à jour l'écran
+    SDL_Flip(screen);
 
 
     // SDL_Quit();
