@@ -8,6 +8,20 @@
 #define LARGEUR_FENETRE 752
 
 
+struct Graphique {
+
+    SDL_Surface* screen;
+    SDL_Surface* imagePlateau;
+
+    TTF_Font* police;
+
+};
+typedef struct Graphique Graphique;
+
+
+static Graphique graphique;
+
+
 int initialiserFenetre() {
 
     // plateau graphique à initialiser ici !!!
@@ -31,8 +45,8 @@ int initialiserFenetre() {
 
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode( HAUTEUR_FENETRE, LARGEUR_FENETRE, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
-    if ( !screen ) {
+    graphique.screen = SDL_SetVideoMode( HAUTEUR_FENETRE, LARGEUR_FENETRE, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    if ( ! graphique.screen ) {
         printf("Impossible d'afficher l'écran : %s\n", SDL_GetError());
         return -1;
     }
@@ -55,16 +69,16 @@ int initialiserFenetre() {
     positionImage.y = 0;
 
     // on applique l'image de fond
-    SDL_BlitSurface( plateau, 0, screen, &positionImage );
+    SDL_BlitSurface( plateau, 0, graphique.screen, &positionImage );
 
     
 
     // polices d'écriture sur le plateau
-    TTF_Font *stake = TTF_OpenFont("angelina.ttf", 30);
+    graphique.police = TTF_OpenFont("angelina.ttf", 30);
 
 
     // On met à jour l'écran
-    SDL_Flip(screen);
+    SDL_Flip( graphique.screen );
 
 
     // SDL_Quit();
@@ -76,6 +90,8 @@ void fermerFenetre() {
     // -------------------------------------------
     // libération propre de TOUTES les ressources
     // -------------------------------------------
+
+
 
     /*
     // libération des surfaces
