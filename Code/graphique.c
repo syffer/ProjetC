@@ -31,7 +31,9 @@ int initialiserFenetre() {
 
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(1280, 752, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+
+    SDL_Surface* screen = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+
     if ( !screen ) {
         printf("Impossible d'afficher l'écran : %s\n", SDL_GetError());
         return -1;
@@ -113,6 +115,7 @@ void pause() {
         switch(event.type) {
 
             case SDL_QUIT:
+<<<<<<< HEAD
                 continuer = 0;
                 break;
             case SDL_KEYDOWN:
@@ -123,6 +126,30 @@ void pause() {
                 break;
 
                 default:
+=======
+                printf("leave \n");
+                continuer = 0;
+                break;
+
+
+            case SDL_KEYDOWN:
+
+                switch(event.key.keysym.sym) {
+
+                    case SDLK_SPACE:
+                        printf("espace \n");
+                        continuer = 0;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                break;
+
+
+            default:
+>>>>>>> origin/graphique
                 break;
             }
             break;
@@ -132,6 +159,13 @@ void pause() {
 
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> origin/graphique
 // Permet d'afficher la fenêtre de jeu
 int afficherJeu()
 {
