@@ -16,8 +16,8 @@ int main( int argc, char* argv[] ) {
 	*/
 
 	unsigned char dices[2];
-	SGameState* gameState;
-
+	SGameState gameState = initialiserEtatJeux();
+	initialiserPlateau( gameState.board );
 
 	initialiserFenetre();
 

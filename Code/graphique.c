@@ -31,7 +31,7 @@ int initialiserFenetre() {
 
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    SDL_Surface* screen = SDL_SetVideoMode(LARGEUR_FENETRE, HAUTEUR_FENETRE, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
     if ( !screen ) {
         printf("Impossible d'afficher l'écran : %s\n", SDL_GetError());
         return -1;
@@ -116,12 +116,26 @@ void pause() {
         switch(event.type) {
 
             case SDL_QUIT:
+                printf("leave \n");
                 continuer = 0; 
                 break;
 
-            case SDLK_SPACE:
-                continuer = 0; 
+            
+            case SDL_KEYDOWN:
+
+                switch(event.key.keysym.sym) {
+
+                    case SDLK_SPACE:
+                        printf("espace \n");
+                        continuer = 0;
+                        break;
+
+                    default:
+                        break;
+                }
+
                 break;
+
 
             default:
                 break;
@@ -130,7 +144,6 @@ void pause() {
     }
 
 }
-
 
 
 
