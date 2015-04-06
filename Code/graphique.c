@@ -4,6 +4,45 @@
 
 #include <math.h>
 
+
+
+void initialiserFenetre() {
+
+}
+
+void initialiserPlateau( SGameState* gameState ) {
+
+}
+
+void updateDesGraphique( unsigned char dices[2] ) {
+
+}
+
+void updateTourJoueurGraphique( Player joueur ) {
+
+}
+
+void updateScoreJoueurBlanc(int score) {
+
+}
+
+void updateScoreJoueurNoir(int score) {
+
+}
+
+void updateScoreCibleGraphique( int scoreCible ) {
+
+}
+
+void updateMiseCouranteGraphique( int nouvelleMise ) {
+
+}
+
+
+
+
+
+
 // Permet d'afficher la fenêtre de jeu
 int afficherJeu()
 {
@@ -613,12 +652,3 @@ int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
     return -1;
 }
 
-void updateScoreJoueurBlanc(int score)
-{
-
-}
-
-void updateScoreJoueurNoir(int score)
-{
-
-}
