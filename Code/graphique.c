@@ -27,7 +27,7 @@ int initialiserFenetre() {
     }
 
     // make sure SDL cleans up before exit
-    atexit(SDL_Quit);
+    //atexit(SDL_Quit);
 
 
     // create a new window
@@ -54,13 +54,15 @@ int initialiserFenetre() {
     TTF_Font *stake = TTF_OpenFont("angelina.ttf", 30);
 
 
-    return 0;
+
+    // SDL_Quit();
+    return EXIT_SUCCESS;
 }
 
 void fermerFenetre() {
 
     // -------------------------------------------
-    // libération propre de TOUTES les ressources 
+    // libération propre de TOUTES les ressources
     // -------------------------------------------
 
     /*
@@ -112,13 +114,9 @@ void updateMiseCouranteGraphique( int nouvelleMise ) {
 
 }
 
-
-
-
 void pause() {
 
     int continuer = 1;
-
     SDL_Event event;
 
     while (continuer) {
@@ -128,38 +126,29 @@ void pause() {
         switch(event.type) {
 
             case SDL_QUIT:
-                printf("leave \n");
-                continuer = 0; 
-                break;
 
-            
+                continuer = 0;
+                break;
             case SDL_KEYDOWN:
-
-                switch(event.key.keysym.sym) {
-
-                    case SDLK_SPACE:
-                        printf("espace \n");
-                        continuer = 0;
-                        break;
-
-                    default:
-                        break;
-                }
-
+            switch(event.key.keysym.sym)
+            {
+                case SDLK_ESCAPE:
+                    continuer = 0;
                 break;
 
+                default:
 
-            default:
+                printf("leave \n");
+                continuer = 0;
                 break;
+
+            }
+            break;
         }
 
     }
 
 }
-
-
-
-
 
 // Permet d'afficher la fenêtre de jeu
 int afficherJeu()
@@ -183,8 +172,6 @@ int afficherJeu()
 
     const SDL_VideoInfo *videoInfo = SDL_GetVideoInfo();
 
-    int maxW=videoInfo->current_w;
-    int maxH=videoInfo->current_h;
   // create a new window
     SDL_Surface* screen = SDL_SetVideoMode(1280, 752, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
     SDL_Surface* de1;
