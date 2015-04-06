@@ -647,18 +647,17 @@ void initCases(Plateau *plateau)
     int i;
     int width = plateau ->largeur;
     int height = plateau -> hauteur;
-    int hauteurCase = 260;
-    int largeurCase = 84;
+
     for(i = 0; i <= 5; i++) // partie inférieure droite
     {
         Case case_b;
 
         case_b.posX = width;
-        width -= largeurCase;
+        width -= LARGEUR_CASE;
         case_b.posY = height;
         case_b.nbPions = 0;
-        case_b.largeur = largeurCase;
-        case_b.hauteur = hauteurCase;
+        case_b.largeur = LARGEUR_CASE;
+        case_b.hauteur = HAUTEUR_CASE;
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
@@ -668,11 +667,11 @@ void initCases(Plateau *plateau)
         Case case_b;
 
         case_b.posX = width;
-        width += largeurCase;
+        width += LARGEUR_CASE;
         case_b.posY = 90;
         case_b.nbPions = 0;
-        case_b.largeur = largeurCase;
-        case_b.hauteur = hauteurCase;
+        case_b.largeur = LARGEUR_CASE;
+        case_b.hauteur = HAUTEUR_CASE;
 
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
@@ -684,11 +683,11 @@ void initCases(Plateau *plateau)
         Case case_b;
 
         case_b.posX = width;
-        width -= largeurCase;
+        width -= LARGEUR_CASE;
         case_b.posY = height;
         case_b.nbPions = 0;
-        case_b.largeur = largeurCase;
-        case_b.hauteur = hauteurCase;
+        case_b.largeur = LARGEUR_CASE;
+        case_b.hauteur = HAUTEUR_CASE;
 
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
@@ -699,11 +698,11 @@ void initCases(Plateau *plateau)
         Case case_b;
 
         case_b.posX = width;
-        width += largeurCase;
+        width += LARGEUR_CASE;
         case_b.posY = 90;
         case_b.nbPions = 0;
-        case_b.largeur = largeurCase;
-        case_b.hauteur = hauteurCase;
+        case_b.largeur = LARGEUR_CASE;
+        case_b.hauteur = HAUTEUR_CASE;
 
         plateau -> tabCases[i] = case_b;
       //  printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
