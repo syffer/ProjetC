@@ -21,7 +21,7 @@ int main( int argc, char* argv[] ) {
 
 	initialiserFenetre();
 
-    afficherJeu();
+    //afficherJeu();
 	// lancerLesDes( dices );
 
 	pause();
