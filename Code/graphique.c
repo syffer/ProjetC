@@ -26,7 +26,6 @@ int initialiserFenetre() {
 
     // plateau graphique à initialiser ici !!!
 
-
     // Initialisation de la SDL
     if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 ) {
         printf( "Impossible de démarrer la fenêtre SDL : %s\n", SDL_GetError() );
@@ -70,8 +69,6 @@ int initialiserFenetre() {
 
     // on applique l'image de fond
     SDL_BlitSurface( plateau, 0, graphique.screen, &positionImage );
-
-    
 
     // polices d'écriture sur le plateau
     graphique.police = TTF_OpenFont("angelina.ttf", 30);
@@ -672,7 +669,7 @@ void initCases(Plateau *plateau)
 
         case_b.posX = width;
         width += largeurCase;
-        case_b.posY = 100;
+        case_b.posY = 90;
         case_b.nbPions = 0;
         case_b.largeur = largeurCase;
         case_b.hauteur = hauteurCase;
@@ -696,14 +693,14 @@ void initCases(Plateau *plateau)
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
-    width = 124;
+    width = 126;
     for(i = 12; i <= 17; i++) // partie superieure gauche
     {
         Case case_b;
 
         case_b.posX = width;
         width += largeurCase;
-        case_b.posY = 100;
+        case_b.posY = 90;
         case_b.nbPions = 0;
         case_b.largeur = largeurCase;
         case_b.hauteur = hauteurCase;
