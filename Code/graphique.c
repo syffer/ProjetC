@@ -170,14 +170,12 @@ int afficherJeu()
                     {
                         SMove move;
                         move.src_point = 1;
-                        move.dest_point = 15;
+                        move.dest_point = retournerNumCase(event.motion.x, event.motion.y, s_plateau)+1;
                         //movePion(move, &s_plateau);
                         deplacement.source = move.src_point;
                         deplacement.dest = move.dest_point;
 
-                        //timer = SDL_AddTimer(30, deplacerPionVers2, &deplacement);
-                        int numCase = retournerNumCase(event.motion.x, event.motion.y, s_plateau);
-                        printf("Vous avez cliqué sur la case n° %i\n\n", numCase);
+                        timer = SDL_AddTimer(30, deplacerPionVers2, &deplacement);
                     }
                 break;
 
