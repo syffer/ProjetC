@@ -36,6 +36,8 @@ typedef struct{
     int posY;
     Pion tabPions[15];
     int nbPions;
+    int hauteur;
+    int largeur;
 }Case;
 
 typedef struct{
@@ -48,14 +50,23 @@ typedef struct{
 
 }Plateau;
 
+typedef struct{
+
+    int source;
+    int dest;
+    Plateau plateau;
+
+}Deplacement;
+
 Pion creerPion(int posX, int posY, char* image);
 SDL_Rect positionnerPion(Plateau *plateau, Case *case_pos, int numCase);
 void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);
 void deplacerPionVers(Pion *pion, int tempsPrecedent, SDL_Rect posPion);
-void movePion(SMove move, Plateau *plateau, int tempsPrecedent);
+void movePion(SMove move, Plateau *plateau);
 void updateOutGraphic(SDL_Surface *outJoueur, int numJoueur, Plateau *plateau, SDL_Surface *ecran);
 Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre);
+int retournerNumCase(int sourisX, int sourisY, Plateau plateau);
 
 #endif

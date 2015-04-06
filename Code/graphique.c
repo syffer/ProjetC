@@ -38,7 +38,6 @@ int afficherJeu()
     SDL_Event event;
 
     Plateau s_plateau;
-    SDL_TimerID timer;
 
     unsigned char dices[2];
 
@@ -81,7 +80,7 @@ int afficherJeu()
 
     SDL_Color couleurNoire = {0, 0, 0};
     SDL_Surface *s_stake;
-    s_stake = TTF_RenderGlyph_Blended(stake, "Mise courante", couleurNoire);
+    s_stake = TTF_RenderGlyph_Blended(stake, "Blabla", couleurNoire);
 
     // si impossible de charger les images des dés
     if (!de1 || !de2)
@@ -107,20 +106,16 @@ int afficherJeu()
     SDL_Rect pos1 = positionnerPion(&s_plateau, &s_plateau.tabCases[0], 0);
    // printf("Position du pion : x : %d - y : %d\n", pos.x, pos.y);
    //initialisation de la position des 2 pions
-    deplacerPionVers(&p, tempsPrecedent, pos1);
+    //deplacerPionVers(&p, tempsPrecedent, pos1);
 
-    deplacerPionVers(&p2, tempsPrecedent, pos1);
-    s_plateau.tabCases[0].nbPions = 2;
+   // deplacerPionVers(&p2, tempsPrecedent, pos1);
 
     SDL_Surface *out1;
 
+    SDL_TimerID timer;
+    Deplacement deplacement;
+    deplacement.plateau = s_plateau;
 
-
-    int i;
-    for(i = 0; i < 24; i++)
-    {
-        printf("Case n° %i, x = %i - y = %i\n", i+1, s_plateau.tabCases[i].posX, s_plateau.tabCases[i].posY);
-    }
     //movePion(move, &s_plateau, tempsPrecedent);
     SDL_SetColorKey(p.imagePion, SDL_SRCCOLORKEY, SDL_MapRGB(p.imagePion->format, 255, 255, 255));
     SDL_SetColorKey(p2.imagePion, SDL_SRCCOLORKEY, SDL_MapRGB(p2.imagePion->format, 255, 255, 255));
@@ -175,14 +170,14 @@ int afficherJeu()
                     {
                         SMove move;
                         move.src_point = 1;
-                        move.dest_point = 1;
+                        move.dest_point = 15;
+                        //movePion(move, &s_plateau);
+                        deplacement.source = move.src_point;
+                        deplacement.dest = move.dest_point;
 
-                        int num = move.dest_point;
-
-                       // movePion(move, &s_plateau, tempsPrecedent);
-                        SDL_Rect pos = positionnerPion(&s_plateau, &s_plateau.tabCases[num-1], num-1);
-                        //deplacerPionVers(&p, tempsPrecedent, pos);
-                        timer = SDL_AddTimer(30, deplacerPionVers2, &s_plateau.tabCases[num-1]);
+                        //timer = SDL_AddTimer(30, deplacerPionVers2, &deplacement);
+                        int numCase = retournerNumCase(event.motion.x, event.motion.y, s_plateau);
+                        printf("Vous avez cliqué sur la case n° %i\n\n", numCase);
                     }
                 break;
 
@@ -208,8 +203,9 @@ int afficherJeu()
 
        // SDL_BlitSurface(out1, 0, screen, &dstrect);
 
-        SDL_BlitSurface(p.imagePion, 0, screen, &p.posPion);
-        SDL_BlitSurface(p2.imagePion, 0, screen, &p2.posPion);
+        SDL_BlitSurface(deplacement.plateau.tabCases[0].tabPions[0].imagePion, 0, screen, &deplacement.plateau.tabCases[0].tabPions[0].posPion);
+        SDL_BlitSurface(deplacement.plateau.tabCases[0].tabPions[1].imagePion, 0, screen, &deplacement.plateau.tabCases[0].tabPions[1].posPion);
+        //SDL_BlitSurface(p2.imagePion, 0, screen, &p2.posPion);
 
         // on applique l'image des dés
         SDL_BlitSurface(de1, 0, screen, &posDe1);
@@ -361,15 +357,23 @@ void deplacerPionVers(Pion *pion, int tempsPrecedent, SDL_Rect posPion)
 
 Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre)
 {
+    Deplacement* d = parametre;
+    int source = d -> source;
+    int dest = d-> dest;
 
-    printf("Appel de deplacerPionVers2\n");
+    Plateau *plateau = &d->plateau;
+    Case* case_dest = &plateau->tabCases[dest -1]; //case de destination
+    Case* case_src = &plateau->tabCases[source -1]; //case source
+    int nbPions = case_src -> nbPions;
+    SDL_Rect posFinale = positionnerPion(plateau, case_dest, dest -1);
+    // récupération du pion situé en haut de la case de départ
+    Pion *pion = &case_src -> tabPions[nbPions - 1];
 
-    Case* case_b = parametre;
-    int nbPions = case_b -> nbPions;
-    Pion *pion = &case_b -> tabPions[nbPions - 1];
-    int x = case_b ->posX;
-    int y = case_b ->posY;
+    int x = posFinale.x;
+    int y = posFinale.y;
+
     printf("x : %i, y : %i\n", pion ->posPion.x, pion ->posPion.y);
+
     int distanceX = fabs(pion -> posPion.x - x);
     int distanceY = fabs(pion -> posPion.y - y);
     int incrementPos = 15;
@@ -423,10 +427,15 @@ SDL_Rect positionnerPion(Plateau *plateau, Case *case_pos, int numCase){
 }
 
 
-void movePion(SMove move, Plateau *plateau, int tempsPrecedent)
+void movePion(SMove move, Plateau *plateau)
 {
     int src = move.src_point;
     int dest = move.dest_point;
+    Deplacement dep;
+
+    dep.source = move.src_point;
+    dep.dest = move.dest_point;
+    dep.plateau = *plateau;
 
     if(src == 0 || dest == 0){}//bar
     else if(src == 25 || dest == 25){} // out
@@ -445,16 +454,13 @@ void movePion(SMove move, Plateau *plateau, int tempsPrecedent)
             //transfert du pion d'une case à une autre
             Pion pion = plateau ->tabCases[src].tabPions[nbPionsSrc-1];
 
-
-
             printf("Avant deplacement : src contient %i pions, dest contient %i pions\n", nbPionsSrc, nbPionsDest);
             case_dest.nbPions ++; // on augmente le nombre de pions de la case destinataire
             int nbPionsDest = case_dest.nbPions;
 
             SDL_Rect newPos = positionnerPion(plateau, &plateau->tabCases[dest], dest); //calcul de la position qu'aura le pion
             //printf("Destination : %i - Position que le pion est censé avoir : x : %d, y : %d\n", dest, newPos.x, newPos.y);
-            deplacerPionVers(&pion, tempsPrecedent, newPos );
-
+            SDL_TimerID timer = SDL_AddTimer(30, deplacerPionVers2, &dep);
             // affectation du pion à la nouvelle case
             case_dest.tabPions[nbPionsDest-1] = pion;
 
@@ -476,16 +482,18 @@ void initCases(Plateau *plateau)
     int i;
     int width = plateau ->largeur;
     int height = plateau -> hauteur;
-
+    int hauteurCase = 260;
+    int largeurCase = 84;
     for(i = 0; i <= 5; i++) // partie inférieure droite
     {
         Case case_b;
 
         case_b.posX = width;
-        width -= 84;
+        width -= largeurCase;
         case_b.posY = height;
         case_b.nbPions = 0;
-
+        case_b.largeur = largeurCase;
+        case_b.hauteur = hauteurCase;
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
@@ -495,9 +503,11 @@ void initCases(Plateau *plateau)
         Case case_b;
 
         case_b.posX = width;
-        width += 84;
+        width += largeurCase;
         case_b.posY = 100;
         case_b.nbPions = 0;
+        case_b.largeur = largeurCase;
+        case_b.hauteur = hauteurCase;
 
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
@@ -509,9 +519,11 @@ void initCases(Plateau *plateau)
         Case case_b;
 
         case_b.posX = width;
-        width -= 84;
+        width -= largeurCase;
         case_b.posY = height;
         case_b.nbPions = 0;
+        case_b.largeur = largeurCase;
+        case_b.hauteur = hauteurCase;
 
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
@@ -522,9 +534,11 @@ void initCases(Plateau *plateau)
         Case case_b;
 
         case_b.posX = width;
-        width += 84;
+        width += largeurCase;
         case_b.posY = 100;
         case_b.nbPions = 0;
+        case_b.largeur = largeurCase;
+        case_b.hauteur = hauteurCase;
 
         plateau -> tabCases[i] = case_b;
       //  printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
@@ -571,4 +585,40 @@ void freePlateau(Plateau *plateau)
         for(j = 0; j < plateau ->tabCases[i].nbPions; j++)
             SDL_FreeSurface(plateau ->tabCases[i].tabPions[j].imagePion);
     }
+}
+
+/**
+* Retourne le numéro de la case dans laquelle on clique
+*/
+int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
+{
+    int i;
+    int numCase;
+
+    for(i = 0; i < 12; i++) //cases du bas
+    {
+        Case case_b = plateau.tabCases[i];
+        if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY && sourisY >= case_b.posY - case_b.hauteur)
+            return i;
+    }
+
+    i = 12;
+    for(i = 12; i < 24; i++)//cases du haut
+    {
+        Case case_b = plateau.tabCases[i];
+        if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY + case_b.hauteur && sourisY >= case_b.posY)
+            return i;
+    }
+
+    return -1;
+}
+
+void updateScoreJoueurBlanc(int score)
+{
+
+}
+
+void updateScoreJoueurNoir(int score)
+{
+
 }
