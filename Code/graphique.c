@@ -161,7 +161,7 @@ int afficherJeu()
     int maxW=videoInfo->current_w;
     int maxH=videoInfo->current_h;
   // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    SDL_Surface* screen = SDL_SetVideoMode(1280, 752, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
     SDL_Surface* de1;
     SDL_Surface* de2;
 
@@ -627,7 +627,7 @@ void initCases(Plateau *plateau)
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
-    width = 800;
+    width = 745;
     for(i = 18; i <= 23; i++) // partie supérieure droite
     {
         Case case_b;
@@ -643,7 +643,7 @@ void initCases(Plateau *plateau)
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
 
-    width = 600; // début de la partie inferieure droite - le bord noir
+    width = 630; // début de la partie inferieure droite - le bord noir
     for(i = 6; i <= 11; i++) // partie inférieure gauche
     {
         Case case_b;
@@ -658,7 +658,7 @@ void initCases(Plateau *plateau)
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
-    width = 180;
+    width = 124;
     for(i = 12; i <= 17; i++) // partie superieure gauche
     {
         Case case_b;
@@ -704,7 +704,7 @@ void initPions(Plateau *plateau, SGameState gameState)
 void creerPlateau(Plateau *plateau)
 {
     plateau -> hauteur = 725;
-    plateau -> largeur = 1225;
+    plateau -> largeur = 1260;
 }
 
 void freePlateau(Plateau *plateau)
