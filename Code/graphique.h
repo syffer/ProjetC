@@ -28,7 +28,7 @@ typedef struct{
     SDL_Rect posPion;
     SDL_Surface* imagePion;
 
-}Pion;
+} Pion;
 
 typedef struct{
 
@@ -38,7 +38,7 @@ typedef struct{
     int nbPions;
     int hauteur;
     int largeur;
-}Case;
+} Case;
 
 typedef struct{
 
@@ -48,7 +48,7 @@ typedef struct{
     int hauteur;
     int largeur;
 
-}Plateau;
+} Plateau;
 
 typedef struct{
 
@@ -56,7 +56,10 @@ typedef struct{
     int dest;
     Plateau plateau;
 
-}Deplacement;
+} Deplacement;
+
+
+
 
 Pion creerPion(int posX, int posY, char* image);
 SDL_Rect positionnerPion(Plateau *plateau, Case *case_pos, int numCase);

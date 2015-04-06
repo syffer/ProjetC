@@ -4,17 +4,18 @@
 
 #include <math.h>
 
-
+#define HAUTEUR_FENETRE 1280
+#define LARGEUR_FENETRE 752
 
 void initialiserFenetre() {
 
 }
 
 void fermerFenetre() {
-    
+
 }
 
-void initialiserPlateau( SGameState* gameState ) {
+void initialiserPlateauGraphique( SGameState* gameState ) {
 
 }
 
@@ -43,6 +44,37 @@ void updateScoreCibleGraphique( int scoreCible ) {
 }
 
 void updateMiseCouranteGraphique( int nouvelleMise ) {
+
+}
+
+
+
+
+void pause() {
+
+    int continuer = 1;
+
+    SDL_Event event;
+
+    while (continuer) {
+
+        SDL_WaitEvent(&event);
+
+        switch(event.type) {
+
+            case SDL_QUIT:
+                continuer = 0; 
+                break;
+
+            case SDLK_SPACE:
+                continuer = 0; 
+                break;
+
+            default:
+                break;
+        }
+
+    }
 
 }
 
