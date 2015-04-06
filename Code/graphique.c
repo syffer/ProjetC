@@ -11,7 +11,7 @@
 struct Graphique {
 
     SDL_Surface* screen;
-    SDL_Surface* imagePlateau;
+    SDL_Surface* surfacePlateau;
 
     TTF_Font* police;
 
@@ -56,20 +56,20 @@ int initialiserFenetre() {
 
 
     // chargement de l'image du plateau
-    SDL_Surface* plateau = SDL_LoadBMP("./Images/plateau.bmp");
+    graphique.surfacePlateau = SDL_LoadBMP("./Images/plateau.bmp");
 
-    if ( ! plateau ) {
+    if ( ! graphique.surfacePlateau ) {
         printf("Impossible de charger l'image bitmap: %s\n", SDL_GetError());
         return -1;
     }
 
     // centrer l'image à l'écran
-    SDL_Rect positionImage;
-    positionImage.x = 0;
-    positionImage.y = 0;
+    SDL_Rect positionImagePlateau;
+    positionImagePlateau.x = 0;
+    positionImagePlateau.y = 0;
 
     // on applique l'image de fond
-    SDL_BlitSurface( plateau, 0, graphique.screen, &positionImage );
+    SDL_BlitSurface( graphique.surfacePlateau, 0, graphique.screen, &positionImagePlateau );
 
     
 
@@ -92,6 +92,14 @@ void fermerFenetre() {
     // -------------------------------------------
 
 
+    SDL_FreeSurface( graphique.surfacePlateau );
+
+
+    TTF_CloseFont( graphique.police ); //fermeture de la police d'écriture
+    TTF_Quit();
+
+    SDL_FreeSurface( graphique.screen );
+
 
     /*
     // libération des surfaces
@@ -103,8 +111,7 @@ void fermerFenetre() {
     SDL_FreeSurface(p2.imagePion);
     SDL_FreeSurface(s_stake);
 
-    TTF_CloseFont(stake); //fermeture dela police d'écriture
-    TTF_Quit();
+    
     printf("Terminé correctement\n");
     */
 
@@ -116,7 +123,41 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
 
 void updateDesGraphique( unsigned char dices[2] ) {
 
+    char* pathCompletDe1 = retournerPathDe( dices[0] );
+    char* pathCompletDe2 = retournerPathDe( dices[1] );
+
+    /*
+    *
+    *
+    *
+    */
+
 }
+
+
+// retourne le chemin de l'image selon la valeur retournée par le lancement de dés
+char* retournerPathDe(char dice)
+{
+    switch(dice)
+    {
+        case 1:
+            return "./Images/Des/de1.bmp";
+        case 2:
+            return "./Images/Des/de2.bmp";
+        case 3:
+            return "./Images/Des/de3.bmp";
+        case 4:
+            return "./Images/Des/de4.bmp";
+        case 5:
+            return "./Images/Des/de5.bmp";
+        case 6:
+            return "./Images/Des/de6.bmp";
+        default:
+            return NULL;
+    }
+}
+
+
 
 void deplacerPionGraphique( SMove mouvement ) {
 
@@ -398,27 +439,6 @@ int afficherJeu()
     return 0;
 }
 
-// retourne le chemin de l'image selon la valeur retournée par le lancement de dés
-char* retournerPathDe(char dice)
-{
-    switch(dice)
-    {
-        case 1:
-            return "./Images/Des/de1.bmp";
-        case 2:
-            return "./Images/Des/de2.bmp";
-        case 3:
-            return "./Images/Des/de3.bmp";
-        case 4:
-            return "./Images/Des/de4.bmp";
-        case 5:
-            return "./Images/Des/de5.bmp";
-        case 6:
-            return "./Images/Des/de6.bmp";
-        default:
-            return NULL;
-    }
-}
 
 /**
 *Initialisation de la position des dés
