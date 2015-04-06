@@ -7,11 +7,64 @@
 #define HAUTEUR_FENETRE 1280
 #define LARGEUR_FENETRE 752
 
-void initialiserFenetre() {
 
+int initialiserFenetre() {
+
+    // plateau graphique à initialiser ici !!!
+
+
+    // Initialisation de la SDL
+    if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 ) {
+        printf( "Impossible de démarrer la fenêtre SDL : %s\n", SDL_GetError() );
+        return -1;
+    }
+
+    //démarrage de la bibliothèque ttf pour écrire du texte
+    if( TTF_Init() == -1 ) {
+        fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
+
+    // make sure SDL cleans up before exit
+    atexit(SDL_Quit);
+
+
+    // create a new window
+    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    if ( !screen ) {
+        printf("Impossible d'afficher l'écran : %s\n", SDL_GetError());
+        return -1;
+    }
+
+    // Titre de la fenêtre
+    SDL_WM_SetCaption("Backgammon", NULL);
+
+
+
+    return 0;
 }
 
 void fermerFenetre() {
+
+    // -------------------------------------------
+    // libération propre de TOUTES les ressources 
+    // -------------------------------------------
+
+    /*
+    // libération des surfaces
+    SDL_FreeSurface(plateau);
+    SDL_FreeSurface(de1);
+    SDL_FreeSurface(de2);
+    //freePlateau(&s_plateau);
+    SDL_FreeSurface(p.imagePion);
+    SDL_FreeSurface(p2.imagePion);
+    SDL_FreeSurface(s_stake);
+
+    TTF_CloseFont(stake); //fermeture dela police d'écriture
+    TTF_Quit();
+    printf("Terminé correctement\n");
+    */
 
 }
 

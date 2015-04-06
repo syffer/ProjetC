@@ -26,9 +26,9 @@ int main( int argc, char* argv[] ) {
 
 	pause();
 
+
+
 	fermerFenetre();
-
-
 
 	return 0;
 
