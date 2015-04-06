@@ -27,11 +27,11 @@ int initialiserFenetre() {
     }
 
     // make sure SDL cleans up before exit
-    atexit(SDL_Quit);
+    //atexit(SDL_Quit);
 
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(maxW, maxH, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
+    SDL_Surface* screen = SDL_SetVideoMode(1280, 752, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
     if ( !screen ) {
         printf("Impossible d'afficher l'écran : %s\n", SDL_GetError());
         return -1;
@@ -40,15 +40,16 @@ int initialiserFenetre() {
     // Titre de la fenêtre
     SDL_WM_SetCaption("Backgammon", NULL);
 
+   // pause();
 
-
-    return 0;
+   // SDL_Quit();
+    return EXIT_SUCCESS;
 }
 
 void fermerFenetre() {
 
     // -------------------------------------------
-    // libération propre de TOUTES les ressources 
+    // libération propre de TOUTES les ressources
     // -------------------------------------------
 
     /*
@@ -100,13 +101,9 @@ void updateMiseCouranteGraphique( int nouvelleMise ) {
 
 }
 
-
-
-
 void pause() {
 
     int continuer = 1;
-
     SDL_Event event;
 
     while (continuer) {
@@ -116,25 +113,24 @@ void pause() {
         switch(event.type) {
 
             case SDL_QUIT:
-                continuer = 0; 
+                continuer = 0;
+                break;
+            case SDL_KEYDOWN:
+            switch(event.key.keysym.sym)
+            {
+                case SDLK_ESCAPE:
+                    continuer = 0;
                 break;
 
-            case SDLK_SPACE:
-                continuer = 0; 
+                default:
                 break;
-
-            default:
-                break;
+            }
+            break;
         }
 
     }
 
 }
-
-
-
-
-
 
 // Permet d'afficher la fenêtre de jeu
 int afficherJeu()
@@ -158,8 +154,6 @@ int afficherJeu()
 
     const SDL_VideoInfo *videoInfo = SDL_GetVideoInfo();
 
-    int maxW=videoInfo->current_w;
-    int maxH=videoInfo->current_h;
   // create a new window
     SDL_Surface* screen = SDL_SetVideoMode(1280, 752, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
     SDL_Surface* de1;
