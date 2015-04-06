@@ -10,11 +10,19 @@ void initialiserFenetre() {
 
 }
 
+void fermerFenetre() {
+    
+}
+
 void initialiserPlateau( SGameState* gameState ) {
 
 }
 
 void updateDesGraphique( unsigned char dices[2] ) {
+
+}
+
+void deplacerPionGraphique( SMove mouvement ) {
 
 }
 
