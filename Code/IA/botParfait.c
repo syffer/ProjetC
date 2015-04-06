@@ -1,14 +1,23 @@
 
-#include "backgammon.h"
+/*
+
+	Bot cherchant à gagner le plus vite possible et en bloquant un maximum l'adversaire
+	Bot non fini
+
+*/
+
 #include <stdio.h>
 #include <string.h>
 
-//////////////////////////////////////////////////////////
-// Dans la librairie
-//
+#include "../Commun/backgammon.h"
+#include "ListeChainee.h"
+#include "fonctionsBot.h"
 
+static Bot bot;
+
+char nom[] = "PerfectBot";
 unsigned int score;
-Player maCouleur;
+static Player maCouleur;
 
 
 /**
@@ -17,9 +26,7 @@ Player maCouleur;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-	
-	//printf("InitLibrary\n");
-	strcpy(name,"AlphaBot");
+	strcpy( name, nom );
 	score = 0;
 	maCouleur = NOBODY;
 }
@@ -31,8 +38,7 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
-	printf("StartMatch\n");
-	
+	score = target_score;
 }
 
 
@@ -40,10 +46,7 @@ void StartMatch( const unsigned int target_score ) {
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
-	static maCouleur;
-	printf("StartGame\n");
 	maCouleur = p;
-	printf("%i \n ", maCouleur );
 }
 
 
@@ -51,8 +54,7 @@ void StartGame(Player p) {
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	printf("%i \n", maCouleur );
-	printf("EndGame\n");
+	maCouleur = NOBODY;
 }
 
 
@@ -60,7 +62,11 @@ void EndGame() {
  * Fin d'un match
  */
 void EndMatch() {
-	printf("EndMatch\n");
+
+	///////////////////////////////////////////////
+	// LIBERATION PROPRE DE TOUTES LES RESSOURCES
+	//						TOUTES
+	///////////////////////////////////////////////
 }
 
 
@@ -72,8 +78,8 @@ void EndMatch() {
  *	vrai si on propose de doubler : faux sinon
  */
 int DoubleStack( const SGameState * const gameState ) {
-	printf("DoubleStack\n");
-	return(0);
+	// on ne double jamais la mise
+	return(0);		
 }
 
 
@@ -85,7 +91,7 @@ int DoubleStack( const SGameState * const gameState ) {
  *	vrai si on accepte la nouvelle mise ; faux sinon
  */
 int TakeDouble( const SGameState * const gameState ) {
-	//printf("TakeDouble\n");
+	// on ne refuse jamais la nouvelle mise
 	return(1);
 }
 
@@ -99,18 +105,37 @@ int TakeDouble( const SGameState * const gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-void PlayTurn( const SGameState * const gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	printf("PlayTurn\n");
+// !!!!!!!!!!!!!!!!!!! on a enlevé les const pour pouvoir modifier gameState
+void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
+	
+
+	*nbMove = 0;
+
+	Player maCouleur = bot.maCouleur;
+	printf(" je suis %i \n", maCouleur );
+
+	unsigned char lesDes[4];
+	getDices( dices, lesDes );
 
 
-	if( dices[0] == dices[1] ) {
-		printf("dedoublement des des/dices \n");
+	ListeChainee* coups = creerListeChainee();
+	Coup meilleurCoup;
+
+	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
+
+	getCoupMaximum( coups, comparerMeilleurCoup,  &meilleurCoup );
+
+
+	*nbMove = meilleurCoup.nbMouvements;
+
+	int i;
+	for( i = 0; i < *nbMove; i++ ) {
+		moves[i] = meilleurCoup.mouvements[i];
 	}
+
+	afficherCoup(meilleurCoup);
+	detruireListeChainee(coups);
+	
 
 
 }
-
-
-
-
-
