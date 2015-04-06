@@ -264,11 +264,11 @@ int finPartie(SGameState* etatJeux, int triesw, int triesb ){
         return 1;
     }
     if( etatJeux->out[0] == 15 ) {
-        printf("joueur blanc à gagné !");
+        printf("joueur noir à gagné !");
         return 1;
     }
     if( etatJeux->out[1] == 15 ) {
-        printf("joueur noir à gagné !");
+        printf("joueur blanc à gagné !");
         return 1;
     }
     return 0;
@@ -330,8 +330,8 @@ int calculerMaxCoup(SGameState* etatJeux, unsigned char dices[2], int couleur){
     printf("MAXCOUP : lancement du jouerBar : il y 'en a %d dedans\n",copieGame.bar[couleur]);
     coupsJoues = jouerBar(&copieGame, coups, &nbCoups, couleur);
     printf("MAXCOUP : %d joués après bar\n",coupsJoues);
-    etatJeux->bar[couleur] -= coupsJoues;
-    if(etatJeux->bar[couleur] > 0){
+    //etatJeux->bar[couleur] -= coupsJoues;
+    if(copieGame.bar[couleur] > 0){
         printf("MAXCOUP : il reste encore du bar\n");
         return coupsJoues;
     }
@@ -378,7 +378,7 @@ void transformerDesEnCoups(unsigned char dices[2], unsigned int coups[4], int* n
 
 //retourne le nombre de coups joués
 int jouerBar(SGameState* etatJeux, unsigned int coups[4],int* nbCoups, int couleur){
-    printf("RNTRE DDANS LE BAR\n");
+    printf("RENTRE DANS LE BAR\n");
     if(etatJeux->bar[couleur] == 0){
         printf("BAR : pas de bar détecté\n");
         return 0;
@@ -400,12 +400,14 @@ int jouerBar(SGameState* etatJeux, unsigned int coups[4],int* nbCoups, int coule
         else if(!coup0){
             printf("BAR : le coup pour jouer %d n'est pas possible\n",coups[0]);
             jouerCoup(etatJeux,move1,couleur);
+            printf("BAR : bar apres coup : %d",etatJeux->bar[couleur]);
             *coups = coups[0];
             *nbCoups = 1;
             return 1;
         }else if(!coup1){
             printf("BAR : le coup pour jouer %d n'est pas possible\n",coups[1]);
             jouerCoup(etatJeux,move0,couleur);
+            printf("BAR : bar apres coup : %d",etatJeux->bar[couleur]);
             *coups = coups[1];
             *nbCoups = 1;
             return 1; //on réapplique l'algo avec l'autre dé
@@ -417,13 +419,17 @@ int jouerBar(SGameState* etatJeux, unsigned int coups[4],int* nbCoups, int coule
             //on teste avec le premier dé
             jouerCoup(&copie,move0,couleur);
             if(algoCoupPareil(&copie,coups[1],1,couleur) == 1){
+                printf("BAR : le move qui jouer : %d de %d cases et de couleur %d",move0.src_point,move0.dest_point,coups[0]);
                 jouerCoup(etatJeux,move0,couleur);
+                printf("BAR : bar apres coup : %d",etatJeux->bar[couleur]);
                 *coups = coups[1];
                 *nbCoups = 1;
                 return 1;
             }
             //si on a pas réussi à obtenir 2 coup en jouant le 1er dé en premier, on lance le deuxième et on verra bien ce qui se passe
+            printf("BAR : le move qui jouer : %d de %d cases et de couleur %d",move1.src_point,move1.dest_point,coups[1]);
             jouerCoup(etatJeux,move1,couleur);
+            printf("BAR : bar apres coup : %d",etatJeux->bar[couleur]);
             *coups = coups[0];
             *nbCoups = 1;
             return 1;
@@ -452,17 +458,18 @@ int jouerBar(SGameState* etatJeux, unsigned int coups[4],int* nbCoups, int coule
 
 //retourne le nombre de coups joués
 int algoCoupPareil(SGameState* etatJeux, unsigned int coup, int nbCoups, int couleur){
+    printf("PAREIL : coup a tester : un dé de %d\n",coup);
     int coupJoues = 0;
     SMove move;
     int courant; //case courante à tester
     if(couleur == WHITE) courant = 1;
     else courant = 24;
     while(nbCoups != 0 && courant != 0 && courant != 25){
-        //printf("PAREIL : test de la case %d\n",courant);
+        printf("PAREIL : test de la case %d\n",courant);
         if(etatJeux->board[courant-1].owner == couleur){
-            //printf("PAREIL : la case est au joueur\n");
-            move = faireMove(courant-1,coup,couleur);
-            while(nbCoups != 0 && coupPossible(etatJeux->board,move,couleur)){
+            printf("PAREIL : la case est au joueur\n");
+            move = faireMove(courant,coup,couleur);
+            while(nbCoups != 0 && coupPossible(etatJeux->board,move,couleur) && etatJeux->board[courant-1].nbDames != 0){
                 printf("PAREIL : le coup de %d vers %d est possible\n",move.src_point,move.dest_point);
                 jouerCoup(etatJeux,move,couleur);
                 coupJoues++;
@@ -494,6 +501,9 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
             coup2 = coupPossible(etatJeux->board,move2,couleur);
             if(coup1 && coup2){
                 printf("DIFF : les deux coups sont possibles\n");
+                //si on est arrivé à la fin...
+                if(etatJeux->out[couleur] == 14 && (move1.dest_point == 25 || move2.dest_point == 25)) return 1;
+
                 //les deux coups sont possibles
                 //s'il y a au moins 2 jetons, c'est bon
                 //si ya qu'un jeton mais qu'on peut faire la somme des dés, c'est bon aussi
@@ -528,6 +538,7 @@ int coupPossible(Square board[], SMove move, int couleur){
 
 void jouerCoup(SGameState* etatJeux, SMove move, int couleur){
     if(move.src_point == 0){
+        printf("ICICICICICICI : joueur %d vire un jeton de son bar\n",couleur);
          etatJeux->bar[couleur]--;
          //si c'est une case adverse, on mange le pion
          if(etatJeux->board[move.dest_point-1].owner == (!couleur)){
@@ -536,7 +547,6 @@ void jouerCoup(SGameState* etatJeux, SMove move, int couleur){
          }
          etatJeux->board[move.dest_point-1].nbDames++;
          etatJeux->board[move.dest_point-1].owner = couleur;
-
     }
     else if(move.dest_point == 25){
          etatJeux->out[couleur]++;
@@ -561,9 +571,12 @@ SMove faireMove(int src, int numDe, int couleur){
         dest = src + numDe;
         if(dest > 25) dest = 25;
     }else{
-        if(src == 0) src = 25;
-        dest = src - numDe;
-        if(dest < 1) dest = 25;
+        if(src == 0){
+            dest = 25 - numDe;
+        }else{
+            dest = src - numDe;
+            if(dest < 1) dest = 25;
+        }
     }
     SMove move = {src,dest};
     return move;
@@ -589,7 +602,7 @@ int peutSortir(Square board[], int couleur){
     int i;
     if(couleur == WHITE){
         //parcours de toutes les cases de 0 à 17, dès qu'on trouve une case blanche, on retourne 0
-        for(i=0;i<=18;i++){
+        for(i=0;i<=17;i++){
             if(board[i].owner == WHITE) return 0;
         }
         return 1;
