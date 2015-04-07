@@ -196,9 +196,10 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 		moves[i] = coupChoisi.mouvements[i];
 	}
 
-	//afficherCoup(&coupChoisi);
+
+	afficherCoup(&coupChoisi);
 	
-	afficherCoups(coups);
+	//afficherCoups(coups);
 
 	detruireListeChainee(coups);
 }

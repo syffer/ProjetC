@@ -241,7 +241,7 @@ int getDonneeMax( ListeChainee* liste, p_fonctionComparaisonDonnee comparaison, 
 		cellule = getCelluleSuivante(cellule);
 		donneeActuelle = getDonnee(cellule);
 
-		if( comparaison(&donneeActuelle, &donneeMaximale) ) donneeMaximale = donneeActuelle; 
+		if( comparaison(&donneeActuelle, &donneeMaximale) == 1 ) donneeMaximale = donneeActuelle; 
 	}
 
 	*donneeMax = donneeMaximale;
