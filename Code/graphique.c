@@ -576,11 +576,14 @@ int afficherJeu()
                         SMove move;
                         move.src_point = 1;
                         move.dest_point = retournerNumCase(event.motion.x, event.motion.y, s_plateau)+1;
-                        //movePion(move, &s_plateau);
+
+                       // movePion(move, &s_plateau);
+
                         deplacement.source = move.src_point;
                         deplacement.dest = move.dest_point;
 
                         timer = SDL_AddTimer(30, deplacerPionVers2, &deplacement);
+
                     }
                 break;
 
@@ -813,17 +816,14 @@ void movePion(SMove move, Plateau *plateau)
 {
     int src = move.src_point;
     int dest = move.dest_point;
-    Deplacement dep;
-
-    dep.source = move.src_point;
-    dep.dest = move.dest_point;
-    dep.plateau = *plateau;
 
     if(src == 0 || dest == 0){}//bar
     else if(src == 25 || dest == 25){} // out
     else{
+        Deplacement deplacement;
 
-        src --;
+
+        /*src --;
         dest --;
         Case case_src = plateau ->tabCases[src];
         Case case_dest = plateau ->tabCases[dest];
@@ -852,7 +852,7 @@ void movePion(SMove move, Plateau *plateau)
             nbPionsDest = case_dest.nbPions;
 
             printf("Après deplacement : src contient %i pions, dest contient %i pions\n", nbPionsSrc, nbPionsDest);
-        }
+        }*/
 
     }
 }
@@ -878,7 +878,7 @@ void initCases(Plateau *plateau)
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
-    width = 745;
+    width = 750;
     for(i = 18; i <= 23; i++) // partie supérieure droite
     {
         Case case_b;
