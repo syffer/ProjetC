@@ -171,7 +171,6 @@ int TakeDouble( const SGameState * const gameState ) {
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
 
-	*nbMove = 0;
 
 	Player maCouleur = bot.maCouleur;
 
@@ -183,9 +182,13 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	ListeChainee* coups = creerListeChainee();
 	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
 
+
 	// on en choisi un parmit tout les coups possible, selon un certain critère
 	Coup coupChoisi;
-	getDonneeMax( coups, comparerCoups_Securitee, &coupChoisi );
+	if( getDonneeMax( coups, comparerCoups_Securitee, &coupChoisi ) ) {		// si une erreur apparait, la liste est vide, et donc pas de coup possible
+		*nbMove = 0;
+		return;
+	}
 
 
 	// on plase les mouvements du coup dans le tableaux envoyé à l'arbitre
