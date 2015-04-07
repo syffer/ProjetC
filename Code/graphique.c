@@ -40,6 +40,9 @@ typedef struct Graphique Graphique;
 
 static Graphique graphique;
 
+/**
+* Actualise tous les éléments graphiques, actualise l'écran puis libère les ressources
+*/
 void rafraichirGraphique()
 {
 
@@ -192,7 +195,9 @@ int initialiserFenetre() {
     return EXIT_SUCCESS;
 }
 
-
+/**
+* Libère les ressources du plateau (le fond et l'écran)
+*/
 void fermerFenetre() {
 
 
@@ -221,6 +226,9 @@ void fermerFenetre() {
 
 }
 
+/**
+* Initialise les pions à leur bonne position sur le plateau et les affecte aux bonnes cases
+*/
 void initialiserPlateauGraphique( SGameState* gameState ) {
 
     // attention aux cases BAR et OUT à l'initialisation (ils peuvent changés)
@@ -257,6 +265,10 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
     updateMiseCouranteGraphique( gameState -> stake );
     // updateTourJoueurGraphique( gameState -> turn );
 }
+
+/**
+* Permet de blitter les pions sur le plateau
+*/
 void updatePionsGraphique()
 {
     int i, j;
@@ -272,6 +284,9 @@ void updatePionsGraphique()
     }
 }
 
+/**
+* Permet de blitter les dés sur le plateau
+*/
 void updateDesGraphique( unsigned char dices[2] ) {
 
     char* pathCompletDe1 = retournerPathDe( dices[0] );
