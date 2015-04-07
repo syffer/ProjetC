@@ -18,8 +18,8 @@ int main( int argc, char* argv[] ) {
 	unsigned char dices[2];
 	SGameState gameState = initialiserEtatJeux();
 	initialiserPlateau( gameState.board );
-
 	initialiserFenetre();
+    initialiserPlateauGraphique(&gameState);
 
     //afficherJeu();
 	// lancerLesDes( dices );
@@ -43,9 +43,9 @@ int main( int argc, char* argv[] ) {
 	pause();
 
 	updateMiseCouranteGraphique(13);
-
-	lancerLesDes(dices);
+    lancerLesDes(dices);
 	updateDesGraphique(dices);
+
 
 	pause();
 

@@ -16,6 +16,8 @@ struct Graphique {
     SDL_Surface* ecran;
     SDL_Surface* fond;
 
+    SDL_Surface* de1;
+    SDL_Surface* de2;
 
     TTF_Font* police;
 
@@ -86,6 +88,8 @@ void rafraichirGraphique()
     position.x = 40;
     position.y = 40;
     SDL_BlitSurface( graphique.texte_LabelScoreCible, NULL, graphique.ecran, &position );
+
+    rafraichirDes();
 
     SDL_Flip( graphique.ecran );
 
@@ -189,11 +193,7 @@ int initialiserFenetre() {
 
 void fermerFenetre() {
 
-    // -------------------------------------------
-    // libération propre de TOUTES les ressources
-    // -------------------------------------------
 
-    //
     TTF_CloseFont( graphique.police ); //fermeture de la police d'écriture
     TTF_Quit();
 
@@ -223,24 +223,32 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
 
     // attention aux cases BAR et OUT à l'initialisation (ils peuvent changés)
 
-    Square laCase;
-
     int i;
-    for( i = 0; i < 24; i++ ) {
+    int j;
+    for(i = 0; i < 24; i++)//pour chaque Square
+    {
+        Case case_b = graphique.plateau.tabCases[i];
 
-        laCase = gameState -> board[i];
+        for(j = 0; j < gameState-> board[i].nbDames; j++) // pour chaque dame dans la case, on créé un pion et on l'ajoute à la case
+        {
+            Pion pion;
 
-        if( laCase.owner == WHITE ) {
+            if(gameState -> board[i].owner == WHITE) // si joueur blanc
+              pion  = creerPion(case_b.posX, case_b.posY, "./Images/blanc.bmp");
+            else if (gameState ->board[i].owner == BLACK)// si joueur noir
+               pion = creerPion(case_b.posX, case_b.posY, "./Images/noir.bmp");
 
+            SDL_Rect pos = positionnerPion(&graphique.plateau.tabCases[i], i ); // positionnement du pion sur la case
+            pion.posPion = pos;
+
+            graphique.plateau.tabCases[i].tabPions[j] = pion; // ajout du pion dans la bonne case
+            graphique.plateau.tabCases[i].nbPions ++;
+            SDL_BlitSurface(graphique.plateau.tabCases[i].tabPions[j].imagePion, NULL, graphique.ecran, &graphique.plateau.tabCases[i].tabPions[j].posPion);
         }
-        else if( laCase.owner == BLACK ) {
-
-        }
-
     }
 
     SDL_Flip( graphique.ecran );
-
+    pause();
     updateScoreJoueurBlanc( gameState -> whiteScore );
     updateScoreJoueurNoir( gameState -> blackScore );
     updateMiseCouranteGraphique( gameState -> stake );
@@ -252,10 +260,16 @@ void updateDesGraphique( unsigned char dices[2] ) {
     char* pathCompletDe1 = retournerPathDe( dices[0] );
     char* pathCompletDe2 = retournerPathDe( dices[1] );
 
-    SDL_Surface* de1 = SDL_LoadBMP(pathCompletDe1);
-    SDL_Surface* de2 = SDL_LoadBMP(pathCompletDe2);
+    graphique.de1 = SDL_LoadBMP(pathCompletDe1);
+    graphique.de2 = SDL_LoadBMP(pathCompletDe2);
 
+    rafraichirDes();
     // les positions des dés peuvent être sauvegardés quelque part pour ne pas à avoir à les recréer à chaque fois.
+
+}
+
+void rafraichirDes()
+{
     SDL_Rect posDe1;
     posDe1.x = 883;
     posDe1.y = 360;
@@ -264,16 +278,14 @@ void updateDesGraphique( unsigned char dices[2] ) {
     posDe2.x = 945;
     posDe2.y = 360;
 
-    SDL_BlitSurface( de1, 0, graphique.ecran, &posDe1 );
-    SDL_BlitSurface( de2, 0, graphique.ecran, &posDe2 );
+    SDL_BlitSurface( graphique.de1, 0, graphique.ecran, &posDe1 );
+    SDL_BlitSurface( graphique.de2, 0, graphique.ecran, &posDe2 );
 
     SDL_Flip( graphique.ecran );
 
-
-    SDL_FreeSurface( de1 );
-    SDL_FreeSurface( de2 );
+    SDL_FreeSurface( graphique.de1 );
+    SDL_FreeSurface( graphique.de2 );
 }
-
 void deplacerPionGraphique( SMove mouvement ) {
 
 }
@@ -487,7 +499,7 @@ int afficherJeu()
     s_plateau.tabCases[0].tabPions[1] = p2;
     s_plateau.tabCases[0].nbPions = 2;
 
-    SDL_Rect pos1 = positionnerPion(&s_plateau, &s_plateau.tabCases[0], 0);
+    SDL_Rect pos1 = positionnerPion(&s_plateau.tabCases[0], 0);
    // printf("Position du pion : x : %d - y : %d\n", pos.x, pos.y);
    //initialisation de la position des 2 pions
     //deplacerPionVers(&p, tempsPrecedent, pos1);
@@ -729,7 +741,7 @@ Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre)
     Case* case_dest = &plateau->tabCases[dest -1]; //case de destination
     Case* case_src = &plateau->tabCases[source -1]; //case source
     int nbPions = case_src -> nbPions;
-    SDL_Rect posFinale = positionnerPion(plateau, case_dest, dest -1);
+    SDL_Rect posFinale = positionnerPion(case_dest, dest -1);
     // récupération du pion situé en haut de la case de départ
     Pion *pion = &case_src -> tabPions[nbPions - 1];
 
@@ -766,7 +778,7 @@ Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre)
 /**
 *   Retourne la bonne position que devra avoir le pion qui se déplace sur cette case
 */
-SDL_Rect positionnerPion(Plateau *plateau, Case *case_pos, int numCase){
+SDL_Rect positionnerPion(Case *case_pos, int numCase){
 
     int nbPions = case_pos -> nbPions;
     SDL_Rect pos;
@@ -917,12 +929,13 @@ void initPions(Plateau *plateau, SGameState gameState)
         for(j = 0; j < gameState.board[i].nbDames; j++) // pour chaque dame dans la case, on créé un pion et on l'ajoute à la case
         {
             Pion pion;
+            Case case_b = graphique.plateau.tabCases[i];
             if(gameState.board[i].owner == WHITE) // si joueur blanc
               pion  = creerPion(0,0, "./Images/blanc.bmp");
             else if (gameState.board[i].owner == BLACK)// si joueur noir
                pion = creerPion(0,0, "./Images/blanc.bmp");
 
-            SDL_Rect pos = positionnerPion(plateau, &plateau -> tabCases[i], i ); // positionnement du pion sur la case
+            SDL_Rect pos = positionnerPion(&plateau -> tabCases[i], i ); // positionnement du pion sur la case
             pion.posPion = pos;
 
             plateau -> tabCases[i].tabPions[j] = pion; // ajout du pion dans la bonne case

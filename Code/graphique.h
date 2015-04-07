@@ -77,7 +77,7 @@ void pause();   // a virer plus tard
 
 
 Pion creerPion(int posX, int posY, char* image);
-SDL_Rect positionnerPion(Plateau *plateau, Case *case_pos, int numCase);
+SDL_Rect positionnerPion(Case *case_pos, int numCase);
 void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);
