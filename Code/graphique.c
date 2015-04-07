@@ -24,6 +24,10 @@ struct Graphique {
     SDL_Surface* texte_ScoreNoir;
     SDL_Surface* texte_ScoreCible;
 
+    SDL_Surface* texte_LabelMiseCourante;
+    SDL_Surface* texte_LabelScoreBlanc;
+    SDL_Surface* texte_LabelScoreNoir;
+    SDL_Surface* texte_LabelScoreCible;
 
 
     Plateau plateau;
@@ -34,12 +38,65 @@ typedef struct Graphique Graphique;
 
 static Graphique graphique;
 
+void rafraichirGraphique()
+{
 
+    SDL_Rect position;
+
+    //rafraichissement del'image de fond
+    position.x = 0;
+    position.y = 0;
+    SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &position);
+
+    //rafraichissement de la mise courante
+    position.x = 25;
+    position.y = 330;
+    SDL_BlitSurface( graphique.texte_MiseCourante, NULL, graphique.ecran, &position );
+
+    //rafraichissement du texte du score blanc
+    position.x = 200;
+    position.y = 30;
+    SDL_BlitSurface( graphique.texte_ScoreBlanc, NULL, graphique.ecran, &position );
+
+    //rafraichissement du texte du score noir
+    position.x = 900;
+    position.y = 30;
+    SDL_BlitSurface( graphique.texte_ScoreNoir, NULL, graphique.ecran, &position );
+
+    //rafraichissement du texte du score cible
+    position.x = 500;
+    position.y = 30;
+    SDL_BlitSurface( graphique.texte_ScoreCible, NULL, graphique.ecran, &position );
+
+    position.x = 25;
+    position.y = 300;
+    SDL_BlitSurface( graphique.texte_LabelMiseCourante, NULL, graphique.ecran, &position );
+
+
+    position.x = 200;
+    position.y = 30;
+    SDL_BlitSurface( graphique.texte_LabelScoreBlanc, NULL, graphique.ecran, &position );
+
+
+    position.x = 800;
+    position.y = 30;
+    SDL_BlitSurface( graphique.texte_LabelScoreNoir, NULL, graphique.ecran, &position );
+
+
+    position.x = 40;
+    position.y = 40;
+    SDL_BlitSurface( graphique.texte_LabelScoreCible, NULL, graphique.ecran, &position );
+
+    SDL_Flip( graphique.ecran );
+
+    SDL_FreeSurface(graphique.texte_MiseCourante);
+    SDL_FreeSurface(graphique.texte_ScoreBlanc);
+    SDL_FreeSurface(graphique.texte_ScoreNoir);
+    SDL_FreeSurface(graphique.texte_ScoreCible);
+
+}
 
 int initialiserFenetre() {
-
-    // plateau graphique à initialiser ici !!!
-
 
     /* ---------- Initialisation de la fenetre ---------- */
 
@@ -51,16 +108,11 @@ int initialiserFenetre() {
         //return -1;
     }
 
-    // make sure SDL cleans up before exit
-    //atexit(SDL_Quit);
-
-
     // create a new window
     graphique.ecran = SDL_SetVideoMode( HAUTEUR_FENETRE, LARGEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF );
     if ( ! graphique.ecran ) {
         printf("Impossible d'afficher la fenetre SDL a l'ecran : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
-        //return -1;
     }
 
     // Titre de la fenêtre
@@ -76,9 +128,9 @@ int initialiserFenetre() {
         //return -1;
     }
 
-    
+
     // avoir un fonc blanc au cas ou
-    SDL_FillRect( graphique.ecran, NULL, SDL_MapRGB( graphique.ecran->format, 255, 255, 255) );     
+    SDL_FillRect( graphique.ecran, NULL, SDL_MapRGB( graphique.ecran->format, 255, 255, 255) );
 
     // on applique l'image de fond sur l'écran
     SDL_Rect position;
@@ -86,7 +138,7 @@ int initialiserFenetre() {
     position.y = 0;
     SDL_BlitSurface( graphique.fond, NULL, graphique.ecran, &position );
 
-    
+
 
     /* ---------- Affichage des textes ---------- */
 
@@ -107,83 +159,29 @@ int initialiserFenetre() {
 
 
     SDL_Color couleurNoire = {0, 0, 0};
-    
+
     // ----------------- labels
-    SDL_Surface* texte_LabelMiseCourante;
-    SDL_Surface* texte_LabelScoreBlanc;
-    SDL_Surface* texte_LabelScoreNoir;
-    SDL_Surface* texte_LabelScoreCible;
-
-    position.x = 10;
-    position.y = 10;
-    texte_LabelMiseCourante = TTF_RenderText_Blended( graphique.police, "Mise courante : ", couleurNoire );
-    SDL_BlitSurface( texte_LabelMiseCourante, NULL, graphique.ecran, &position );
 
 
-    position.x = 20;
-    position.y = 20;
-    texte_LabelScoreBlanc = TTF_RenderText_Blended( graphique.police, "Score joueur blanc : ", couleurNoire );
-    SDL_BlitSurface( texte_LabelScoreBlanc, NULL, graphique.ecran, &position );
-
-
-    position.x = 30;
-    position.y = 30;
-    texte_LabelScoreNoir = TTF_RenderText_Blended( graphique.police, "Score joueur noir : ", couleurNoire );
-    SDL_BlitSurface( texte_LabelScoreNoir, NULL, graphique.ecran, &position );
-
-
-    position.x = 40;
-    position.y = 40;
-    texte_LabelScoreCible = TTF_RenderText_Blended( graphique.police, "Score cible : ", couleurNoire );
-    SDL_BlitSurface( texte_LabelScoreCible, NULL, graphique.ecran, &position );
-
-
-    SDL_FreeSurface( texte_LabelMiseCourante );
-    SDL_FreeSurface( texte_LabelScoreBlanc );
-    SDL_FreeSurface( texte_LabelScoreNoir );
-    SDL_FreeSurface( texte_LabelScoreCible );
+    graphique.texte_LabelMiseCourante = TTF_RenderText_Blended( graphique.police, "Mise : ", couleurNoire );
+    graphique.texte_LabelScoreBlanc = TTF_RenderText_Blended( graphique.police, "Score joueur blanc : ", couleurNoire );
+    graphique.texte_LabelScoreNoir = TTF_RenderText_Blended( graphique.police, "Score joueur noir : ", couleurNoire );
+    graphique.texte_LabelScoreCible = TTF_RenderText_Blended( graphique.police, "Score cible : ", couleurNoire );
 
 
     // ----------------- texte informatifs
 
-    position.x = 10;
-    position.y = 10;
     graphique.texte_MiseCourante = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
-    SDL_BlitSurface( graphique.texte_MiseCourante, NULL, graphique.ecran, &position );
-
-
-    position.x = 20;
-    position.y = 20;
     graphique.texte_ScoreBlanc = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
-    SDL_BlitSurface( graphique.texte_ScoreBlanc, NULL, graphique.ecran, &position );
-
-
-    position.x = 30;
-    position.y = 30;
     graphique.texte_ScoreNoir = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
-    SDL_BlitSurface( graphique.texte_ScoreNoir, NULL, graphique.ecran, &position );
-
-
-    position.x = 40;
-    position.y = 40;
     graphique.texte_ScoreCible = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
-    SDL_BlitSurface( graphique.texte_ScoreCible, NULL, graphique.ecran, &position );
 
 
-    // On met à jour l'écran
-    SDL_Flip( graphique.ecran );
-
-
-
+    //rafraichissement de l'image
+    rafraichirGraphique();
 
     creerPlateau( &(graphique.plateau) );
     initCases( &(graphique.plateau) );
-
-
-
-
-
-    //atexit( fermerFenetre );  // <<---- segmentation fault
 
     return EXIT_SUCCESS;
 }
@@ -195,25 +193,12 @@ void fermerFenetre() {
     // libération propre de TOUTES les ressources
     // -------------------------------------------
 
-
-    // 
+    //
     TTF_CloseFont( graphique.police ); //fermeture de la police d'écriture
     TTF_Quit();
 
-    
-
-    // libération des zones de textes
-    
-    // ---- textes informatifs
-    SDL_FreeSurface( graphique.texte_MiseCourante );
-    SDL_FreeSurface( graphique.texte_ScoreBlanc );
-    SDL_FreeSurface( graphique.texte_ScoreNoir );
-    SDL_FreeSurface( graphique.texte_ScoreCible );
-
-
     SDL_FreeSurface( graphique.fond );
     SDL_FreeSurface( graphique.ecran );
-
 
     SDL_Quit();
 
@@ -227,10 +212,10 @@ void fermerFenetre() {
     SDL_FreeSurface(p.imagePion);
     SDL_FreeSurface(p2.imagePion);
     SDL_FreeSurface(s_stake);
-
-    
-    printf("Terminé correctement\n");
     */
+
+    printf("Terminé correctement\n");
+
 
 }
 
@@ -253,8 +238,6 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
         }
 
     }
-
-
 
     SDL_Flip( graphique.ecran );
 
@@ -281,41 +264,15 @@ void updateDesGraphique( unsigned char dices[2] ) {
     posDe2.x = 945;
     posDe2.y = 360;
 
-
     SDL_BlitSurface( de1, 0, graphique.ecran, &posDe1 );
     SDL_BlitSurface( de2, 0, graphique.ecran, &posDe2 );
-    
+
     SDL_Flip( graphique.ecran );
 
 
     SDL_FreeSurface( de1 );
     SDL_FreeSurface( de2 );
 }
-
-
-// retourne le chemin de l'image selon la valeur retournée par le lancement de dés
-char* retournerPathDe(char dice)
-{
-    switch(dice)
-    {
-        case 1:
-            return "./Images/Des/de1.bmp";
-        case 2:
-            return "./Images/Des/de2.bmp";
-        case 3:
-            return "./Images/Des/de3.bmp";
-        case 4:
-            return "./Images/Des/de4.bmp";
-        case 5:
-            return "./Images/Des/de5.bmp";
-        case 6:
-            return "./Images/Des/de6.bmp";
-        default:
-            return NULL;
-    }
-}
-
-
 
 void deplacerPionGraphique( SMove mouvement ) {
 
@@ -341,21 +298,21 @@ void updateMiseCouranteGraphique( int nouvelleMise ) {          // ne marche pas
 
     SDL_Color couleurNoire = {0, 0, 0};
 
-    SDL_Rect position;
-    position.x = 100;
-    position.y = 100;
-
     char chaine[15];
     sprintf( chaine, "%d", nouvelleMise );
 
-    SDL_FreeSurface( graphique.texte_MiseCourante );
-
-    SDL_Flip( graphique.ecran );
 
     graphique.texte_MiseCourante = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
+
+    rafraichirGraphique();
+    /*SDL_Rect position;
+
+    position.x = 25;
+    position.y = 330;
     SDL_BlitSurface( graphique.texte_MiseCourante, NULL, graphique.ecran, &position );
 
-    SDL_Flip( graphique.ecran );
+    SDL_Flip(graphique.ecran);*/
+
 }
 
 
@@ -411,6 +368,27 @@ void pause() {
 }
 
 
+// retourne le chemin de l'image selon la valeur retournée par le lancement de dés
+char* retournerPathDe(char dice)
+{
+    switch(dice)
+    {
+        case 1:
+            return "./Images/Des/de1.bmp";
+        case 2:
+            return "./Images/Des/de2.bmp";
+        case 3:
+            return "./Images/Des/de3.bmp";
+        case 4:
+            return "./Images/Des/de4.bmp";
+        case 5:
+            return "./Images/Des/de5.bmp";
+        case 6:
+            return "./Images/Des/de6.bmp";
+        default:
+            return NULL;
+    }
+}
 
 
 // Permet d'afficher la fenêtre de jeu
@@ -482,6 +460,7 @@ int afficherJeu()
     SDL_Rect posStake;
     posStake.x = 80;
     posStake.y = 300;
+
     //mise courante de la partie
     TTF_Font *stake = TTF_OpenFont("angelina.ttf", 30);
 

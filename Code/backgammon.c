@@ -21,17 +21,23 @@ int main( int argc, char* argv[] ) {
 
 	initialiserFenetre();
 
-    afficherJeu();
+    //afficherJeu();
 	// lancerLesDes( dices );
 
 	pause();
 
 	updateMiseCouranteGraphique(12);
+	pause();
 	updateMiseCouranteGraphique(13);
+	pause();
 	updateMiseCouranteGraphique(166);
+	pause();
 	updateMiseCouranteGraphique(188);
+	pause();
 	updateMiseCouranteGraphique(88);
+	pause();
 	updateMiseCouranteGraphique(199);
+	pause();
 	updateMiseCouranteGraphique(100);
 
 	pause();
