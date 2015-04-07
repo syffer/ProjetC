@@ -162,10 +162,10 @@ int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
 	comparaison = comparerCoups_PionsAdverseSorties( c1, c2 );
 	if( comparaison != 0 ) return comparaison;
 
-	comparaison = comparerCoup_Cases2Dames( c1, c2 );
+	comparaison = comparerCoups_ProbabilitesPertePion( c1, c2 );
 	if( comparaison != 0 ) return comparaison;
 
-	comparaison = comparerCoups_ProbabilitesPertePion( c1, c2 );
+	comparaison = comparerCoup_Cases2Dames( c1, c2 );
 	return comparaison;
 }
 
