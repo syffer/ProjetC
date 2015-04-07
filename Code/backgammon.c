@@ -26,6 +26,23 @@ int main( int argc, char* argv[] ) {
 
 	pause();
 
+	updateMiseCouranteGraphique(12);
+	updateMiseCouranteGraphique(13);
+	updateMiseCouranteGraphique(166);
+	updateMiseCouranteGraphique(188);
+	updateMiseCouranteGraphique(88);
+	updateMiseCouranteGraphique(199);
+	updateMiseCouranteGraphique(100);
+
+	pause();
+
+	updateMiseCouranteGraphique(13);
+
+	lancerLesDes(dices);
+	updateDesGraphique(dices);
+
+	pause();
+
 
 
 	fermerFenetre();

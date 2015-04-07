@@ -1,19 +1,32 @@
 #include "graphique.h"
 #include "arbitre.h"
+
 #include <stdlib.h>
+#include <stdio.h>
 
 #include <math.h>
 
 #define HAUTEUR_FENETRE 1280
 #define LARGEUR_FENETRE 752
 
+#define TAILLE_TEXTE 30
 
 struct Graphique {
 
-    SDL_Surface* screen;
-    SDL_Surface* surfacePlateau;
+    SDL_Surface* ecran;
+    SDL_Surface* fond;
+
 
     TTF_Font* police;
+
+    SDL_Surface* texte_MiseCourante;
+    SDL_Surface* texte_ScoreBlanc;
+    SDL_Surface* texte_ScoreNoir;
+    SDL_Surface* texte_ScoreCible;
+
+
+
+    Plateau plateau;
 
 };
 typedef struct Graphique Graphique;
@@ -22,22 +35,20 @@ typedef struct Graphique Graphique;
 static Graphique graphique;
 
 
+
 int initialiserFenetre() {
 
     // plateau graphique à initialiser ici !!!
 
 
-    // Initialisation de la SDL
-    if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 ) {
-        printf( "Impossible de démarrer la fenêtre SDL : %s\n", SDL_GetError() );
-        return -1;
-    }
+    /* ---------- Initialisation de la fenetre ---------- */
 
-    // démarrage de la bibliothèque ttf pour écrire du texte
-    if( TTF_Init() == -1 ) {
-        fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
-        //exit(EXIT_FAILURE);
-        return -1;
+
+    // Initialisation de la SDL
+    if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {      // | SDL_INIT_TIMER
+        printf( "Impossible de charger SDL : %s\n", SDL_GetError() );
+        exit(EXIT_FAILURE);
+        //return -1;
     }
 
     // make sure SDL cleans up before exit
@@ -45,10 +56,11 @@ int initialiserFenetre() {
 
 
     // create a new window
-    graphique.screen = SDL_SetVideoMode( HAUTEUR_FENETRE, LARGEUR_FENETRE, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
-    if ( ! graphique.screen ) {
-        printf("Impossible d'afficher l'écran : %s\n", SDL_GetError());
-        return -1;
+    graphique.ecran = SDL_SetVideoMode( HAUTEUR_FENETRE, LARGEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF );
+    if ( ! graphique.ecran ) {
+        printf("Impossible d'afficher la fenetre SDL a l'ecran : %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+        //return -1;
     }
 
     // Titre de la fenêtre
@@ -56,34 +68,127 @@ int initialiserFenetre() {
 
 
     // chargement de l'image du plateau
-    graphique.surfacePlateau = SDL_LoadBMP("./Images/plateau.bmp");
+    graphique.fond = SDL_LoadBMP("./Images/plateau.bmp");
 
-    if ( ! graphique.surfacePlateau ) {
-        printf("Impossible de charger l'image bitmap: %s\n", SDL_GetError());
-        return -1;
+    if ( ! graphique.fond ) {
+        printf("Impossible de charger l'image de fond du plateau : %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+        //return -1;
     }
 
-    // centrer l'image à l'écran
-    SDL_Rect positionImagePlateau;
-    positionImagePlateau.x = 0;
-    positionImagePlateau.y = 0;
+    
+    // avoir un fonc blanc au cas ou
+    SDL_FillRect( graphique.ecran, NULL, SDL_MapRGB( graphique.ecran->format, 255, 255, 255) );     
 
-    // on applique l'image de fond
-    SDL_BlitSurface( graphique.surfacePlateau, 0, graphique.screen, &positionImagePlateau );
+    // on applique l'image de fond sur l'écran
+    SDL_Rect position;
+    position.x = 0;
+    position.y = 0;
+    SDL_BlitSurface( graphique.fond, NULL, graphique.ecran, &position );
+
 
     
 
+    /* ---------- Affichage des textes ---------- */
+
+
+    // démarrage de la bibliothèque ttf pour écrire du texte
+    if( TTF_Init() == -1 ) {
+        fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
+        exit(EXIT_FAILURE);
+        //return -1;
+    }
+
     // polices d'écriture sur le plateau
-    graphique.police = TTF_OpenFont("angelina.ttf", 30);
+    graphique.police = TTF_OpenFont( "Polices/arial.ttf", TAILLE_TEXTE );
+    if( ! graphique.police ) {
+        fprintf(stderr, "Erreur lors du chargement de la police : %s\n", TTF_GetError());
+        exit(EXIT_FAILURE);
+    }
+
+
+    SDL_Color couleurNoire = {0, 0, 0};
+    
+    // ----------------- labels
+    SDL_Surface* texte_LabelMiseCourante;
+    SDL_Surface* texte_LabelScoreBlanc;
+    SDL_Surface* texte_LabelScoreNoir;
+    SDL_Surface* texte_LabelScoreCible;
+
+    position.x = 10;
+    position.y = 10;
+    texte_LabelMiseCourante = TTF_RenderText_Blended( graphique.police, "Mise courante : ", couleurNoire );
+    SDL_BlitSurface( texte_LabelMiseCourante, NULL, graphique.ecran, &position );
+
+
+    position.x = 20;
+    position.y = 20;
+    texte_LabelScoreBlanc = TTF_RenderText_Blended( graphique.police, "Score joueur blanc : ", couleurNoire );
+    SDL_BlitSurface( texte_LabelScoreBlanc, NULL, graphique.ecran, &position );
+
+
+    position.x = 30;
+    position.y = 30;
+    texte_LabelScoreNoir = TTF_RenderText_Blended( graphique.police, "Score joueur noir : ", couleurNoire );
+    SDL_BlitSurface( texte_LabelScoreNoir, NULL, graphique.ecran, &position );
+
+
+    position.x = 40;
+    position.y = 40;
+    texte_LabelScoreCible = TTF_RenderText_Blended( graphique.police, "Score cible : ", couleurNoire );
+    SDL_BlitSurface( texte_LabelScoreCible, NULL, graphique.ecran, &position );
+
+
+    SDL_FreeSurface( texte_LabelMiseCourante );
+    SDL_FreeSurface( texte_LabelScoreBlanc );
+    SDL_FreeSurface( texte_LabelScoreNoir );
+    SDL_FreeSurface( texte_LabelScoreCible );
+
+
+    // ----------------- texte informatifs
+
+    position.x = 10;
+    position.y = 10;
+    graphique.texte_MiseCourante = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
+    SDL_BlitSurface( graphique.texte_MiseCourante, NULL, graphique.ecran, &position );
+
+
+    position.x = 20;
+    position.y = 20;
+    graphique.texte_ScoreBlanc = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
+    SDL_BlitSurface( graphique.texte_ScoreBlanc, NULL, graphique.ecran, &position );
+
+
+    position.x = 30;
+    position.y = 30;
+    graphique.texte_ScoreNoir = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
+    SDL_BlitSurface( graphique.texte_ScoreNoir, NULL, graphique.ecran, &position );
+
+
+    position.x = 40;
+    position.y = 40;
+    graphique.texte_ScoreCible = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
+    SDL_BlitSurface( graphique.texte_ScoreCible, NULL, graphique.ecran, &position );
 
 
     // On met à jour l'écran
-    SDL_Flip( graphique.screen );
+    SDL_Flip( graphique.ecran );
 
 
-    // SDL_Quit();
+
+
+    creerPlateau( &(graphique.plateau) );
+    initCases( &(graphique.plateau) );
+
+
+
+
+
+    //atexit( fermerFenetre );  // <<---- segmentation fault
+
     return EXIT_SUCCESS;
 }
+
 
 void fermerFenetre() {
 
@@ -92,13 +197,26 @@ void fermerFenetre() {
     // -------------------------------------------
 
 
-    SDL_FreeSurface( graphique.surfacePlateau );
-
-
+    // 
     TTF_CloseFont( graphique.police ); //fermeture de la police d'écriture
     TTF_Quit();
 
-    SDL_FreeSurface( graphique.screen );
+    
+
+    // libération des zones de textes
+    
+    // ---- textes informatifs
+    SDL_FreeSurface( graphique.texte_MiseCourante );
+    SDL_FreeSurface( graphique.texte_ScoreBlanc );
+    SDL_FreeSurface( graphique.texte_ScoreNoir );
+    SDL_FreeSurface( graphique.texte_ScoreCible );
+
+
+    SDL_FreeSurface( graphique.fond );
+    SDL_FreeSurface( graphique.ecran );
+
+
+    SDL_Quit();
 
 
     /*
@@ -119,6 +237,32 @@ void fermerFenetre() {
 
 void initialiserPlateauGraphique( SGameState* gameState ) {
 
+    // attention aux cases BAR et OUT à l'initialisation (ils peuvent changés)
+
+    Square laCase;
+
+    int i;
+    for( i = 0; i < 24; i++ ) {
+
+        laCase = gameState -> board[i];
+
+        if( laCase.owner == WHITE ) {
+
+        }
+        else if( laCase.owner == BLACK ) {
+
+        }
+
+    }
+
+
+
+    SDL_Flip( graphique.ecran );
+
+    updateScoreJoueurBlanc( gameState -> whiteScore );
+    updateScoreJoueurNoir( gameState -> blackScore );
+    updateMiseCouranteGraphique( gameState -> stake );
+    // updateTourJoueurGraphique( gameState -> turn );
 }
 
 void updateDesGraphique( unsigned char dices[2] ) {
@@ -126,12 +270,27 @@ void updateDesGraphique( unsigned char dices[2] ) {
     char* pathCompletDe1 = retournerPathDe( dices[0] );
     char* pathCompletDe2 = retournerPathDe( dices[1] );
 
-    /*
-    *
-    *
-    *
-    */
+    SDL_Surface* de1 = SDL_LoadBMP(pathCompletDe1);
+    SDL_Surface* de2 = SDL_LoadBMP(pathCompletDe2);
 
+    // les positions des dés peuvent être sauvegardés quelque part pour ne pas à avoir à les recréer à chaque fois.
+    SDL_Rect posDe1;
+    posDe1.x = 883;
+    posDe1.y = 360;
+
+    SDL_Rect posDe2;
+    posDe2.x = 945;
+    posDe2.y = 360;
+
+
+    SDL_BlitSurface( de1, 0, graphique.ecran, &posDe1 );
+    SDL_BlitSurface( de2, 0, graphique.ecran, &posDe2 );
+    
+    SDL_Flip( graphique.ecran );
+
+
+    SDL_FreeSurface( de1 );
+    SDL_FreeSurface( de2 );
 }
 
 
@@ -167,7 +326,7 @@ void updateTourJoueurGraphique( Player joueur ) {
 
 }
 
-void updateScoreJoueurBlanc(int score) {
+void updateScoreJoueurBlanc( int score ) {
 
 }
 
@@ -179,14 +338,37 @@ void updateScoreCibleGraphique( int scoreCible ) {
 
 }
 
-void updateMiseCouranteGraphique( int nouvelleMise ) {
+void updateMiseCouranteGraphique( int nouvelleMise ) {          // ne marche pas bien
 
+    SDL_Color couleurNoire = {0, 0, 0};
+
+    SDL_Rect position;
+    position.x = 100;
+    position.y = 100;
+
+    char chaine[15];
+    sprintf( chaine, "%d", nouvelleMise );
+
+    SDL_FreeSurface( graphique.texte_MiseCourante );
+
+    SDL_Flip( graphique.ecran );
+
+    graphique.texte_MiseCourante = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
+    SDL_BlitSurface( graphique.texte_MiseCourante, NULL, graphique.ecran, &position );
+
+    SDL_Flip( graphique.ecran );
 }
+
+
 
 void pause() {
 
     int continuer = 1;
     SDL_Event event;
+
+
+    unsigned char dices[2];
+
 
     while (continuer) {
 
@@ -195,29 +377,42 @@ void pause() {
         switch(event.type) {
 
             case SDL_QUIT:
-
                 continuer = 0;
                 break;
+
             case SDL_KEYDOWN:
-            switch(event.key.keysym.sym)
-            {
-                case SDLK_ESCAPE:
-                    continuer = 0;
+
+                switch(event.key.keysym.sym) {
+
+                    case SDLK_ESCAPE:
+                        printf("leave \n");
+                        continuer = 0;
+                        break;
+
+                    case SDLK_SPACE:
+                        printf("leave \n");
+                        continuer = 0;
+                        break;
+
+                    default:
+                        lancerLesDes(dices);
+                        updateDesGraphique(dices);
+                        break;
+
+                }
+
                 break;
 
-                default:
-
-                printf("leave \n");
-                continuer = 0;
+            default:
                 break;
-
-            }
-            break;
         }
 
     }
 
 }
+
+
+
 
 // Permet d'afficher la fenêtre de jeu
 int afficherJeu()

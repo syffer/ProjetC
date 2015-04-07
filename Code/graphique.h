@@ -71,6 +71,7 @@ void updateScoreJoueurNoir(int score);
 void updateScoreCibleGraphique( int scoreCible );
 void updateMiseCouranteGraphique( int nouvelleMise );
 
+void pause();   // a virer plus tard
 
 
 
@@ -84,5 +85,7 @@ void movePion(SMove move, Plateau *plateau);
 void updateOutGraphic(SDL_Surface *outJoueur, int numJoueur, Plateau *plateau, SDL_Surface *ecran);
 Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre);
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau);
+
+
 
 #endif
