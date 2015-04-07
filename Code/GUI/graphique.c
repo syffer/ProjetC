@@ -1,8 +1,10 @@
 
 #include "graphique.h"
+
 #include "../Commun/backgammon.h"
 //#include "arbitre.h"
 #include <stdio.h>
+
 
 
 /*
@@ -169,6 +171,7 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
 
 
 
+
 */
 void remplirCaseX( int laCase, int couleur, int nbDames ){
     printf("GUI : rempli case %d de %d dame %d\n",laCase,couleur,nbDames);
@@ -177,3 +180,4 @@ void remplirCaseX( int laCase, int couleur, int nbDames ){
 void afficherDeplacementX(SMove move){
     printf("GUI : affichage du déplacement de %d vers %d\n",move.src_point,move.dest_point);
 }
+

@@ -1,21 +1,23 @@
 
 #include "ListeChainee.h"
+#include "Coup.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 
+
+
 struct Cellule {
 	Donnee valeur;
-	Cellule* suivant;
-	Cellule* precedent;
+	struct Cellule* suivant;
+	struct Cellule* precedent;
 };
 
 struct ListeChainee {
 	int nbElements;
-	Cellule* premier;
-	Cellule* dernier;
+	struct Cellule* premier;
+	struct Cellule* dernier;
 };
-
-
 
 
 
@@ -148,6 +150,10 @@ int getNbElements( ListeChainee* liste ) {
 
 
 
+
+
+
+
 /*
 void afficherListe( ListeChainee* liste ) {
 
@@ -216,4 +222,46 @@ void detruireListeChainee( ListeChainee* liste ) {
 
 
 
+int getDonneeMax( ListeChainee* liste, p_fonctionComparaisonDonnee comparaison, Donnee* donneeMax ) {
 
+	int nbCoups = getNbElements(liste);
+	if( nbCoups == 0 ) {
+		printf("la liste est vide, pas de maximum \n");
+		return -1;
+	}
+
+	Cellule* cellule = getPremierElement(liste);
+	Donnee donneeMaximale = getDonnee(cellule);
+	Donnee donneeActuelle;
+
+
+	int i;
+	for( i = 1; i < nbCoups; i++ ) {
+
+		cellule = getCelluleSuivante(cellule);
+		donneeActuelle = getDonnee(cellule);
+
+		if( comparaison(&donneeActuelle, &donneeMaximale) == 1 ) donneeMaximale = donneeActuelle; 
+	}
+
+	*donneeMax = donneeMaximale;
+
+	return 0;
+}
+
+
+
+
+
+void appliquerFonctionSurElement( ListeChainee* liste, p_fonctionElement fonctionElement ) {
+
+	Cellule* cellule = getPremierElement(liste);
+
+	while( cellule ) {
+
+		fonctionElement( &(cellule -> valeur) );
+
+		cellule = getCelluleSuivante(cellule);
+	}
+
+}

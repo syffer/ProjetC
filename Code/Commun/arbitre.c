@@ -138,7 +138,6 @@ const SGameState const copierEtatJeux( SGameState* etatJeux ) {
 
 void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
 
-
 	char nomJoueurBlanc[50];
 	char nomJoueurNoir[50];
 	joueurBlanc.InitLibrary(nomJoueurBlanc);
@@ -148,11 +147,9 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
     SMove moves[4];
     unsigned int nbMoves = 0;
     unsigned char dices[2];
-
     //le videau
     int videau = -1;
     int winner; //vainqueur de la partie
-
 
     printf("initialisation etat Jeux\n");
     SGameState etatJeux = initialiserEtatJeux();
@@ -173,8 +170,7 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
     int i;
     while(etatJeux.whiteScore < score && etatJeux.blackScore < score) {
 
-
-        printf("(arbitre) -> partie %i \n", ++i );
+        printf("(arbitre) -> partie %i \n", i+1 );
         //SDL --> afficher début partie i
 
         initialiserPlateau( etatJeux.board );
@@ -234,7 +230,6 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
                     etatValide = 1;
                 }
             }//fin tour
-
             if(finPartie(&etatJeux,triesw,triesb,&winner)){
                 continuerPartie = 0;
             }else{
@@ -288,7 +283,6 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
 
         }
         printf("(arbitre)-> fin de la partie %i \n", i+1 );
-
         if(winner == WHITE){
             printf("joueur blanc marque %d points\n",etatJeux.stake);
             etatJeux.whiteScore+= etatJeux.stake;
@@ -310,7 +304,6 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
     }
 
     printf("(arbitre) fin du match\n");
-
     printf("//////////////\n");
     printf("SCORE FINAL : \n");
     printf("BLANC : %d\n",etatJeux.whiteScore);
@@ -322,13 +315,11 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
     }else{
         printf("Noir l'emporte avec %d points\n",etatJeux.blackScore);
     }
-
     joueurBlanc.EndMatch();
     joueurNoir.EndMatch();
 
 
 }
-
 
 int finPartie(SGameState* etatJeux, int triesw, int triesb , int* winner){
     //perte due aux fautes de jeu

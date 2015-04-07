@@ -130,7 +130,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	for( i = 0; i < 25; i++ ) {
 
-		if( possedeDesPionsSurLaBarre(gameState,maCouleur) && i != 0 ) break;
+		if( joueurPossedeDesPionsSurLaBarre(gameState,maCouleur) && i != 0 ) break;
 
 
 		if( i == 0 ) position = 0;		// je suis sur la barre
