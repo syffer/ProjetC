@@ -155,7 +155,7 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
     SGameState etatJeux = initialiserEtatJeux();
     SGameState etatCopie;
 
-	unsigned int triesb = 3, triesw = 3;
+	unsigned int triesb, triesw;
 	//unsigned int couleur[2]; //les couleurs du j1 puis du j2
 	SMove bonsCoups[4];
 	SMove move; //move utilisé une fois...
@@ -175,10 +175,16 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
 
         initialiserPlateau( etatJeux.board );
         //SDL --> Mettre les jetons sur le plateau
+        triesb = 3;
+        triesw = 3;
+        etatJeux.bar[BLACK] = 0;
+        etatJeux.bar[WHITE] = 0;
+        etatJeux.out[WHITE] = 0;
+        etatJeux.out[BLACK] = 0;
 
         joueurBlanc.StartGame(WHITE);
         joueurNoir.StartGame(BLACK);
-
+        continuerPartie = 1;
 
         // on lance les dés jusqu'a ce que l'on obtienne deux nombre différents
         do
