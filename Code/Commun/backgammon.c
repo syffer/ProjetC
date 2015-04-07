@@ -71,6 +71,7 @@ int main( int argc, char* argv[] ) {
 
 
     //afficherPlateau(); // affichage de la fenêtre de jeu et de la partie grapique
+
 	jouerPartie( nbPoints, joueur1, joueur2 );
 
 

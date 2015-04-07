@@ -136,7 +136,8 @@ const SGameState const copierEtatJeux( SGameState* etatJeux ) {
 }
 
 
-void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
+void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
+
 
 	char nomJoueurBlanc[50];
 	char nomJoueurNoir[50];
@@ -148,6 +149,11 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
     unsigned int nbMoves = 0;
     unsigned char dices[2];
 
+    //le videau
+    int videau = -1;
+    int winner; //vainqueur de la partie
+
+
     printf("initialisation etat Jeux\n");
     SGameState etatJeux = initialiserEtatJeux();
     SGameState etatCopie;
@@ -156,7 +162,6 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
 	//unsigned int couleur[2]; //les couleurs du j1 puis du j2
 	SMove bonsCoups[4];
 	SMove move; //move utilisé une fois...
-    int score = 5;
 
     printf("envoi du startMatch aux joueurs\n");
     joueurBlanc.StartMatch(score);
@@ -166,9 +171,10 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
 
 
     int i;
-    for( i = 0; i < nbParties; i++ ) {
+    while(etatJeux.whiteScore < score && etatJeux.blackScore < score) {
 
-        printf("(arbitre) -> partie %i \n", i+1 );
+
+        printf("(arbitre) -> partie %i \n", ++i );
         //SDL --> afficher début partie i
 
         initialiserPlateau( etatJeux.board );
@@ -228,11 +234,53 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
                     etatValide = 1;
                 }
             }//fin tour
-            if(finPartie(&etatJeux,triesw,triesb)){
+
+            if(finPartie(&etatJeux,triesw,triesb,&winner)){
                 continuerPartie = 0;
             }else{
                 //on change le tour du joueur
                 etatJeux.turn = !etatJeux.turn;
+
+                //videau
+                if(videau != etatJeux.turn){
+                    printf("le joueur n'a pas le videau et la mise courante est de %d\n",etatJeux.stake);
+                    if(etatJeux.turn == WHITE){
+                        etatCopie = copierEtatJeux(&etatJeux);
+                        if(joueurBlanc.DoubleStack(&etatCopie)){
+                            printf("le joueur blanc propose de doubler la mise\n");
+                            etatCopie = copierEtatJeux(&etatJeux);
+                            if(joueurNoir.TakeDouble(&etatCopie)){
+                                videau = BLACK;
+                                etatJeux.stake *= 2;
+                                printf("le joueur Noir accepte de doubler, il prend le videau et la mise est alors de %d\n",etatJeux.stake);
+                            }else{
+                                printf("le joueur noir refuse de doubler la mise --> abandon\n");
+                                continuerPartie = 0;
+                                winner = WHITE;
+                            }
+                        }else{
+                            printf("le joueur blanc ne veut pas doubler la mise\n");
+                        }
+                    }else{
+                        etatCopie = copierEtatJeux(&etatJeux);
+                        if(joueurNoir.DoubleStack(&etatCopie)){
+                            printf("le joueur noir propose de doubler la mise\n");
+                            etatCopie = copierEtatJeux(&etatJeux);
+                            if(joueurBlanc.TakeDouble(&etatCopie)){
+                                videau = WHITE;
+                                etatJeux.stake *= 2;
+                                printf("le joueur blanc accepte de doubler, il prend le videau et la mise est alors de %d\n",etatJeux.stake);
+                            }else{
+                                printf("le joueur blanc refuse de doubler la mise --> abandon\n");
+                                continuerPartie = 0;
+                                winner = BLACK;
+                            }
+                        }else{
+                            printf("le joueur noir ne veut pas doubler la mise\n");
+                        }
+                    }
+                }
+
                 //on lance les dés
                 lancerLesDes(dices);
                 afficherDes(dices);
@@ -240,6 +288,21 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
 
         }
         printf("(arbitre)-> fin de la partie %i \n", i+1 );
+
+        if(winner == WHITE){
+            printf("joueur blanc marque %d points\n",etatJeux.stake);
+            etatJeux.whiteScore+= etatJeux.stake;
+        }else{
+            printf("joueur noir marque %d points\n",etatJeux.stake);
+            etatJeux.blackScore+= etatJeux.stake;
+        }
+        printf("//////////////\n");
+        printf("SCORE ACTUEL : \n");
+        printf("BLANC : %d\n",etatJeux.whiteScore);
+        printf("NOIR  : %d\n",etatJeux.blackScore);
+        printf("score a atteindre : %d",score);
+        printf("//////////////\n\n");
+
         joueurBlanc.EndGame();
         joueurNoir.EndGame();
 
@@ -247,28 +310,46 @@ void jouerPartie( int nbParties, Joueur joueurBlanc, Joueur joueurNoir ) {
     }
 
     printf("(arbitre) fin du match\n");
+
+    printf("//////////////\n");
+    printf("SCORE FINAL : \n");
+    printf("BLANC : %d\n",etatJeux.whiteScore);
+    printf("NOIR  : %d\n",etatJeux.blackScore);
+    printf("//////////////\n\n");
+
+    if(etatJeux.whiteScore > etatJeux.blackScore){
+        printf("Blanc l'emporte avec %d points\n",etatJeux.whiteScore);
+    }else{
+        printf("Noir l'emporte avec %d points\n",etatJeux.blackScore);
+    }
+
     joueurBlanc.EndMatch();
     joueurNoir.EndMatch();
 
 
 }
 
-int finPartie(SGameState* etatJeux, int triesw, int triesb ){
+
+int finPartie(SGameState* etatJeux, int triesw, int triesb , int* winner){
     //perte due aux fautes de jeu
     if( ! triesw ) {
         printf("joueur blanc perd par faute de jeu !");
+        *winner = BLACK;
         return 1;
     }
     if( ! triesb ) {
         printf("joueur noir perd par faute de jeu !");
+        *winner = WHITE;
         return 1;
     }
     if( etatJeux->out[0] == 15 ) {
         printf("joueur noir à gagné !");
+        *winner = BLACK;
         return 1;
     }
     if( etatJeux->out[1] == 15 ) {
         printf("joueur blanc à gagné !");
+        *winner = WHITE;
         return 1;
     }
     return 0;
