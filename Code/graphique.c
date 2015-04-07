@@ -91,6 +91,8 @@ void rafraichirGraphique()
 
     rafraichirDes();
 
+    updatePionsGraphique();
+
     SDL_Flip( graphique.ecran );
 
     SDL_FreeSurface(graphique.texte_MiseCourante);
@@ -243,16 +245,31 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
 
             graphique.plateau.tabCases[i].tabPions[j] = pion; // ajout du pion dans la bonne case
             graphique.plateau.tabCases[i].nbPions ++;
+            SDL_SetColorKey(graphique.plateau.tabCases[i].tabPions[j].imagePion, SDL_SRCCOLORKEY, SDL_MapRGB(graphique.plateau.tabCases[i].tabPions[j].imagePion->format, 255, 255, 255));
             SDL_BlitSurface(graphique.plateau.tabCases[i].tabPions[j].imagePion, NULL, graphique.ecran, &graphique.plateau.tabCases[i].tabPions[j].posPion);
         }
     }
 
     SDL_Flip( graphique.ecran );
-    pause();
+
     updateScoreJoueurBlanc( gameState -> whiteScore );
     updateScoreJoueurNoir( gameState -> blackScore );
     updateMiseCouranteGraphique( gameState -> stake );
     // updateTourJoueurGraphique( gameState -> turn );
+}
+void updatePionsGraphique()
+{
+    int i, j;
+
+    for(i = 0; i < 24; i++)
+    {
+        Case case_b = graphique.plateau.tabCases[i];
+        for(j = 0; j < case_b.nbPions; j++)
+        {
+            Pion pion = case_b.tabPions[j];
+            SDL_BlitSurface(pion.imagePion, NULL, graphique.ecran, &pion.posPion);
+        }
+    }
 }
 
 void updateDesGraphique( unsigned char dices[2] ) {
@@ -859,9 +876,9 @@ void initCases(Plateau *plateau)
     for(i = 0; i <= 5; i++) // partie inférieure droite
     {
         Case case_b;
-
-        case_b.posX = width;
         width -= LARGEUR_CASE;
+        case_b.posX = width;
+
         case_b.posY = height;
         case_b.nbPions = 0;
         case_b.largeur = LARGEUR_CASE;
@@ -869,7 +886,7 @@ void initCases(Plateau *plateau)
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
-    width = 750;
+    width = 760;
     for(i = 18; i <= 23; i++) // partie supérieure droite
     {
         Case case_b;
@@ -885,13 +902,13 @@ void initCases(Plateau *plateau)
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
 
-    width = 630; // début de la partie inferieure droite - le bord noir
+    width = 640; // début de la partie inferieure droite - le bord noir
     for(i = 6; i <= 11; i++) // partie inférieure gauche
     {
         Case case_b;
-
-        case_b.posX = width;
         width -= LARGEUR_CASE;
+        case_b.posX = width;
+
         case_b.posY = height;
         case_b.nbPions = 0;
         case_b.largeur = LARGEUR_CASE;
@@ -900,7 +917,7 @@ void initCases(Plateau *plateau)
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
-    width = 126;
+    width = 140;
     for(i = 12; i <= 17; i++) // partie superieure gauche
     {
         Case case_b;
@@ -917,37 +934,11 @@ void initCases(Plateau *plateau)
     }
 }
 
-/**
-* initialise les pions aux bonnes cases
-**/
-void initPions(Plateau *plateau, SGameState gameState)
-{
-    int i;
-    int j;
-    for(i = 0; i < 24; i++)//pour chaque Square
-    {
-        for(j = 0; j < gameState.board[i].nbDames; j++) // pour chaque dame dans la case, on créé un pion et on l'ajoute à la case
-        {
-            Pion pion;
-            Case case_b = graphique.plateau.tabCases[i];
-            if(gameState.board[i].owner == WHITE) // si joueur blanc
-              pion  = creerPion(0,0, "./Images/blanc.bmp");
-            else if (gameState.board[i].owner == BLACK)// si joueur noir
-               pion = creerPion(0,0, "./Images/blanc.bmp");
 
-            SDL_Rect pos = positionnerPion(&plateau -> tabCases[i], i ); // positionnement du pion sur la case
-            pion.posPion = pos;
-
-            plateau -> tabCases[i].tabPions[j] = pion; // ajout du pion dans la bonne case
-            plateau -> tabCases[i].nbPions ++;
-
-        }
-    }
-}
 void creerPlateau(Plateau *plateau)
 {
     plateau -> hauteur = 725;
-    plateau -> largeur = 1260;
+    plateau -> largeur = 1270;
 }
 
 void freePlateau(Plateau *plateau)

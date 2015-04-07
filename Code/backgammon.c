@@ -27,17 +27,17 @@ int main( int argc, char* argv[] ) {
 	pause();
 
 	updateMiseCouranteGraphique(12);
-	pause();
+	//pause();
 	updateMiseCouranteGraphique(13);
-	pause();
+	//pause();
 	updateMiseCouranteGraphique(166);
-	pause();
+	//pause();
 	updateMiseCouranteGraphique(188);
-	pause();
+	//pause();
 	updateMiseCouranteGraphique(88);
-	pause();
+	//pause();
 	updateMiseCouranteGraphique(199);
-	pause();
+	//pause();
 	updateMiseCouranteGraphique(100);
 
 	pause();
