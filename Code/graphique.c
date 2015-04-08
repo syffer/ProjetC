@@ -310,9 +310,6 @@ void rafraichirDes()
     SDL_FreeSurface( graphique.de1 );
     SDL_FreeSurface( graphique.de2 );
 }
-void deplacerPionGraphique( SMove mouvement ) {
-
-}
 
 void updateTourJoueurGraphique( Player joueur ) {
 
@@ -358,7 +355,7 @@ void pause() {
 
     unsigned char dices[2];
     SMove move;
-
+    int numCase;
     while (continuer) {
 
         SDL_WaitEvent(&event);
@@ -388,7 +385,6 @@ void pause() {
                         lancerLesDes(dices);
                         updateDesGraphique(dices);
                         break;
-
                 }
 
             break;
@@ -398,17 +394,20 @@ void pause() {
                 {
                     move.dest_point = retournerNumCase(event.motion.x, event.motion.y, graphique.plateau);
                     printf("destination : %i\n", move.dest_point);
-                    movePion(move);
+                    deplacerPionGraphique(move);
 
                 }
                 else if (event.button.button == SDL_BUTTON_RIGHT)
                 {
-
                     move.src_point = retournerNumCase(event.motion.x, event.motion.y, graphique.plateau);
                     printf("source : %i\n", move.src_point);
                 }
             break;
+            case SDL_MOUSEMOTION:
 
+                numCase = retournerNumCase(event.motion.x, event.motion.y, graphique.plateau);
+               // if(numCase >= 0) surlignerCase(numCase);
+                break;
             default:
                 break;
         }
@@ -662,7 +661,6 @@ int afficherJeu()
     return 0;
 }
 
-
 /**
 *Initialisation de la position des dés
 **/
@@ -680,7 +678,6 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
 **/
 Pion creerPion(int posX, int posY, char* image)
 {
-
     Pion pion;
     SDL_Rect pos;
     SDL_Surface* imagePion = SDL_LoadBMP(image);
@@ -689,7 +686,6 @@ Pion creerPion(int posX, int posY, char* image)
     pos.y = posY;
 
     pion.posPion = pos;
-    //printf("x :%i - y : %i\n", pion.posPion.x, pion.posPion.y);
     pion.imagePion = imagePion;
 
     return pion;
@@ -717,7 +713,6 @@ void updateOutGraphic(SDL_Surface *outJoueur, int numJoueur, Plateau *plateau, S
     else if(numJoueur == BLACK)
       //  SDL_FillRect(outJoueur, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));*/
 }
-
 
 /**
 *   Retourne la bonne position que devra avoir le pion qui se déplace sur cette case
@@ -751,9 +746,12 @@ SDL_Rect positionnerPion(Case *case_pos, int numCase){
 /**
 * Fonction à appeler qui permet de déplacer le dernier pion d'une case vers une autre avec le SMove passé en paramètre
 */
-void movePion(SMove move)
+void deplacerPionGraphique(SMove move)
 {
-    int src = move.src_point;
+    printf("Destination : %i\n", move.dest_point);
+    if(move.dest_point >=0)
+    {
+        int src = move.src_point;
     int dest = move.dest_point;
 
     if(src == 0 || dest == 0){}//bar
@@ -784,6 +782,7 @@ void movePion(SMove move)
             graphique.plateau.tabCases[src] = case_src;
             graphique.plateau.tabCases[dest] = case_dest;
 
+            //on effectue le déplacement
             deplacerPionVers(&case_src.tabPions[nbPionsSrc -1]);
 
             case_dest.nbPions++;// on augmente le nombre de pions de la case destinataire
@@ -807,6 +806,8 @@ void movePion(SMove move)
 
     }
     rafraichirGraphique();
+    }
+
 }
 
 /**
@@ -834,20 +835,20 @@ void deplacerPionVers(Pion *pion)
 
     while(deplacement)
     {
-        if(distanceX > 0 || distanceY > 0)
+        if(distanceX/incrementPos > 0 || distanceY/incrementPos > 0)
         {
             printf("distanceX :%i - distanceY : %i\n", distanceX, distanceY);
             //test de la position en x du pion par rapport à la position finale
             if(pion->posPion.x < x)
                 pion->posPion.x +=incrementPos;
-            else if(pion->posPion.x > x)
-                pion->posPion.x -=incrementPos;
+            else if(pion->posPion.x >= x)
+                pion->posPion.x  -= incrementPos;
 
             //test de la position en y du pion par rapport à la position finale
             if(pion-> posPion.y < y)
                 pion-> posPion.y +=incrementPos;
-            else if(pion-> posPion.y > y)
-                pion-> posPion.y -=incrementPos;
+            else if(pion-> posPion.y >= y)
+                pion-> posPion.y -= incrementPos;
 
             //MàJ de la distance entre le pion et sa position finale
             distanceX = fabs(pion->posPion.x - x);
@@ -860,10 +861,9 @@ void deplacerPionVers(Pion *pion)
 
             //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &pos);
             SDL_BlitSurface(pion->imagePion, NULL, graphique.ecran, &pion ->posPion);
-
-            //rafraichirGraphique();
+            //updatePionsGraphique();
             SDL_Flip( graphique.ecran );
-           // rafraichirGraphique();
+            //rafraichirGraphique();
         }
         else
             deplacement = 0;
@@ -891,7 +891,12 @@ void initCases(Plateau *plateau)
         case_b.nbPions = 0;
         case_b.largeur = LARGEUR_CASE;
         case_b.hauteur = HAUTEUR_CASE;
+
+        SDL_Surface* surface;
+        case_b.imageCase = surface;
+
         plateau -> tabCases[i] = case_b;
+
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
     width = 760;
@@ -905,6 +910,9 @@ void initCases(Plateau *plateau)
         case_b.nbPions = 0;
         case_b.largeur = LARGEUR_CASE;
         case_b.hauteur = HAUTEUR_CASE;
+
+        SDL_Surface* surface;
+        case_b.imageCase = surface;
 
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
@@ -922,6 +930,9 @@ void initCases(Plateau *plateau)
         case_b.largeur = LARGEUR_CASE;
         case_b.hauteur = HAUTEUR_CASE;
 
+        SDL_Surface* surface;
+        case_b.imageCase = surface;
+
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
@@ -937,6 +948,9 @@ void initCases(Plateau *plateau)
         case_b.largeur = LARGEUR_CASE;
         case_b.hauteur = HAUTEUR_CASE;
 
+        SDL_Surface* surface;
+        case_b.imageCase = surface;
+
         plateau -> tabCases[i] = case_b;
       //  printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
@@ -951,17 +965,6 @@ void creerPlateau(Plateau *plateau)
     plateau -> largeur = 1270;
 }
 
-void freePlateau(Plateau *plateau)
-{
-    int i;
-    int j;
-
-    for(i = 0; i < 24; i++)
-    {
-        for(j = 0; j < plateau ->tabCases[i].nbPions; j++)
-            SDL_FreeSurface(plateau ->tabCases[i].tabPions[j].imagePion);
-    }
-}
 
 /**
 * Retourne le numéro de la case dans laquelle on clique
@@ -989,3 +992,55 @@ int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
     return -1;
 }
 
+void surlignerCase(int numCase)
+{
+    int x = graphique.plateau.tabCases[numCase].posX;
+    int y = graphique.plateau.tabCases[numCase].posY;
+
+    drawEmptyRect(graphique.plateau.tabCases[numCase].imageCase, x, y, 10, 10, 0,0,0 );
+
+    SDL_Rect posCase;
+
+    posCase.x = graphique.plateau.tabCases[numCase].posX;
+    posCase.y = graphique.plateau.tabCases[numCase].posY;
+
+    SDL_BlitSurface(graphique.plateau.tabCases[numCase].imageCase, NULL, graphique.ecran, &posCase);
+    //rafraichirGraphique();
+    SDL_Flip(graphique.ecran);
+}
+
+
+void drawEmptyRect(SDL_Surface* surf,int posX, int posY, int width, int length, int R, int G, int B)
+{
+	SDL_Rect ligneHaut;
+	ligneHaut.x = posX-1;
+	ligneHaut.y = posY-1;
+	ligneHaut.w = length;
+	ligneHaut.h = 1;
+
+	SDL_FillRect(surf, &ligneHaut, SDL_MapRGB(surf->format, R, G, B));
+
+	SDL_Rect ligneDroite;
+	ligneDroite.x = posX+length-1;
+	ligneDroite.y = posY-1;
+	ligneDroite.w = 1;
+	ligneDroite.h = width;
+
+	SDL_FillRect(surf, &ligneDroite, SDL_MapRGB(surf->format, R, G, B));
+
+	SDL_Rect ligneGauche;
+	ligneGauche.x = posX-1;
+	ligneGauche.y = posY-1;
+	ligneGauche.w = 1;
+	ligneGauche.h = width;
+
+	SDL_FillRect(surf, &ligneGauche, SDL_MapRGB(surf->format, R, G, B));
+
+	SDL_Rect ligneBas;
+	ligneBas.x = posX-1;
+	ligneBas.y = posY+width-1;
+	ligneBas.w = length;
+	ligneBas.h = 1;
+
+	SDL_FillRect(surf, &ligneBas, SDL_MapRGB(surf->format, R, G, B));
+}

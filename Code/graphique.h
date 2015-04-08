@@ -39,6 +39,7 @@ typedef struct{
     int nbPions;
     int hauteur;
     int largeur;
+    SDL_Surface* imageCase;
 } Case;
 
 typedef struct{
@@ -65,7 +66,7 @@ int initialiserFenetre();
 void fermerFenetre();
 void initialiserPlateauGraphique( SGameState* gameState );
 void updateDesGraphique( unsigned char dices[2] );
-void deplacerPionGraphique( SMove mouvement );
+void deplacerPionGraphique( SMove move );
 void updateTourJoueurGraphique( Player joueur );
 void updateScoreJoueurBlanc(int score);
 void updateScoreJoueurNoir(int score);
@@ -81,10 +82,10 @@ SDL_Rect positionnerPion(Case *case_pos, int numCase);
 void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);
-void movePion(SMove move);
 void deplacerPionVers(Pion *pion);
 void updateOutGraphic(SDL_Surface *outJoueur, int numJoueur, Plateau *plateau, SDL_Surface *ecran);
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau);
+void drawEmptyRect(SDL_Surface* surf,int posX, int posY, int width, int length, int R, int G, int B);
 
 
 
