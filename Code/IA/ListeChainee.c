@@ -1,3 +1,10 @@
+/*
+
+	Fichier contenant toutes les fonctions et structures concernant la liste chainée
+
+	Cette liste est utilisée pour stocké des structures Coup
+
+*/
 
 #include "ListeChainee.h"
 #include "Coup.h"
@@ -22,14 +29,18 @@ struct ListeChainee {
 
 
 /* operations sur les cellules */
+
+// retourne un pointeur vers la cellule suivante de la cellule passée en paramètre par pointeur (cette valeur est à NULL si il n'y a pas de suivant)
 Cellule* getCelluleSuivante( Cellule* cellule ) {
 	return cellule -> suivant;
 }
 
+// retourne un pointeur vers la cellule précédente de la cellule passée en paramètre par pointeur (cette valeur est à NULL si il n'y a pas de précédent)
 Cellule* getCellulePrecedente( Cellule* cellule ) {
 	return cellule -> precedent;
 }
 
+// retourne la Donnée stockée dans la cellule désignée par pointeur
 Donnee getDonnee( Cellule* cellule ) {
 	return cellule -> valeur;
 }
@@ -39,6 +50,7 @@ Donnee getDonnee( Cellule* cellule ) {
 
 /* operations dur la liste */
 
+// crée et initialise une liste chainée vide, la retourne par pointeur
 ListeChainee* creerListeChainee() {
 	ListeChainee* liste = (ListeChainee*) malloc( sizeof(ListeChainee) );
 	
@@ -50,16 +62,15 @@ ListeChainee* creerListeChainee() {
 }
  
 
-
+// renvoie vrai si la liste chainée est vide, faux sinon
 int listeEstVide( ListeChainee* liste ) {
 	// si il n'y a pas de premier, ou si il n'y a pas de dernier, ou si nbElements == 0
 	return liste -> nbElements == 0;
-	//return ! liste -> dernier;
 }
 
 
 
-
+// ajoute un élément en début de liste
 Cellule* ajouterElementDebut( ListeChainee* liste, Donnee elem ) {
 
 	Cellule* p_cellule = (Cellule*) malloc( sizeof(Cellule) );
@@ -88,7 +99,7 @@ Cellule* ajouterElementDebut( ListeChainee* liste, Donnee elem ) {
 }
 
 
-
+// ajoute un élément en fin de liste
 Cellule* ajouterElementFin( ListeChainee* liste, Donnee elem ) {
 
 	Cellule* p_cellule = (Cellule*) malloc( sizeof(Cellule) );
@@ -113,6 +124,7 @@ Cellule* ajouterElementFin( ListeChainee* liste, Donnee elem ) {
 }
 
 
+// ajout un élément après une cellule identifiée par pointeur
 Cellule* ajouterElementApres( ListeChainee* liste, Cellule* cellule, Donnee elem ) {
 	if( cellule == liste -> dernier ) {
 		return ajouterElementFin( liste, elem );
@@ -134,15 +146,17 @@ Cellule* ajouterElementApres( ListeChainee* liste, Cellule* cellule, Donnee elem
 
 
 
+// retourne un pointeur vers la première cellule de la liste (cette valeur peut être NULL si la liste est vide)
 Cellule* getPremierElement( ListeChainee* liste ) {
 	return liste -> premier;
 }
 
-
+// retourne un pointeur vers la dernière cellule de la liste (cette valeur peut être NULL si la liste est vide)
 Cellule* getDernierElement( ListeChainee* liste ){
 	return liste -> dernier;
 }
 
+// retourne le nombre d'éléments présents dans la liste
 int getNbElements( ListeChainee* liste ) {
 	return liste -> nbElements;
 }
@@ -150,36 +164,7 @@ int getNbElements( ListeChainee* liste ) {
 
 
 
-
-
-
-
-/*
-void afficherListe( ListeChainee* liste ) {
-
-	printf("\n NULL -> ");
-
-	Cellule* cellule = getPremierElement( liste );
-	while( cellule ) {
-		printf( " %i -> ", getDonnee(cellule) );
-		cellule = getCelluleSuivante(cellule);
-	}
-	printf(" NULL\n ");
-
-	cellule = getDernierElement( liste );
-	while( cellule ) {
-		printf( " %i <- ", getDonnee(cellule) );
-		cellule = getCellulePrecedente(cellule);
-	}
-
-
-}
-*/
-
-
-
-
-
+// détruit une cellule de la liste
 void detruireCellule( ListeChainee* liste, Cellule* cellule ) {
 
 	if( cellule == liste -> premier ) liste -> premier = cellule -> suivant;
@@ -194,6 +179,7 @@ void detruireCellule( ListeChainee* liste, Cellule* cellule ) {
 }
 
 
+// détruit une liste chainée (détruit également toutes les cellules qu'elle contient)
 void detruireListeChainee( ListeChainee* liste ) {
 
 	Cellule* p_cellule = liste -> premier;
@@ -221,7 +207,7 @@ void detruireListeChainee( ListeChainee* liste ) {
 
 
 
-
+// retourne dans un pointeur, la donnée maximale de la liste, on comparera les éléments de cette liste en utilisant une fonction de comparaison 
 int getDonneeMax( ListeChainee* liste, p_fonctionComparaisonDonnee comparaison, Donnee* donneeMax ) {
 
 	int nbCoups = getNbElements(liste);
@@ -252,7 +238,7 @@ int getDonneeMax( ListeChainee* liste, p_fonctionComparaisonDonnee comparaison, 
 
 
 
-
+// applique une fonctions à tous les éléments de la liste
 void appliquerFonctionSurElement( ListeChainee* liste, p_fonctionElement fonctionElement ) {
 
 	Cellule* cellule = getPremierElement(liste);

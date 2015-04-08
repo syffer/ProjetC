@@ -2,6 +2,9 @@
 /*
 
 	Bot jouant aléatoirement 
+	
+	Ce bot calcule tout les coups possibles,
+	et en tire un aléatoirement.
 
 */
 
@@ -63,7 +66,6 @@ void EndGame() {
  * Fin d'un match
  */
 void EndMatch() {
-
 	///////////////////////////////////////////////
 	// LIBERATION PROPRE DE TOUTES LES RESSOURCES
 	//						TOUTES
@@ -111,28 +113,28 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
 	
 	Player maCouleur = bot.maCouleur;
-	printf(" je suis %i \n", maCouleur );
+	printf("(%s) C'est a mon tour de jouer, je suis %i \n", bot.nom, maCouleur );
 
 
+	// on recalcule les dés (pour en avoir 4 et non deux)
 	unsigned char lesDes[4];
 	getDices( dices, lesDes );
 
 
 
-
+	// on calcule tout les coups possibles
 	ListeChainee* coups = creerListeChainee();
 	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
 
 
-	if( ! getNbElements(coups) ) {	// pas de coup possible
+	if( ! getNbElements(coups) ) {	// pas de coup possible si il n'y a rien dans la liste
 		*nbMove = 0;
 		return;
 	}
 
+	// on en tire un aléatoirement
 	int aleatoire = randomINT( 0, getNbElements(coups) - 1 );
 	
-
-
 	Coup coupAleatoire;
 	Cellule* cellule = getPremierElement(coups);
 	while( cellule ) {
@@ -147,8 +149,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	}
 
 	// il n'y a pas eu d'erreur lors de la récupération du coup aléatoirement
-	if( cellule ) {		// si on a parcourut toute la liste et que le nombre aléatoire n'a jamais été égale à 0 ==> problématique 
-
+	if( cellule ) {		// != NULL
 
 		*nbMove = coupAleatoire.nbMouvements;
 
@@ -157,14 +158,17 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 			moves[i] = coupAleatoire.mouvements[i];
 		}
 
+		printf( "(%s) je veux jouer le coup : ", bot.nom );
 		afficherCoup(&coupAleatoire);
 
-
 	}
-	else printf("WTF\n");
+	else printf( "(%s) Erreur lors du tirage aleatoire du coup\n", bot.nom );
 
 
+	// on détruie (libère) la liste qui n'est plus utilisée
 	detruireListeChainee(coups);
+
 	
-	printf("___fin___\n");
+	printf( "(%s) j'ai fini de jouer\n", bot.nom );
+
 }

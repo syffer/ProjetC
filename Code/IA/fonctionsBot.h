@@ -1,5 +1,12 @@
+/*
+	
+	Fichier contenant la structure Bot, et les fonctions de calcul des différents coups possibles
+	(utilise à la fois le fichier Coup.h et ListeChainee.h) 
+
+*/
 #ifndef _fonctionsBot
 	#define _fonctionsBot
+
 
 
 #include "../Commun/backgammon.h"
@@ -10,7 +17,13 @@
 
 
 
-// signature des fonctions communes
+/*
+	Structure Bot.
+
+	Cette structure stockera les différentes variables utilisées par un bot 
+	(son nom, sa couleur)
+
+*/
 struct Bot {
 	
 	char nom[50];

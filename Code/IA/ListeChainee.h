@@ -1,3 +1,10 @@
+/*
+
+	Fichier contenant toutes les fonctions et structures concernant la liste chainée
+
+	Cette liste est utilisée pour stocké des structures Coup
+
+*/
 #ifndef _ListeChainee
 	#define _ListeChainee
 
@@ -10,12 +17,7 @@
 
 typedef Coup Donnee;
 
-
-
 typedef struct Cellule Cellule;
-
-
-
 
 typedef struct ListeChainee ListeChainee;
 
@@ -59,9 +61,9 @@ int getDonneeMax( ListeChainee* liste, p_fonctionComparaisonDonnee comparaison, 
 
 
 
-
 typedef void (p_fonctionElement)(Donnee* donnee);
 void appliquerFonctionSurElement( ListeChainee* liste, p_fonctionElement fonctionElement );
+
 
 
 #endif

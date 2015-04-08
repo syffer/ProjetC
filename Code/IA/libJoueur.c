@@ -1,22 +1,22 @@
 
 /*
 
-	Bot ne faisant qu'avancer ses pions les plus éloignés.
-	Bot non fini (manque la gestion du videau)
+	Cas où un joueur joue et non un bot
+
 */
+
 
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>		// abs()
-
 
 #include "../Commun/backgammon.h"
-#include "fonctionsBot.h"
-#include "ListeChainee.h"
+#include "../GUI/graphique.h"
 
 
+char nom[] = "Joueur ";
+unsigned int score;
+static Player maCouleur;
 
-static Bot bot;
 
 /**
  * Initialiser la librairie
@@ -24,12 +24,9 @@ static Bot bot;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-
-	strcpy( bot.nom, "BotJoueur" );
-	bot.maCouleur = NOBODY;
-	bot.scoreCible = 0;
-
-	strcpy( name, bot.nom );
+	strcpy( name, nom );
+	score = 0;
+	maCouleur = NOBODY;
 }
 
 
@@ -39,7 +36,7 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
-	bot.scoreCible = target_score;
+	score = target_score;
 }
 
 
@@ -47,7 +44,7 @@ void StartMatch( const unsigned int target_score ) {
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
-	bot.maCouleur = p;
+	maCouleur = p;
 }
 
 
@@ -55,7 +52,7 @@ void StartGame(Player p) {
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	// la couleur ne change pas apparemment
+	maCouleur = NOBODY;
 }
 
 
@@ -79,21 +76,13 @@ void EndMatch() {
  *	vrai si on propose de doubler : faux sinon
  */
 int DoubleStack( const SGameState * const gameState ) {
-	printf("Doubler la mise ? (y or n) : ");
+	
 
-	scanf("%c",&choix);
-    while(choix != 'y' || choix != 'n'){
-        printf("\nchoix ? : ");
-        scanf("%c",&choix);
-    }
+	/*
+		lancer une fenetre pour savoir si le joueur veut doubler la mise
+	*/
 
-    if(choix == 'y'){
-        return 1;
-    }else{
-        return 2;
-    }
-	//appeler la fonction graphique qui demande au joueur s'il veux doubler ou non
-	return(choix);
+	return(0);		
 }
 
 
@@ -102,27 +91,18 @@ int DoubleStack( const SGameState * const gameState ) {
  * @param const SGameState * const gameState
  *	l'état du jeu courant
  * @return int
- *	vrai si on accepte la nouvelle mise ; faux sinon
+ *	vrai si on accepte la nouvelle mise ; faux sinonTitouan Psq
  */
 int TakeDouble( const SGameState * const gameState ) {
-	printf("Doubler la mise ? (y or n) : ");
 
-	scanf("%c",&choix);
-    while(choix != 'y' || choix != 'n'){
-        printf("\nchoix ? : ");
-        scanf("%c",&choix);
-    }
 
-    if(choix == 'y'){
-        return 1;
-    }else{
-        return 2;
-    }
-	//appeler la fonction graphique qui demande au joueur s'il veux accepter ou non
-	return(choix);
+	/*
+		lancer une fenetre pour savoir si le joueur accepte la nouvelle mise
+	*/	
+
+
+	return(1);
 }
-
-
 
 /**
  * Prise de décision de la part de l'IA
@@ -133,17 +113,24 @@ int TakeDouble( const SGameState * const gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-// !!!!!!!!!!!!!!!!!!! on a enlevé les const pour pouvoir modifier gameState
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
-    int i;
-    SMove move;
-    for(i=0;i<nbMove;i++){
-        printf("mouvement 1\nsrc ? : ");
-        scanf("%d",&(move.src_point));
-        printf("dest ? : ");
-        scanf("%d",&(move.dest_point));
-        moves[i] = move;
-    }
-    //appeler la fonction graphique !!!
+	
+
+	/*
+		gestion des evenements SDL / horizon des évenements SDL
+
+
+			- besoin du graphique.h et des variables de plateau ???
+	*/
+
+
+
+	*nbMove = 0;
+
+
+
 }
+
+
+
+
