@@ -109,20 +109,22 @@ int TakeDouble( const SGameState * const gameState ) {
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	
 
-	*nbMove = 0;
-
 	Player maCouleur = bot.maCouleur;
 	printf(" je suis %i \n", maCouleur );
 
 	unsigned char lesDes[4];
 	getDices( dices, lesDes );
 
+	
 	ListeChainee* coups = creerListeChainee();
-	Coup meilleurCoup;
-
 	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
 
-	getDonneeMax( coups, comparerAntiJeu,  &meilleurCoup );
+
+	Coup meilleurCoup;
+	if( getDonneeMax( coups, comparerAntiJeu, &meilleurCoup ) ) {		// si une erreur apparait, la liste est vide, et donc pas de coup possible
+		*nbMove = 0;
+		return;
+	}
 
 
 	*nbMove = meilleurCoup.nbMouvements;

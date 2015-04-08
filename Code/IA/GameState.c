@@ -474,19 +474,19 @@ int calculerMeilleurCoup( SGameState* gameState ) {
 
 
 
+/*
+* Retourne un nombre généré aléatoirement entre min et max compris.
+*
+*/
+int randomINT( int min, int max ) {
 
+	// on vérifie si le générateur aléatoire a été initialisé
+	static int generateurInitialise = 0;
+    if( ! generateurInitialise ) {		// si ce n'est pas le cas, on l'initialise
+        generateurInitialise = 1;
+        srand( time(NULL) );
+    }
 
-/**
- * Fonction permettant de générer un nombre aléatoire compris dans les bornes
- * @param min : la valeur minimum de l'intervalle
- * @param max : la valeur maximale de l'intervalle
- * @return : l'entier généré
- * */
-int random_bot(int min,int max)
-{
-	int valeur_generee;
-	srand(time(NULL));
-	valeur_generee= (rand()%(max-min))+min;
-	return valeur_generee;
+	return ( rand() % (max-min+1) ) + min;
 }
 

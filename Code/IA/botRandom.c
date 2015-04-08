@@ -109,8 +109,6 @@ int TakeDouble( const SGameState * const gameState ) {
  */
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
-
-	*nbMove = 0;
 	
 	Player maCouleur = bot.maCouleur;
 	printf(" je suis %i \n", maCouleur );
@@ -120,18 +118,23 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	getDices( dices, lesDes );
 
 
+
+
 	ListeChainee* coups = creerListeChainee();
 	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
 
 
-	Cellule* cellule = getPremierElement(coups);
+	if( ! getNbElements(coups) ) {	// pas de coup possible
+		*nbMove = 0;
+		return;
+	}
+
+	int aleatoire = randomINT( 0, getNbElements(coups) - 1 );
+	
+
+
 	Coup coupAleatoire;
-
-	
-	
-	int aleatoire = random_bot(0,getNbElements(coups));
-	
-
+	Cellule* cellule = getPremierElement(coups);
 	while( cellule ) {
 
 		if( aleatoire == 0 ) {
