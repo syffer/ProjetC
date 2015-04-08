@@ -124,6 +124,28 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	*/
 
 
+	/*
+	
+	sdl event
+
+	swith event
+
+	
+
+	selectionner case depart (pion)
+
+	animer le pion pour le voir
+
+
+	selectionner case destination
+		if( source == destination ) retour avant
+		if( ! peutBougerPion ) retour avant
+
+	bouger pion graphique
+
+
+	*/
+
 
 	*nbMove = 0;
 
