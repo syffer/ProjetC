@@ -672,7 +672,7 @@ void afficherGameState( SGameState gameState ) {
     printf( "   bar WHITE nbDames %i \n", gameState.bar[WHITE] );
 
     int i;
-    for( i = 0; i < 26; i++ ) {
+    for( i = 0; i < 24; i++ ) {
 
         if( gameState.board[i].owner == BLACK ) nom = "BLACK";
         else if( gameState.board[i].owner == WHITE  ) nom = "WHITE";
