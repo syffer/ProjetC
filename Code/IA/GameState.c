@@ -437,7 +437,7 @@ int calculerCout( SGameState* gameState ) {
 	int totalePoints = 0;
 
 	int i;
-	for( i = 0; i < 24; i++ ) {
+	for( i = 1; i < 25; i++ ) {
 
 		if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 1 ) totalePoints += 3;
 		else if( gameState -> board[i].owner != maCouleur && gameState -> board[i].nbDames == 0 ) totalePoints += 2;
