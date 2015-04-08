@@ -251,9 +251,9 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
                             printf("le joueur blanc propose de doubler la mise\n");
                             etatCopie = copierEtatJeux(&etatJeux);
                             if(joueurNoir.TakeDouble(&etatCopie)){
-                                videau = BLACK;
+                                videau = WHITE;
                                 etatJeux.stake *= 2;
-                                printf("le joueur Noir accepte de doubler, il prend le videau et la mise est alors de %d\n",etatJeux.stake);
+                                printf("le joueur Noir accepte de doubler, il donne le videau et la mise est alors de %d\n",etatJeux.stake);
                             }else{
                                 printf("le joueur noir refuse de doubler la mise --> abandon\n");
                                 continuerPartie = 0;
@@ -268,9 +268,9 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
                             printf("le joueur noir propose de doubler la mise\n");
                             etatCopie = copierEtatJeux(&etatJeux);
                             if(joueurBlanc.TakeDouble(&etatCopie)){
-                                videau = WHITE;
+                                videau = BLACK;
                                 etatJeux.stake *= 2;
-                                printf("le joueur blanc accepte de doubler, il prend le videau et la mise est alors de %d\n",etatJeux.stake);
+                                printf("le joueur blanc accepte de doubler, il donne le videau et la mise est alors de %d\n",etatJeux.stake);
                             }else{
                                 printf("le joueur blanc refuse de doubler la mise --> abandon\n");
                                 continuerPartie = 0;
