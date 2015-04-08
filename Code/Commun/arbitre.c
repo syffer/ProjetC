@@ -130,7 +130,7 @@ const SGameState const copierEtatJeux( SGameState* etatJeux ) {
 	copie.out[1] = etatJeux->out[1];
 	//copie de la board
 	int i;
-	for(i=0;i<25;i++){
+	for(i=0;i<24;i++){
         copie.board[i].nbDames = etatJeux->board[i].nbDames;
         copie.board[i].owner = etatJeux->board[i].owner;
 	}
@@ -232,10 +232,10 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
                         if(etatJeux.board[bonsCoups[i].dest_point-1].owner == !etatJeux.turn){ //on vérifie ici pour afficher le déplacement d'un jeton mangé
                             move.src_point = bonsCoups[i].dest_point;
                             move.dest_point = 0;
-                            afficherDeplacementX(move);
+                            //afficherDeplacementX(move);
                         }
                         jouerCoup(&etatJeux,bonsCoups[i],etatJeux.turn);
-                        afficherDeplacementX(bonsCoups[i]);
+                        //afficherDeplacementX(bonsCoups[i]);
                     }
                     etatValide = 1;
                 }
@@ -574,7 +574,7 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
     else courant = 24;
     int iJetonChiant = 0,coup1,coup2;
     while(courant != 0 && courant != 25){
-        printf("DIFF : test de la case %d\n",courant);
+        //printf("DIFF : test de la case %d\n",courant);
         if(etatJeux->board[courant-1].owner == couleur){
             move1 = faireMove(courant,coup[0],couleur);
             move2 = faireMove(courant,coup[1],couleur);
@@ -582,14 +582,43 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
             coup1 = coupPossible(etatJeux->board,move1,couleur);
             coup2 = coupPossible(etatJeux->board,move2,couleur);
             if(coup1 && coup2){
-                printf("DIFF : les deux coups sont possibles\n");
+                printf("DIFF : case %d : les deux coups sont possibles\n",courant);
                 //si on est arrivé à la fin...
-                if(etatJeux->out[couleur] == 14 && (move1.dest_point == 25 && move2.dest_point == 25)) return 1;
-                if(etatJeux->out[couleur] == 14 && (move1.dest_point == 25 || move2.dest_point == 25)) return 2;
+                if(etatJeux->out[couleur] == 14 && (move1.dest_point == 25 && move2.dest_point == 25) && peutSortir(etatJeux->board,couleur)) return 1;
+                if((move1.dest_point == 25 || move2.dest_point == 25) && peutSortir(etatJeux->board,couleur)) return 2; //ICI, celuyi qui est à 25 doit pouvoir sortir !!!!
+                if(((move1.dest_point == 25 || move2.dest_point == 25) && !peutSortir(etatJeux->board,couleur))){
+                    //cas particulier, le joueur peut pas sortir, après un mouvement il peut, et il sort avec le deuxième
+                    printf("CAS SPECIAL !!!!\n");
+                    if(move1.dest_point != 25){
+                        jouerCoup(etatJeux,move2,couleur);
+                        if(coupPossible(etatJeux->board,move1,couleur)) return 2;
+                        else return 1;
+                    }else{
+                        jouerCoup(etatJeux,move1,couleur);
+                        if(coupPossible(etatJeux->board,move2,couleur)) return 2;
+                        else return 1;
+                    }
+                }
+                printf("pas cas spécial\n");
                 //les deux coups sont possibles
                 //s'il y a au moins 2 jetons, c'est bon
                 //si ya qu'un jeton mais qu'on peut faire la somme des dés, c'est bon aussi
                 if(etatJeux->board[courant-1].nbDames >= 2 || coupPossible(etatJeux->board,move3,couleur)) return 2;
+
+                //ensuite on joue un coup, on regarde si on peut obtenir 2, sinon on l'enlève, puis on fait pareil avec le deuxième
+                SGameState etatCopie = copierEtatJeux(etatJeux);
+                jouerCoup(&etatCopie,move1,couleur);
+                if(algoCoupPareil(&etatCopie,coup[1],1,couleur) == 1){
+                    printf("on a trouvé avec le premier coup, puis le deuxième\n");
+                    return 2;
+                }
+                etatCopie = copierEtatJeux(etatJeux);
+                jouerCoup(&etatCopie,move2,couleur);
+                if(algoCoupPareil(&etatCopie,coup[0],1,couleur) == 1){
+                    printf("on a trouvé avec le deuxième coup, puis le deuxième\n");
+                    return 2;
+                }
+
                 //sinon on ajoute ce pion au tableau des "jetons chiants", mais on a pas besoin de savoir sa valeur, juste le nombre de jeton Chiants
                 //si on ajoute le deuxième jeton chiant, c'est bon car on a deux jetons différents où on peut faire les deux combinaisons
                 if(iJetonChiant == 1) return 2;
@@ -613,7 +642,10 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
 
 
 int coupPossible(Square board[], SMove move, int couleur){
-    if(move.dest_point == 25 && peutSortir(board,couleur)) return 1;
+    if(move.dest_point == 25){
+        if(peutSortir(board,couleur)) return 1;
+        else return 0;
+    }
     //sinon faut que ça soit pas une case adverse, ou alors y a qu'un jeton
     else return (board[move.dest_point-1].owner != (!couleur) || board[move.dest_point-1].nbDames == 1);
 }
@@ -702,7 +734,9 @@ int peutSortir(Square board[], int couleur){
         return 1;
     }else{
         for(i=6;i<=23;i++){
-            if(board[i].owner == BLACK) return 0;
+            if(board[i].owner == BLACK){
+                 return 0;
+            }
         }
         return 1;
     }
