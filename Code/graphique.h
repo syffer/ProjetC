@@ -82,8 +82,8 @@ void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);
 void movePion(SMove move);
+void deplacerPionVers(Pion *pion);
 void updateOutGraphic(SDL_Surface *outJoueur, int numJoueur, Plateau *plateau, SDL_Surface *ecran);
-Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre);
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau);
 
 

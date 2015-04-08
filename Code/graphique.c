@@ -610,8 +610,6 @@ int afficherJeu()
                         deplacement.source = move.src_point;
                         deplacement.dest = move.dest_point;
 
-                        timer = SDL_AddTimer(30, deplacerPionVers2, &deplacement);
-
                     }
                 break;
 
@@ -678,7 +676,7 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2)
 }
 
 /**
-*Créé un pion à la position spécifiéd et avec l'image spécifiée
+*Créé un pion à la position spécifiée et avec l'image spécifiée
 **/
 Pion creerPion(int posX, int posY, char* image)
 {
@@ -726,7 +724,9 @@ void updateOutGraphic(SDL_Surface *outJoueur, int numJoueur, Plateau *plateau, S
 */
 SDL_Rect positionnerPion(Case *case_pos, int numCase){
 
+
     int nbPions = case_pos -> nbPions;
+    printf("[--ENTREE DANS POSITIONNER PION-- La case destination contient %i pions]\n ", nbPions);
     SDL_Rect pos;
 
     int hauteurPion = 54;
@@ -744,11 +744,13 @@ SDL_Rect positionnerPion(Case *case_pos, int numCase){
         pos.y = case_pos->posY + nbPions * hauteurPion;
 
     }
-   // printf("Case n° %i, de position x: %i, y : %i, nbPions = : %i\n",numCase, case_pos->posX, case_pos->posY, nbPions);
+
     return pos;
 }
 
-
+/**
+* Fonction à appeler qui permet de déplacer le dernier pion d'une case vers une autre avec le SMove passé en paramètre
+*/
 void movePion(SMove move)
 {
     int src = move.src_point;
@@ -761,6 +763,7 @@ void movePion(SMove move)
         graphique.deplacement.dest = dest;
         graphique.deplacement.source = src;
 
+        //on décrémente la source et la destination pour correspondre avec les bonnes valeurs du tableau
         src --;
         dest --;
 
@@ -776,25 +779,29 @@ void movePion(SMove move)
         if(nbPionsSrc > 0)
         {
             //transfert du pion d'une case à une autre
-            Pion pion = graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1];
+            Pion pion = case_src.tabPions[nbPionsSrc-1];
 
-            printf("Avant deplacement : src contient %i pions, dest contient %i pions\n", nbPionsSrc, nbPionsDest);
-            case_dest.nbPions ++; // on augmente le nombre de pions de la case destinataire
+            graphique.plateau.tabCases[src] = case_src;
+            graphique.plateau.tabCases[dest] = case_dest;
+
+            deplacerPionVers(&case_src.tabPions[nbPionsSrc -1]);
+
+            case_dest.nbPions++;// on augmente le nombre de pions de la case destinataire
             nbPionsDest = case_dest.nbPions;
-            printf("Avant déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
 
-            //if(graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x != graphique.plateau.tabCases[dest].posX && graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y != graphique.plateau.tabCases[dest].posY)
-            graphique.timer = SDL_AddTimer(30, deplacerPionVers2, &graphique.deplacement);
             // affectation du pion à la nouvelle case
-            case_dest.tabPions[nbPionsDest-1] = pion;
+            case_dest.tabPions[nbPionsDest-1] = case_src.tabPions[nbPionsSrc-1];
 
-            case_src.nbPions --;
-            printf("Après déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
+            case_src.nbPions --; // on décrémente le nombre de pions de la source
+           // printf("Après déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
             nbPionsSrc = case_src.nbPions ;
             nbPionsDest = case_dest.nbPions;
 
-            printf("Après deplacement : src contient %i pions, dest contient %i pions\n", nbPionsSrc, nbPionsDest);
+            graphique.plateau.tabCases[src] = case_src;
+            graphique.plateau.tabCases[dest] = case_dest;
 
+            printf("Après deplacement : src contient %i pions, dest contient %i pions\n", case_src.nbPions, case_dest.nbPions);
+            printf("[Case tableau]Après deplacement : src contient %i pions, dest contient %i pions\n", graphique.plateau.tabCases[src].nbPions, graphique.plateau.tabCases[dest].nbPions);
 
         }
 
@@ -803,21 +810,16 @@ void movePion(SMove move)
 }
 
 /**
-*   fonction avec timer qui déplace un pion
+*   fonction qui déplace le pion passé en paramètre
 */
-Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre)
+void deplacerPionVers(Pion *pion)
 {
     int source = graphique.deplacement.source;
     int dest = graphique.deplacement.dest;
 
-    Plateau plateau = graphique.plateau;
-
     Case case_dest = graphique.plateau.tabCases[dest -1]; //case de destination
     Case case_src = graphique.plateau.tabCases[source -1]; //case source
-    int nbPions = case_src.nbPions;
     SDL_Rect posFinale = positionnerPion(&case_dest, dest -1);
-    // récupération du pion situé en haut de la case de départ
-    Pion *pion = &graphique.plateau.tabCases[source -1].tabPions[nbPions - 1];
 
     int x = posFinale.x;
     int y = posFinale.y;
@@ -826,36 +828,49 @@ Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre)
 
     int distanceX = fabs(pion->posPion.x - x);
     int distanceY = fabs(pion->posPion.y - y);
-    int incrementPos = 2;
-    if(distanceX >= 0 && distanceY >= 0)
+
+    int incrementPos = 1;
+    int deplacement = 1;
+
+    while(deplacement)
     {
-        if(pion->posPion.x < x)
-            pion->posPion.x +=incrementPos;
-        else if(pion->posPion.x > x)
-            pion->posPion.x -=incrementPos;
+        if(distanceX > 0 || distanceY > 0)
+        {
+            printf("distanceX :%i - distanceY : %i\n", distanceX, distanceY);
+            //test de la position en x du pion par rapport à la position finale
+            if(pion->posPion.x < x)
+                pion->posPion.x +=incrementPos;
+            else if(pion->posPion.x > x)
+                pion->posPion.x -=incrementPos;
 
-        if(pion->posPion.y < y)
-            pion->posPion.y +=incrementPos;
-        else if(pion->posPion.y > y)
-            pion->posPion.y -=incrementPos;
+            //test de la position en y du pion par rapport à la position finale
+            if(pion-> posPion.y < y)
+                pion-> posPion.y +=incrementPos;
+            else if(pion-> posPion.y > y)
+                pion-> posPion.y -=incrementPos;
+
+            //MàJ de la distance entre le pion et sa position finale
+            distanceX = fabs(pion->posPion.x - x);
+            distanceY = fabs(pion->posPion.y - y);
+            //updatePionsGraphique();
+            SDL_Rect pos;
+
+            pos.x = 0;
+            pos.y = 0;
+
+            //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &pos);
+            SDL_BlitSurface(pion->imagePion, NULL, graphique.ecran, &pion ->posPion);
+
+            //rafraichirGraphique();
+            SDL_Flip( graphique.ecran );
+           // rafraichirGraphique();
+        }
+        else
+            deplacement = 0;
 
 
-       // rafraichirGraphique();
     }
-    else
-    {
-        SDL_Rect posPion;
-        posPion.x = x;
-        posPion.y = y;
-        pion->posPion = posPion;
-    }
-
-    updatePionsGraphique();
-    SDL_Flip( graphique.ecran );
-
-    return intervalle;
 }
-
 
 /**
 *Initialise les cases du plateau avec leur bonne position
