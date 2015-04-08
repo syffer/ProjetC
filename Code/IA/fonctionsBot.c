@@ -17,9 +17,7 @@ void calculerCoupsPossibles( SGameState* gameState, Player maCouleur, unsigned c
 
 	calculerCoupsPossiblesInitiaux( gameState, maCouleur, dices, listeCoups );
 
-	int nbDesUtilisesMax = calculerCoupsPossiblesSuivants( maCouleur, listeCoups );
-
-	//supprimerCoupsIllegaux( listeCoups, nbDesUtilisesMax );
+	calculerCoupsPossiblesSuivants( maCouleur, listeCoups );
 
 	calculerCaracteristiquesCoups( listeCoups );
 }
@@ -65,8 +63,7 @@ void calculerCoupsPossiblesInitiaux( SGameState* gameState, Player maCouleur, un
 
 
 // calcul, pour une liste de coup initiaux, tout les coups possibles jusqu'a ce qu'il ne reste plus de dé à jouer pour chaque coup
-// retourne le nombre de dé maximale utilisés
-int calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups ) {
+void calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups ) {
 
 	Square laCase;
 	
@@ -74,8 +71,6 @@ int calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups )
 	Coup nouveauCoup;
 	SGameState* gameState;
 	SMove mouvement;
-
-	int nbDesUtilisesMax = 0;
 
 	int ancienCoupObsolete = 0;
 
@@ -110,11 +105,7 @@ int calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups )
 					ajouterElementFin( listeCoups, nouveauCoup );	// on ajout ece coup en fin de liste pour qu'on le prenne en compte dans le traitements des éléments de la liste
 
 					ancienCoupObsolete = 1;		// on indique que le coup actuel est à supprimer, puisque ce coup a été utilisé pour générer un autre coup.
-				
-
-					//
-					if( nbDesUtilisesMax < j ) nbDesUtilisesMax = j;
-				
+								
 				}
 
 
@@ -136,37 +127,9 @@ int calculerCoupsPossiblesSuivants( Player maCouleur, ListeChainee* listeCoups )
 
 	}
 
-
-	return nbDesUtilisesMax + 1;	// on compte le premier dé que l'on a utilisé lors de la fonction calculerCoupsPossiblesInitiaux
-
 }
 
 
-
-// supprime les coups illégaux (qui n'utilise pas au maximum les dés)
-/*
-void supprimerCoupsIllegaux( ListeChainee* listeCoups, int nbDesUtilisesMax ) {
-
-	printf("________________ %i \n", nbDesUtilisesMax);
-
-	Coup coup;
-
-	Cellule* aSupprimer;
-	Cellule* cellule = getPremierElement(listeCoups);
-	while(cellule) {
-
-		coup = getDonnee(cellule);
-
-		if( coup.nbMouvements < nbDesUtilisesMax ) {
-			aSupprimer = cellule;
-			cellule = getCelluleSuivante(cellule);
-			detruireCellule( listeCoups, aSupprimer );
-		}
-		else cellule = getCelluleSuivante(cellule);
-	}
-
-}
-*/
 
 // calcul les caractéristiques de chaque coup d'une liste de coup (on applique une fonction au éléments de la liste)
 void calculerCaracteristiquesCoups( ListeChainee* listeCoups ) {
