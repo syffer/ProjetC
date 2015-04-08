@@ -83,7 +83,7 @@ void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);
 void deplacerPionVers(Pion *pion);
-void updateOutGraphic(SDL_Surface *outJoueur, int numJoueur, Plateau *plateau, SDL_Surface *ecran);
+void updateOutGraphic(int numJoueur);
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau);
 void drawEmptyRect(SDL_Surface* surf,int posX, int posY, int width, int length, int R, int G, int B);
 

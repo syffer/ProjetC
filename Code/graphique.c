@@ -380,7 +380,12 @@ void pause() {
                         continuer = 0;
 
                         break;
-
+                    case SDLK_g:
+                        updateOutGraphic(1);
+                    break;
+                    case SDLK_h:
+                        updateOutGraphic(0);
+                    break;
                     default:
                         lancerLesDes(dices);
                         updateDesGraphique(dices);
@@ -620,7 +625,7 @@ int afficherJeu()
         // Début de la partie pour redessiner les éléments
         // réinitialisation de l'écran
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
-        updateOutGraphic(out1, 1, &s_plateau, screen);
+//        updateOutGraphic(out1, 1, &s_plateau, screen);
 
         /*int numJoueur = -1;
         out1 = SDL_CreateRGBSurface(SDL_HWSURFACE, 220, 180, 32, 0, 0, 0, 0);
@@ -691,27 +696,43 @@ Pion creerPion(int posX, int posY, char* image)
     return pion;
 }
 
-void updateOutGraphic(SDL_Surface *outJoueur, int numJoueur, Plateau *plateau, SDL_Surface *ecran)
+void updateOutGraphic(int numJoueur)
 {
     int x = 50;
     int i;
     int epaisseurPion = 10;
 
     int nbOut;
-    if(numJoueur == -1)
-        nbOut =plateau->out[0];
-    else if(numJoueur == 1)
-        nbOut =plateau->out[1];
 
+    if(numJoueur == BLACK)
+        nbOut = graphique.plateau.out[BLACK];
+        graphique.plateau.out[BLACK] ++;
+    else if(numJoueur == WHITE)
+        nbOut =graphique.plateau.out[WHITE];
+        graphique.plateau.out[WHITE] ++;
 
-    nbOut ++; //ajout d'un pion dans le out du joueur
+   // nbOut ++; //ajout d'un pion dans le out du joueur
 
     int hauteurARemplir = nbOut*epaisseurPion;
-    outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, hauteurARemplir, 32, 0, 0, 0, 0);
-    /*if(numJoueur == WHITE)
-       // SDL_FillRect(outJoueur, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
-    else if(numJoueur == BLACK)
-      //  SDL_FillRect(outJoueur, NULL, SDL_MapRGB(ecran->format, 0, 0, 0));*/
+    SDL_Rect posOut;
+
+    SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, hauteurARemplir, 32, 0, 0, 0, 0);
+    if(numJoueur == WHITE){
+
+        SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 255, 255, 255));
+        posOut.x = 20;
+        posOut.y = 50;
+    }
+    else if(numJoueur == BLACK){
+
+        SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 0, 0, 0));
+        posOut.x = 20;
+        posOut.y = 400;
+    }
+
+
+    SDL_BlitSurface(outJoueur, NULL, graphique.fond, &posOut);
+    rafraichirGraphique();
 }
 
 /**
@@ -861,13 +882,12 @@ void deplacerPionVers(Pion *pion)
 
             //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &pos);
             SDL_BlitSurface(pion->imagePion, NULL, graphique.ecran, &pion ->posPion);
-            //updatePionsGraphique();
+           // updatePionsGraphique();
             SDL_Flip( graphique.ecran );
             //rafraichirGraphique();
         }
         else
             deplacement = 0;
-
 
     }
 }
