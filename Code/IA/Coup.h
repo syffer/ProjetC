@@ -45,6 +45,10 @@ void afficherCoup( Coup* coup );
 void calculerCaracteristiquesCoup( Coup* coup );
 
 
+int comparerEntier( int e1, int e2 );
+int comparerDouble( double d1, double d2 );
+
+
 // fonctions de comparaison de coup
 int comparerCoups_CasesRepas( Coup* c1, Coup* c2 );
 int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 );
