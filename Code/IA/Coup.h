@@ -54,8 +54,10 @@ void calculerCaracteristiquesCoup( Coup* coup );
 	- -1	si c1 < c2
 
 */
+int comparerCoups_nbMouvements( Coup* c1, Coup* c2 );
 int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 );		// on compare les coups en fonctions de leurs nombre de cases sécurisées 
-int comparerCoups_PionsAdverseSorties( Coup* c1, Coup* c2 );	// 								     				 de pions adverse sur la barre
+int comparerCoups_PionsAdverseBarre( Coup* c1, Coup* c2 );		// 								     				 de pions adverse sur la barre
+int comparerCoups_PionsSorties( Coup* c1, Coup* c2 );			// 								     				 de pions sortie du plateau
 int comparerCoup_Cases2Dames( Coup* c1, Coup* c2 );				// 									 				 de cases possèdant exactement 2 pions
 int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 );	//									 de la probabilité de perdre un pion au prochain tour
 int comparerCoups_Securitee( Coup* c1, Coup* c2 );				// on compare les coups en fonctions de plusieurs critères, permettant de définir quel coup est le moins dangereux

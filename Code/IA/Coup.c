@@ -103,6 +103,15 @@ void calculerCaracteristiquesCoup( Coup* coup ) {
 */
 
 
+int comparerCoups_nbMouvements( Coup* c1, Coup* c2 ) {
+	int nbMouvements_c1 = c1 -> nbMouvements;
+	int nbMouvements_c2 = c2 -> nbMouvements;
+
+	if( nbMouvements_c1 > nbMouvements_c2 ) return 1;
+	else if( nbMouvements_c1 < nbMouvements_c2 ) return -1;
+	else return 0;
+}
+
 
 // fonction qui compare deux coup en fonctions de leurs nombre de cases sécurisées
 int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 ) {
@@ -116,7 +125,7 @@ int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 ) {
 
 
 // fonction qui compare deux coup en fonctions de leurs nombre de pions adverse sur la barre
-int comparerCoups_PionsAdverseSorties( Coup* c1, Coup* c2 ) {
+int comparerCoups_PionsAdverseBarre( Coup* c1, Coup* c2 ) {
 	int barreAdverse_c1 = c1 -> gameState.bar[ getCouleurAdverse( c1 -> maCouleur ) ];
 	int barreAdverse_c2 = c2 -> gameState.bar[ getCouleurAdverse( c2 -> maCouleur ) ];
 
@@ -124,6 +133,19 @@ int comparerCoups_PionsAdverseSorties( Coup* c1, Coup* c2 ) {
 	else if( barreAdverse_c1 < barreAdverse_c2 ) return -1;
 	else return 0;
 }
+
+
+// fonction qui compare deux coup en fonctions de leurs nombre sortie du plateau
+int comparerCoups_PionsSorties( Coup* c1, Coup* c2 ) {
+
+	int nbPionsSorties_c1 = c1 -> gameState.out[ c1 -> maCouleur ];
+	int nbPionsSorties_c2 = c2 -> gameState.out[ c2 -> maCouleur ];
+
+	if( nbPionsSorties_c1 > nbPionsSorties_c2 ) return 1;
+	else if( nbPionsSorties_c1 < nbPionsSorties_c2 ) return -1;
+	else return 0;
+}
+
 
 // fonction qui compare deux coup en fonctions de leurs nombre de cases possèdant exactement 2 pions
 int comparerCoup_Cases2Dames( Coup* c1, Coup* c2 ) {
@@ -152,10 +174,16 @@ int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 ) {
 // fonction qui compare deux coups en fonctions de plusieurs critères, permettant de définir quel coup est le moins dangereux
 int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
 
-	int comparaison = comparerCoups_CasesSecurisees( c1, c2 );
+	int comparaison = comparerCoups_nbMouvements( c1, c2 );
 	if( comparaison != 0 ) return comparaison;
 
-	comparaison = comparerCoups_PionsAdverseSorties( c1, c2 );
+	comparaison = comparerCoups_PionsSorties( c1, c2 );
+	if( comparaison != 0 ) return comparaison;
+
+	comparaison = comparerCoups_CasesSecurisees( c1, c2 );
+	if( comparaison != 0 ) return comparaison;
+
+	comparaison = comparerCoups_PionsAdverseBarre( c1, c2 );
 	if( comparaison != 0 ) return comparaison;
 
 	comparaison = comparerCoups_ProbabilitesPertePion( c1, c2 );
