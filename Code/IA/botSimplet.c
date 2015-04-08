@@ -2,7 +2,10 @@
 /*
 
 	Bot ne faisant qu'avancer ses pions les plus éloignés.
-	Bot non fini (manque la gestion du videau)
+	
+	Ce bot avance les pions les plus éloignés si possibles, 
+	il ne double jamais la mise, et accepte toujours une nouvelle mise.
+
 */
 
 #include <stdio.h>
@@ -17,6 +20,7 @@
 
 
 static Bot bot;
+
 
 /**
  * Initialiser la librairie
@@ -55,7 +59,7 @@ void StartGame(Player p) {
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	// la couleur ne change pas apparemment
+	
 }
 
 
@@ -63,7 +67,7 @@ void EndGame() {
  * Fin d'un match
  */
 void EndMatch() {
-
+	
 	///////////////////////////////////////////////
 	// LIBERATION PROPRE DE TOUTES LES RESSOURCES
 	//						TOUTES
@@ -107,41 +111,43 @@ int TakeDouble( const SGameState * const gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-// !!!!!!!!!!!!!!!!!!! on a enlevé les const pour pouvoir modifier gameState
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
 	
-	*nbMove = 0;
+	
 
 	Player maCouleur = bot.maCouleur;
 
 	// on est obligé d'utiliser tout les dés SAUF lorsque ce n'est pas possible....
 	unsigned char mesDes[4];
 	getDices( dices, mesDes );
+
+
+	*nbMove = 0;
 	SMove mouvement;
 
 
-	// si je n'ai pas utilisé tout mes dés, et qu'il n'y a plus rien en dehors du plateau
-
-	int i, j;
-	
+	// variables permettant de calculer la véritable position de la case en fonction de la variable de boucle i
 	int position;
 	int a_retirer = (maCouleur == WHITE) ? 0 : 25;
 
-	for( i = 0; i < 25; i++ ) {
+	int i, j;
+	for( i = 0; i < 25; i++ ) {		// pour chaques case
 
-		if( joueurPossedeDesPionsSurLaBarre(gameState,maCouleur) && i != 0 ) break;
+		// on ne peut pas jouer d'autre pions si il ya a des pions sur la barre
+		if( joueurPossedeDesPionsSurLaBarre(gameState,maCouleur) && i != 0 ) break;		
 
 
-		if( i == 0 ) position = 0;		// je suis sur la barre
+		if( i == 0 ) position = 0;		// la barre est toujours représentée par 0, pas besoin de recalculé la position
 		else position = abs( a_retirer - i );
 
 
-		for( j = 0; j < 4; j++ ) {
+		for( j = 0; j < 4; j++ ) {		// pour chaque dé
 		
+
 			if( peutDeplacerUnPion(gameState, maCouleur, position, mesDes[j] ) ) {
 
-				printf(" -> je bouge un pion de la case %i de %i cases \n", position, mesDes[j] );
+				printf("(%s) je bouge un pion de la case %i de %i cases \n", bot.nom, position, mesDes[j] );
 
 
 				initialiserMouvement( &mouvement, maCouleur, position, mesDes[j] );
@@ -149,8 +155,10 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 				moves[ *nbMove ] = mouvement;
 				*nbMove += 1;
 
+				// on met à jour notre gameState pour ne pas avoir de valeur incohérente dans l'état du jeu
 				deplacerUnPion( gameState, maCouleur, mouvement );
 				
+				// on indique que l'on a utilisé le dé en lui donnant la valeur 0
 				mesDes[j] = 0;
 
 			}

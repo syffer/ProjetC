@@ -1,3 +1,8 @@
+/*
+
+	Fichier regroupant toutes les fonctions concernant la structure Coup
+
+*/
 
 
 #include "Coup.h"
@@ -7,7 +12,7 @@
 
 
 
-
+// initialise un coup
 void initialiserCoup( Coup* coup, SGameState gameState, unsigned char dices[4], Player maCouleur ) {
 	
 	coup -> nbMouvements = 0;
@@ -25,25 +30,30 @@ void initialiserCoup( Coup* coup, SGameState gameState, unsigned char dices[4], 
 }
 
 
+// ajoute un mouvement au coup, et met à jour l'état du jeu (on effectue le mouvement sur le plateau)
 void ajouterMouvementAuCoup( Coup* coup, SMove mouvement, int numeroDeUtilise ) {
 
+	// ajout du mouvement à la liste des mouvements du coup
 	coup -> mouvements[ coup -> nbMouvements ] = mouvement;
 	coup -> nbMouvements += 1;
 
+	// mise à jour de l'état du jeu
 	deplacerUnPion( &(coup -> gameState), coup -> maCouleur, mouvement );
-
 	coup -> dices[ numeroDeUtilise ] = 0;	// indique que je viens d'utiliser le dé
+
 }
 
 
-
+// fonction permettant d'afficher les variables du coup
 void afficherCoup( Coup* coup ) {
 	SMove mouvement;
-	int i;
+
 	printf(" nbCasesSecurisees : %i \n", coup -> nbCasesSecurisees);
 	printf(" nbCases2Dames : %i \n", coup -> nbCases2Pions);
 	printf(" probabilitePertePion : %lf \n", coup -> probabilitePertePion);
 	printf(" nbMouvements : %i \n", coup -> nbMouvements);
+
+	int i;
 	for( i = 0; i < coup -> nbMouvements; i++ ) {
 		mouvement = coup -> mouvements[i];
 		printf(" mouvement %i : de %i a %i \n", i, mouvement.src_point, mouvement.dest_point );
@@ -53,7 +63,7 @@ void afficherCoup( Coup* coup ) {
 }
 
 
-
+// calcul les différentes caractéristiques d'un coup (nombre de cases sécurisées...)
 void calculerCaracteristiquesCoup( Coup* coup ) {
 
 	coup -> nbCasesSecurisees = 0;
@@ -79,32 +89,22 @@ void calculerCaracteristiquesCoup( Coup* coup ) {
 
 
 
+
+
+
 /*
-void afficherCoups( ListeChainee* listeCoups ) {
+	fonctions de comparaison de coups
 
-	int i = 0;
+	ces fonctions renveront :
+	- 1 	si c1 > c2
+	- 0 	si c1 == c2
+	- -1	si c1 < c2
 
-	Coup coup;
-	Cellule* cellule = getPremierElement(listeCoups);
-
-	while( cellule ) {
-
-		printf("-------- COUP %i \n", i);
-
-		coup = getDonnee(cellule);
-
-		afficherCoup(coup);
-
-		cellule = getCelluleSuivante(cellule);
-
-		i++;
-	}
-
-}
 */
 
 
 
+// fonction qui compare deux coup en fonctions de leurs nombre de cases sécurisées
 int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 ) {
 	int nbCasesSecurisees_c1 = c1 -> nbCasesSecurisees;
 	int nbCasesSecurisees_c2 = c2 -> nbCasesSecurisees;
@@ -115,6 +115,7 @@ int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 ) {
 }
 
 
+// fonction qui compare deux coup en fonctions de leurs nombre de pions adverse sur la barre
 int comparerCoups_PionsAdverseSorties( Coup* c1, Coup* c2 ) {
 	int barreAdverse_c1 = c1 -> gameState.bar[ getCouleurAdverse( c1 -> maCouleur ) ];
 	int barreAdverse_c2 = c2 -> gameState.bar[ getCouleurAdverse( c2 -> maCouleur ) ];
@@ -124,6 +125,7 @@ int comparerCoups_PionsAdverseSorties( Coup* c1, Coup* c2 ) {
 	else return 0;
 }
 
+// fonction qui compare deux coup en fonctions de leurs nombre de cases possèdant exactement 2 pions
 int comparerCoup_Cases2Dames( Coup* c1, Coup* c2 ) {
 	int nbCases2Dames_c1 = c1 -> nbCases2Pions;
 	int nbCases2Dames_c2 = c2 -> nbCases2Pions;
@@ -134,6 +136,7 @@ int comparerCoup_Cases2Dames( Coup* c1, Coup* c2 ) {
 }
 
 
+// fonction qui compare deux coup en fonctions de la probabilité de perdre un pion au prochain tour
 int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 ) {
 	double probabilitePertePion_c1 = c1 -> probabilitePertePion;
 	double probabilitePertePion_c2 = c2 -> probabilitePertePion;
@@ -146,14 +149,7 @@ int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 ) {
 
 
 
-
-/**
- * Fonction sélectionnant le meilleur coup entre deux
- * @param fonction : la fonction de calcul de points
- * @param c1 : le premier coup
- * @param c2 : le deuxième coup
- * @return : un entier (booleen)
- * */
+// fonction qui compare deux coups en fonctions de plusieurs critères, permettant de définir quel coup est le moins dangereux
 int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
 
 	int comparaison = comparerCoups_CasesSecurisees( c1, c2 );
