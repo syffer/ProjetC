@@ -584,8 +584,8 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
             if(coup1 && coup2){
                 printf("DIFF : les deux coups sont possibles\n");
                 //si on est arrivé à la fin...
-                if(etatJeux->out[couleur] == 14 && (move1.dest_point == 25 || move2.dest_point == 25)) return 1;
-
+                if(etatJeux->out[couleur] == 14 && (move1.dest_point == 25 && move2.dest_point == 25)) return 1;
+                if(etatJeux->out[couleur] == 14 && (move1.dest_point == 25 || move2.dest_point == 25)) return 2;
                 //les deux coups sont possibles
                 //s'il y a au moins 2 jetons, c'est bon
                 //si ya qu'un jeton mais qu'on peut faire la somme des dés, c'est bon aussi
