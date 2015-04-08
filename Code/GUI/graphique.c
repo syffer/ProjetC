@@ -6,6 +6,26 @@
 #include <stdio.h>
 
 
+// pour libJoueur.h
+// retourne la position de la case graphique sélectionnée par l'utilisateur (avec la souris)
+int selectionnerCaseGraphique() {
+    return -1;
+}
+
+void ouvrirFenetreDoublerMiseGraphique() {
+
+}
+
+void ouvrirFenetreAccepterDoublerMise() {
+
+}
+
+// retourne 1 si le joueur a cliqué sur "OUI", 0 sinon
+int getChoixUtilisateurGraphique() {
+    return 0;
+}
+
+
 
 /*
 int afficherPlateau()

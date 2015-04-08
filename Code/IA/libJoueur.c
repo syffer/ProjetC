@@ -12,12 +12,9 @@
 
 #include "../Commun/backgammon.h"
 #include "../GUI/graphique.h"
+#include "fonctionsBot.h"
 
-
-char nom[] = "Joueur ";
-unsigned int score;
-static Player maCouleur;
-
+static Bot bot;
 
 /**
  * Initialiser la librairie
@@ -25,9 +22,12 @@ static Player maCouleur;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-	strcpy( name, nom );
-	score = 0;
-	maCouleur = NOBODY;
+
+	strcpy( bot.nom, "Joueur " );
+	bot.maCouleur = NOBODY;
+	bot.scoreCible = 0;
+
+	strcpy( name, bot.nom );
 }
 
 
@@ -37,7 +37,8 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
-	score = target_score;
+
+	bot.scoreCible = target_score;
 }
 
 
@@ -45,7 +46,8 @@ void StartMatch( const unsigned int target_score ) {
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
-	maCouleur = p;
+
+	bot.maCouleur = p;
 }
 
 
@@ -53,7 +55,7 @@ void StartGame(Player p) {
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	maCouleur = NOBODY;
+	
 }
 
 
@@ -83,7 +85,10 @@ int DoubleStack( const SGameState * const gameState ) {
 		lancer une fenetre pour savoir si le joueur veut doubler la mise
 	*/
 
-	return(0);		
+	ouvrirFenetreDoublerMiseGraphique();
+
+	return getChoixUtilisateurGraphique();
+	
 }
 
 
@@ -101,8 +106,9 @@ int TakeDouble( const SGameState * const gameState ) {
 		lancer une fenetre pour savoir si le joueur accepte la nouvelle mise
 	*/	
 
+	ouvrirFenetreAccepterDoublerMise();
 
-	return(1);
+	return getChoixUtilisateurGraphique();
 }
 
 /**
@@ -124,46 +130,85 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 			- besoin du graphique.h et des variables de plateau ???
 	*/
 
-
-	/*
 	
-	sdl event
+	*nbMove = 0;
 
-	swith event
-
-	
-
-	selectionner case depart (pion)
-
-	animer le pion pour le voir
+	// on récupère les dés
+	unsigned char lesDes[4];
+	getDices( dices, lesDes );
 
 
-	selectionner case destination
-		if( source == destination ) retour avant
-		if( ! peutBougerPion ) retour avant
-
-	bouger pion graphique
 
 
-	*/
+	int selectionTerminee;
+
+	int valeurDe;
+	int positionDe;
+
+	int positionCaseDepart;
+	int positionCaseArrivee;
+
+	Square caseDepart;
+
+	SMove mouvement;
 
 
-	/*
+	while( peutEncoreJoueur( gameState, bot.maCouleur, lesDes ) ) {
 
-	for( j = 0; j < 4; j++ ) {		// pour chaque dé
+		selectionTerminee = 0;
+		while( ! selectionTerminee ) {
 
-				if( peutDeplacerUnPion( gameState, maCouleur, i, coup.dices[j] ) ) {
+			// arrêter animation pions
 
-					initialiserMouvement( &mouvement, maCouleur, i, coup.dices[j] );
-					nouveauCoup = coup;		// on copie le coup d'origine, pour lui rajouté un mouvement
+			positionCaseDepart = selectionnerCaseGraphique();
 
-					ajouterMouvementAuCoup( &nouveauCoup, mouvement, j );
+			caseDepart = getCaseReelle( gameState, bot.maCouleur, positionCaseDepart );
 
-					ajouterElementFin( listeCoups, nouveauCoup );	// on ajout ece coup en fin de liste pour qu'on le prenne en compte dans le traitements des éléments de la liste
+			// la case de départ sélectionnée n'appartient pas au joueur
+			if( ! caseEstAuJoueur( caseDepart, bot.maCouleur ) || ! casePossedeDesPions(caseDepart) ) continue;
 
-					ancienCoupObsolete = 1;		// on indique que le coup actuel est à supprimer, puisque ce coup a été utilisé pour générer un autre coup.
-								
-				}*/
+			// animerPionGraphique(caseDepart);
+
+			positionCaseArrivee = selectionnerCaseGraphique();
+
+
+			if( positionCaseDepart == positionCaseArrivee ) continue;	// on annule le coup
+
+
+			valeurDe = abs( positionCaseArrivee - positionCaseDepart );
+
+			// le joueur ne peut pas déplacer ce pion
+			if( ! peutDeplacerUnPion( gameState, bot.maCouleur, positionCaseDepart, valeurDe ) ) continue;	
+
+
+			// le joueur n'a pas utilisé l'un de ses dés
+			positionDe = rechercherPositionValeurDe( lesDes, valeurDe );
+			if( positionDe == -1 ) continue;	
+
+
+			// ajout du mouvement dans la liste des mouvements
+			mouvement = moves[ *nbMove ];
+			initialiserMouvement( &mouvement, bot.maCouleur, positionCaseDepart, valeurDe );
+			moves[ *nbMove ] = mouvement;
+			*nbMove += 1;
+
+			// on modifie l'état du jeu
+			deplacerUnPion( gameState, bot.maCouleur, mouvement );
+			///////////////////////////////////////////////////////////
+			/////////////////////////////////////////////////////////////////////////////////////////////////////// MODIFIER LE GRAPHIQUE ICI AUSSI !!!!
+			///////////////////////////////////////////////////////////
+
+			lesDes[ positionDe ] = 0;		// on indique que le dé a été utilisé
+
+
+			// on indique que la sélection est terminée
+			selectionTerminee = 1;
+		}
+
+
+
+	}
+
 
 
 }

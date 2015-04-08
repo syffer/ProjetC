@@ -9,11 +9,10 @@
 #include "ListeChainee.h"
 #include "fonctionsBot.h"
 
+
 static Bot bot;
 
-char nom[] = "PerfectBot";
-unsigned int score;
-static Player maCouleur;
+
 
 /**
  * Initialiser la librairie
@@ -21,10 +20,14 @@ static Player maCouleur;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
+
 	printf("InitLibrary\n");
-	strcpy( name, nom );
-	score = 0;
-	maCouleur = NOBODY;
+
+	strcpy( bot.nom, "PerfectBot" );
+	bot.maCouleur = NOBODY;
+	bot.scoreCible = 0;
+
+	strcpy( name, bot.nom );
 }
 
 /**
@@ -33,16 +36,20 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
+
 	printf("StartMatch\n");
-	score = target_score;
+
+	bot.scoreCible = target_score;
 }
 
 /**
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
+
 	printf("StartGame\n");
-	maCouleur = p;
+	
+	bot.maCouleur = p;
 }
 
 /**
@@ -50,7 +57,6 @@ void StartGame(Player p) {
  */
 void EndGame() {
 	printf("EndGame\n");
-	maCouleur = NOBODY;
 }
 
 /**

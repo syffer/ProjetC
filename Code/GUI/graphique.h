@@ -72,7 +72,12 @@ void updateScoreJoueurNoir(int score);
 void updateScoreCibleGraphique( int scoreCible );
 void updateMiseCouranteGraphique( int nouvelleMise );
 
-//void pause();   // a virer plus tard
+
+// pour libJoueur.h
+int selectionnerCaseGraphique();
+void ouvrirFenetreDoublerMiseGraphique();
+void ouvrirFenetreAccepterDoublerMise();
+int getChoixUtilisateurGraphique();
 
 
 

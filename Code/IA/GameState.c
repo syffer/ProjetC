@@ -31,6 +31,40 @@ void getDices( const unsigned char dices[2], unsigned char newDices[4] ) {
 
 
 
+// (pour libJoueur.c)
+int rechercherPositionValeurDe( unsigned char dices[2], char valeurDe ) {
+
+	int i;
+	for( i = 0; i < 4; i++ ) {
+		if( dices[i] == valeurDe ) return i;
+	}
+
+	return -1;
+}
+
+
+// retourne vrai si le joueur peut encore jouer un coup, faux sinon (pour libJoueur.c)
+int peutEncoreJoueur( SGameState* gameState, Player maCouleur, unsigned char dices[2] ) {
+
+	int i, j;
+	for( i = 0; i < 25; i++ ) {
+		
+		for( j = 0; j < 4; j++ ) {
+
+			if( peutDeplacerUnPion( gameState, maCouleur, i, dices[j] ) ) return 1;
+		}	
+
+	}
+
+	return 0;
+}
+
+
+
+
+
+
+
 
 // retourne la couleur de l'adversaire, ou NOBODY si on entre NOBODY
 Player getCouleurAdverse( Player maCouleur ) {
@@ -38,6 +72,9 @@ Player getCouleurAdverse( Player maCouleur ) {
 	else if( maCouleur == BLACK ) return WHITE;
 	else return NOBODY;
 }
+
+
+
 
 
 

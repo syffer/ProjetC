@@ -41,8 +41,8 @@ ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.s
 
 
 ###### librairie joueur
-IA/libJoueur.so: IA/libJoueur.o GUI/graphique_joueur.o
-	gcc -shared IA/libJoueur.o GUI/graphique_joueur.o -o IA/libJoueur.so 
+IA/libJoueur.so: IA/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so
+	gcc -shared IA/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so -o IA/libJoueur.so 
 
 IA/libJoueur.o: IA/libJoueur.c 
 	gcc $(CFLAGS) -o IA/libJoueur.o -fpic -c IA/libJoueur.c 

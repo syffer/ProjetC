@@ -17,10 +17,13 @@ static Bot bot;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
+
 	printf("InitLibrary\n");
+
 	strcpy( bot.nom, "LynxBot" );
 	bot.maCouleur = NOBODY;
 	bot.scoreCible = 0;
+
 	strcpy( name, bot.nom );
 }
 
@@ -30,7 +33,9 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
+
 	printf("StartMatch\n");
+
 	bot.scoreCible = target_score;
 }
 
@@ -38,7 +43,9 @@ void StartMatch( const unsigned int target_score ) {
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
+
 	printf("StartGame\n");
+	
 	bot.maCouleur = p;
 }
 
@@ -176,5 +183,6 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	printf( "(%s) je joue le coup suivant : \n", bot.nom );
 	afficherCoup(&coupChoisi);
+
 	detruireListeChainee(coups);
 }

@@ -48,4 +48,11 @@ int calculerCout( SGameState* gameState );
 
 
 
+
+int rechercherPositionValeurDe( unsigned char dices[2], char valeurDe );
+int peutEncoreJoueur( SGameState* gameState, Player maCouleur, unsigned char dices[2] );
+
+
+
+
 #endif
