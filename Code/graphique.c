@@ -212,18 +212,6 @@ void fermerFenetre() {
 
     SDL_Quit();
 
-
-    /*
-    // libération des surfaces
-    SDL_FreeSurface(plateau);
-    SDL_FreeSurface(de1);
-    SDL_FreeSurface(de2);
-    //freePlateau(&s_plateau);
-    SDL_FreeSurface(p.imagePion);
-    SDL_FreeSurface(p2.imagePion);
-    SDL_FreeSurface(s_stake);
-    */
-
     printf("Terminé correctement\n");
 
 
@@ -795,7 +783,7 @@ void movePion(SMove move)
             nbPionsDest = case_dest.nbPions;
             printf("Avant déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
 
-            if(graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x != graphique.plateau.tabCases[dest].posX && graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y != graphique.plateau.tabCases[dest].posY)
+            //if(graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x != graphique.plateau.tabCases[dest].posX && graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y != graphique.plateau.tabCases[dest].posY)
             graphique.timer = SDL_AddTimer(30, deplacerPionVers2, &graphique.deplacement);
             // affectation du pion à la nouvelle case
             case_dest.tabPions[nbPionsDest-1] = pion;
@@ -838,7 +826,7 @@ Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre)
 
     int distanceX = fabs(pion->posPion.x - x);
     int distanceY = fabs(pion->posPion.y - y);
-    int incrementPos = 15;
+    int incrementPos = 2;
     if(distanceX >= 0 && distanceY >= 0)
     {
         if(pion->posPion.x < x)
@@ -850,6 +838,9 @@ Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre)
             pion->posPion.y +=incrementPos;
         else if(pion->posPion.y > y)
             pion->posPion.y -=incrementPos;
+
+
+       // rafraichirGraphique();
     }
     else
     {
@@ -858,8 +849,10 @@ Uint32 deplacerPionVers2(Uint32 intervalle, void *parametre)
         posPion.y = y;
         pion->posPion = posPion;
     }
-    rafraichirGraphique();
-    //updatePionsGraphique();
+
+    updatePionsGraphique();
+    SDL_Flip( graphique.ecran );
+
     return intervalle;
 }
 
