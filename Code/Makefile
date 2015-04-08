@@ -36,15 +36,19 @@ Commun/verifications.o: Commun/verifications.c Commun/verifications.h
 
 
 ################## IA
-ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotParfait.so
+ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotParfait.so IA/libJoueur.so
 
-# manque bot joueur  libJoueur.so
-#libJoueur.so: botJoueur.o ....
-#	gcc -shared IA/botJoueur.o .... -o libJoueur.so
-#
-#botJoueur.o: botJoueur.c
-#	gcc $(CFLAGS) -o IA/botJoueur.o -fpic -c IA/botJoueur.c
-#
+
+###### librairie joueur
+IA/libJoueur.so: IA/libJoueur.o GUI/graphique_joueur.o
+	gcc -shared IA/libJoueur.o GUI/graphique_joueur.o -o libJoueur.so
+
+IA/botJoueur.o: IA/libJoueur.c
+	gcc $(CFLAGS) -o IA/libJoueur.o -fpic -c IA/botJoueur.c
+
+GUI/graphique_joueur.o: GUI/graphique.c GUI/graphique.h 
+	gcc $(CFLAGS) -o GUI/graphique_joueur.o -fpic -c GUI/graphique.c 
+
 
 ###### bot parfait
 IA/libBotParfait.so: IA/botParfait.o IA/fonctionsBot.so 
