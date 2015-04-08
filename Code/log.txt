@@ -1,0 +1,5345 @@
+ librairies avant changements : 
+ - IA/libBotLynx.so 
+ - IA/libBotLynx.so 
+ - ��ſ 
+ - ��ſ 
+initialisation etat Jeux
+envoi du startMatch aux joueurs
+(arbitre) -> partie 1 
+GUI : rempli case 0 de 1 dame 2
+GUI : rempli case 5 de 0 dame 5
+GUI : rempli case 7 de 0 dame 3
+GUI : rempli case 11 de 1 dame 5
+GUI : rempli case 12 de 0 dame 5
+GUI : rempli case 16 de 1 dame 3
+GUI : rempli case 18 de 1 dame 5
+GUI : rempli case 23 de 0 dame 2
+ des : 2 1 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 5 WHITE 
+   case 13 nbDames 5 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 5 WHITE 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 0 NOBODY 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 1 
+ probabilitePertePion : 0.138889 
+ nbMouvements : 2 
+ mouvement 0 : de 12 a 14 
+ mouvement 1 : de 14 a 15 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 12 vers 14
+GUI : affichage du déplacement de 14 vers 15
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 4 1 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 4 WHITE 
+   case 13 nbDames 5 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 1 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 5 WHITE 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 0 NOBODY 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 1 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 13 a 9 
+ mouvement 1 : de 9 a 8 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 13 vers 9
+GUI : affichage du déplacement de 9 vers 8
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 3 3 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 4 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 4 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 1 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 5 WHITE 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 0 NOBODY 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 4 
+ mouvement 0 : de 12 a 15 
+ mouvement 1 : de 12 a 15 
+ mouvement 2 : de 19 a 22 
+ mouvement 3 : de 19 a 22 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo pareil
+PAREIL : coup a tester : un dé de 3
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : le coup de 1 vers 4 est possible
+PAREIL : le coup de 1 vers 4 est possible
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : la case est au joueur
+PAREIL : le coup de 4 vers 7 est possible
+PAREIL : le coup de 4 vers 7 est possible
+coup valide !
+GUI : affichage du déplacement de 12 vers 15
+GUI : affichage du déplacement de 12 vers 15
+GUI : affichage du déplacement de 19 vers 22
+GUI : affichage du déplacement de 19 vers 22
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 6 4 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 4 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 3 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 3 WHITE 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 0 NOBODY 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 6 a 2 
+ mouvement 1 : de 8 a 2 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 6 vers 2
+GUI : affichage du déplacement de 8 vers 2
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 5 1 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 4 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 3 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 3 WHITE 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 0 NOBODY 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 7 
+ nbCases2Dames : 6 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 15 a 20 
+ mouvement 1 : de 19 a 20 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : le coup de 12 vers 17 est possible
+PAREIL : coup a tester : un dé de 1
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : test de la case 8
+PAREIL : test de la case 9
+PAREIL : test de la case 10
+PAREIL : test de la case 11
+PAREIL : test de la case 12
+PAREIL : la case est au joueur
+PAREIL : test de la case 13
+PAREIL : test de la case 14
+PAREIL : test de la case 15
+PAREIL : la case est au joueur
+PAREIL : le coup de 15 vers 16 est possible
+coup valide !
+GUI : affichage du déplacement de 15 vers 20
+GUI : affichage du déplacement de 19 vers 20
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 3 5 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 4 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 2 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 0 NOBODY 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 4 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 6 a 3 
+ mouvement 1 : de 8 a 3 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : le coup de 24 vers 21 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : la case est au joueur
+PAREIL : le coup de 21 vers 16 est possible
+coup valide !
+GUI : affichage du déplacement de 6 vers 3
+GUI : affichage du déplacement de 8 vers 3
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 6 5 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 3 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 2 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 2 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 0 NOBODY 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 5 
+ probabilitePertePion : 0.388889 
+ nbMouvements : 2 
+ mouvement 0 : de 12 a 18 
+ mouvement 1 : de 18 a 23 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : le coup de 1 vers 7 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : la case est au joueur
+PAREIL : le coup de 7 vers 12 est possible
+coup valide !
+GUI : affichage du déplacement de 12 vers 18
+GUI : affichage du déplacement de 18 vers 23
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 2 2 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 3 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 2 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 1 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 2 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 1 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 7 
+ nbCases2Dames : 6 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 4 
+ mouvement 0 : de 6 a 4 
+ mouvement 1 : de 4 a 2 
+ mouvement 2 : de 13 a 11 
+ mouvement 3 : de 13 a 11 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo pareil
+PAREIL : coup a tester : un dé de 2
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : test de la case 17
+PAREIL : test de la case 16
+PAREIL : test de la case 15
+PAREIL : test de la case 14
+PAREIL : test de la case 13
+PAREIL : la case est au joueur
+PAREIL : le coup de 13 vers 11 est possible
+PAREIL : le coup de 13 vers 11 est possible
+PAREIL : le coup de 13 vers 11 est possible
+PAREIL : le coup de 13 vers 11 est possible
+coup valide !
+GUI : affichage du déplacement de 6 vers 4
+GUI : affichage du déplacement de 4 vers 2
+GUI : affichage du déplacement de 13 vers 11
+GUI : affichage du déplacement de 13 vers 11
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 4 6 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 3 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 2 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 1 WHITE 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 2 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 1 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 7 
+ nbCases2Dames : 7 
+ probabilitePertePion : 0.166667 
+ nbMouvements : 2 
+ mouvement 0 : de 12 a 16 
+ mouvement 1 : de 17 a 23 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 12 vers 16
+GUI : affichage du déplacement de 17 vers 23
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 5 6 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 3 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 2 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 2 WHITE 
+   case 16 nbDames 1 WHITE 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 4 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 8 a 3 
+ mouvement 1 : de 8 a 2 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : le coup de 24 vers 18 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : la case est au joueur
+PAREIL : le coup de 18 vers 13 est possible
+coup valide !
+GUI : affichage du déplacement de 8 vers 3
+GUI : affichage du déplacement de 8 vers 2
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 3 4 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 4 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 2 WHITE 
+   case 16 nbDames 1 WHITE 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 7 
+ nbCases2Dames : 6 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 16 a 19 
+ mouvement 1 : de 19 a 23 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 16 vers 19
+GUI : affichage du déplacement de 19 vers 23
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 4 3 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 4 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 2 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 6 a 2 
+ mouvement 1 : de 6 a 3 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : le coup de 24 vers 21 est possible
+PAREIL : coup a tester : un dé de 4
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : la case est au joueur
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : test de la case 17
+PAREIL : test de la case 16
+PAREIL : test de la case 15
+PAREIL : test de la case 14
+PAREIL : test de la case 13
+PAREIL : la case est au joueur
+PAREIL : le coup de 13 vers 9 est possible
+coup valide !
+GUI : affichage du déplacement de 6 vers 2
+GUI : affichage du déplacement de 6 vers 3
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 1 1 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 4 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 2 WHITE 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 7 
+ nbCases2Dames : 6 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 4 
+ mouvement 0 : de 15 a 16 
+ mouvement 1 : de 15 a 16 
+ mouvement 2 : de 17 a 18 
+ mouvement 3 : de 17 a 18 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo pareil
+PAREIL : coup a tester : un dé de 1
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : test de la case 8
+PAREIL : test de la case 9
+PAREIL : test de la case 10
+PAREIL : test de la case 11
+PAREIL : test de la case 12
+PAREIL : test de la case 13
+PAREIL : test de la case 14
+PAREIL : test de la case 15
+PAREIL : la case est au joueur
+PAREIL : le coup de 15 vers 16 est possible
+PAREIL : le coup de 15 vers 16 est possible
+PAREIL : test de la case 16
+PAREIL : la case est au joueur
+PAREIL : le coup de 16 vers 17 est possible
+PAREIL : le coup de 16 vers 17 est possible
+coup valide !
+GUI : affichage du déplacement de 15 vers 16
+GUI : affichage du déplacement de 15 vers 16
+GUI : affichage du déplacement de 17 vers 18
+GUI : affichage du déplacement de 17 vers 18
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 5 1 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 4 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 2 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 2 WHITE 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.222222 
+ nbMouvements : 2 
+ mouvement 0 : de 13 a 8 
+ mouvement 1 : de 13 a 12 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 13 vers 8
+GUI : affichage du déplacement de 13 vers 12
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 5 6 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 4 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 1 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 1 BLACK 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 2 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 2 WHITE 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 5 
+ probabilitePertePion : 0.777778 
+ nbMouvements : 2 
+ mouvement 0 : de 1 a 6 
+ mouvement 1 : de 6 a 12 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 1 vers 6
+GUI : affichage du déplacement de 12 vers 0
+GUI : affichage du déplacement de 6 vers 12
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 6 5 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 1 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 4 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 1 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 1 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 2 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 2 WHITE 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 1 
+   out WHITE nbDames 0 
+
+
+
+la liste est vide, pas de maximum 
+MAXCOUP : lancement du jouerBar : il y 'en a 1 dedans
+RENTRE DANS LE BAR
+BAR : les deux coups ne peuvent être joués
+MAXCOUP : 0 joués après bar
+MAXCOUP : il reste encore du bar
+coup valide !
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 5 1 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 1 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 4 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 1 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 1 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 2 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 2 WHITE 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 1 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 5 
+ probabilitePertePion : 0.638889 
+ nbMouvements : 2 
+ mouvement 0 : de 1 a 6 
+ mouvement 1 : de 6 a 7 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : le coup de 1 vers 6 est possible
+PAREIL : coup a tester : un dé de 1
+PAREIL : test de la case 1
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : la case est au joueur
+PAREIL : le coup de 6 vers 7 est possible
+coup valide !
+GUI : affichage du déplacement de 1 vers 6
+GUI : affichage du déplacement de 6 vers 7
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 5 1 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 4 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 1 WHITE 
+   case 8 nbDames 1 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 1 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 2 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 2 WHITE 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 1 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 1 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 0 a 24 
+ mouvement 1 : de 8 a 3 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 1 dedans
+RENTRE DANS LE BAR
+BAR : le coup pour jouer 5 n'est pas possible
+ICICICICICICI : joueur 0 vire un jeton de son bar
+BAR : bar apres coup : 0MAXCOUP : 1 joués après bar
+MAXCOUP : il reste plus qu'un coup --> algo pareil
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : test de la case 17
+PAREIL : test de la case 16
+PAREIL : test de la case 15
+PAREIL : test de la case 14
+PAREIL : test de la case 13
+PAREIL : test de la case 12
+PAREIL : test de la case 11
+PAREIL : la case est au joueur
+PAREIL : le coup de 11 vers 6 est possible
+ICICICICICICI : joueur 0 vire un jeton de son bar
+coup valide !
+ICICICICICICI : joueur 0 vire un jeton de son bar
+GUI : affichage du déplacement de 0 vers 24
+GUI : affichage du déplacement de 8 vers 3
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 3 2 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 5 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 1 WHITE 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 1 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 2 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 2 WHITE 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 3 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 7 
+ nbCases2Dames : 6 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 7 a 10 
+ mouvement 1 : de 10 a 12 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 7 vers 10
+GUI : affichage du déplacement de 10 vers 12
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 4 5 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 5 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 BLACK 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 2 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 2 WHITE 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 3 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 3 
+ nbCases2Dames : 0 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 11 a 7 
+ mouvement 1 : de 7 a 2 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 11 vers 7
+GUI : affichage du déplacement de 7 vers 2
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 2 4 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 5 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 1 BLACK 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 2 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 2 WHITE 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 3 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 16 a 18 
+ mouvement 1 : de 16 a 20 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 16 vers 18
+GUI : affichage du déplacement de 16 vers 20
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 3 1 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 5 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 1 BLACK 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 3 WHITE 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 3 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 3 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 3 
+ nbCases2Dames : 0 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 2 a 1 
+ mouvement 1 : de 11 a 8 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : le coup de 24 vers 21 est possible
+PAREIL : coup a tester : un dé de 1
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : la case est au joueur
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : test de la case 17
+PAREIL : test de la case 16
+PAREIL : test de la case 15
+PAREIL : test de la case 14
+PAREIL : test de la case 13
+PAREIL : test de la case 12
+PAREIL : test de la case 11
+PAREIL : la case est au joueur
+PAREIL : le coup de 11 vers 10 est possible
+coup valide !
+GUI : affichage du déplacement de 2 vers 1
+GUI : affichage du déplacement de 11 vers 8
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc propose de doubler la mise
+le joueur noir refuse de doubler la mise --> abandon
+ des : 6 2 
+(arbitre)-> fin de la partie 3 
+joueur blanc marque 1 points
+//////////////
+SCORE ACTUEL : 
+BLANC : 1
+NOIR  : 0
+score a atteindre : 2//////////////
+
+(arbitre) -> partie 3 
+GUI : rempli case 0 de 1 dame 2
+GUI : rempli case 5 de 0 dame 5
+GUI : rempli case 7 de 0 dame 3
+GUI : rempli case 11 de 1 dame 5
+GUI : rempli case 12 de 0 dame 5
+GUI : rempli case 16 de 1 dame 3
+GUI : rempli case 18 de 1 dame 5
+GUI : rempli case 23 de 0 dame 2
+ des : 6 2 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 5 WHITE 
+   case 13 nbDames 5 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 3 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 5 WHITE 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 0 NOBODY 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.388889 
+ nbMouvements : 2 
+ mouvement 0 : de 12 a 14 
+ mouvement 1 : de 17 a 23 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 12 vers 14
+GUI : affichage du déplacement de 17 vers 23
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 5 4 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 4 WHITE 
+   case 13 nbDames 5 BLACK 
+   case 14 nbDames 1 WHITE 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 5 WHITE 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 1 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 1 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 6 a 2 
+ mouvement 1 : de 13 a 8 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : le coup de 24 vers 20 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : la case est au joueur
+PAREIL : le coup de 20 vers 15 est possible
+coup valide !
+GUI : affichage du déplacement de 6 vers 2
+GUI : affichage du déplacement de 13 vers 8
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 1 6 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 1 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 4 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 4 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 4 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 1 WHITE 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 5 WHITE 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 1 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.305556 
+ nbMouvements : 2 
+ mouvement 0 : de 14 a 20 
+ mouvement 1 : de 19 a 20 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 14 vers 20
+GUI : affichage du déplacement de 19 vers 20
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 1 5 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 1 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 4 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 4 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 4 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 4 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 1 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 8 a 7 
+ mouvement 1 : de 7 a 2 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : le coup de 24 vers 23 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : la case est au joueur
+PAREIL : le coup de 23 vers 18 est possible
+coup valide !
+GUI : affichage du déplacement de 8 vers 7
+GUI : affichage du déplacement de 7 vers 2
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 6 1 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 4 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 4 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 4 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 1 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.166667 
+ nbMouvements : 2 
+ mouvement 0 : de 17 a 23 
+ mouvement 1 : de 19 a 20 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : le coup de 1 vers 7 est possible
+PAREIL : coup a tester : un dé de 1
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : la case est au joueur
+PAREIL : test de la case 8
+PAREIL : test de la case 9
+PAREIL : test de la case 10
+PAREIL : test de la case 11
+PAREIL : test de la case 12
+PAREIL : la case est au joueur
+PAREIL : test de la case 13
+PAREIL : test de la case 14
+PAREIL : test de la case 15
+PAREIL : test de la case 16
+PAREIL : test de la case 17
+PAREIL : la case est au joueur
+PAREIL : le coup de 17 vers 18 est possible
+coup valide !
+GUI : affichage du déplacement de 17 vers 23
+GUI : affichage du déplacement de 19 vers 20
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 3 4 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 4 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 4 WHITE 
+   case 13 nbDames 4 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 1 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 3 WHITE 
+   case 20 nbDames 3 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 13 a 10 
+ mouvement 1 : de 10 a 6 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : le coup de 24 vers 21 est possible
+PAREIL : coup a tester : un dé de 4
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : la case est au joueur
+PAREIL : le coup de 21 vers 17 est possible
+coup valide !
+GUI : affichage du déplacement de 13 vers 10
+GUI : affichage du déplacement de 10 vers 6
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 6 5 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 4 WHITE 
+   case 13 nbDames 3 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 1 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 3 WHITE 
+   case 20 nbDames 3 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 4 
+ probabilitePertePion : 0.472222 
+ nbMouvements : 2 
+ mouvement 0 : de 12 a 18 
+ mouvement 1 : de 12 a 17 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : le coup de 1 vers 7 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : la case est au joueur
+PAREIL : le coup de 7 vers 12 est possible
+coup valide !
+GUI : affichage du déplacement de 12 vers 18
+GUI : affichage du déplacement de 12 vers 17
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 4 3 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 3 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 1 WHITE 
+   case 19 nbDames 3 WHITE 
+   case 20 nbDames 3 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 13 a 9 
+ mouvement 1 : de 9 a 6 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : le coup de 24 vers 21 est possible
+PAREIL : coup a tester : un dé de 4
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : la case est au joueur
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : test de la case 17
+PAREIL : test de la case 16
+PAREIL : test de la case 15
+PAREIL : test de la case 14
+PAREIL : test de la case 13
+PAREIL : la case est au joueur
+PAREIL : le coup de 13 vers 9 est possible
+coup valide !
+GUI : affichage du déplacement de 13 vers 9
+GUI : affichage du déplacement de 9 vers 6
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 3 2 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 6 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 1 WHITE 
+   case 19 nbDames 3 WHITE 
+   case 20 nbDames 3 WHITE 
+   case 21 nbDames 0 NOBODY 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 7 
+ nbCases2Dames : 6 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 18 a 21 
+ mouvement 1 : de 19 a 21 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 18 vers 21
+GUI : affichage du déplacement de 19 vers 21
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 3 5 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 6 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 3 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 3 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 5 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 6 a 3 
+ mouvement 1 : de 8 a 3 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 6 vers 3
+GUI : affichage du déplacement de 8 vers 3
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 2 5 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 2 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 2 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 3 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 0 NOBODY 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 7 
+ nbCases2Dames : 7 
+ probabilitePertePion : 0.166667 
+ nbMouvements : 2 
+ mouvement 0 : de 17 a 22 
+ mouvement 1 : de 20 a 22 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 17 vers 22
+GUI : affichage du déplacement de 20 vers 22
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 6 3 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 5 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 2 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 1 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.166667 
+ nbMouvements : 2 
+ mouvement 0 : de 6 a 3 
+ mouvement 1 : de 8 a 2 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : le coup de 24 vers 18 est possible
+PAREIL : coup a tester : un dé de 3
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : la case est au joueur
+PAREIL : le coup de 18 vers 15 est possible
+coup valide !
+GUI : affichage du déplacement de 6 vers 3
+GUI : affichage du déplacement de 8 vers 2
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 4 1 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 3 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 4 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 1 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 1 WHITE 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 7 
+ nbCases2Dames : 6 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 17 a 21 
+ mouvement 1 : de 21 a 22 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : le coup de 1 vers 5 est possible
+PAREIL : coup a tester : un dé de 1
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : la case est au joueur
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : test de la case 8
+PAREIL : test de la case 9
+PAREIL : test de la case 10
+PAREIL : test de la case 11
+PAREIL : test de la case 12
+PAREIL : la case est au joueur
+PAREIL : test de la case 13
+PAREIL : test de la case 14
+PAREIL : test de la case 15
+PAREIL : test de la case 16
+PAREIL : test de la case 17
+PAREIL : la case est au joueur
+PAREIL : le coup de 17 vers 18 est possible
+coup valide !
+GUI : affichage du déplacement de 17 vers 21
+GUI : affichage du déplacement de 21 vers 22
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 4 4 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 3 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 4 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 1 BLACK 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 2 BLACK 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 3 WHITE 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.166667 
+ nbMouvements : 4 
+ mouvement 0 : de 6 a 2 
+ mouvement 1 : de 6 a 2 
+ mouvement 2 : de 13 a 9 
+ mouvement 3 : de 13 a 9 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo pareil
+PAREIL : coup a tester : un dé de 4
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : test de la case 17
+PAREIL : test de la case 16
+PAREIL : test de la case 15
+PAREIL : test de la case 14
+PAREIL : test de la case 13
+PAREIL : la case est au joueur
+PAREIL : le coup de 13 vers 9 est possible
+PAREIL : le coup de 13 vers 9 est possible
+PAREIL : test de la case 12
+PAREIL : test de la case 11
+PAREIL : test de la case 10
+PAREIL : test de la case 9
+PAREIL : la case est au joueur
+PAREIL : le coup de 9 vers 5 est possible
+PAREIL : le coup de 9 vers 5 est possible
+coup valide !
+GUI : affichage du déplacement de 6 vers 2
+GUI : affichage du déplacement de 6 vers 2
+GUI : affichage du déplacement de 13 vers 9
+GUI : affichage du déplacement de 13 vers 9
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 5 4 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 1 BLACK 
+   case 9 nbDames 2 BLACK 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 3 WHITE 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 4 
+ probabilitePertePion : 0.083333 
+ nbMouvements : 2 
+ mouvement 0 : de 12 a 17 
+ mouvement 1 : de 17 a 21 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : le coup de 1 vers 5 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : la case est au joueur
+PAREIL : le coup de 5 vers 10 est possible
+coup valide !
+GUI : affichage du déplacement de 12 vers 17
+GUI : affichage du déplacement de 17 vers 21
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 4 5 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 0 NOBODY 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 1 BLACK 
+   case 9 nbDames 2 BLACK 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 1 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 3 WHITE 
+   case 22 nbDames 3 WHITE 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.166667 
+ nbMouvements : 2 
+ mouvement 0 : de 8 a 4 
+ mouvement 1 : de 9 a 4 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 8 vers 4
+GUI : affichage du déplacement de 9 vers 4
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 5 6 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 1 BLACK 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 1 WHITE 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 3 WHITE 
+   case 22 nbDames 3 WHITE 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 12 a 17 
+ mouvement 1 : de 17 a 23 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : le coup de 1 vers 7 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : la case est au joueur
+PAREIL : le coup de 7 vers 12 est possible
+coup valide !
+GUI : affichage du déplacement de 12 vers 17
+GUI : affichage du déplacement de 17 vers 23
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 2 3 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 1 BLACK 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 3 WHITE 
+   case 22 nbDames 3 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 6 a 4 
+ mouvement 1 : de 9 a 6 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 6 vers 4
+GUI : affichage du déplacement de 9 vers 6
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 5 1 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 3 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 3 WHITE 
+   case 22 nbDames 3 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 4 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 1 
+ mouvement 0 : de 21 a 22 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : test de la case 13
+DIFF : test de la case 14
+DIFF : test de la case 15
+DIFF : test de la case 16
+DIFF : test de la case 17
+DIFF : test de la case 18
+DIFF : test de la case 19
+DIFF : le coup de 19 vers 20 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : test de la case 8
+PAREIL : test de la case 9
+PAREIL : test de la case 10
+PAREIL : test de la case 11
+PAREIL : test de la case 12
+PAREIL : test de la case 13
+PAREIL : test de la case 14
+PAREIL : test de la case 15
+PAREIL : test de la case 16
+PAREIL : test de la case 17
+PAREIL : test de la case 18
+PAREIL : test de la case 19
+PAREIL : la case est au joueur
+PAREIL : test de la case 20
+PAREIL : la case est au joueur
+PAREIL : test de la case 21
+PAREIL : la case est au joueur
+PAREIL : test de la case 22
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : la case est au joueur
+PAREIL : test de la case 24
+coup valide !
+GUI : affichage du déplacement de 21 vers 22
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 1 5 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 3 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 4 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 1 
+ mouvement 0 : de 3 a 2 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : test de la case 8
+DIFF : test de la case 7
+DIFF : test de la case 6
+DIFF : le coup de 6 vers 5 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : test de la case 17
+PAREIL : test de la case 16
+PAREIL : test de la case 15
+PAREIL : test de la case 14
+PAREIL : test de la case 13
+PAREIL : test de la case 12
+PAREIL : test de la case 11
+PAREIL : test de la case 10
+PAREIL : test de la case 9
+PAREIL : test de la case 8
+PAREIL : test de la case 7
+PAREIL : test de la case 6
+PAREIL : la case est au joueur
+PAREIL : test de la case 5
+PAREIL : la case est au joueur
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 au BLACK
+PAREIL : le coup de 5 vers 25 est possible
+--------------Le joueur n'a pas maximisé le nombre de coups !!!
+Coups du joueur : 1
+Coups possibles : 2
+coup foireux
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 5 1 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 3 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 4 WHITE 
+   case 23 nbDames 3 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 6 
+ nbCases2Dames : 4 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 1 
+ mouvement 0 : de 22 a 23 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : test de la case 13
+DIFF : test de la case 14
+DIFF : test de la case 15
+DIFF : test de la case 16
+DIFF : test de la case 17
+DIFF : test de la case 18
+DIFF : test de la case 19
+DIFF : le coup de 19 vers 20 est possible
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : test de la case 8
+PAREIL : test de la case 9
+PAREIL : test de la case 10
+PAREIL : test de la case 11
+PAREIL : test de la case 12
+PAREIL : test de la case 13
+PAREIL : test de la case 14
+PAREIL : test de la case 15
+PAREIL : test de la case 16
+PAREIL : test de la case 17
+PAREIL : test de la case 18
+PAREIL : test de la case 19
+PAREIL : la case est au joueur
+PAREIL : test de la case 20
+PAREIL : la case est au joueur
+PAREIL : test de la case 21
+PAREIL : la case est au joueur
+PAREIL : test de la case 22
+PAREIL : la case est au joueur
+PAREIL : test de la case 23
+PAREIL : la case est au joueur
+PAREIL : test de la case 24
+coup valide !
+GUI : affichage du déplacement de 22 vers 23
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir ne veut pas doubler la mise
+ des : 2 4 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 5 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 3 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 2 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 3 WHITE 
+   case 23 nbDames 4 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 1 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 6 a 4 
+ mouvement 1 : de 6 a 2 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : test de la case 8
+DIFF : test de la case 7
+DIFF : test de la case 6
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 6 vers 4
+GUI : affichage du déplacement de 6 vers 2
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur blanc ne veut pas doubler la mise
+ des : 4 3 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 4 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 2 WHITE 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 3 WHITE 
+   case 23 nbDames 4 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 19 a 23 
+ mouvement 1 : de 19 a 22 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : le coup de 1 vers 5 est possible
+PAREIL : coup a tester : un dé de 3
+PAREIL : test de la case 1
+PAREIL : la case est au joueur
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : la case est au joueur
+PAREIL : le coup de 5 vers 8 est possible
+coup valide !
+GUI : affichage du déplacement de 19 vers 23
+GUI : affichage du déplacement de 19 vers 22
+le joueur n'a pas le videau et la mise courante est de 1
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 2
+ des : 6 6 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 4 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 4 WHITE 
+   case 23 nbDames 5 WHITE 
+   case 24 nbDames 2 BLACK 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 1 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 4 
+ mouvement 0 : de 24 a 18 
+ mouvement 1 : de 18 a 12 
+ mouvement 2 : de 24 a 18 
+ mouvement 3 : de 18 a 12 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo pareil
+PAREIL : coup a tester : un dé de 6
+PAREIL : test de la case 24
+PAREIL : la case est au joueur
+PAREIL : le coup de 24 vers 18 est possible
+PAREIL : le coup de 24 vers 18 est possible
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : la case est au joueur
+PAREIL : le coup de 18 vers 12 est possible
+PAREIL : le coup de 18 vers 12 est possible
+coup valide !
+GUI : affichage du déplacement de 24 vers 18
+GUI : affichage du déplacement de 18 vers 12
+GUI : affichage du déplacement de 24 vers 18
+GUI : affichage du déplacement de 18 vers 12
+le joueur n'a pas le videau et la mise courante est de 2
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 4
+ des : 4 6 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 WHITE 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 4 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 BLACK 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 4 WHITE 
+   case 23 nbDames 5 WHITE 
+   case 24 nbDames 0 NOBODY 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.527778 
+ nbMouvements : 2 
+ mouvement 0 : de 1 a 5 
+ mouvement 1 : de 1 a 7 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 1 vers 5
+GUI : affichage du déplacement de 1 vers 7
+le joueur n'a pas le videau et la mise courante est de 4
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 8
+ des : 3 3 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 4 BLACK 
+   case 5 nbDames 1 WHITE 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 1 WHITE 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 2 BLACK 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 4 WHITE 
+   case 23 nbDames 5 WHITE 
+   case 24 nbDames 0 NOBODY 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 4 
+ mouvement 0 : de 4 a 1 
+ mouvement 1 : de 4 a 1 
+ mouvement 2 : de 12 a 9 
+ mouvement 3 : de 12 a 9 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo pareil
+PAREIL : coup a tester : un dé de 3
+PAREIL : test de la case 24
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : test de la case 17
+PAREIL : test de la case 16
+PAREIL : test de la case 15
+PAREIL : test de la case 14
+PAREIL : test de la case 13
+PAREIL : test de la case 12
+PAREIL : la case est au joueur
+PAREIL : le coup de 12 vers 9 est possible
+PAREIL : le coup de 12 vers 9 est possible
+PAREIL : test de la case 11
+PAREIL : test de la case 10
+PAREIL : test de la case 9
+PAREIL : la case est au joueur
+PAREIL : le coup de 9 vers 6 est possible
+PAREIL : le coup de 9 vers 6 est possible
+coup valide !
+GUI : affichage du déplacement de 4 vers 1
+GUI : affichage du déplacement de 4 vers 1
+GUI : affichage du déplacement de 12 vers 9
+GUI : affichage du déplacement de 12 vers 9
+le joueur n'a pas le videau et la mise courante est de 8
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 16
+ des : 3 2 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 BLACK 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 1 WHITE 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 1 WHITE 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 2 BLACK 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 2 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 4 WHITE 
+   case 23 nbDames 5 WHITE 
+   case 24 nbDames 0 NOBODY 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 5 a 7 
+ mouvement 1 : de 20 a 23 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 5 vers 7
+GUI : affichage du déplacement de 20 vers 23
+le joueur n'a pas le videau et la mise courante est de 16
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 32
+ des : 3 4 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 BLACK 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 2 WHITE 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 2 BLACK 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 4 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 0 NOBODY 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 9 a 6 
+ mouvement 1 : de 9 a 5 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 9 vers 6
+GUI : affichage du déplacement de 9 vers 5
+le joueur n'a pas le videau et la mise courante est de 32
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 64
+ des : 1 1 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 BLACK 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 1 BLACK 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 2 WHITE 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 4 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 0 NOBODY 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 4 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 4 
+ mouvement 0 : de 22 a 23 
+ mouvement 1 : de 22 a 23 
+ mouvement 2 : de 23 a 24 
+ mouvement 3 : de 23 a 24 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo pareil
+PAREIL : coup a tester : un dé de 1
+PAREIL : test de la case 1
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : la case est au joueur
+PAREIL : le coup de 7 vers 8 est possible
+PAREIL : le coup de 7 vers 8 est possible
+PAREIL : test de la case 8
+PAREIL : la case est au joueur
+PAREIL : le coup de 8 vers 9 est possible
+PAREIL : le coup de 8 vers 9 est possible
+coup valide !
+GUI : affichage du déplacement de 22 vers 23
+GUI : affichage du déplacement de 22 vers 23
+GUI : affichage du déplacement de 23 vers 24
+GUI : affichage du déplacement de 23 vers 24
+le joueur n'a pas le videau et la mise courante est de 64
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 128
+ des : 5 5 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 0 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 BLACK 
+   case 2 nbDames 6 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 1 BLACK 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 2 WHITE 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 4 
+ mouvement 0 : de 2 a 25 
+ mouvement 1 : de 2 a 25 
+ mouvement 2 : de 2 a 25 
+ mouvement 3 : de 2 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo pareil
+PAREIL : coup a tester : un dé de 5
+PAREIL : test de la case 24
+PAREIL : test de la case 23
+PAREIL : test de la case 22
+PAREIL : test de la case 21
+PAREIL : test de la case 20
+PAREIL : test de la case 19
+PAREIL : test de la case 18
+PAREIL : test de la case 17
+PAREIL : test de la case 16
+PAREIL : test de la case 15
+PAREIL : test de la case 14
+PAREIL : test de la case 13
+PAREIL : test de la case 12
+PAREIL : test de la case 11
+PAREIL : test de la case 10
+PAREIL : test de la case 9
+PAREIL : test de la case 8
+PAREIL : test de la case 7
+PAREIL : test de la case 6
+PAREIL : la case est au joueur
+PAREIL : le coup de 6 vers 1 est possible
+PAREIL : test de la case 5
+PAREIL : la case est au joueur
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+PAREIL : le coup de 5 vers 25 est possible
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+PAREIL : test de la case 4
+PAREIL : la case est au joueur
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+PAREIL : le coup de 4 vers 25 est possible
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+PAREIL : le coup de 4 vers 25 est possible
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+coup valide !
+GUI : affichage du déplacement de 2 vers 25
+GUI : affichage du déplacement de 2 vers 25
+GUI : affichage du déplacement de 2 vers 25
+GUI : affichage du déplacement de 2 vers 25
+le joueur n'a pas le videau et la mise courante est de 128
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 256
+ des : 2 2 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 4 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 BLACK 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 1 BLACK 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 2 WHITE 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 5 
+ nbCases2Dames : 4 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 4 
+ mouvement 0 : de 7 a 9 
+ mouvement 1 : de 7 a 9 
+ mouvement 2 : de 9 a 11 
+ mouvement 3 : de 9 a 11 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo pareil
+PAREIL : coup a tester : un dé de 2
+PAREIL : test de la case 1
+PAREIL : test de la case 2
+PAREIL : test de la case 3
+PAREIL : test de la case 4
+PAREIL : test de la case 5
+PAREIL : test de la case 6
+PAREIL : test de la case 7
+PAREIL : la case est au joueur
+PAREIL : le coup de 7 vers 9 est possible
+PAREIL : le coup de 7 vers 9 est possible
+PAREIL : test de la case 8
+PAREIL : test de la case 9
+PAREIL : la case est au joueur
+PAREIL : le coup de 9 vers 11 est possible
+PAREIL : le coup de 9 vers 11 est possible
+coup valide !
+GUI : affichage du déplacement de 7 vers 9
+GUI : affichage du déplacement de 7 vers 9
+GUI : affichage du déplacement de 9 vers 11
+GUI : affichage du déplacement de 9 vers 11
+le joueur n'a pas le videau et la mise courante est de 256
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 512
+ des : 3 4 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 4 
+   bar WHITE nbDames 0 
+   case 1 nbDames 2 BLACK 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 3 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 1 BLACK 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 WHITE 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 3 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 1 a 25 
+ mouvement 1 : de 3 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : test de la case 8
+DIFF : test de la case 7
+DIFF : test de la case 6
+DIFF : les deux coups sont possibles
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+coup valide !
+GUI : affichage du déplacement de 1 vers 25
+GUI : affichage du déplacement de 3 vers 25
+le joueur n'a pas le videau et la mise courante est de 512
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 1024
+ des : 2 3 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 6 
+   bar WHITE nbDames 0 
+   case 1 nbDames 1 BLACK 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 1 BLACK 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 2 WHITE 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 11 a 13 
+ mouvement 1 : de 11 a 14 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 11 vers 13
+GUI : affichage du déplacement de 11 vers 14
+le joueur n'a pas le videau et la mise courante est de 1024
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 2048
+ des : 6 4 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 6 
+   bar WHITE nbDames 0 
+   case 1 nbDames 1 BLACK 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 1 BLACK 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 1 WHITE 
+   case 14 nbDames 1 WHITE 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 3 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 1 a 25 
+ mouvement 1 : de 5 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : test de la case 8
+DIFF : test de la case 7
+DIFF : test de la case 6
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+DIFF : les deux coups sont possibles
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+coup valide !
+GUI : affichage du déplacement de 1 vers 25
+GUI : affichage du déplacement de 5 vers 25
+le joueur n'a pas le videau et la mise courante est de 2048
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 4096
+ des : 3 5 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 8 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 1 WHITE 
+   case 14 nbDames 1 WHITE 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 13 a 16 
+ mouvement 1 : de 14 a 19 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : test de la case 13
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 13 vers 16
+GUI : affichage du déplacement de 14 vers 19
+le joueur n'a pas le videau et la mise courante est de 4096
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 8192
+ des : 2 5 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 8 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 2 BLACK 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 1 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 1 WHITE 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 2 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 2 a 25 
+ mouvement 1 : de 2 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : test de la case 8
+DIFF : test de la case 7
+DIFF : test de la case 6
+DIFF : les deux coups sont possibles
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+coup valide !
+GUI : affichage du déplacement de 2 vers 25
+GUI : affichage du déplacement de 2 vers 25
+le joueur n'a pas le videau et la mise courante est de 8192
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 16384
+ des : 5 2 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 10 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 1 WHITE 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 1 WHITE 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 6 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 0 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 2 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 16 a 21 
+ mouvement 1 : de 23 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : test de la case 13
+DIFF : test de la case 14
+DIFF : test de la case 15
+DIFF : test de la case 16
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 16 vers 21
+GUI : affichage du déplacement de 25 vers 0
+GUI : affichage du déplacement de 23 vers 25
+le joueur n'a pas le videau et la mise courante est de 16384
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 32768
+ des : 3 2 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 10 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 2 BLACK 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 1 WHITE 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 3 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 5 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 1 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 1 
+ nbCases2Dames : 1 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 3 a 25 
+ mouvement 1 : de 3 a 1 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : test de la case 8
+DIFF : test de la case 7
+DIFF : test de la case 6
+DIFF : les deux coups sont possibles
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+coup valide !
+GUI : affichage du déplacement de 3 vers 25
+GUI : affichage du déplacement de 3 vers 1
+le joueur n'a pas le videau et la mise courante est de 32768
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 65536
+ des : 4 6 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 11 
+   bar WHITE nbDames 0 
+   case 1 nbDames 1 BLACK 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 1 WHITE 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 3 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 5 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 1 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 19 a 25 
+ mouvement 1 : de 21 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : test de la case 13
+DIFF : test de la case 14
+DIFF : test de la case 15
+DIFF : test de la case 16
+DIFF : test de la case 17
+DIFF : test de la case 18
+DIFF : test de la case 19
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 25 vers 0
+GUI : affichage du déplacement de 19 vers 25
+GUI : affichage du déplacement de 25 vers 0
+GUI : affichage du déplacement de 21 vers 25
+le joueur n'a pas le videau et la mise courante est de 65536
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 131072
+ des : 6 2 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 11 
+   bar WHITE nbDames 0 
+   case 1 nbDames 1 BLACK 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 1 BLACK 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 5 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 3 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 1 
+ nbCases2Dames : 1 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 1 a 25 
+ mouvement 1 : de 6 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : test de la case 8
+DIFF : test de la case 7
+DIFF : test de la case 6
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+DIFF : les deux coups sont possibles
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+coup valide !
+GUI : affichage du déplacement de 1 vers 25
+GUI : affichage du déplacement de 6 vers 25
+le joueur n'a pas le videau et la mise courante est de 131072
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 262144
+ des : 6 2 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 13 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 1 WHITE 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 5 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 3 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 3 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 20 a 25 
+ mouvement 1 : de 23 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : test de la case 13
+DIFF : test de la case 14
+DIFF : test de la case 15
+DIFF : test de la case 16
+DIFF : test de la case 17
+DIFF : test de la case 18
+DIFF : test de la case 19
+DIFF : test de la case 20
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 25 vers 0
+GUI : affichage du déplacement de 20 vers 25
+GUI : affichage du déplacement de 25 vers 0
+GUI : affichage du déplacement de 23 vers 25
+le joueur n'a pas le videau et la mise courante est de 262144
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 524288
+ des : 2 6 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 13 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 2 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 4 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 5 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 0 
+ nbCases2Dames : 0 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 4 a 2 
+ mouvement 1 : de 2 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : test de la case 8
+DIFF : test de la case 7
+DIFF : test de la case 6
+DIFF : test de la case 5
+DIFF : test de la case 4
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+DIFF : les deux coups sont possibles
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+coup valide !
+GUI : affichage du déplacement de 4 vers 2
+GUI : affichage du déplacement de 2 vers 25
+le joueur n'a pas le videau et la mise courante est de 524288
+le joueur blanc propose de doubler la mise
+le joueur Noir accepte de doubler, il donne le videau et la mise est alors de 1048576
+ des : 3 5 
+
+C'est au tour du joueur de couleur 1
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 14 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 1 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 4 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 5 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 4 
+ nbCases2Dames : 4 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 23 a 25 
+ mouvement 1 : de 23 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 1
+DIFF : test de la case 2
+DIFF : test de la case 3
+DIFF : test de la case 4
+DIFF : test de la case 5
+DIFF : test de la case 6
+DIFF : test de la case 7
+DIFF : test de la case 8
+DIFF : test de la case 9
+DIFF : test de la case 10
+DIFF : test de la case 11
+DIFF : test de la case 12
+DIFF : test de la case 13
+DIFF : test de la case 14
+DIFF : test de la case 15
+DIFF : test de la case 16
+DIFF : test de la case 17
+DIFF : test de la case 18
+DIFF : test de la case 19
+DIFF : test de la case 20
+DIFF : test de la case 21
+DIFF : les deux coups sont possibles
+coup valide !
+GUI : affichage du déplacement de 25 vers 0
+GUI : affichage du déplacement de 23 vers 25
+GUI : affichage du déplacement de 25 vers 0
+GUI : affichage du déplacement de 23 vers 25
+le joueur n'a pas le videau et la mise courante est de 1048576
+le joueur noir propose de doubler la mise
+le joueur blanc accepte de doubler, il donne le videau et la mise est alors de 2097152
+ des : 3 1 
+
+C'est au tour du joueur de couleur 0
+
+ETAT DU PLATEAU :
+
+
+   out BLACK nbDames 14 
+   bar WHITE nbDames 0 
+   case 1 nbDames 0 NOBODY 
+   case 2 nbDames 0 NOBODY 
+   case 3 nbDames 0 NOBODY 
+   case 4 nbDames 1 BLACK 
+   case 5 nbDames 0 NOBODY 
+   case 6 nbDames 0 NOBODY 
+   case 7 nbDames 0 NOBODY 
+   case 8 nbDames 0 NOBODY 
+   case 9 nbDames 0 NOBODY 
+   case 10 nbDames 0 NOBODY 
+   case 11 nbDames 0 NOBODY 
+   case 12 nbDames 0 NOBODY 
+   case 13 nbDames 0 NOBODY 
+   case 14 nbDames 0 NOBODY 
+   case 15 nbDames 0 NOBODY 
+   case 16 nbDames 0 NOBODY 
+   case 17 nbDames 0 NOBODY 
+   case 18 nbDames 0 NOBODY 
+   case 19 nbDames 0 NOBODY 
+   case 20 nbDames 0 NOBODY 
+   case 21 nbDames 2 WHITE 
+   case 22 nbDames 2 WHITE 
+   case 23 nbDames 2 WHITE 
+   case 24 nbDames 2 WHITE 
+   bar BLACK nbDames 0 
+   out WHITE nbDames 7 
+
+
+
+(LynxBot) je joue le coup suivant : 
+ nbCasesSecurisees : 0 
+ nbCases2Dames : 0 
+ probabilitePertePion : 0.000000 
+ nbMouvements : 2 
+ mouvement 0 : de 4 a 1 
+ mouvement 1 : de 1 a 25 
+
+MAXCOUP : lancement du jouerBar : il y 'en a 0 dedans
+RENTRE DANS LE BAR
+BAR : pas de bar détecté
+MAXCOUP : 0 joués après bar
+MAXCOUP : utilisation de l'algo différent
+DIFF : test de la case 24
+DIFF : test de la case 23
+DIFF : test de la case 22
+DIFF : test de la case 21
+DIFF : test de la case 20
+DIFF : test de la case 19
+DIFF : test de la case 18
+DIFF : test de la case 17
+DIFF : test de la case 16
+DIFF : test de la case 15
+DIFF : test de la case 14
+DIFF : test de la case 13
+DIFF : test de la case 12
+DIFF : test de la case 11
+DIFF : test de la case 10
+DIFF : test de la case 9
+DIFF : test de la case 8
+DIFF : test de la case 7
+DIFF : test de la case 6
+DIFF : test de la case 5
+DIFF : test de la case 4
+DIFF : les deux coups sont possibles
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+case 6 pas au BLACK
+case 7 pas au BLACK
+case 8 pas au BLACK
+case 9 pas au BLACK
+case 10 pas au BLACK
+case 11 pas au BLACK
+case 12 pas au BLACK
+case 13 pas au BLACK
+case 14 pas au BLACK
+case 15 pas au BLACK
+case 16 pas au BLACK
+case 17 pas au BLACK
+case 18 pas au BLACK
+case 19 pas au BLACK
+case 20 pas au BLACK
+case 21 pas au BLACK
+case 22 pas au BLACK
+case 23 pas au BLACK
+coup valide !
+GUI : affichage du déplacement de 4 vers 1
+GUI : affichage du déplacement de 1 vers 25
+joueur noir à gagné !(arbitre)-> fin de la partie 3 
+joueur noir marque 2097152 points
+//////////////
+SCORE ACTUEL : 
+BLANC : 1
+NOIR  : 2097152
+score a atteindre : 2//////////////
+
+(arbitre) fin du match
+//////////////
+SCORE FINAL : 
+BLANC : 1
+NOIR  : 2097152
+//////////////
+
+Noir l'emporte avec 2097152 points

@@ -130,7 +130,7 @@ const SGameState const copierEtatJeux( SGameState* etatJeux ) {
 	copie.out[1] = etatJeux->out[1];
 	//copie de la board
 	int i;
-	for(i=0;i<25;i++){
+	for(i=0;i<24;i++){
         copie.board[i].nbDames = etatJeux->board[i].nbDames;
         copie.board[i].owner = etatJeux->board[i].owner;
 	}
@@ -232,10 +232,10 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
                         if(etatJeux.board[bonsCoups[i].dest_point-1].owner == !etatJeux.turn){ //on vérifie ici pour afficher le déplacement d'un jeton mangé
                             move.src_point = bonsCoups[i].dest_point;
                             move.dest_point = 0;
-                            afficherDeplacementX(move);
+                            //afficherDeplacementX(move);
                         }
                         jouerCoup(&etatJeux,bonsCoups[i],etatJeux.turn);
-                        afficherDeplacementX(bonsCoups[i]);
+                        //afficherDeplacementX(bonsCoups[i]);
                     }
                     etatValide = 1;
                 }
@@ -613,7 +613,10 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
 
 
 int coupPossible(Square board[], SMove move, int couleur){
-    if(move.dest_point == 25 && peutSortir(board,couleur)) return 1;
+    if(move.dest_point == 25){
+        if(peutSortir(board,couleur)) return 1;
+        else return 0;
+    }
     //sinon faut que ça soit pas une case adverse, ou alors y a qu'un jeton
     else return (board[move.dest_point-1].owner != (!couleur) || board[move.dest_point-1].nbDames == 1);
 }
@@ -702,7 +705,11 @@ int peutSortir(Square board[], int couleur){
         return 1;
     }else{
         for(i=6;i<=23;i++){
-            if(board[i].owner == BLACK) return 0;
+            if(board[i].owner == BLACK){
+                 printf("case %d au BLACK\n",i);
+                 return 0;
+            }
+            else printf("case %d pas au BLACK\n",i);
         }
         return 1;
     }
