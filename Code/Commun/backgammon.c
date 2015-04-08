@@ -29,6 +29,8 @@ int main( int argc, char* argv[] ) {
 	if( argc >= 3 ) cheminLibrairie_1 = argv[2];
 	if( argc >= 4 ) cheminLibrairie_2 = argv[3];
 
+
+
 	// on récupère le nombre de parties à jouer
 	int nbPoints;
 	if( stringToPositiveInteger(argv[1],&nbPoints) ) {
