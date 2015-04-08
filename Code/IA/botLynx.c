@@ -201,6 +201,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	//afficherCoups(coups);
 
+	printf( "(%s) je joue le coup suivant : \n", bot.nom );
 	afficherCoup(&coupChoisi);
 	
 	detruireListeChainee(coups);

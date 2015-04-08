@@ -111,7 +111,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 
 	Player maCouleur = bot.maCouleur;
-	printf(" je suis %i \n", maCouleur );
+	printf("(%s) je suis %i \n", bot.nom, maCouleur );
 
 	unsigned char lesDes[4];
 	getDices( dices, lesDes );
@@ -134,6 +134,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 		moves[i] = meilleurCoup.mouvements[i];
 	}
 
+	printf( "(%s) je joue le coup suivant : \n", bot.nom );
 	afficherCoup(&meilleurCoup);
 	
 

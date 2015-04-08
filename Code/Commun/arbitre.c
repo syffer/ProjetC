@@ -661,20 +661,32 @@ SMove faireMove(int src, int numDe, int couleur){
 }
 
 
+
 void afficherGameState( SGameState gameState ) {
-	printf("\n");
-	char* nom;
-	int i;
-	for( i = 0; i < 24; i++ ) {
+    
+    char* nom;
 
-		if( gameState.board[i].owner == BLACK ) nom = "BLACK";
-		else if( gameState.board[i].owner == WHITE  ) nom = "WHITE";
-		else nom = "NOBODY";
+    printf("\n");
+        
+    printf( "   out BLACK nbDames %i \n", gameState.out[BLACK] );
+    printf( "   bar WHITE nbDames %i \n", gameState.bar[WHITE] );
 
-		printf( "   case %i nbDames %i %s \n", i+1, gameState.board[i].nbDames, nom );
-	}
-	printf("\n");
+    int i;
+    for( i = 0; i < 26; i++ ) {
+
+        if( gameState.board[i].owner == BLACK ) nom = "BLACK";
+        else if( gameState.board[i].owner == WHITE  ) nom = "WHITE";
+        else nom = "NOBODY";
+
+        printf( "   case %i nbDames %i %s \n", i+1, gameState.board[i].nbDames, nom );
+    }
+
+    printf( "   bar BLACK nbDames %i \n", gameState.bar[BLACK] );
+    printf( "   out WHITE nbDames %i \n", gameState.out[WHITE] );
+
+    printf("\n");
 }
+
 
 int peutSortir(Square board[], int couleur){
     int i;
