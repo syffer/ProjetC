@@ -9,7 +9,7 @@
 	#include "SDL/SDL.h"
 #endif
 
-#include "backgammon.h"
+#include "../Commun/backgammon.h"
 
 #ifndef DEF_CONSTANTES
 #define DEF_CONSTANTES
@@ -72,7 +72,7 @@ void updateScoreJoueurNoir(int score);
 void updateScoreCibleGraphique( int scoreCible );
 void updateMiseCouranteGraphique( int nouvelleMise );
 
-void pause();   // a virer plus tard
+//void pause();   // a virer plus tard
 
 
 
