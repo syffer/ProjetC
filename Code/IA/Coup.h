@@ -28,6 +28,7 @@ struct Coup {
 	Player maCouleur;
 
 	// caracteristiques d'un coup
+	int ennemisAManger;
 	int nbCasesSecurisees;				// le nombre de cases ayant plus de 2 pions (pour un joueur donné)
 	int nbCases2Pions;					// le nombre de cases ayant exactement 2 pions (pour un joueur donné)
 	double probabilitePertePion;		// probabilité de perdre un pion au prochain tour (pour un joueur donné)
@@ -44,6 +45,18 @@ void afficherCoup( Coup* coup );
 void calculerCaracteristiquesCoup( Coup* coup );
 
 
+int comparerEntier( int e1, int e2 );
+int comparerDouble( double d1, double d2 );
+
+
+// fonctions de comparaison de coup
+int comparerCoups_CasesRepas( Coup* c1, Coup* c2 );
+int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 );
+int comparerCoups_PionsAdverseSorties( Coup* c1, Coup* c2 );
+int comparerCoup_Cases2Dames( Coup* c1, Coup* c2 );
+int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 );
+int comparerCoups_Securitee( Coup* c1, Coup* c2 );
+int comparerCoups_BotParfait( Coup* c1, Coup* c2 );
 
 /*
 	fonctions de comparaison de coups
@@ -64,7 +77,7 @@ int comparerCoups_Securitee( Coup* c1, Coup* c2 );				// on compare les coups en
 
 
 
-int comparerMeilleurCoup( Coup* c1, Coup* c2 );
+//int comparerMeilleurCoup( Coup* c1, Coup* c2 );
 int comparerAntiJeu( Coup* c1, Coup* c2 );
 
 

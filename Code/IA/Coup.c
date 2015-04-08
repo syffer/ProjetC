@@ -69,6 +69,7 @@ void calculerCaracteristiquesCoup( Coup* coup ) {
 	coup -> nbCasesSecurisees = 0;
 	coup -> nbCases2Pions = 0;
 	coup -> probabilitePertePion = 0.0;
+	coup -> ennemisAManger = 0;
 
 	Player maCouleur = coup -> maCouleur;
 	SGameState* gameState = &(coup -> gameState);
@@ -81,6 +82,7 @@ void calculerCaracteristiquesCoup( Coup* coup ) {
 
 		if( caseEstAuJoueur(laCase,maCouleur) && caseEstSecurisee(laCase) ) coup -> nbCasesSecurisees += 1;
 		if( caseEstAuJoueur(laCase,maCouleur) && laCase.nbDames == 2 ) coup -> nbCases2Pions += 1;
+		if (caseEstAuJoueur(laCase,!maCouleur) && laCase.nbDames ==1 ) coup -> ennemisAManger += 1;
 	}
 
 	coup -> probabilitePertePion = getProbabilitePerdreUnPion( gameState, maCouleur );
@@ -90,6 +92,22 @@ void calculerCaracteristiquesCoup( Coup* coup ) {
 
 
 
+
+
+
+// comparer deux entier. retourne 1 si e1 > e2, -1 si e1 < e2, 0 sinon
+int comparerEntier( int e1, int e2 ) {
+	if( e1 > e2 ) return 1;
+	else if( e1 == e2 ) return 0;
+	else return -1;
+}
+
+// comparer deux double. retourne 1 si d1 > d2, -1 si d1 < d2, 0 sinon
+int comparerDouble( double d1, double d2 ) {
+	if( d1 > d2 ) return 1;
+	else if( d1 == d2 ) return 0;
+	else return -1;
+}
 
 
 /*
@@ -104,23 +122,18 @@ void calculerCaracteristiquesCoup( Coup* coup ) {
 
 
 int comparerCoups_nbMouvements( Coup* c1, Coup* c2 ) {
-	int nbMouvements_c1 = c1 -> nbMouvements;
-	int nbMouvements_c2 = c2 -> nbMouvements;
+	return comparerEntier( c1 -> nbMouvements, c2 -> nbMouvements );
+}
 
-	if( nbMouvements_c1 > nbMouvements_c2 ) return 1;
-	else if( nbMouvements_c1 < nbMouvements_c2 ) return -1;
-	else return 0;
+
+int comparerCoups_CasesRepas( Coup* c1, Coup* c2 ) {
+	return comparerEntier( c1 -> ennemisAManger, c2 -> ennemisAManger );
 }
 
 
 // fonction qui compare deux coup en fonctions de leurs nombre de cases sécurisées
 int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 ) {
-	int nbCasesSecurisees_c1 = c1 -> nbCasesSecurisees;
-	int nbCasesSecurisees_c2 = c2 -> nbCasesSecurisees;
-
-	if( nbCasesSecurisees_c1 > nbCasesSecurisees_c2 ) return 1;
-	else if( nbCasesSecurisees_c1 < nbCasesSecurisees_c2 ) return -1;
-	else return 0;
+	return comparerEntier( c1 -> nbCasesSecurisees, c2 -> nbCasesSecurisees );
 }
 
 
@@ -129,9 +142,7 @@ int comparerCoups_PionsAdverseBarre( Coup* c1, Coup* c2 ) {
 	int barreAdverse_c1 = c1 -> gameState.bar[ getCouleurAdverse( c1 -> maCouleur ) ];
 	int barreAdverse_c2 = c2 -> gameState.bar[ getCouleurAdverse( c2 -> maCouleur ) ];
 
-	if( barreAdverse_c1 > barreAdverse_c2 ) return 1;
-	else if( barreAdverse_c1 < barreAdverse_c2 ) return -1;
-	else return 0;
+	return comparerEntier( barreAdverse_c1, barreAdverse_c2 );
 }
 
 
@@ -141,31 +152,20 @@ int comparerCoups_PionsSorties( Coup* c1, Coup* c2 ) {
 	int nbPionsSorties_c1 = c1 -> gameState.out[ c1 -> maCouleur ];
 	int nbPionsSorties_c2 = c2 -> gameState.out[ c2 -> maCouleur ];
 
-	if( nbPionsSorties_c1 > nbPionsSorties_c2 ) return 1;
-	else if( nbPionsSorties_c1 < nbPionsSorties_c2 ) return -1;
-	else return 0;
+	return comparerEntier( nbPionsSorties_c1, nbPionsSorties_c2 );
 }
 
 
 // fonction qui compare deux coup en fonctions de leurs nombre de cases possèdant exactement 2 pions
 int comparerCoup_Cases2Dames( Coup* c1, Coup* c2 ) {
-	int nbCases2Dames_c1 = c1 -> nbCases2Pions;
-	int nbCases2Dames_c2 = c2 -> nbCases2Pions;
-
-	if( nbCases2Dames_c1 > nbCases2Dames_c2 ) return 1;
-	else if( nbCases2Dames_c1 < nbCases2Dames_c2 ) return -1;
-	else return 0;
+	return comparerEntier( c1 -> nbCases2Pions, c2 -> nbCases2Pions );
 }
 
 
 // fonction qui compare deux coup en fonctions de la probabilité de perdre un pion au prochain tour
 int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 ) {
-	double probabilitePertePion_c1 = c1 -> probabilitePertePion;
-	double probabilitePertePion_c2 = c2 -> probabilitePertePion;
-
-	if( probabilitePertePion_c1 < probabilitePertePion_c2 ) return 1;		// on cherche a avoir la probabilitée la plus proche de 0
-	else if( probabilitePertePion_c1 > probabilitePertePion_c2 ) return -1;
-	else return 0;
+	// on veut que c1 soit le plus grand si sa probabilitée est la plus petite, donc on multiplie par -1 pour changé le sens
+	return comparerDouble( c1 -> probabilitePertePion, c2 -> probabilitePertePion ) * -1;
 }
 
 
@@ -174,7 +174,7 @@ int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 ) {
 // fonction qui compare deux coups en fonctions de plusieurs critères, permettant de définir quel coup est le moins dangereux
 int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
 
-	int comparaison = comparerCoups_nbMouvements( c1, c2 );
+	int comparaison = comparerCoups_nbMouvements( c1, c2 );		// on cherche le coup ayant le plus de mouvements possible en priorité
 	if( comparaison != 0 ) return comparaison;
 
 	comparaison = comparerCoups_PionsSorties( c1, c2 );
@@ -199,7 +199,23 @@ int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
 
 
 
+int comparerCoups_BotParfait( Coup* c1, Coup* c2 ) {
 
+	int comparaison = comparerCoups_CasesRepas(c1,c2);
+	if (comparaison != 0) return comparaison;
+
+	comparaison = comparerCoups_ProbabilitesPertePion( c1, c2 );
+	if( comparaison != 0 ) return comparaison;
+	
+	comparaison = comparerCoups_CasesSecurisees( c1, c2 );
+	if( comparaison != 0 ) return comparaison;
+
+	comparaison = comparerCoups_PionsAdverseSorties( c1, c2 );
+	if( comparaison != 0 ) return comparaison;
+
+	comparaison = comparerCoup_Cases2Dames( c1, c2 );
+	return comparaison;
+}
 
 
 
@@ -215,14 +231,14 @@ int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
  * @param c2 : le deuxième coup
  * @return : un entier (booleen)
  * */
-int comparerMeilleurCoup( Coup* c1, Coup* c2 ) {
+/*int comparerMeilleurCoup( Coup* c1, Coup* c2 ) {
 
 	int nbPointsC1 = calculerMeilleurCoup( &(c1 -> gameState) );
 	int nbPointsC2 = calculerMeilleurCoup( &(c2 -> gameState) );
 
 	return nbPointsC1 > nbPointsC2;
 
-}
+}*/
 
 /**
  * Fonction sélectionnant le meilleur coup entre deux

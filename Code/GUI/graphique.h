@@ -72,7 +72,7 @@ void updateScoreJoueurNoir(int score);
 void updateScoreCibleGraphique( int scoreCible );
 void updateMiseCouranteGraphique( int nouvelleMise );
 
-int pause();   // a virer plus tard
+//void pause();   // a virer plus tard
 
 
 

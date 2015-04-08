@@ -1,9 +1,8 @@
-
 /*
 
 	Bot ayant pour but de gagner le match au premier tour en trichant.
 	
-	Ce bot va essayer de modifier les valeurs de la variables GameState, 
+	Ce bot va essayer de modifier les valeurs de la variable GameState, 
 	mais ne donne pas de mouvements à l'arbitre.
 	
 */
@@ -14,10 +13,7 @@
 #include "../Commun/backgammon.h"
 #include "fonctionsBot.h"
 
-
 static Bot bot;
-
-
 
 /**
  * Initialiser la librairie
@@ -25,14 +21,12 @@ static Bot bot;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-	
+	printf("InitLibrary\n");
 	strcpy( bot.nom, "TricheurBot" );
 	bot.maCouleur = NOBODY;
-	bot.scoreCible = 0;
-	
+	bot.scoreCible = 0;	
 	strcpy( name, bot.nom );
 }
-
 
 /**
  * Initialiser l'IA pour un match
@@ -40,23 +34,23 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
+	printf("StartMatch\n");
 	bot.scoreCible = target_score;
 }
-
 
 /**
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
+	printf("StartGame\n");
 	bot.maCouleur = p;
 }
-
 
 /**
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	
+	printf("EndGame\n");
 }
 
 
@@ -64,13 +58,8 @@ void EndGame() {
  * Fin d'un match
  */
 void EndMatch() {
-
-	///////////////////////////////////////////////
-	// LIBERATION PROPRE DE TOUTES LES RESSOURCES
-	//						TOUTES
-	///////////////////////////////////////////////
+	printf("EndMatch\n");
 }
-
 
 /**
  * Doubler la mise
@@ -80,10 +69,10 @@ void EndMatch() {
  *	vrai si on propose de doubler : faux sinon
  */
 int DoubleStack( const SGameState * const gameState ) {
+	printf("DoubleStack\n");
 	// on ne double jamais la mise
 	return(0);		
 }
-
 
 /**
  * Accepter ou refuser la nouvelle mise
@@ -93,10 +82,10 @@ int DoubleStack( const SGameState * const gameState ) {
  *	vrai si on accepte la nouvelle mise ; faux sinon
  */
 int TakeDouble( const SGameState * const gameState ) {
+	printf("TakeDouble\n");
 	// on ne refuse jamais la nouvelle mise
 	return(1);
 }
-
 
 /**
  * Prise de décision de la part de l'IA
@@ -108,23 +97,20 @@ int TakeDouble( const SGameState * const gameState ) {
  *	nombre d'essais restants (3 initialement).
  */
 void PlayTurn( SGameState * gameState, unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
-	
+	printf("PlayTurn\n");
+
 	Player maCouleur = bot.maCouleur;
 	Player couleurAdverse = (maCouleur == BLACK) ? WHITE : BLACK;
 
-
-	// on met tout nos pions sur la sortie
+	// on met tous nos pions sur la sortie
 	gameState -> out[ maCouleur ] = 15;
 	gameState -> out[ couleurAdverse ] = 0;
 
-
-	// on met tout les pions de l'adversaire sur la barre
+	// on met tous les pions de l'adversaire sur la barre
 	gameState -> bar[ maCouleur ] = 0;
 	gameState -> bar[ couleurAdverse ] = 15;
 
-
-	// on efface nos pions du plateau
+	// on efface les pions du plateau
 	int i;
 	Square* laCase;
 	for( i = 0; i < 24; i++ ) {
@@ -146,14 +132,9 @@ void PlayTurn( SGameState * gameState, unsigned char dices[2], SMove moves[4], u
 	// on essaie de rejouer juste après
 	gameState -> turn = couleurAdverse;
 
+	// on attribut un double 6 à la valeur du dé
 	dices[0] = 6;
 	dices[1] = 6;
 
-
 	*nbMove = 0;
-	
 }
-
-
-
-

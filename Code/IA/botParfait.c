@@ -1,9 +1,5 @@
-
 /*
-
-	Bot cherchant à gagner le plus vite possible et en bloquant un maximum l'adversaire
-	Bot non fini
-
+	Bot fusion de AntiJeu & Lynx
 */
 
 #include <stdio.h>
@@ -19,18 +15,17 @@ char nom[] = "PerfectBot";
 unsigned int score;
 static Player maCouleur;
 
-
 /**
  * Initialiser la librairie
  * @param char name[50]
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
+	printf("InitLibrary\n");
 	strcpy( name, nom );
 	score = 0;
 	maCouleur = NOBODY;
 }
-
 
 /**
  * Initialiser l'IA pour un match
@@ -38,37 +33,32 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
+	printf("StartMatch\n");
 	score = target_score;
 }
-
 
 /**
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
+	printf("StartGame\n");
 	maCouleur = p;
 }
-
 
 /**
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
+	printf("EndGame\n");
 	maCouleur = NOBODY;
 }
-
 
 /**
  * Fin d'un match
  */
 void EndMatch() {
-
-	///////////////////////////////////////////////
-	// LIBERATION PROPRE DE TOUTES LES RESSOURCES
-	//						TOUTES
-	///////////////////////////////////////////////
+	printf("EndGame\n");
 }
-
 
 /**
  * Doubler la mise
@@ -78,10 +68,10 @@ void EndMatch() {
  *	vrai si on propose de doubler : faux sinon
  */
 int DoubleStack( const SGameState * const gameState ) {
+	printf("DoubleStack\n");
 	// on ne double jamais la mise
 	return(0);		
 }
-
 
 /**
  * Accepter ou refuser la nouvelle mise
@@ -91,10 +81,10 @@ int DoubleStack( const SGameState * const gameState ) {
  *	vrai si on accepte la nouvelle mise ; faux sinon
  */
 int TakeDouble( const SGameState * const gameState ) {
+	printf("TakeDouble\n");
 	// on ne refuse jamais la nouvelle mise
 	return(1);
 }
-
 
 /**
  * Prise de décision de la part de l'IA
@@ -105,38 +95,34 @@ int TakeDouble( const SGameState * const gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-// !!!!!!!!!!!!!!!!!!! on a enlevé les const pour pouvoir modifier gameState
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	
-
-
+	printf("PlayTurn\n");
 	Player maCouleur = bot.maCouleur;
 	printf("(%s) je suis %i \n", bot.nom, maCouleur );
 
+	// on récupère les dés
 	unsigned char lesDes[4];
 	getDices( dices, lesDes );
 
-
+	// on regarde les coups possibles
 	ListeChainee* coups = creerListeChainee();
 	calculerCoupsPossibles( gameState, maCouleur, lesDes, coups );
 
-
+	// on cherche le meilleur coup
 	Coup meilleurCoup;
-	if( getDonneeMax( coups, comparerMeilleurCoup, &meilleurCoup ) ) {		// si une erreur apparait, la liste est vide, et donc pas de coup possible
+	if( getDonneeMax( coups, comparerCoups_BotParfait, &meilleurCoup ) ) {		// si une erreur apparait, la liste est vide, et donc pas de coup possible
 		*nbMove = 0;
 		return;
 	}
 
 	*nbMove = meilleurCoup.nbMouvements;
-
 	int i;
+
 	for( i = 0; i < *nbMove; i++ ) {
 		moves[i] = meilleurCoup.mouvements[i];
 	}
 
 	printf( "(%s) je joue le coup suivant : \n", bot.nom );
 	afficherCoup(&meilleurCoup);
-	
-
 	detruireListeChainee(coups);
 }
