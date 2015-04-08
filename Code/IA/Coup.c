@@ -210,7 +210,7 @@ int comparerCoups_BotParfait( Coup* c1, Coup* c2 ) {
 	comparaison = comparerCoups_CasesSecurisees( c1, c2 );
 	if( comparaison != 0 ) return comparaison;
 
-	comparaison = comparerCoups_PionsAdverseSorties( c1, c2 );
+	comparaison = comparerCoups_PionsAdverseBarre( c1, c2 );
 	if( comparaison != 0 ) return comparaison;
 
 	comparaison = comparerCoup_Cases2Dames( c1, c2 );

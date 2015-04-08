@@ -49,14 +49,6 @@ int comparerEntier( int e1, int e2 );
 int comparerDouble( double d1, double d2 );
 
 
-// fonctions de comparaison de coup
-int comparerCoups_CasesRepas( Coup* c1, Coup* c2 );
-int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 );
-int comparerCoups_PionsAdverseSorties( Coup* c1, Coup* c2 );
-int comparerCoup_Cases2Dames( Coup* c1, Coup* c2 );
-int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 );
-int comparerCoups_Securitee( Coup* c1, Coup* c2 );
-int comparerCoups_BotParfait( Coup* c1, Coup* c2 );
 
 /*
 	fonctions de comparaison de coups
@@ -68,6 +60,7 @@ int comparerCoups_BotParfait( Coup* c1, Coup* c2 );
 
 */
 int comparerCoups_nbMouvements( Coup* c1, Coup* c2 );
+int comparerCoups_CasesRepas( Coup* c1, Coup* c2 );
 int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 );		// on compare les coups en fonctions de leurs nombre de cases sécurisées 
 int comparerCoups_PionsAdverseBarre( Coup* c1, Coup* c2 );		// 								     				 de pions adverse sur la barre
 int comparerCoups_PionsSorties( Coup* c1, Coup* c2 );			// 								     				 de pions sortie du plateau
@@ -79,6 +72,6 @@ int comparerCoups_Securitee( Coup* c1, Coup* c2 );				// on compare les coups en
 
 //int comparerMeilleurCoup( Coup* c1, Coup* c2 );
 int comparerAntiJeu( Coup* c1, Coup* c2 );
-
+int comparerCoups_BotParfait( Coup* c1, Coup* c2 );
 
 #endif

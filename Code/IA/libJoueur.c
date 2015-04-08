@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h> 	// abs()
 
 #include "../Commun/backgammon.h"
 #include "../GUI/graphique.h"
@@ -147,8 +148,22 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	*/
 
 
-	*nbMove = 0;
+	/*
 
+	for( j = 0; j < 4; j++ ) {		// pour chaque dé
+
+				if( peutDeplacerUnPion( gameState, maCouleur, i, coup.dices[j] ) ) {
+
+					initialiserMouvement( &mouvement, maCouleur, i, coup.dices[j] );
+					nouveauCoup = coup;		// on copie le coup d'origine, pour lui rajouté un mouvement
+
+					ajouterMouvementAuCoup( &nouveauCoup, mouvement, j );
+
+					ajouterElementFin( listeCoups, nouveauCoup );	// on ajout ece coup en fin de liste pour qu'on le prenne en compte dans le traitements des éléments de la liste
+
+					ancienCoupObsolete = 1;		// on indique que le coup actuel est à supprimer, puisque ce coup a été utilisé pour générer un autre coup.
+								
+				}*/
 
 
 }
