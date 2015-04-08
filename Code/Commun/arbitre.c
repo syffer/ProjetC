@@ -574,7 +574,7 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
     else courant = 24;
     int iJetonChiant = 0,coup1,coup2;
     while(courant != 0 && courant != 25){
-        printf("DIFF : test de la case %d\n",courant);
+        //printf("DIFF : test de la case %d\n",courant);
         if(etatJeux->board[courant-1].owner == couleur){
             move1 = faireMove(courant,coup[0],couleur);
             move2 = faireMove(courant,coup[1],couleur);
@@ -582,15 +582,43 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
             coup1 = coupPossible(etatJeux->board,move1,couleur);
             coup2 = coupPossible(etatJeux->board,move2,couleur);
             if(coup1 && coup2){
-                printf("DIFF : les deux coups sont possibles\n");
+                printf("DIFF : case %d : les deux coups sont possibles\n",courant);
                 //si on est arrivé à la fin...
-                if(etatJeux->out[couleur] == 14 && (move1.dest_point == 25 && move2.dest_point == 25)) return 1;
-                if(etatJeux->out[couleur] == 14 && ((move1.dest_point == 25 || move2.dest_point == 25) && peutSortir(etatJeux->board,couleur))) return 2; //ICI, celuyi qui est à 25 doit pouvoir sortir !!!!
-                if(etatJeux->out[couleur] == 14 && ((move1.dest_point == 25 || move2.dest_point == 25) && !peutSortir(etatJeux->board,couleur))) return 1;
+                if(etatJeux->out[couleur] == 14 && (move1.dest_point == 25 && move2.dest_point == 25) && peutSortir(etatJeux->board,couleur)) return 1;
+                if((move1.dest_point == 25 || move2.dest_point == 25) && peutSortir(etatJeux->board,couleur)) return 2; //ICI, celuyi qui est à 25 doit pouvoir sortir !!!!
+                if(((move1.dest_point == 25 || move2.dest_point == 25) && !peutSortir(etatJeux->board,couleur))){
+                    //cas particulier, le joueur peut pas sortir, après un mouvement il peut, et il sort avec le deuxième
+                    printf("CAS SPECIAL !!!!\n");
+                    if(move1.dest_point != 25){
+                        jouerCoup(etatJeux,move2,couleur);
+                        if(coupPossible(etatJeux->board,move1,couleur)) return 2;
+                        else return 1;
+                    }else{
+                        jouerCoup(etatJeux,move1,couleur);
+                        if(coupPossible(etatJeux->board,move2,couleur)) return 2;
+                        else return 1;
+                    }
+                }
+                printf("pas cas spécial\n");
                 //les deux coups sont possibles
                 //s'il y a au moins 2 jetons, c'est bon
                 //si ya qu'un jeton mais qu'on peut faire la somme des dés, c'est bon aussi
                 if(etatJeux->board[courant-1].nbDames >= 2 || coupPossible(etatJeux->board,move3,couleur)) return 2;
+
+                //ensuite on joue un coup, on regarde si on peut obtenir 2, sinon on l'enlève, puis on fait pareil avec le deuxième
+                SGameState etatCopie = copierEtatJeux(etatJeux);
+                jouerCoup(&etatCopie,move1,couleur);
+                if(algoCoupPareil(&etatCopie,coup[1],1,couleur) == 1){
+                    printf("on a trouvé avec le premier coup, puis le deuxième\n");
+                    return 2;
+                }
+                etatCopie = copierEtatJeux(etatJeux);
+                jouerCoup(&etatCopie,move2,couleur);
+                if(algoCoupPareil(&etatCopie,coup[0],1,couleur) == 1){
+                    printf("on a trouvé avec le deuxième coup, puis le deuxième\n");
+                    return 2;
+                }
+
                 //sinon on ajoute ce pion au tableau des "jetons chiants", mais on a pas besoin de savoir sa valeur, juste le nombre de jeton Chiants
                 //si on ajoute le deuxième jeton chiant, c'est bon car on a deux jetons différents où on peut faire les deux combinaisons
                 if(iJetonChiant == 1) return 2;
@@ -707,10 +735,8 @@ int peutSortir(Square board[], int couleur){
     }else{
         for(i=6;i<=23;i++){
             if(board[i].owner == BLACK){
-                 printf("case %d au BLACK\n",i);
                  return 0;
             }
-            else printf("case %d pas au BLACK\n",i);
         }
         return 1;
     }
