@@ -41,13 +41,14 @@ ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.s
 
 ###### librairie joueur
 IA/libJoueur.so: IA/libJoueur.o GUI/graphique_joueur.o
-	gcc -shared IA/libJoueur.o GUI/graphique_joueur.o -o libJoueur.so
+	gcc -shared IA/libJoueur.o GUI/graphique_joueur.o -o IA/libJoueur.so 
 
-IA/botJoueur.o: IA/libJoueur.c
-	gcc $(CFLAGS) -o IA/libJoueur.o -fpic -c IA/botJoueur.c
+IA/libJoueur.o: IA/libJoueur.c 
+	gcc $(CFLAGS) -o IA/libJoueur.o -fpic -c IA/libJoueur.c 
 
-GUI/graphique_joueur.o: GUI/graphique.c GUI/graphique.h 
-	gcc $(CFLAGS) -o GUI/graphique_joueur.o -fpic -c GUI/graphique.c 
+GUI/graphique_joueur.o: GUI/graphique.c GUI/graphique.h  
+	gcc $(CFLAGS) -o GUI/graphique_joueur.o -fpic -c GUI/graphique.c
+
 
 
 ###### bot parfait
