@@ -108,6 +108,10 @@ SGameState initialiserEtatJeux() {
 
 
 void initialiserPlateau( Square board[24] ) {
+    int i;
+    for( i = 0; i < 24; i++ ) {
+		remplirCase( board, i, NOBODY, 0 );
+	}
 	remplirCase( board, 0, WHITE, 2 );
 	remplirCase( board, 5, BLACK, 5 );
 	remplirCase( board, 7, BLACK, 3 );
@@ -663,11 +667,11 @@ SMove faireMove(int src, int numDe, int couleur){
 
 
 void afficherGameState( SGameState gameState ) {
-    
+
     char* nom;
 
     printf("\n");
-        
+
     printf( "   out BLACK nbDames %i \n", gameState.out[BLACK] );
     printf( "   bar WHITE nbDames %i \n", gameState.bar[WHITE] );
 
