@@ -1,4 +1,8 @@
+/*
+	
+	Fichier contenant les fonctions concernant l'état du jeu (GameState, SMove, Square, Player...)
 
+*/
 
 #include "GameState.h"
 
@@ -8,7 +12,7 @@
 
 
 // duplique les dés si nécéssaire, si l'on a deux dés identiques au départ, on doit avoir 4 dés à l'arrivée
-// on place la valeur 0 pour un dé qui n'existe pas
+// on place la valeur 0 pour un dé qui n'existe pas, ou qui a été utilisé
 void getDices( const unsigned char dices[2], unsigned char newDices[4] ) {
 
 	// on a fait un double (exemple : 1-1 , 2-2 , ... 6-6 )
@@ -38,7 +42,7 @@ Player getCouleurAdverse( Player maCouleur ) {
 
 
 
-
+// initialise un mouvement 
 void initialiserMouvement( SMove* mouvement, Player maCouleur, int depart, int nbCases ) {
 
 	int arrivee;
@@ -99,12 +103,6 @@ int casePossedeDesPions( Square laCase ) {
 	return laCase.nbDames > 0;
 }
 
-//////////////////////////////////////////////////////////////////////////////// pas sur du tout
-/*
-int casePossedeAuMoinsNBDames( Square laCase, int nbDames ) {
-	return laCase.nbDames >= nbDames;
-}
-*/
 
 
 
@@ -159,7 +157,7 @@ int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int
 
 /* déplace un pion sur le plateau du jeu
 *
-* Attention : ne vérifie pas si l'on peut déplacer le pion, il faut pour cela appeler une autre fonction AVANT celle ci
+* Attention : ne vérifie pas si l'on peut déplacer le pion, il faut pour cela appeler la fonction 'peutDeplacerUnPion' AVANT celle ci
 *
 *	retourne 0 si tout s'est bien passé, -1 sinon (erreur lors du déplacement).
 */
@@ -217,8 +215,14 @@ int deplacerUnPion( SGameState* gameState, Player maCouleur, SMove mouvement ) {
 
 
 void afficherGameState( SGameState gameState ) {
-	printf("\n");
+	
 	char* nom;
+
+	printf("\n");
+		
+	printf( "   out BLACK nbDames %i \n", gameState.out[BLACK] );
+	printf( "   bar WHITE nbDames %i \n", gameState.bar[WHITE] );
+
 	int i;
 	for( i = 0; i < 24; i++ ) {
 
@@ -228,6 +232,10 @@ void afficherGameState( SGameState gameState ) {
 
 		printf( "   case %i nbDames %i %s \n", i+1, gameState.board[i].nbDames, nom );
 	}
+
+	printf( "   bar BLACK nbDames %i \n", gameState.bar[BLACK] );
+	printf( "   out WHITE nbDames %i \n", gameState.out[WHITE] );
+
 	printf("\n");
 }
 
@@ -238,7 +246,7 @@ void afficherGameState( SGameState gameState ) {
 
 
 
-// retourne le nombre de cases sécurisées d'un joueur
+// retourne le nombre de cases sécurisées d'un joueur. Une case sécurisée est une case possédant au moins 2 pions (donc imprenable par l'adversaire)
 int getNbCasesSecurisees( SGameState* gameState, Player maCouleur ) {
 
 	int totaleCasesSecurisees = 0;
@@ -263,22 +271,25 @@ int getNbCasesSecurisees( SGameState* gameState, Player maCouleur ) {
 // retourne la probabilité qu'un joueur se fasse prendre un pion au prochain tour
 double getProbabilitePerdreUnPion( SGameState* gameState, Player maCouleur ) {
 
-	int valeurDes[25] =  {0};
+	int valeurDes[25] = {0};
 	
 	getEloignementsPointsNonSecurisees( gameState, maCouleur, valeurDes );
-
-	/*
-	int i;
-	for( i = 0; i < 25; i++ ) {
-		printf( " %i", valeurDes[i] );
-	}
-	printf("\n");
-	*/
 
 	return getProbabiliteeDeFaireUnDesDes(valeurDes);
 }
 
 
+/* 
+	remplit un tableau qui contiendra le nombre de cases séparant les cases non sécurisées d'un joueur à celles de son adversaire
+
+	par exemple 
+		on a la configuration suivante  : - - B - - N - B - - - 
+		le tableau contiendra (si l'on considère le joueur blanc) :
+			- tab[0] = 0
+			- tab[1] = 0 	
+			- tab[2] = 1  	car un pion blanc est éloigné d'une case par rapport à TOUS les pions noirs
+			- tab[3] = 1 	car un pion blanc est éloigné de 2 cases par rapport à TOUS les pions noirs
+*/
 void getEloignementsPointsNonSecurisees( SGameState* gameState, Player maCouleur, int eloignements[25] ) {
 
 	Square caseDepart, caseArrivee;
@@ -323,6 +334,20 @@ void getEloignementsPointsNonSecurisees( SGameState* gameState, Player maCouleur
 }
 
 
+/* 
+	retourne la probabilitée de faire l'une des 25 valeurs de dé possibles, 
+	les valeurs que l'on veut considéré dans le calcul auront pour valeur 1 dans un tableau de valeur
+	
+	par exemple :
+		si l'on la probabilité de faire le chiffre 1 ou 24 avec les dés:
+		- tab[1] = 1
+		- tab[24] = 1
+
+		pour faire la valeur 24 avec les dés, il n'y a qu'une possibilité : 6 - 6
+		pour faire la valeur 1 avec les dés, il y a 11 combinaisons de dé possibles ( 1-1, 1-2, ...., 6-1 )
+
+		cette fonction renverra donc : 12 / 36  (car il n'y a que 36 combinaisons de dé possible)
+*/
 double getProbabiliteeDeFaireUnDesDes( int valeurDes[25] ) {
 
 	int nbLances = 0;

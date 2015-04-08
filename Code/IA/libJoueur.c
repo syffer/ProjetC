@@ -2,7 +2,6 @@
 /*
 
 	Cas où un joueur joue et non un bot
-	bot non fini
 
 */
 
@@ -10,7 +9,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "backgammon.h"
+#include "../Commun/backgammon.h"
+#include "../GUI/graphique.h"
 
 
 char nom[] = "Joueur ";
@@ -79,7 +79,7 @@ int DoubleStack( const SGameState * const gameState ) {
 	
 
 	/*
-		lancer une fenetre pou rsavoir si le joueur veut doubler la mise
+		lancer une fenetre pour savoir si le joueur veut doubler la mise
 	*/
 
 	return(0);		
@@ -97,7 +97,7 @@ int TakeDouble( const SGameState * const gameState ) {
 
 
 	/*
-		lancer une fenetre pou rsavoir si le joueur accepte la nouvelle mise
+		lancer une fenetre pour savoir si le joueur accepte la nouvelle mise
 	*/	
 
 

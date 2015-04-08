@@ -1,3 +1,9 @@
+/*
+	
+	Fichier contenant les fonctions concernant l'état du jeu (GameState, SMove, Square, Player...)
+
+*/
+
 #ifndef _GameState
 	#define _GameState
 
@@ -11,12 +17,13 @@ Player getCouleurAdverse( Player maCouleur );
 
 void initialiserMouvement( SMove* mouvement, Player maCouleur, int depart, int nbCases );
 
+// fonctions concernant une case Square
 Square getCaseReelle( SGameState* gameState, Player maCouleur, int i );
 int caseEstAuJoueur( Square laCase, Player couleurJoueur );
 int caseEstSecurisee( Square laCase );
 int casePossedeDesPions( Square laCase );
 
-
+// fonction concernant le plateau GameState
 int joueurPossedeDesPionsSurLaBarre( SGameState* gameState, Player maCouleur );
 int peutDeplacerUnPion( SGameState* gameState, Player maCouleur, int depart, int nbCases );
 int deplacerUnPion( SGameState* gameState, Player maCouleur, SMove mouvement );

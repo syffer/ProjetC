@@ -108,6 +108,10 @@ SGameState initialiserEtatJeux() {
 
 
 void initialiserPlateau( Square board[24] ) {
+    int i;
+    for( i = 0; i < 24; i++ ) {
+		remplirCase( board, i, NOBODY, 0 );
+	}
 	remplirCase( board, 0, WHITE, 2 );
 	remplirCase( board, 5, BLACK, 5 );
 	remplirCase( board, 7, BLACK, 3 );
@@ -251,9 +255,9 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
                             printf("le joueur blanc propose de doubler la mise\n");
                             etatCopie = copierEtatJeux(&etatJeux);
                             if(joueurNoir.TakeDouble(&etatCopie)){
-                                videau = BLACK;
+                                videau = WHITE;
                                 etatJeux.stake *= 2;
-                                printf("le joueur Noir accepte de doubler, il prend le videau et la mise est alors de %d\n",etatJeux.stake);
+                                printf("le joueur Noir accepte de doubler, il donne le videau et la mise est alors de %d\n",etatJeux.stake);
                             }else{
                                 printf("le joueur noir refuse de doubler la mise --> abandon\n");
                                 continuerPartie = 0;
@@ -268,9 +272,9 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
                             printf("le joueur noir propose de doubler la mise\n");
                             etatCopie = copierEtatJeux(&etatJeux);
                             if(joueurBlanc.TakeDouble(&etatCopie)){
-                                videau = WHITE;
+                                videau = BLACK;
                                 etatJeux.stake *= 2;
-                                printf("le joueur blanc accepte de doubler, il prend le videau et la mise est alors de %d\n",etatJeux.stake);
+                                printf("le joueur blanc accepte de doubler, il donne le videau et la mise est alors de %d\n",etatJeux.stake);
                             }else{
                                 printf("le joueur blanc refuse de doubler la mise --> abandon\n");
                                 continuerPartie = 0;
@@ -661,20 +665,32 @@ SMove faireMove(int src, int numDe, int couleur){
 }
 
 
+
 void afficherGameState( SGameState gameState ) {
-	printf("\n");
-	char* nom;
-	int i;
-	for( i = 0; i < 24; i++ ) {
 
-		if( gameState.board[i].owner == BLACK ) nom = "BLACK";
-		else if( gameState.board[i].owner == WHITE  ) nom = "WHITE";
-		else nom = "NOBODY";
+    char* nom;
 
-		printf( "   case %i nbDames %i %s \n", i+1, gameState.board[i].nbDames, nom );
-	}
-	printf("\n");
+    printf("\n");
+
+    printf( "   out BLACK nbDames %i \n", gameState.out[BLACK] );
+    printf( "   bar WHITE nbDames %i \n", gameState.bar[WHITE] );
+
+    int i;
+    for( i = 0; i < 24; i++ ) {
+
+        if( gameState.board[i].owner == BLACK ) nom = "BLACK";
+        else if( gameState.board[i].owner == WHITE  ) nom = "WHITE";
+        else nom = "NOBODY";
+
+        printf( "   case %i nbDames %i %s \n", i+1, gameState.board[i].nbDames, nom );
+    }
+
+    printf( "   bar BLACK nbDames %i \n", gameState.bar[BLACK] );
+    printf( "   out WHITE nbDames %i \n", gameState.out[WHITE] );
+
+    printf("\n");
 }
+
 
 int peutSortir(Square board[], int couleur){
     int i;

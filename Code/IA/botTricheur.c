@@ -2,7 +2,10 @@
 /*
 
 	Bot ayant pour but de gagner le match au premier tour en trichant.
-
+	
+	Ce bot va essayer de modifier les valeurs de la variables GameState, 
+	mais ne donne pas de mouvements à l'arbitre.
+	
 */
 
 #include <stdio.h>
@@ -13,6 +16,7 @@
 
 
 static Bot bot;
+
 
 
 /**
@@ -103,18 +107,24 @@ int TakeDouble( const SGameState * const gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
+void PlayTurn( SGameState * gameState, unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	// on a enlever les 'const' de 'gameState' pour pouvoir le manipuler
 	
 	Player maCouleur = bot.maCouleur;
 	Player couleurAdverse = (maCouleur == BLACK) ? WHITE : BLACK;
 
+
+	// on met tout nos pions sur la sortie
 	gameState -> out[ maCouleur ] = 15;
 	gameState -> out[ couleurAdverse ] = 0;
 
+
+	// on met tout les pions de l'adversaire sur la barre
 	gameState -> bar[ maCouleur ] = 0;
 	gameState -> bar[ couleurAdverse ] = 15;
 
+
+	// on efface nos pions du plateau
 	int i;
 	Square* laCase;
 	for( i = 0; i < 24; i++ ) {
@@ -123,6 +133,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 		laCase -> nbDames = 30;
 	}
 
+	// on modifie le score des joueurs
 	if( maCouleur == BLACK ) {
 		gameState -> blackScore += bot.scoreCible;
 		gameState -> whiteScore = 0;
@@ -135,8 +146,12 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	// on essaie de rejouer juste après
 	gameState -> turn = couleurAdverse;
 
-	*nbMove = 0;
+	dices[0] = 6;
+	dices[1] = 6;
 
+
+	*nbMove = 0;
+	
 }
 
 
