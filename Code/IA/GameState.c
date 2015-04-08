@@ -453,7 +453,7 @@ int calculerCout( SGameState* gameState ) {
  * @param :
  * @return : 
  * */
-int calculerMeilleurCoup( SGameState* gameState ) {
+/*int calculerMeilleurCoup( SGameState* gameState ) {
 
 	Player maCouleur = gameState -> turn;
 
@@ -470,7 +470,7 @@ int calculerMeilleurCoup( SGameState* gameState ) {
 	}
 
 	return totalePoints;
-}
+}*/
 
 
 

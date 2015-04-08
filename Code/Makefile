@@ -14,7 +14,8 @@ all:: ia gui commun
 commun:: backgammon
 
 backgammon: Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o
-	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o -o backgammon -ldl `sdl-config --cflags --libs` -lSDL -lSDL_ttf
+	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o -o backgammon -ldl 
+	#`sdl-config --cflags --libs` -lSDL -lSDL_ttf
 
 
 

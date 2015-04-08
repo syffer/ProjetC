@@ -122,7 +122,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 
 	Coup meilleurCoup;
-	if( getDonneeMax( coups, comparerMeilleurCoup, &meilleurCoup ) ) {		// si une erreur apparait, la liste est vide, et donc pas de coup possible
+	if( getDonneeMax( coups, comparerCoups_BotParfait, &meilleurCoup ) ) {		// si une erreur apparait, la liste est vide, et donc pas de coup possible
 		*nbMove = 0;
 		return;
 	}

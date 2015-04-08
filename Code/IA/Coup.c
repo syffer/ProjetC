@@ -59,6 +59,7 @@ void calculerCaracteristiquesCoup( Coup* coup ) {
 	coup -> nbCasesSecurisees = 0;
 	coup -> nbCases2Pions = 0;
 	coup -> probabilitePertePion = 0.0;
+	coup -> ennemisAManger = 0;
 
 	Player maCouleur = coup -> maCouleur;
 	SGameState* gameState = &(coup -> gameState);
@@ -71,13 +72,12 @@ void calculerCaracteristiquesCoup( Coup* coup ) {
 
 		if( caseEstAuJoueur(laCase,maCouleur) && caseEstSecurisee(laCase) ) coup -> nbCasesSecurisees += 1;
 		if( caseEstAuJoueur(laCase,maCouleur) && laCase.nbDames == 2 ) coup -> nbCases2Pions += 1;
+		if (caseEstAuJoueur(laCase,!maCouleur) && laCase.nbDames ==1 ) coup -> ennemisAManger += 1;
 	}
 
 	coup -> probabilitePertePion = getProbabilitePerdreUnPion( gameState, maCouleur );
 
 }
-
-
 
 /*
 void afficherCoups( ListeChainee* listeCoups ) {
@@ -103,6 +103,14 @@ void afficherCoups( ListeChainee* listeCoups ) {
 }
 */
 
+int comparerCoups_CasesRepas( Coup* c1, Coup* c2 ) {
+	int nbCasesAManger_c1 = c1 -> ennemisAManger;
+	int nbCasesAManger_c2 = c2 -> ennemisAManger;
+
+	if( nbCasesAManger_c1 > nbCasesAManger_c2 ) return 1;
+	else if( nbCasesAManger_c1 < nbCasesAManger_c2 ) return -1;
+	else return 0;
+}
 
 
 int comparerCoups_CasesSecurisees( Coup* c1, Coup* c2 ) {
@@ -175,7 +183,23 @@ int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
 
 
 
+int comparerCoups_BotParfait( Coup* c1, Coup* c2 ) {
 
+	int comparaison = comparerCoups_CasesRepas(c1,c2);
+	if (comparaison != 0) return comparaison;
+
+	comparaison = comparerCoups_ProbabilitesPertePion( c1, c2 );
+	if( comparaison != 0 ) return comparaison;
+	
+	comparaison = comparerCoups_CasesSecurisees( c1, c2 );
+	if( comparaison != 0 ) return comparaison;
+
+	comparaison = comparerCoups_PionsAdverseSorties( c1, c2 );
+	if( comparaison != 0 ) return comparaison;
+
+	comparaison = comparerCoup_Cases2Dames( c1, c2 );
+	return comparaison;
+}
 
 
 
@@ -191,14 +215,14 @@ int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
  * @param c2 : le deuxième coup
  * @return : un entier (booleen)
  * */
-int comparerMeilleurCoup( Coup* c1, Coup* c2 ) {
+/*int comparerMeilleurCoup( Coup* c1, Coup* c2 ) {
 
 	int nbPointsC1 = calculerMeilleurCoup( &(c1 -> gameState) );
 	int nbPointsC2 = calculerMeilleurCoup( &(c2 -> gameState) );
 
 	return nbPointsC1 > nbPointsC2;
 
-}
+}*/
 
 /**
  * Fonction sélectionnant le meilleur coup entre deux
