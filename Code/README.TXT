@@ -56,11 +56,11 @@ exemple : ./backgammon 5 IA/libBotLynx.so IA/libBotRandom.so
 
 
 3) Organisation des fichiers
-Nous avons séparer ce projet en 3 sous dossiers :
+Nous avons séparé ce projet en 3 sous dossiers :
 - IA : contient tous les fichiers concernant les librairies (bots)
 - GUI : contient tous les fichiers concernant l'affichage graphique du plateau (images...)
 - Commun : contient le fichier contenant le main(), la librairie du joueur réel, et les fichiers 
-relatifs aux chargement des librairies.
+relatifs aux chargements des librairies.
 
 
 4) Le fonctionnement des bots
