@@ -174,6 +174,16 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
     joueurBlanc.StartMatch(score);
     joueurNoir.StartMatch(score);
     int initialiserFenetre();
+
+
+
+
+
+    initialiserFenetre();
+
+
+
+
     updateScoreCibleGraphique(score);
 
     int continuerPartie = 1; //boolean a 0 lorsque la partie est terminée

@@ -16,9 +16,12 @@
 
 int main( int argc, char* argv[] ) {
 
+	
+
 	/*
 	*	Création du fichier de log (redirection de la sortie standard vers se fichier)
 	*/
+	/*
 	int fichier_log = open( "./backgammon.log", O_WRONLY | O_APPEND | O_CREAT , S_IRWXU | S_IRWXG | S_IRWXO );
 	if( fichier_log == -1 ) {
 		perror(" Erreur lors de l'ouverture ou la création du fichier de log.\n");
@@ -30,9 +33,8 @@ int main( int argc, char* argv[] ) {
 		perror(" Erreur lors de la redirection de la sortie standard vers le fichier log \n");
 		exit( EXIT_FAILURE );
 	}
+	*/
 	
-
-
 
 	/*
 	*	vérification des paramètres entrés par l'utilisateur

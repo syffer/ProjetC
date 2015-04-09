@@ -125,6 +125,7 @@ void rafraichirGraphique()
     position.y = 30;
     SDL_BlitSurface( graphique.texte_LabelScoreCible, NULL, graphique.ecran, &position );
 
+
     //Rafraichissement des dés
     rafraichirDes();
 
@@ -158,7 +159,7 @@ int initialiserFenetre() {
 
 
     // chargement de l'image du plateau
-    graphique.fond = SDL_LoadBMP("./Images/plateau.bmp");
+    graphique.fond = SDL_LoadBMP("./GUI/Images/plateau.bmp");
 
     if ( ! graphique.fond ) {
         printf("Impossible de charger l'image de fond du plateau : %s\n", SDL_GetError());
@@ -189,7 +190,7 @@ int initialiserFenetre() {
     }
 
     // polices d'écriture sur le plateau
-    graphique.police = TTF_OpenFont( "Polices/arial.ttf", TAILLE_TEXTE );
+    graphique.police = TTF_OpenFont( "./GUI/Polices/arial.ttf", TAILLE_TEXTE );
     if( ! graphique.police ) {
         fprintf(stderr, "Erreur lors du chargement de la police : %s\n", TTF_GetError());
         exit(EXIT_FAILURE);
@@ -300,9 +301,9 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
             Pion pion;
 
             if(gameState -> board[i].owner == WHITE) // si joueur blanc
-                pion  = creerPion(graphique.plateau.tabCases[i].posX, graphique.plateau.tabCases[i].posY, "./Images/blanc.bmp");
+                pion  = creerPion(graphique.plateau.tabCases[i].posX, graphique.plateau.tabCases[i].posY, "./GUI/Images/blanc.bmp");
             else if (gameState ->board[i].owner == BLACK)// si joueur noir
-                pion = creerPion(graphique.plateau.tabCases[i].posX, graphique.plateau.tabCases[i].posY, "./Images/noir.bmp");
+                pion = creerPion(graphique.plateau.tabCases[i].posX, graphique.plateau.tabCases[i].posY, "./GUI/Images/noir.bmp");
 
             SDL_Rect pos = positionnerPion(&graphique.plateau.tabCases[i], i ); // positionnement du pion sur la case
             pion.posPion = pos;
@@ -444,7 +445,8 @@ void updateScoreCibleGraphique( int scoreCible ) {
     char chaine[15];
     sprintf( chaine, "%d", scoreCible );
 
-    SDL_FreeSurface(graphique.texte_ScoreCible);
+    //SDL_FreeSurface(graphique.texte_ScoreCible);
+    
     graphique.texte_ScoreCible = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
 
     rafraichirGraphique();
@@ -581,7 +583,7 @@ void ouvrirFenetreAccepterDoublerMise( int nouvelleMise ) {
 void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
 
     // chargement de l'image
-    SDL_Surface* imagePopup = SDL_LoadBMP("./Images/popup.bmp");
+    SDL_Surface* imagePopup = SDL_LoadBMP("./GUI/Images/popup.bmp");
     if ( ! imagePopup ) {
         printf("Impossible de charger l'image de la fenetre popup : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
@@ -741,17 +743,17 @@ char* retournerPathDe(char dice)
     switch(dice)
     {
         case 1:
-            return "./Images/Des/de1.bmp";
+            return "./GUI/Images/Des/de1.bmp";
         case 2:
-            return "./Images/Des/de2.bmp";
+            return "./GUI/Images/Des/de2.bmp";
         case 3:
-            return "./Images/Des/de3.bmp";
+            return "./GUI/Images/Des/de3.bmp";
         case 4:
-            return "./Images/Des/de4.bmp";
+            return "./GUI/Images/Des/de4.bmp";
         case 5:
-            return "./Images/Des/de5.bmp";
+            return "./GUI/Images/Des/de5.bmp";
         case 6:
-            return "./Images/Des/de6.bmp";
+            return "./GUI/Images/Des/de6.bmp";
         default:
             return NULL;
     }
