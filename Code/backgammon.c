@@ -33,8 +33,9 @@ int main( int argc, char* argv[] ) {
 	updateMiseCouranteGraphique(12);
 
 	int numCase = selectionnerCaseGraphique();
-	printf("____________ %i \n", numCase );
 
+
+	/*
 	pause();
 
 	
@@ -48,7 +49,7 @@ int main( int argc, char* argv[] ) {
 
 	pause();
 
-
+	*/
 
 	fermerFenetre();
 
