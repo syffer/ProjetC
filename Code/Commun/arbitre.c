@@ -4,11 +4,14 @@
 #include "backgammon.h"
 #include "joueur.h"
 #include "../GUI/graphique.h"
+
 #include <time.h>		// time
 #include <stdlib.h> 	// srand
 #include <stdio.h>		// printf()
-#define ICI printf("ICIIIIII\n");
 #include <unistd.h>
+
+
+#define ICI printf("ICIIIIII\n");
 
 
 /*

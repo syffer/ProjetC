@@ -1,10 +1,9 @@
 #ifndef _arbitre
     #define _arbitre
-    #include "backgammon.h"
-//    #include "joueur.h"
-//    #include "graphique.h"
 
-typedef struct Joueur Joueur;
+#include "backgammon.h"
+#include "joueur.h"
+
 
 void afficherDes( unsigned char dices[2] );
 void lancerLesDes( unsigned char dices[2] );

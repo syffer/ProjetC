@@ -74,8 +74,8 @@ int main( int argc, char* argv[] ) {
 	*	libération des ressources utilisées
 	*/
 
-	libererJoueur( joueur1 );		// attention, on ne peut plus appeler les fonctions du joueur
-	libererJoueur( joueur2 );
+	libererJoueur( joueurs[ BLACK ] );		// attention, on ne peut plus appeler les fonctions du joueur
+	libererJoueur( joueurs[ WHITE ] );
 
 
 	if( librairie_copiee ) {
