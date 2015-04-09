@@ -33,9 +33,9 @@ int main( int argc, char* argv[] ) {
 
 	// on récupère le nombre de parties à jouer
 	int nbPoints;
-	if( stringToPositiveInteger(argv[1],&nbPoints) ) {
+	if( stringToPositiveInteger(argv[1],&nbPoints) || nbPoints <= 0 ) {
 		printf(" Erreur, le parametre representant le nombre de points n'est pas valide. \n");
-		printf(" Ce parametre doit etre un entier positif. \n");
+		printf(" Ce parametre doit etre un entier positif superieur a zero. \n");
 		exit( EXIT_FAILURE );
 	}
 
