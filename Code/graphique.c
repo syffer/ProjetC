@@ -711,7 +711,7 @@ void pause() {
                 {
                     move.src_point = retournerNumCase(event.motion.x, event.motion.y, graphique.plateau);
                     printf("source : %i\n", move.src_point);
-                   // surlignerCase(move.src_point);
+                    surlignerCase(move.src_point);
                 }
             break;
 
@@ -1288,12 +1288,14 @@ void surlignerCase(int numCase)
 
     posCase.x = graphique.plateau.tabCases[numCase].posX;
     posCase.y = graphique.plateau.tabCases[numCase].posY;
+    SDL_Rect posEcran;
 
-
+    posEcran.x = 0;
+    posEcran.y = 0;
     SDL_BlitSurface(graphique.plateau.tabCases[numCase].imageCase, NULL, graphique.fond, &posCase);
     //rafraichirGraphique();
     //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &posEcran);
-    SDL_Flip(graphique.ecran);
+    //SDL_Flip(graphique.ecran);
 }
 
 
