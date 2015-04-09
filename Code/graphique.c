@@ -130,10 +130,7 @@ void rafraichirGraphique()
 
     SDL_Flip( graphique.ecran );
 
-    /*SDL_FreeSurface(graphique.texte_MiseCourante);
-    SDL_FreeSurface(graphique.texte_ScoreBlanc);
-    SDL_FreeSurface(graphique.texte_ScoreNoir);
-    SDL_FreeSurface(graphique.texte_ScoreCible);*/
+    /**/
 
 }
 
@@ -240,12 +237,51 @@ void fermerFenetre() {
 
     SDL_FreeSurface( graphique.fond );
     SDL_FreeSurface( graphique.ecran );
+    SDL_FreeSurface(graphique.texte_MiseCourante);
+    SDL_FreeSurface(graphique.texte_ScoreBlanc);
+    SDL_FreeSurface(graphique.texte_ScoreNoir);
+    SDL_FreeSurface(graphique.texte_ScoreCible);
+    SDL_FreeSurface(graphique.texte_LabelMiseCourante);
+    SDL_FreeSurface(graphique.texte_LabelScoreBlanc);
+    SDL_FreeSurface(graphique.texte_LabelScoreNoir);
+    SDL_FreeSurface(graphique.texte_LabelScoreCible);
+    freeTousLesPions();
 
     SDL_Quit();
 
     printf("Terminé correctement\n");
 
 
+}
+
+void freeTousLesPions()
+{
+    int i, j;
+    Case case_b;
+
+    //libération des pions du tableau
+    for( i = 0; i < 24; i++)
+    {
+        case_b = graphique.plateau.tabCases[i];
+        for( j = 0; j < case_b.nbPions -1; j++)
+        {
+            freePion(&case_b.tabPions[j]);
+        }
+    }
+
+    // on libère les pions du bar
+    for (i = 0; i < 2; i++)
+    {
+        OutGraphique g = graphique.plateau.outGraphique[i];
+
+        for(j = 0; j < g.caseOut.nbPions -1; j++)
+        {
+            if(g.caseOut.nbPions > 0) // si il y a au moins1 pion dans le bar
+            {
+                freePion(&g.caseOut.tabPions[j]);
+            }
+        }
+    }
 }
 
 /**

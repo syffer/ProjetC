@@ -89,10 +89,7 @@ int getChoixUtilisateurGraphique();
 void creerFenetrePopup( char* messageMise, char* messageQuestion );
 
 
-
-
 void pause();   // a virer plus tard
-
 
 
 Pion creerPion(int posX, int posY, char* image);
@@ -109,7 +106,7 @@ char* retournerPathDe(char dice);
 void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
 void freePion(Pion *pion);
 void rafraichirDes();
-
+void freeTousLesPions();
 
 
 
