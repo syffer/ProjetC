@@ -8,7 +8,7 @@
 
 
 #define HAUTEUR_FENETRE 752
-#define LARGEUR_FENETRE 1280
+#define LARGEUR_FENETRE 1422
 
 #define HAUTEUR_POPUP 342
 #define LARGEUR_POPUP 594
@@ -467,12 +467,6 @@ void updateMiseCouranteGraphique( int nouvelleMise ) {
 
 
 
-
-
-
-
-
-
 // pour libJoueur.h
 // retourne la position de la case graphique sélectionnée par l'utilisateur (avec la souris)
 int selectionnerCaseGraphique() {
@@ -640,14 +634,6 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
 }
 
 
-
-
-
-
-
-
-
-
 /**
 * Met en pause le jeu en attendant un évènement
 */
@@ -711,7 +697,7 @@ void pause() {
                 {
                     move.src_point = retournerNumCase(event.motion.x, event.motion.y, graphique.plateau);
                     printf("source : %i\n", move.src_point);
-                    surlignerCase(move.src_point);
+                   // surlignerCase(move.src_point);
                 }
             break;
 
@@ -799,7 +785,7 @@ void updateOutGraphic(int numJoueur)
     int hauteurARemplir = nbOut*epaisseurPion;
     SDL_Rect posOut;
 
-    SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 65, hauteurARemplir, 32, 0, 0, 0, 0);
+    SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 120, hauteurARemplir, 32, 0, 0, 0, 0);
     if(numJoueur == WHITE){
 
         SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 255, 255, 255));
@@ -819,7 +805,6 @@ void updateOutGraphic(int numJoueur)
 
         //drawEmptyRect(outJoueur, posOut.x-1, posOut.y-1, 150, 50, 255, 0, 0 );
     }
-
 
     rafraichirGraphique();
 }
@@ -1184,20 +1169,20 @@ void initCases(Plateau *plateau)
     outG.valeur = 0;
     outG.hauteur = 150;
     outG.largeur = 50;
-    outG.posX = 25;
-    outG.posY = 100;
+    outG.posX = 1285;
+    outG.posY = 120;
 
-    case_b.posX = 25;
-    case_b.posY = 100;
+    case_b.posX = 1285;
+    case_b.posY = 120;
 
     outG.caseOut = case_b;
 
     plateau ->outGraphique[0] = outG;
 
-    case_b.posY = 450;
+    case_b.posY = 544;
 
     outG.caseOut = case_b;
-    outG.posY = 450;
+    outG.posY = 544;
     plateau ->outGraphique[1] = outG;
 
 }
