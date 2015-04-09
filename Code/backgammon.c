@@ -26,10 +26,14 @@ int main( int argc, char* argv[] ) {
 
 
 	ouvrirFenetreDoublerMiseGraphique(10);
+	getChoixUtilisateurGraphique();
 	ouvrirFenetreAccepterDoublerMise(100);    
 	getChoixUtilisateurGraphique();
 
 	updateMiseCouranteGraphique(12);
+
+	int numCase = selectionnerCaseGraphique();
+	printf("____________ %i \n", numCase );
 
 	pause();
 

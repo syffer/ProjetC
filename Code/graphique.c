@@ -398,6 +398,41 @@ void updateMiseCouranteGraphique( int nouvelleMise ) {
 int selectionnerCaseGraphique() {
 
     // SDL event clic souris sur une des cases
+    int posX, posY;
+
+    int numeroCase;
+
+    SDL_Event event;
+    while( 1 ) {
+
+        SDL_WaitEvent(&event);
+
+        switch(event.type) {
+
+            case SDL_QUIT:
+                return 0;
+                break;
+            
+            case SDL_MOUSEBUTTONUP:
+
+                if (event.button.button == SDL_BUTTON_LEFT ) {
+
+                    posX = event.motion.x;
+                    posY = event.motion.y;
+
+                    numeroCase = retournerNumCase( event.motion.x, event.motion.y, graphique.plateau );
+
+                    if( numeroCase != -1 ) return numeroCase;
+                    // sinon, le joueur n'a pas cliqué sur uen zone valide
+
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
 
     return -1;
 }
