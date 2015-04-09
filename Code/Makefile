@@ -147,6 +147,10 @@ reset::	clean
 	rm -rf IA/*.dll
 	rm -rf IA/*.so.copy
 	rm -rf IA/*.dll.copy
+	rm -rf Commun/*.so 
+	rm -rf Commun/*.dll
+	rm -rf Commun/*.so.copy
+	rm -rf Commun/*.dll.copy
 	# exécutable
 	rm -f backgammon
 	rm -f backgammon.exe
