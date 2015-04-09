@@ -1,8 +1,5 @@
 ### toutes parties
 => correction commentaires  (pauline)
-=> réaliser une documentation des fonctions (???)
-=> déplacer les fichiers dans les bons répertoires (maxime)
-======> corriger le make en conséquence et les imports
 
 ### partie arbitre
 => correction des erreurs   (titouan)
@@ -12,20 +9,6 @@
 => virer les printf inutiles    (titouan)
 => ecrire dans un fichier log   (titouan)
 => commenter bien   (titouan)
-
-### partie IA
-=> le videau à terminer     (pauline)
-=====> double
-=====> take 
-=====> copier/coller les fonctions dans les fichiers de bots correspondants (Fusion)
-=> terminer bot parfait     (pauline)
-=> renommer bot parfait en "botFusion"      (maxime)
-==> renommer certaines fonctions (???)
-
-=> commenter (pauline & maxime)
--- .c - botantijeu / botlynx / botfusion / botrandom / botsimplet / coup / fonctionsBot / gameState
--- .h - coup /fonctionsBot / gameState
-==> supprimer le code inutile (pauline)
 
 ### partie graphique 
 => terminer la fonction déplacer un pion (selon un smove)   (cyril)

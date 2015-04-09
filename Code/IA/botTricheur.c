@@ -131,9 +131,5 @@ void PlayTurn( SGameState * gameState, unsigned char dices[2], SMove moves[4], u
 	// on essaie de rejouer juste après
 	gameState -> turn = couleurAdverse;
 
-	// on attribut un double 6 à la valeur du dé
-	dices[0] = 6;
-	dices[1] = 6;
-
 	*nbMove = 0;
 }
