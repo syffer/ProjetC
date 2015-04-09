@@ -20,9 +20,12 @@
 =====> copier/coller les fonctions dans les fichiers de bots correspondants (Fusion)
 => terminer bot parfait     (pauline)
 => renommer bot parfait en "botFusion"      (maxime)
-=> commenter (pauline & maxime)
-==> supprimer le code inutile (pauline)
 ==> renommer certaines fonctions (???)
+
+=> commenter (pauline & maxime)
+-- .c - bot / botantijeu / botlynx / botparfait / botrandom / botsimplet / bottricheur / coup / fonctionsBot / gameState / libJoueur
+-- .h - coup /fonctionsBot / gameState
+==> supprimer le code inutile (pauline)
 
 ### partie graphique 
 => terminer la fonction déplacer un pion (selon un smove)   (cyril)

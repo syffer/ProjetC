@@ -41,14 +41,24 @@ Commun/libJoueur.o: Commun/libJoueur.c
 GUI/graphique_joueur.o: GUI/graphique.c GUI/graphique.h  
 	gcc $(CFLAGS) -o GUI/graphique_joueur.o -fpic -c GUI/graphique.c
 
+################## IA
+ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotFusion.so 
+#IA/libJoueur.so
 
+
+###### librairie joueur
+IA/libJoueur.so: IA/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so
+	gcc -shared IA/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so -o IA/libJoueur.so 
+
+IA/libJoueur.o: IA/libJoueur.c 
+	gcc $(CFLAGS) -o IA/libJoueur.o -fpic -c IA/libJoueur.c 
 
 
 ################## IA
 ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotFusion.so 
 
 
-###### bot parfait
+###### bot fusion
 IA/libBotFusion.so: IA/botFusion.o IA/fonctionsBot.so 
 	gcc -shared IA/botFusion.o IA/fonctionsBot.so -o IA/libBotFusion.so 
 
