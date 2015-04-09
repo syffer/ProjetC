@@ -470,6 +470,8 @@ int getCoefficientEloignementOut( SGameState* gameState, Player maCouleur ) {
 
 		coefficient += laCase.nbDames * eloignement;*/
 	}
+	if (coefficient!=15) coefficient=15-coefficient;
+	
 	return coefficient;
 }
 

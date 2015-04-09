@@ -150,7 +150,8 @@ int TakeDouble( const SGameState * const gameState ) {
 		else return 1; // sinon accepté
 	}
 	else if (coefficientEloignementOut==15) return 1; // on a l'avantage
-	else return 1; // sinon on accepte
+	else if (coefficientEloignementOut<coefficientEloignementOut_adverse && coefficientEloignementOut<4) return 1; // si il nous reste moins de pions à ramener que l'adversaire et qu'ils sont peu nombreux
+	else return 0; // sinon on refuse
 	
 	/*if( coefficientEloignementOut<90 ){
 		if( coefficientEloignementOut_adverse > 90 ) return 1;	// partie équilibrée
