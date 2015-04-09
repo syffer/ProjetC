@@ -569,10 +569,11 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
     //si on en trouve un qui peut se faire que avec un dé, on le fait puis on lance l'autre algo avec le dé restant.
     //on peut regarder aussi si un pion peut être joué avec les deux dés et qu'il y a au moins deux pions
     SMove move1, move2, move3;
+    SGameState etatCopie;
     int courant; //case courante à tester
     if(couleur == WHITE) courant = 1;
     else courant = 24;
-    int iJetonChiant = 0,coup1,coup2;
+    int iJetonChiant = 0, jetonSeul = 0,coup1,coup2;
     while(courant != 0 && courant != 25){
         //printf("DIFF : test de la case %d\n",courant);
         if(etatJeux->board[courant-1].owner == couleur){
@@ -606,7 +607,7 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
                 if(etatJeux->board[courant-1].nbDames >= 2 || coupPossible(etatJeux->board,move3,couleur)) return 2;
 
                 //ensuite on joue un coup, on regarde si on peut obtenir 2, sinon on l'enlève, puis on fait pareil avec le deuxième
-                SGameState etatCopie = copierEtatJeux(etatJeux);
+                etatCopie = copierEtatJeux(etatJeux);
                 jouerCoup(&etatCopie,move1,couleur);
                 if(algoCoupPareil(&etatCopie,coup[1],1,couleur) == 1){
                     printf("on a trouvé avec le premier coup, puis le deuxième\n");
@@ -624,20 +625,34 @@ int algoCoupDifferent(SGameState* etatJeux, unsigned int coup[2], int couleur){
                 if(iJetonChiant == 1) return 2;
                 iJetonChiant++;
             }else if(coup1){
+                etatCopie = copierEtatJeux(etatJeux);
                 printf("DIFF : le coup de %d vers %d est possible\n",move1.src_point,move1.dest_point);
-                jouerCoup(etatJeux,move1,couleur);
-                return 1 + algoCoupPareil(etatJeux,coup[1],1,couleur);
+                jouerCoup(&etatCopie,move1,couleur);
+                if(algoCoupPareil(&etatCopie,coup[1],1,couleur) == 1){
+                    return 2;
+                }else{
+                    jetonSeul = 1;
+                }
             }else if(coup2){
                 printf("DIFF : le coup de %d vers %d est possible\n",move2.src_point,move2.dest_point);
-                jouerCoup(etatJeux,move2,couleur);
-                return 1 + algoCoupPareil(etatJeux,coup[0],1,couleur);
+                etatCopie = copierEtatJeux(etatJeux);
+                jouerCoup(&etatCopie,move2,couleur);
+                if(algoCoupPareil(&etatCopie,coup[0],1,couleur) == 1){
+                    return 2;
+                }else{
+                    jetonSeul = 1;
+                }
             }//sinon on peut rien faire avec ce jeton
         }
         //passer au jeton suivant
         if(couleur == WHITE) courant++;
         else courant--;
     }
-    return iJetonChiant; //si y'en a 1, alors on peut jouer qu'un coup, sinon on peut en jouer aucun
+    if(jetonSeul == 0 && iJetonChiant == 0)
+        return 0;
+    if(iJetonChiant > 1)
+        return 2;
+    return 1; //si y'en a 1, alors on peut jouer qu'un coup, sinon on peut en jouer aucun
 }
 
 
