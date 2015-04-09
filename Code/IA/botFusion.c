@@ -73,24 +73,21 @@ void EndMatch() {
  * @return int
  *	vrai si on propose de doubler : faux sinon
  */
-int DoubleStack( const SGameState * const gameState ) {
+int DoubleStack( SGameState * gameState ) {
 	printf("DoubleStack\n");
+
 	int monScore;
-	int scoreAdverse;
 
 	// on récupère les scores
 	if( bot.maCouleur == WHITE ) {
 		monScore = gameState -> whiteScore;
-		scoreAdverse = gameState -> blackScore;
 	}	
 	else {
 		monScore = gameState -> blackScore;
-		scoreAdverse = gameState -> whiteScore;
 	}
 
 	// on regarde les points manquants pour atteindre l'objectif
 	int scoreRestant = bot.scoreCible - monScore;
-	int scoreRestant_adverse = bot.scoreCible - scoreAdverse;
 	
 	// pas la peine de doubler mise si le nombre de points est déjà supérieur au score qu'il nous reste à atteindre
 	if ( gameState -> stake >= scoreRestant) return 0;
@@ -112,23 +109,20 @@ int DoubleStack( const SGameState * const gameState ) {
  * @return int
  *	vrai si on accepte la nouvelle mise ; faux sinon
  */
-int TakeDouble( const SGameState * const gameState ) {
+int TakeDouble( SGameState * gameState ) {
 	printf("TakeDouble\n");
-	int monScore;
+
 	int scoreAdverse;
 
 	// on récupère les scores
 	if( bot.maCouleur == WHITE ) {
-		monScore = gameState -> whiteScore;
 		scoreAdverse = gameState -> blackScore;
 	}	
 	else {
-		monScore = gameState -> blackScore;
 		scoreAdverse = gameState -> whiteScore;
 	}
 
 	// on récupère les points qu'ils manquent
-	int scoreRestant = bot.scoreCible - monScore;
 	int scoreRestant_adverse = bot.scoreCible - scoreAdverse;
 
 	if( gameState -> stake >= scoreRestant_adverse ) return 1;	// on n'abandonne pas une partie qui nous fait perdre le match
