@@ -73,7 +73,7 @@ typedef struct Graphique Graphique;
 static Graphique graphique;
 
 /**
-* Actualise tous les éléments graphiques, actualise l'écran puis libère les ressources
+* Actualise tous les éléments graphiques et actualise l'écran
 */
 void rafraichirGraphique()
 {
@@ -86,51 +86,50 @@ void rafraichirGraphique()
     SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &position);
 
     //rafraichissement de la mise courante
-    position.x = 25;
-    position.y = 330;
+    position.x = 40;
+    position.y = 420;
     SDL_BlitSurface( graphique.texte_MiseCourante, NULL, graphique.ecran, &position );
 
     //rafraichissement du texte du score blanc
-    position.x = 200;
+    position.x = 490;
     position.y = 30;
     SDL_BlitSurface( graphique.texte_ScoreBlanc, NULL, graphique.ecran, &position );
 
     //rafraichissement du texte du score noir
-    position.x = 900;
+    position.x = 1120;
     position.y = 30;
     SDL_BlitSurface( graphique.texte_ScoreNoir, NULL, graphique.ecran, &position );
 
     //rafraichissement du texte du score cible
-    position.x = 500;
+    position.x = 750;
     position.y = 30;
     SDL_BlitSurface( graphique.texte_ScoreCible, NULL, graphique.ecran, &position );
 
     position.x = 25;
-    position.y = 300;
+    position.y = 380;
     SDL_BlitSurface( graphique.texte_LabelMiseCourante, NULL, graphique.ecran, &position );
 
 
-    position.x = 200;
+    position.x = 220;
     position.y = 30;
     SDL_BlitSurface( graphique.texte_LabelScoreBlanc, NULL, graphique.ecran, &position );
 
 
-    position.x = 800;
+    position.x = 860;
     position.y = 30;
     SDL_BlitSurface( graphique.texte_LabelScoreNoir, NULL, graphique.ecran, &position );
 
 
-    position.x = 40;
-    position.y = 40;
+    position.x = 580;
+    position.y = 30;
     SDL_BlitSurface( graphique.texte_LabelScoreCible, NULL, graphique.ecran, &position );
 
+    //Rafraichissement des dés
     rafraichirDes();
 
     updatePionsGraphique();
 
     SDL_Flip( graphique.ecran );
-
-    /**/
 
 }
 
@@ -300,9 +299,9 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
             Pion pion;
 
             if(gameState -> board[i].owner == WHITE) // si joueur blanc
-              pion  = creerPion(graphique.plateau.tabCases[i].posX, graphique.plateau.tabCases[i].posY, "./Images/blanc.bmp");
+                pion  = creerPion(graphique.plateau.tabCases[i].posX, graphique.plateau.tabCases[i].posY, "./Images/blanc.bmp");
             else if (gameState ->board[i].owner == BLACK)// si joueur noir
-               pion = creerPion(graphique.plateau.tabCases[i].posX, graphique.plateau.tabCases[i].posY, "./Images/noir.bmp");
+                pion = creerPion(graphique.plateau.tabCases[i].posX, graphique.plateau.tabCases[i].posY, "./Images/noir.bmp");
 
             SDL_Rect pos = positionnerPion(&graphique.plateau.tabCases[i], i ); // positionnement du pion sur la case
             pion.posPion = pos;
@@ -320,6 +319,7 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
     updateScoreJoueurBlanc( gameState -> whiteScore );
     updateScoreJoueurNoir( gameState -> blackScore );
     updateMiseCouranteGraphique( gameState -> stake );
+    updateScoreCibleGraphique(0);
     // updateTourJoueurGraphique( gameState -> turn );
 }
 
@@ -330,6 +330,7 @@ void updatePionsGraphique()
 {
     int i, j;
 
+    //blit des pions du plateau
     for(i = 0; i < 24; i++)
     {
         Case case_b = graphique.plateau.tabCases[i];
@@ -382,26 +383,70 @@ void rafraichirDes()
     SDL_BlitSurface( graphique.de1, 0, graphique.ecran, &posDe1 );
     SDL_BlitSurface( graphique.de2, 0, graphique.ecran, &posDe2 );
 
-    SDL_Flip( graphique.ecran );
-
-   // SDL_FreeSurface( graphique.de1 );
-  //  SDL_FreeSurface( graphique.de2 );
+    SDL_Flip(graphique.ecran);
 }
 
 void updateTourJoueurGraphique( Player joueur ) {
 
+SDL_Color couleurNoire = {0, 0, 0};
+
+    char chaine[15];
+    if(joueur == WHITE)
+        sprintf( chaine, "Au tour de WHITE de jouer");
+    if(joueur == BLACK)
+        sprintf( chaine, "Au tour de BLACK de jouer");
+
+   // SDL_FreeSurface(graphique.texte_);
+    //graphique.texte_MiseCourante = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
+
+    rafraichirGraphique();
 }
 
+/**
+* Met à jour la valeur du score du joueur blanc et l'affiche sur le plateau
+*/
 void updateScoreJoueurBlanc( int score ) {
 
+    SDL_Color couleurNoire = {0, 0, 0};
+
+    char chaine[15];
+    sprintf( chaine, "%d", score );
+
+    SDL_FreeSurface(graphique.texte_ScoreBlanc);
+    graphique.texte_ScoreBlanc = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
+
+    rafraichirGraphique();
 }
 
+/**
+* Met à jour la valeur du score du joueur noir et l'affiche sur le plateau
+*/
 void updateScoreJoueurNoir(int score) {
 
+    SDL_Color couleurNoire = {0, 0, 0};
+
+    char chaine[15];
+    sprintf( chaine, "%d", score );
+
+    SDL_FreeSurface(graphique.texte_ScoreNoir);
+    graphique.texte_ScoreNoir = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
+
+    rafraichirGraphique();
 }
 
+/**
+* Met à jour la valeur du score de la cible et l'affiche sur le plateau
+*/
 void updateScoreCibleGraphique( int scoreCible ) {
 
+    SDL_Color couleurNoire = {0, 0, 0};
+    char chaine[15];
+    sprintf( chaine, "%d", scoreCible );
+
+    SDL_FreeSurface(graphique.texte_ScoreCible);
+    graphique.texte_ScoreCible = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
+
+    rafraichirGraphique();
 }
 
 /**
@@ -414,11 +459,10 @@ void updateMiseCouranteGraphique( int nouvelleMise ) {
     char chaine[15];
     sprintf( chaine, "%d", nouvelleMise );
 
-
+    SDL_FreeSurface(graphique.texte_MiseCourante);
     graphique.texte_MiseCourante = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
 
     rafraichirGraphique();
-
 }
 
 

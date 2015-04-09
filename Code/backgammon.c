@@ -34,7 +34,6 @@ int main( int argc, char* argv[] ) {
 
 	int numCase = selectionnerCaseGraphique();
 
-
 	pause();
 
 	updateMiseCouranteGraphique(13);
