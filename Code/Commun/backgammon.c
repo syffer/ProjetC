@@ -21,13 +21,13 @@ int main( int argc, char* argv[] ) {
 	*/
 	int fichier_log = open( "./backgammon.log", O_WRONLY | O_APPEND | O_CREAT , S_IRWXU | S_IRWXG | S_IRWXO );
 	if( fichier_log == -1 ) {
-		printf(" Erreur lors de l'ouverture ou la création du fichier de log.\n");
+		perror(" Erreur lors de l'ouverture ou la création du fichier de log.\n");
 		exit( EXIT_FAILURE );
 	}
 
 	// redirection de la sortie standard vers le fichier log
 	if( dup2( fichier_log, STDOUT_FILENO ) == -1 ) {
-		printf(" Erreur lors de la redirection de la sortie standard vers le fichier log \n");
+		perror(" Erreur lors de la redirection de la sortie standard vers le fichier log \n");
 		exit( EXIT_FAILURE );
 	}
 	
@@ -39,8 +39,8 @@ int main( int argc, char* argv[] ) {
 	*/
 
 	if( argc <= 1 ) {
-		printf(" Erreur, il manque les parametres : \n");
-		printf(" 	%s <nbPoints> <chemin librairie 1> <chemin librairie 2> \n", argv[0] );
+		perror(" Erreur, il manque les parametres : \n");
+		fprintf( stderr,  " 	%s <nbPoints> <chemin librairie 1> <chemin librairie 2> \n", argv[0] );
 		exit( EXIT_FAILURE );
 	}
 
@@ -64,8 +64,8 @@ int main( int argc, char* argv[] ) {
 	// on récupère le nombre de parties à jouer
 	int nbPoints;
 	if( stringToPositiveInteger(argv[1],&nbPoints) || nbPoints <= 0 ) {
-		printf(" Erreur, le parametre representant le nombre de points n'est pas valide. \n");
-		printf(" Ce parametre doit etre un entier positif superieur a zero. \n");
+		perror(" Erreur, le parametre representant le nombre de points n'est pas valide. \n");
+		perror(" Ce parametre doit etre un entier positif superieur a zero. \n");
 		exit( EXIT_FAILURE );
 	}
 
@@ -77,7 +77,7 @@ int main( int argc, char* argv[] ) {
 
 	int librairie_copiee;	// est à vrai si une librairie a été copiée
 	if( verifierLibrairies( cheminLibrairie_1, cheminLibrairie_2, librairie_1, librairie_2, &librairie_copiee ) ) {
-		printf( " Erreur lors de la copie de la librairie. \n" );
+		perror( " Erreur lors de la copie de la librairie. \n" );
 		exit( EXIT_FAILURE );
 	}
 
@@ -102,7 +102,7 @@ int main( int argc, char* argv[] ) {
 	if( librairie_copiee ) {
 
 		if( remove(librairie_2) ) {
-			printf(" Erreur lors de la suppression du fichier temporaire. \n");
+			perror(" Erreur lors de la suppression du fichier temporaire. \n");
 		}
 
 	}
