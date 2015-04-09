@@ -805,14 +805,34 @@ void deplacerPionGraphique(SMove move, Player couleur)
             }//bar
             else if(dest == 25) // out
             {
-                int nbDames = graphique.plateau.tabCases[src -1].nbPions -1;
-              //  graphique.plateau.tabCases[src-1].nbPions --;
+                int nbDames = graphique.plateau.tabCases[src - 1].nbPions -1;
 
-                graphique.plateau.outGraphique[couleur].caseOut.nbPions ++;
-                deplacerPionGraphique(move, couleur);
-                graphique.plateau.out[couleur] ++; // on ajoute 1 dans le compteur des pions sortis du joueur
-                freePion(&graphique.plateau.tabCases[src -1].tabPions[nbDames]);
-                updateOutGraphic(couleur);
+                Case case_src = graphique.plateau.tabCases[src - 1];
+                Case case_dest = graphique.plateau.outGraphique[couleur].caseOut;
+                case_dest.nbPions = 0;
+                //graphique.plateau.tabCases[src-1].nbPions --;
+
+                int nbPionsSrc = case_src.nbPions;
+
+               // graphique.plateau.outGraphique[couleur].caseOut.nbPions ++;
+                if(nbPionsSrc > 0)
+                {
+                    //déplacement du pion vers le out
+                    deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
+
+                    //on diminue le nombre de pions de la source
+                    case_src.nbPions --;
+
+                    case_dest.tabPions[0] = case_src.tabPions[nbPionsSrc-1]; // on affecte tout le temps à la première case du tableau le pion que l'on veut retirer
+
+                    graphique.plateau.tabCases[src-1] = case_src;
+                    graphique.plateau.outGraphique[couleur].caseOut = case_dest;
+
+                    graphique.plateau.out[couleur] ++; // on ajoute 1 dans le compteur des pions sortis du joueur
+                    freePion(&graphique.plateau.tabCases[src -1].tabPions[nbDames]); // on libère la surface du pion
+                    updateOutGraphic(couleur);
+                }
+
             }
             else{
 
