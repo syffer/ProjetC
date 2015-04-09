@@ -423,7 +423,6 @@ int getChoixUtilisateurGraphique() {
                 return 0;
                 break;
             
-
             case SDL_MOUSEBUTTONUP:
 
                 if (event.button.button == SDL_BUTTON_LEFT ) {
