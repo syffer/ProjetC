@@ -18,7 +18,7 @@
 #define BORNE_SUP_Y_BOUTON 309
 
 #define BORNE_INF_X_YES 53
-#define BORNE_SUP_X_YES 208
+#define BORNE_SUP_X_YES 280
 
 #define BORNE_INF_X_NO 311
 #define BORNE_SUP_X_NO 539
