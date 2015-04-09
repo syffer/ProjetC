@@ -864,10 +864,13 @@ SDL_Rect positionnerPion(Case *case_pos, int numCase){
 */
 void deplacerPionGraphique(SMove move, Player couleur)
 {
-    printf("move : src = %i, dest = %i\n", move.src_point, move.dest_point);
+
     if(move.src_point != move.dest_point && move.src_point != 25) // pas de déplacement si déplacement sur lui même et pas de déplacement venant du out
     {
-        if(move.dest_point >=0 && move.src_point >= 0)
+
+         printf("move : src = %i, dest = %i\n", move.src_point, move.dest_point);
+
+        if(move.dest_point >=0 && move.src_point > 0)
         {
             int src = move.src_point;
             int dest = move.dest_point;
