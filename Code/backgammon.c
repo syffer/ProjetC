@@ -25,14 +25,15 @@ int main( int argc, char* argv[] ) {
 	// lancerLesDes( dices );
 
 
-	pause();
-
 	ouvrirFenetreDoublerMiseGraphique(10);
-	    
-
-	pause();
+	ouvrirFenetreAccepterDoublerMise(100);    
+	getChoixUtilisateurGraphique();
 
 	updateMiseCouranteGraphique(12);
+
+	pause();
+
+	
 
 	pause();
 

@@ -7,8 +7,33 @@
 #include <math.h>
 
 
-#define HAUTEUR_FENETRE 1280
-#define LARGEUR_FENETRE 752
+#define HAUTEUR_FENETRE 752
+#define LARGEUR_FENETRE 1280
+
+#define HAUTEUR_POPUP 342
+#define LARGEUR_POPUP 594
+
+// position de la zone de clic des boutons (en prenant pour origine (0,0) le bord haut gauche de la fenetre popup)
+#define BORNE_INF_Y_BOUTON 244
+#define BORNE_SUP_Y_BOUTON 309
+
+#define BORNE_INF_X_YES 53
+#define BORNE_SUP_X_YES 208
+
+#define BORNE_INF_X_NO 311
+#define BORNE_SUP_X_NO 539
+
+#define ZONE_CLIC_Y_INF ( (HAUTEUR_FENETRE / 2) - (HAUTEUR_POPUP / 2) + BORNE_INF_Y_BOUTON )
+#define ZONE_CLIC_Y_SUP ( (HAUTEUR_FENETRE / 2) - (HAUTEUR_POPUP / 2) + BORNE_SUP_Y_BOUTON )
+
+#define ZONE_CLIC_X_YES_INF ( (LARGEUR_FENETRE / 2) - (LARGEUR_POPUP / 2) + BORNE_INF_X_YES )
+#define ZONE_CLIC_X_YES_SUP ( (LARGEUR_FENETRE / 2) - (LARGEUR_POPUP / 2) + BORNE_SUP_X_YES )
+
+#define ZONE_CLIC_X_NO_INF ( (LARGEUR_FENETRE / 2) - (LARGEUR_POPUP / 2) + BORNE_INF_X_NO )
+#define ZONE_CLIC_X_NO_SUP ( (LARGEUR_FENETRE / 2) - (LARGEUR_POPUP / 2) + BORNE_SUP_X_NO )
+
+
+
 
 #define TAILLE_TEXTE 30
 
@@ -125,7 +150,7 @@ int initialiserFenetre() {
     }
 
     // create a new window
-    graphique.ecran = SDL_SetVideoMode( HAUTEUR_FENETRE, LARGEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF );
+    graphique.ecran = SDL_SetVideoMode( LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF );
     if ( ! graphique.ecran ) {
         printf("Impossible d'afficher la fenetre SDL a l'ecran : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
@@ -395,11 +420,11 @@ int getChoixUtilisateurGraphique() {
 
         switch(event.type) {
 
-            /*
+            
             case SDL_QUIT:
-                continuer = 0;
+                return 0;
                 break;
-            */
+            
 
             case SDL_MOUSEBUTTONUP:
 
@@ -408,20 +433,22 @@ int getChoixUtilisateurGraphique() {
                     posX = event.motion.x;
                     posY = event.motion.y;
 
-                    /*
-                    if( ... <= posY && posY <= ... ) {
+                    printf(" X= %i , Y= %i  \n %i <= Y <= %i , \n %i <= X YES <= %i \n", posX, posY, ZONE_CLIC_Y_INF, ZONE_CLIC_Y_SUP, ZONE_CLIC_X_YES_INF, ZONE_CLIC_X_YES_SUP );
 
-                        if( ... <= posX && posX <= ... ) {      // bouton "OUI"
+
+                    if( ZONE_CLIC_Y_INF <= posY && posY <= ZONE_CLIC_Y_SUP ) {
+
+                        if( ZONE_CLIC_X_YES_INF <= posX && posX <= ZONE_CLIC_X_YES_SUP ) {      // bouton "OUI"
                             return 1;
                         }   
-                        else if( ... <= posX && posX <= ... ) { // bouton "NON"
+                        else if( ZONE_CLIC_X_NO_INF <= posX && posX <= ZONE_CLIC_X_NO_SUP ) { // bouton "NON"
                             return 0;
                         }
                         // sinon, on est pas dans l'une des zones des boutons
 
                     }
                     // sinon on est pas dans la zone des boutons
-                    */
+                    
                 }
 
                 break;
@@ -444,7 +471,7 @@ void ouvrirFenetreDoublerMiseGraphique( int miseCourante ) {
 void ouvrirFenetreAccepterDoublerMise( int nouvelleMise ) {
     char message[50];
     sprintf( message, "Nouvelle mise : %i ", nouvelleMise );
-    creerFenetrePopup( message, "Acceptez-vous la nouvelle mise (le refus entraine un abandon de la partie en cours) ?" );
+    creerFenetrePopup( message, "Acceptez-vous la nouvelle mise ?" );
 }
 
 
@@ -465,26 +492,32 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
         exit(EXIT_FAILURE);
     }
 
+
+
     SDL_Surface* texteMessageQuestion = TTF_RenderText_Blended( graphique.police, messageQuestion, couleurNoire );
     if ( ! texteMessageQuestion ) {
         printf("Impossible de creer le texte de la fenetre popup : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
+    int hauteurTexte, largeurTexte;
 
     // affichage de la fenetre
     SDL_Rect position;
-    position.x = 0;
-    position.y = 0;
+    position.x = ( LARGEUR_FENETRE / 2 ) - ( LARGEUR_POPUP / 2 );
+    position.y = ( HAUTEUR_FENETRE / 2 ) - ( HAUTEUR_POPUP / 2 );
+    SDL_SetColorKey( imagePopup, SDL_SRCCOLORKEY, SDL_MapRGB(imagePopup->format, 255, 255, 255) );
     SDL_BlitSurface( imagePopup, NULL, graphique.ecran, &position );
 
     // affichage du texte de la fenetre
-    position.x = 0;
-    position.y = 0;
+    TTF_SizeText( graphique.police, messageMise, &largeurTexte, &hauteurTexte );    // taille tu texte
+    position.x = ( LARGEUR_FENETRE / 2 ) - ( largeurTexte / 2 );
+    position.y = ( HAUTEUR_FENETRE / 2 ) - ( HAUTEUR_POPUP / 2 ) + 80;
     SDL_BlitSurface( texteMessageMise, NULL, graphique.ecran, &position );
 
-    position.x = 0;
-    position.y = 0;
+    TTF_SizeText( graphique.police, messageQuestion, &largeurTexte, &hauteurTexte );
+    position.x = ( LARGEUR_FENETRE / 2 ) - ( largeurTexte / 2 );
+    position.y = ( HAUTEUR_FENETRE / 2 ) - ( HAUTEUR_POPUP / 2 ) + 160;
     SDL_BlitSurface( texteMessageQuestion, NULL, graphique.ecran, &position );
 
 
