@@ -1,4 +1,3 @@
-
 /*
 
 	Cas où un joueur joue et non un bot
@@ -126,8 +125,6 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	/*
 		gestion des evenements SDL / horizon des évenements SDL
 
-
-			- besoin du graphique.h et des variables de plateau ???
 	*/
 
 	

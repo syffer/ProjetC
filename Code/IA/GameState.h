@@ -8,6 +8,12 @@
 #include "../Commun/backgammon.h"
 
 void getDices( const unsigned char dices[2], unsigned char newDices[4] );
+
+int rechercherPositionValeurDe( unsigned char dices[2], char valeurDe );
+int peutEncoreJoueur( SGameState* gameState, Player maCouleur, unsigned char dices[2] );
+
+Player getCouleurAdverse( Player maCouleur );
+
 void initialiserMouvement( SMove* mouvement, Player maCouleur, int depart, int nbCases );
 Player getCouleurAdverse( Player maCouleur );
 
@@ -34,9 +40,6 @@ int getEloignementOut( SGameState* gameState, Player maCouleur );
 int randomINT( int min, int max );
 
 int calculerCout( SGameState* gameState );
-
-int rechercherPositionValeurDe( unsigned char dices[2], char valeurDe );
-int peutEncoreJoueur( SGameState* gameState, Player maCouleur, unsigned char dices[2] );
 
 
 #endif

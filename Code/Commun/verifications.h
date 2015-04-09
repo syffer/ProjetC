@@ -1,3 +1,11 @@
+/*
+	Fichier contenant toutes les fonctions concernant la vérification des librairies.
+	On regarde si les librairies ont le même nom, et si c'est le cas (le même fichier), 
+	on crée une copie de la librairie ( extention .copy )
+
+
+
+*/
 #ifndef _verifications
 	#define _verifications
 

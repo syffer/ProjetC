@@ -18,10 +18,7 @@
 =======> virer la trainée 
 => afficher les nombres d'essais des joueurs    (cyril)
 => liberation des variables (TOUTES) SDL non utilisées avec SDL_FREESURFACE     (cyril + maxime)
-=> textes à repositionner   (cyril)
 => commenter    (cyril)
 => virer parties inutiles   (cyril)
 
-### partie main
-=> modifier pour prendre en compte les joueur réel      (maxime)
-=> modifier les fichiers par défaut (les mettre en joueur réel)     (maxime)
+### partie main		(done)

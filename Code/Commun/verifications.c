@@ -1,5 +1,11 @@
+/*
+	Fichier contenant toutes les fonctions concernant la vérification des librairies.
+	On regarde si les librairies ont le même nom, et si c'est le cas (le même fichier), 
+	on crée une copie de la librairie ( extention .copy )
 
 
+
+*/
 
 #include "verifications.h"
 #include <stdio.h>		// fopen(), FILE
@@ -89,7 +95,7 @@ int copierFichier( char* source, char* destination ) {
 void ajouterRepertoireCourant( char* chemin, char nouveauChemin[] ) {
 	
 	#ifdef _WIN32
-		strcpy(nouveauChemin, chemin);
+		strcpy(nouveauChemin, chemin);	// on ajoute pas la racine dans le cas de windows
 		return;
 	#endif
 

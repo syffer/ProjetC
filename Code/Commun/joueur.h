@@ -1,7 +1,15 @@
+/*
+	Fichier contenant toutes les fonctions concernant le chargement des libraires.
+	Les fonctions d'une librairie chargée seront stockées dans une structure Joueur, 
+	celle-ci ne contient que des pionteurs de fonctions.
+
+
+*/
+
 #ifndef _joueur
     #define _joueur
 
-// windows de merde qui n'est pas foutu d'avoir <dlfcn.h>
+// les fonctions chargeant les librairies dépendent de l'OS utilisé
 #ifdef _WIN32
 	#include <windows.h>
 
