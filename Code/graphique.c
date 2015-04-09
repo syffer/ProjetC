@@ -668,16 +668,38 @@ void pause() {
                         continuer = 0;
 
                         break;
-                    case SDLK_g:
+                    case SDLK_g: // mettre pion blanc dans le out
                         move.dest_point = 25;
                         move.src_point = 12;
                         deplacerPionGraphique(move, WHITE);
                     break;
-                    case SDLK_h:
+                    case SDLK_h: // mettre pion noir dans le out
                         move.dest_point = 25;
                         move.src_point = 13;
                         deplacerPionGraphique(move, BLACK);
                     break;
+                    case SDLK_j: // mettre pion blanc dans le bar
+                        move.dest_point = 0;
+                        move.src_point = 12;
+                        deplacerPionGraphique(move, WHITE);
+                    break;
+                    case SDLK_k: // mettre pion noir dans le bar
+                        move.dest_point = 0;
+                        move.src_point = 13;
+                        deplacerPionGraphique(move, BLACK);
+                    break;
+
+                    case SDLK_l: // enlever pion blanc du bar
+                        move.dest_point = 12;
+                        move.src_point = 0;
+                        deplacerPionGraphique(move, WHITE);
+                    break;
+                    case SDLK_a: // enlever pion noir du bar
+                        move.dest_point = 13;
+                        move.src_point = 0;
+                        deplacerPionGraphique(move, BLACK);
+                    break;
+
                     default:
 
                         break;
@@ -770,36 +792,36 @@ void updateOutGraphic(int numJoueur)
 
     int nbOut;
 
-    if(numJoueur == BLACK){
-        graphique.plateau.outGraphique[BLACK].valeur = graphique.plateau.out[BLACK];
-        graphique.plateau.outGraphique[BLACK].valeur ++; // on incrémente le nombre d epions sortis du joueur
-        nbOut = graphique.plateau.outGraphique[BLACK].valeur;
+    if(numJoueur == WHITE){
+        graphique.plateau.outGraphique[WHITE].valeur = graphique.plateau.out[WHITE];
+        graphique.plateau.outGraphique[WHITE].valeur ++; // on incrémente le nombre d epions sortis du joueur
+        nbOut = graphique.plateau.outGraphique[WHITE].valeur;
 
     }
-    else if(numJoueur == WHITE){
-        graphique.plateau.outGraphique[WHITE].valeur = graphique.plateau.out[WHITE];
-        graphique.plateau.outGraphique[WHITE].valeur ++;
-        nbOut = graphique.plateau.outGraphique[WHITE].valeur;
+    else if(numJoueur == BLACK){
+        graphique.plateau.outGraphique[BLACK].valeur = graphique.plateau.out[BLACK];
+        graphique.plateau.outGraphique[BLACK].valeur ++;
+        nbOut = graphique.plateau.outGraphique[BLACK].valeur;
     }
 
     int hauteurARemplir = nbOut*epaisseurPion;
     SDL_Rect posOut;
 
     SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 120, hauteurARemplir, 32, 0, 0, 0, 0);
-    if(numJoueur == WHITE){
-
-        SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 255, 255, 255));
-        posOut.x = graphique.plateau.outGraphique[WHITE].posX;
-        posOut.y = graphique.plateau.outGraphique[WHITE].posY;
-
-        SDL_BlitSurface(outJoueur, NULL, graphique.fond, &posOut);
-       // drawEmptyRect(outJoueur, posOut.x-1, posOut.y-1, 150, 50, 255, 0, 0 );
-    }
-    else if(numJoueur == BLACK){
+    if(numJoueur == BLACK){
 
         SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 0, 0, 0));
         posOut.x = graphique.plateau.outGraphique[BLACK].posX;
         posOut.y = graphique.plateau.outGraphique[BLACK].posY;
+
+        SDL_BlitSurface(outJoueur, NULL, graphique.fond, &posOut);
+       // drawEmptyRect(outJoueur, posOut.x-1, posOut.y-1, 150, 50, 255, 0, 0 );
+    }
+    else if(numJoueur == WHITE){
+
+        SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 255, 255, 255));
+        posOut.x = graphique.plateau.outGraphique[WHITE].posX;
+        posOut.y = graphique.plateau.outGraphique[WHITE].posY;
 
         SDL_BlitSurface(outJoueur, NULL, graphique.fond, &posOut);
 
@@ -842,13 +864,11 @@ SDL_Rect positionnerPion(Case *case_pos, int numCase){
 */
 void deplacerPionGraphique(SMove move, Player couleur)
 {
-    printf("SOURCE : %i, DESTINATION : %i\n", move.src_point, move.dest_point);
-
-    if(move.src_point != move.dest_point && move.src_point != 25)
+    printf("move : src = %i, dest = %i\n", move.src_point, move.dest_point);
+    if(move.src_point != move.dest_point && move.src_point != 25) // pas de déplacement si déplacement sur lui même et pas de déplacement venant du out
     {
-        if(move.dest_point >=0)
+        if(move.dest_point >=0 && move.src_point >= 0)
         {
-
             int src = move.src_point;
             int dest = move.dest_point;
 
@@ -889,7 +909,7 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                         graphique.plateau.tabCases[src] = case_src;
                         graphique.plateau.barGraphique[couleur] = case_dest;
-
+                        printf("Nb cases dans dest : %i\n", nbPionsDest);
                     }
                 }
 
@@ -902,6 +922,8 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                     int nbPionsSrc = case_src.nbPions; //nombre de pions dans la case source
                     int nbPionsDest = case_dest.nbPions; // nombre de pions dans la case destination
+
+                    //printf("Nb cases dans src : %i\n", nbPionsSrc);
 
                     if(nbPionsSrc > 0)
                     {
@@ -970,7 +992,7 @@ void deplacerPionGraphique(SMove move, Player couleur)
                 Case case_src = graphique.plateau.tabCases[src];
                 Case case_dest = graphique.plateau.tabCases[dest];
 
-                printf("Case %i possède %i pions\n", src, case_src.nbPions);
+                //printf("Case %i possède %i pions\n", src, case_src.nbPions);
 
                 int nbPionsSrc = case_src.nbPions; //nombre de pions dans la case source
                 int nbPionsDest = case_dest.nbPions; // nombre de pions dans la case destination
@@ -998,16 +1020,16 @@ void deplacerPionGraphique(SMove move, Player couleur)
                     graphique.plateau.tabCases[src] = case_src;
                     graphique.plateau.tabCases[dest] = case_dest;
 
-                    printf("Après deplacement : src contient %i pions, dest contient %i pions\n", case_src.nbPions, case_dest.nbPions);
-                    printf("[Case tableau]Après deplacement : src contient %i pions, dest contient %i pions\n", graphique.plateau.tabCases[src].nbPions, graphique.plateau.tabCases[dest].nbPions);
+                   // printf("Après deplacement : src contient %i pions, dest contient %i pions\n", case_src.nbPions, case_dest.nbPions);
+                    //printf("[Case tableau]Après deplacement : src contient %i pions, dest contient %i pions\n", graphique.plateau.tabCases[src].nbPions, graphique.plateau.tabCases[dest].nbPions);
 
                 }
 
             }
-
+            rafraichirGraphique();
         }
 
-        rafraichirGraphique();
+
     }
 }
 
@@ -1177,13 +1199,13 @@ void initCases(Plateau *plateau)
 
     outG.caseOut = case_b;
 
-    plateau ->outGraphique[0] = outG;
+    plateau ->outGraphique[1] = outG;
 
     case_b.posY = 544;
 
     outG.caseOut = case_b;
     outG.posY = 544;
-    plateau ->outGraphique[1] = outG;
+    plateau ->outGraphique[0] = outG;
 
 }
 
@@ -1209,53 +1231,46 @@ void freePion(Pion *pion)
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
 {
     int i;
-
     Case case_b;
 
-    for(i = 0; i <= 12; i++) //cases du bas
+    for(i = 0; i < 12; i++) //cases du bas
     {
-        if( i == 0){
-            case_b = plateau.barGraphique[0];
-                //bar du haut
-            if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
-                return 0;
-            else{ // bar du bas
-                case_b = plateau.barGraphique[1];
-                if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
-                    return 0;
-            }
-        }
-        else{ // on calcule la position pour les cases normales du bas
-            case_b = plateau.tabCases[i-1];
-            if(sourisX >= case_b.posX &&
-            sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY && sourisY >= case_b.posY - case_b.hauteur)
-            return i;
-        }
-
+        // on calcule la position pour les cases normales du bas
+        case_b = plateau.tabCases[i];
+        if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY && sourisY >= case_b.posY - case_b.hauteur)
+            return i+1;
     }
 
     i = 12;
-    for(i = 12; i <= 25; i++)//cases du haut
+    for(i = 12; i < 24; i++)//cases du haut
     {
-        if( i == 25){
-            case_b = plateau.outGraphique[0].caseOut;
-                //out du haut
-            if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
-                return 25;
-            else
-            { // out du bas
-                case_b = plateau.outGraphique[1].caseOut;
-                if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
-                    return 25;
-            }
-        }
-        else{ // on calcule la position pour les cases normales du haut
-            case_b = plateau.tabCases[i];
-            if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY + case_b.hauteur && sourisY >= case_b.posY)
-                return i+1;
-        }
-
+         // on calcule la position pour les cases normales du haut
+        case_b = plateau.tabCases[i];
+        if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY + case_b.hauteur && sourisY >= case_b.posY)
+            return i+1;
     }
+
+    // on teste pour le out
+        case_b = plateau.outGraphique[0].caseOut;
+            //out du haut
+        if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
+            return 25;
+
+         // out du bas
+        case_b = plateau.outGraphique[1].caseOut;
+        if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
+            return 25;
+
+         // on teste pour détecter le bar
+        case_b = plateau.barGraphique[0];
+        //bar du haut
+        if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
+            return 0;
+        // bar du bas
+        case_b = plateau.barGraphique[1];
+        if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
+            return 0;
+
 
     return -1;
 }
