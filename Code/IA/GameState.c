@@ -463,7 +463,7 @@ int getEloignementOut( SGameState* gameState, Player maCouleur ) {
 	for( i = j-6; i == j; i++ ) {
 		laCase = getCaseReelle( gameState, maCouleur, i );
 
-		if( caseEstAuJoueur(laCase,maCouleur) && casePossedeDesPions(laCase) ) nbPions--;
+		if( caseEstAuJoueur(laCase,maCouleur) && casePossedeDesPions(laCase) ) nbPions-=laCase->nbDames;
 
 		/*if( maCouleur == BLACK && i == 0 ) eloignement = 25;	// la barre noire est la plus éloignée du out blanc (mais elle est représentée par 0)
 		else eloignement = abs( depart - i ); 
