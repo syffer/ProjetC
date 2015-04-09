@@ -17,6 +17,7 @@
 */
 void afficherDes( unsigned char dices[2] ) {
 	printf( " des : %i %i \n", dices[0], dices[1] );
+    updateDesGraphique(dices);
 }
 
 
@@ -171,6 +172,7 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
     printf("envoi du startMatch aux joueurs\n");
     joueurBlanc.StartMatch(score);
     joueurNoir.StartMatch(score);
+    int initialiserFenetre();
 
     int etatValide, continuerPartie = 1;//continuerPartie : boolean a 0 lorsque la partie est terminée
 
@@ -195,6 +197,8 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
         joueurNoir.StartGame(BLACK);
         continuerPartie = 1;
 
+        initialiserPlateauGraphique(&etatJeux);
+
         // on lance les dés jusqu'a ce que l'on obtienne deux nombre différents
         do
         {
@@ -210,7 +214,7 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
             printf("ETAT DU PLATEAU :\n\n");
             afficherGameState(etatJeux);
             printf("\n\n");
-            //Penser à COPIER LES DES !!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
             if(!etatValide){
                 //On lui donne ici normalement l'état copié
@@ -332,8 +336,7 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
     }
     joueurBlanc.EndMatch();
     joueurNoir.EndMatch();
-
-
+    void fermerFenetre();
 }
 
 int finPartie(SGameState* etatJeux, int triesw, int triesb , int* winner){

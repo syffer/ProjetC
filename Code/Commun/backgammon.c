@@ -29,7 +29,7 @@ int main( int argc, char* argv[] ) {
 
 
 	// on récupère les librairies entrées (qui sont optionnels)
-	int estUnBot[2] = {0};	
+	int estUnBot[2] = {0};
 	if( argc >= 3 ) {
 		estUnBot[ BLACK ] = 1;
 		cheminLibrairie_1 = argv[2];
