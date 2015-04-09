@@ -11,11 +11,10 @@ all:: ia gui commun
 ################## Commun
 
 ##### creation de l'executable du jeu
-commun:: backgammon
+commun:: backgammon Commun/libJoueur.so
 
 backgammon: Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o
-	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o -o backgammon -ldl 
-	#`sdl-config --cflags --libs` -lSDL -lSDL_ttf
+	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o -o backgammon -ldl `sdl-config --cflags --libs` -lSDL -lSDL_ttf
 
 
 
@@ -32,12 +31,18 @@ Commun/verifications.o: Commun/verifications.c Commun/verifications.h
 	gcc $(CFLAGS) -c Commun/verifications.c -o Commun/verifications.o
 
 
+###### librairie joueur réel
+Commun/libJoueur.so: Commun/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so
+	gcc -shared Commun/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so -o Commun/libJoueur.so 
 
+Commun/libJoueur.o: Commun/libJoueur.c 
+	gcc $(CFLAGS) -o Commun/libJoueur.o -fpic -c Commun/libJoueur.c 
 
-
+GUI/graphique_joueur.o: GUI/graphique.c GUI/graphique.h  
+	gcc $(CFLAGS) -o GUI/graphique_joueur.o -fpic -c GUI/graphique.c
 
 ################## IA
-ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotParfait.so 
+ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotFusion.so 
 #IA/libJoueur.so
 
 
@@ -48,17 +53,17 @@ IA/libJoueur.so: IA/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so
 IA/libJoueur.o: IA/libJoueur.c 
 	gcc $(CFLAGS) -o IA/libJoueur.o -fpic -c IA/libJoueur.c 
 
-GUI/graphique_joueur.o: GUI/graphique.c GUI/graphique.h  
-	gcc $(CFLAGS) -o GUI/graphique_joueur.o -fpic -c GUI/graphique.c
+
+################## IA
+ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotFusion.so 
 
 
+###### bot fusion
+IA/libBotFusion.so: IA/botFusion.o IA/fonctionsBot.so 
+	gcc -shared IA/botFusion.o IA/fonctionsBot.so -o IA/libBotFusion.so 
 
-###### bot parfait
-IA/libBotParfait.so: IA/botParfait.o IA/fonctionsBot.so 
-	gcc -shared IA/botParfait.o IA/fonctionsBot.so -o IA/libBotParfait.so 
-
-IA/botParfait.o: IA/botParfait.c 
-	gcc $(CFLAGS) -o IA/botParfait.o -fpic -c IA/botParfait.c 
+IA/botFusion.o: IA/botFusion.c 
+	gcc $(CFLAGS) -o IA/botFusion.o -fpic -c IA/botFusion.c 
 
 
 ###### bot anti jeu
@@ -152,6 +157,10 @@ reset::	clean
 	rm -rf IA/*.dll
 	rm -rf IA/*.so.copy
 	rm -rf IA/*.dll.copy
+	rm -rf Commun/*.so 
+	rm -rf Commun/*.dll
+	rm -rf Commun/*.so.copy
+	rm -rf Commun/*.dll.copy
 	# exécutable
 	rm -f backgammon
 	rm -f backgammon.exe

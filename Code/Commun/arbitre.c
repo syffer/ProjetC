@@ -135,6 +135,7 @@ const SGameState const copierEtatJeux( SGameState* etatJeux ) {
         copie.board[i].owner = etatJeux->board[i].owner;
 	}
 	copie.turn = etatJeux->turn;
+	copie.stake = etatJeux->stake;
 	//pour l'instant on copie que ça
 	return copie;
 }
@@ -185,6 +186,7 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
         etatJeux.bar[WHITE] = 0;
         etatJeux.out[WHITE] = 0;
         etatJeux.out[BLACK] = 0;
+        etatJeux.stake = 1;
 
         joueurBlanc.StartGame(WHITE);
         joueurNoir.StartGame(BLACK);

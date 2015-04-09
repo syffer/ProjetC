@@ -12,7 +12,7 @@
 
 #include "../Commun/backgammon.h"
 #include "../GUI/graphique.h"
-#include "fonctionsBot.h"
+#include "../IA/fonctionsBot.h"
 
 static Bot bot;
 
