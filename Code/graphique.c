@@ -431,9 +431,6 @@ int getChoixUtilisateurGraphique() {
                     posX = event.motion.x;
                     posY = event.motion.y;
 
-                    printf(" X= %i , Y= %i  \n %i <= Y <= %i , \n %i <= X YES <= %i \n", posX, posY, ZONE_CLIC_Y_INF, ZONE_CLIC_Y_SUP, ZONE_CLIC_X_YES_INF, ZONE_CLIC_X_YES_SUP );
-
-
                     if( ZONE_CLIC_Y_INF <= posY && posY <= ZONE_CLIC_Y_SUP ) {
 
                         if( ZONE_CLIC_X_YES_INF <= posX && posX <= ZONE_CLIC_X_YES_SUP ) {      // bouton "OUI"
