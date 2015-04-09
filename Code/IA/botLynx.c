@@ -149,6 +149,7 @@ int TakeDouble( SGameState * gameState ) {
  */
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
 	printf("PlayTurn\n");
+	
 	Player maCouleur = bot.maCouleur;
 
 	// on recalcule les dés, il y en a 4 au maximum
