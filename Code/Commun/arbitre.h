@@ -12,7 +12,7 @@ void lancerLesDes( unsigned char dices[2] );
 int randomINT( int min, int max );
 
 const SGameState copierEtatJeux( SGameState* etatJeux );
-void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir );
+void jouerPartie( int score, Joueur joueurs[2], int estUnBot[2] );
 int finPartie(SGameState* etatJeux, int triesw, int triesb, int* winner); //indique si c'est fini ou pas
 int verifierCoup(SGameState* etatJeux ,unsigned char dices[2], SMove moves[4], int nbMoves, SMove bonsCoups[4]);
 //void modifierMap(SGameState etatJeux, SMove moves[4], int nbMoves, int couleur);

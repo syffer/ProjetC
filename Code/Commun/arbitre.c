@@ -145,10 +145,12 @@ const SGameState const copierEtatJeux( SGameState* etatJeux ) {
 }
 
 
-void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
+void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
 
 	char nomJoueurBlanc[50];
 	char nomJoueurNoir[50];
+	Joueur joueurBlanc = joueurs[WHITE];
+	Joueur joueurNoir = joueurs[BLACK];
 	joueurBlanc.InitLibrary(nomJoueurBlanc);
 	joueurNoir.InitLibrary(nomJoueurNoir);
 
@@ -173,6 +175,7 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
     joueurBlanc.StartMatch(score);
     joueurNoir.StartMatch(score);
     int initialiserFenetre();
+    updateScoreCibleGraphique(score);
 
     int etatValide, continuerPartie = 1;//continuerPartie : boolean a 0 lorsque la partie est terminée
 
@@ -182,8 +185,8 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
 
         printf("(arbitre) -> partie %i \n", i+1 );
         //SDL --> afficher début partie i
-
         initialiserPlateau( etatJeux.board );
+
         //SDL --> Mettre les jetons sur le plateau
         triesb = 3;
         triesw = 3;
@@ -208,7 +211,6 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
 
         while(continuerPartie){
             printf("\nC'est au tour du joueur de couleur %d\n\n",etatJeux.turn);
-            etatValide = 0;
             etatCopie = copierEtatJeux(&etatJeux);
 
             printf("ETAT DU PLATEAU :\n\n");
@@ -216,37 +218,42 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
             printf("\n\n");
 
 
-            if(!etatValide){
-                //On lui donne ici normalement l'état copié
-                if(etatJeux.turn == WHITE) joueurBlanc.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesw );
-                else joueurNoir.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesb );
-                //printf("Le joueur a donné son ordre --> vérification\n");
-                //on vérifie que ce que veut faire le joueur est correct
-                if(!verifierCoup(&etatJeux,dices,moves,nbMoves,bonsCoups)){
-                printf("coup foireux\n");
-                    //coup foireux !
-                    if(etatJeux.turn == WHITE){
-                         triesw--;
-                         if(triesw==0) etatValide = 1;
-                    }
-                    else{
-                         triesb--;
-                         if(triesb==0) etatValide = 1;
-                    }
-                //ici, on a un joeur qui a fait une faute, la valeur de etatValide n'est donc pas modifiée, il recommence à jouer (sauf s'il a déjà perdu)
-                }else{
-                printf("coup valide !\n");
+
+            //On lui donne ici normalement l'état copié
+            if(etatJeux.turn == WHITE) joueurBlanc.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesw );
+            else joueurNoir.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesb );
+            //printf("Le joueur a donné son ordre --> vérification\n");
+            //on vérifie que ce que veut faire le joueur est correct
+            if(!verifierCoup(&etatJeux,dices,moves,nbMoves,bonsCoups)){
+            printf("coup foireux\n");
+                //coup foireux !
+                if(etatJeux.turn == WHITE){
+                     triesw--;
+                }
+                else{
+                     triesb--;
+                }
+
+                //si le joueur est un humain, on remet l'état du jeu à l'état ou il était avant son tour
+                if(estBot[etatJeux.turn])
+                    initialiserPlateauGraphique(&etatJeux);
+
+            //ici, on a un joeur qui a fait une faute, la valeur de etatValide n'est donc pas modifiée, il recommence à jouer (sauf s'il a déjà perdu)
+            }else{
+            printf("coup valide !\n");
+
+                if(!estBot[etatJeux.turn]){
+                    //le joueur n'est pas humain
                     //coup valide, on modifie la gameState, on appele les fonctions graphiques et on passe le tour
                     for(i=0;i<nbMoves;i++){
                         if(etatJeux.board[bonsCoups[i].dest_point-1].owner == !etatJeux.turn){ //on vérifie ici pour afficher le déplacement d'un jeton mangé
                             move.src_point = bonsCoups[i].dest_point;
                             move.dest_point = 0;
-                            //afficherDeplacementX(move);
+                            deplacerPionGraphique(move);
                         }
                         jouerCoup(&etatJeux,bonsCoups[i],etatJeux.turn);
-                        //afficherDeplacementX(bonsCoups[i]);
+                        deplacerPionGraphique(bonsCoups[i]);
                     }
-                    etatValide = 1;
                 }
             }//fin tour
             if(finPartie(&etatJeux,triesw,triesb,&winner)){
@@ -254,6 +261,8 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
             }else{
                 //on change le tour du joueur
                 etatJeux.turn = !etatJeux.turn;
+                updateTourJoueurGraphique(etatJeux.turn);
+
 
                 //videau
                 if(videau != etatJeux.turn){
@@ -266,6 +275,7 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
                             if(joueurNoir.TakeDouble(&etatCopie)){
                                 videau = WHITE;
                                 etatJeux.stake *= 2;
+                                updateMiseCouranteGraphique( etatJeux.stake );
                                 printf("le joueur Noir accepte de doubler, il donne le videau et la mise est alors de %d\n",etatJeux.stake);
                             }else{
                                 printf("le joueur noir refuse de doubler la mise --> abandon\n");
@@ -283,6 +293,7 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
                             if(joueurBlanc.TakeDouble(&etatCopie)){
                                 videau = BLACK;
                                 etatJeux.stake *= 2;
+                                updateMiseCouranteGraphique( etatJeux.stake );
                                 printf("le joueur blanc accepte de doubler, il donne le videau et la mise est alors de %d\n",etatJeux.stake);
                             }else{
                                 printf("le joueur blanc refuse de doubler la mise --> abandon\n");
@@ -305,9 +316,11 @@ void jouerPartie( int score, Joueur joueurBlanc, Joueur joueurNoir ) {
         if(winner == WHITE){
             printf("joueur blanc marque %d points\n",etatJeux.stake);
             etatJeux.whiteScore+= etatJeux.stake;
+            updateScoreJoueurBlanc(etatJeux.whiteScore);
         }else{
             printf("joueur noir marque %d points\n",etatJeux.stake);
             etatJeux.blackScore+= etatJeux.stake;
+            updateScoreJoueurNoir(etatJeux.blackScore);
         }
         printf("//////////////\n");
         printf("SCORE ACTUEL : \n");
