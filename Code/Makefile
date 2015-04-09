@@ -61,7 +61,7 @@ clean::
 # on recrée tout les exécutables
 # fait "le grand menage"
 # make mrproper
-mrproper:: 	
+reset:: 	
 	# fichiers temporaires
 	rm -f *.i
 	rm -f *.s
