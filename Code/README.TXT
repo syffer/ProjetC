@@ -39,5 +39,4 @@ Ce bot joue en privilégiant la prise de pions adverses. Il favorise ensuite le 
 Ce bot étudie l'état du jeu (placement adverse, les pions à sécuriser, les pions possibles à capturer, etc.) et choisit un déplacement en fonction. Il peut proposer de doubler la mise et accepte, selon les cas, la nouvelle mise de l'adversaire.
 
 6) botParfait
-=> on va surement lui dire au revoir
-Ce bot est une fusion des bots AntiJeu et Lynx. Il favorise la prise de pions et la sécurité des siens.
+Ce bot est une fusion des bots AntiJeu et Lynx. Il favorise la prise de pions adversaises et la sécurité des siens.
