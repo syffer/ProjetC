@@ -143,14 +143,8 @@ clean::
 ### supprimes tous les fichies créés
 reset::	clean
 	# librairies
-	rm -rf IA/*.so 
-	rm -rf IA/*.dll
-	rm -rf IA/*.so.copy
-	rm -rf IA/*.dll.copy
-	rm -rf Commun/*.so 
-	rm -rf Commun/*.dll
-	rm -rf Commun/*.so.copy
-	rm -rf Commun/*.dll.copy
+	rm -rf IA/*.so IA/*.dll Commun/*.so Commun/*.dll GUI/*.so GUI/*.dll
+	rm -rf IA/*.so.copy IA/*.dll.copy Commun/*.so.copy Commun/*.dll.copy GUI/*.so.copy GUI/*.dll.copy
 	# exécutable
 	rm -f backgammon
 	rm -f backgammon.exe
