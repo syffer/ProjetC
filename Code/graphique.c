@@ -712,7 +712,6 @@ Pion creerPion(int posX, int posY, char* image)
 
 void updateOutGraphic(int numJoueur)
 {
-    int x = 50;
     int i;
     int epaisseurPion = 10;
 
@@ -720,19 +719,15 @@ void updateOutGraphic(int numJoueur)
 
     if(numJoueur == BLACK){
         graphique.plateau.outGraphique[BLACK].valeur = graphique.plateau.out[BLACK];
+        graphique.plateau.outGraphique[BLACK].valeur ++; // on incrémente le nombre d epions sortis du joueur
         nbOut = graphique.plateau.outGraphique[BLACK].valeur;
-        graphique.plateau.outGraphique[BLACK].valeur ++;
-        nbOut++;
+
     }
     else if(numJoueur == WHITE){
         graphique.plateau.outGraphique[WHITE].valeur = graphique.plateau.out[WHITE];
-        nbOut = graphique.plateau.outGraphique[WHITE].valeur;
         graphique.plateau.outGraphique[WHITE].valeur ++;
-        nbOut++;
+        nbOut = graphique.plateau.outGraphique[WHITE].valeur;
     }
-
-
-   // nbOut ++; //ajout d'un pion dans le out du joueur
 
     int hauteurARemplir = nbOut*epaisseurPion;
     SDL_Rect posOut;
@@ -886,15 +881,13 @@ void deplacerPionGraphique(SMove move, Player couleur)
                 }
 
             }//bar
-            else if(dest == 25){
-
+            else if(dest == 25) // out
+            {
                 graphique.plateau.tabCases[src-1].nbPions --;
                 graphique.plateau.out[couleur] ++; // on ajoute 1 dans le comteur des pions sortis du joueur
                 updateOutGraphic(couleur);
-            } // out
+            }
             else{
-
-
 
                 //on décrémente la source et la destination pour correspondre avec les bonnes valeurs du tableau
                 src --;
@@ -959,46 +952,41 @@ void deplacerPionVers(Pion *pion, Case* case_dest)
 
    // printf("x : %i, y : %i\n", pion ->posPion.x, pion->posPion.y);
 
+    // calcul de la valeur absolue entre la position du pion et sa position d'arrivée
     int distanceX = fabs(pion->posPion.x - x);
     int distanceY = fabs(pion->posPion.y - y);
 
     int incrementPos = 1;
     int deplacement = 1;
 
-    while(deplacement)
+    while(distanceX > 1 || distanceY > 1)
     {
-        if(distanceX > 1 || distanceY > 1)
-        {
-            printf("distanceX :%i - distanceY : %i\n", distanceX, distanceY);
-            //test de la position en x du pion par rapport à la position finale
-            if(pion->posPion.x < x)
-                pion->posPion.x +=incrementPos;
-            else if(pion->posPion.x >= x)
-                pion->posPion.x  -= incrementPos;
+        //test de la position en x du pion par rapport à la position finale
+        if(pion->posPion.x < x)
+            pion->posPion.x +=incrementPos;
+        else if(pion->posPion.x >= x)
+            pion->posPion.x  -= incrementPos;
 
-            //test de la position en y du pion par rapport à la position finale
-            if(pion-> posPion.y < y)
-                pion-> posPion.y +=incrementPos;
-            else if(pion-> posPion.y >= y)
-                pion-> posPion.y -= incrementPos;
+        //test de la position en y du pion par rapport à la position finale
+        if(pion-> posPion.y < y)
+            pion-> posPion.y +=incrementPos;
+        else if(pion-> posPion.y >= y)
+            pion-> posPion.y -= incrementPos;
 
-            //MàJ de la distance entre le pion et sa position finale
-            distanceX = fabs(pion->posPion.x - x);
-            distanceY = fabs(pion->posPion.y - y);
-            //updatePionsGraphique();
-            SDL_Rect pos;
+        //MàJ de la distance entre le pion et sa position finale
+        distanceX = fabs(pion->posPion.x - x);
+        distanceY = fabs(pion->posPion.y - y);
+        //updatePionsGraphique();
 
-            pos.x = 0;
-            pos.y = 0;
+        SDL_Rect pos;
+        pos.x = 0;
+        pos.y = 0;
 
-            //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &pos);
-            SDL_BlitSurface(pion->imagePion, NULL, graphique.ecran, &pion ->posPion);
-           // updatePionsGraphique();
-            SDL_Flip( graphique.ecran );
-            //rafraichirGraphique();
-        }
-        else
-            deplacement = 0;
+        //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &pos);
+        SDL_BlitSurface(pion->imagePion, NULL, graphique.ecran, &pion ->posPion);
+       // updatePionsGraphique();
+        SDL_Flip( graphique.ecran );
+        //rafraichirGraphique();
 
     }
 }
@@ -1086,20 +1074,6 @@ void initCases(Plateau *plateau)
       //  printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
 
-    //initialisation des outGraphique
-    OutGraphique outG;
-
-    outG.valeur = 0;
-    outG.hauteur = 150;
-    outG.largeur = 50;
-    outG.posX = 20;
-    outG.posY = 200;
-
-    plateau ->outGraphique[0] = outG;
-
-    outG.posY = 400;
-    plateau ->outGraphique[1] = outG;
-
     //initialisation du bar
 
     Case case_b;
@@ -1116,6 +1090,28 @@ void initCases(Plateau *plateau)
     case_b.posY = 400;
 
     plateau ->barGraphique[1] = case_b;
+
+    //initialisation des outGraphique
+    OutGraphique outG;
+
+    outG.valeur = 0;
+    outG.hauteur = 150;
+    outG.largeur = 50;
+    outG.posX = 20;
+    outG.posY = 150;
+
+    case_b.posX = 20;
+    case_b.posY = 150;
+
+    outG.caseOut = case_b;
+
+    plateau ->outGraphique[0] = outG;
+
+    case_b.posY = 400;
+
+    outG.caseOut = case_b;
+    outG.posY = 400;
+    plateau ->outGraphique[1] = outG;
 
 }
 
@@ -1160,14 +1156,17 @@ int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
 
     }
 
-    i = 13;
-    for(i = 13; i <= 25; i++)//cases du haut
+    i = 12;
+    for(i = 12; i <= 25; i++)//cases du haut
     {
         if( i == 25)
             return 25;
-        case_b = plateau.tabCases[i];
-        if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY + case_b.hauteur && sourisY >= case_b.posY)
-            return i+1;
+        else{
+            case_b = plateau.tabCases[i];
+            if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY + case_b.hauteur && sourisY >= case_b.posY)
+                return i+1;
+        }
+
     }
 
     return -1;

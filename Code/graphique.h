@@ -33,6 +33,17 @@ typedef struct{
 
 typedef struct{
 
+    int posX;
+    int posY;
+    Pion tabPions[15];
+    int nbPions;
+    int hauteur;
+    int largeur;
+    SDL_Surface* imageCase;
+} Case;
+
+typedef struct{
+
     int valeur;
     int posX;
     int posY;
@@ -42,16 +53,7 @@ typedef struct{
 
 } OutGraphique;
 
-typedef struct{
 
-    int posX;
-    int posY;
-    Pion tabPions[15];
-    int nbPions;
-    int hauteur;
-    int largeur;
-    SDL_Surface* imageCase;
-} Case;
 
 typedef struct{
 
