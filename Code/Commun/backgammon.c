@@ -45,8 +45,8 @@ int main( int argc, char* argv[] ) {
 	}
 
 	// chargement par défaut
-	char* cheminLibrairie_1 = "./libJoueur.so";		// on charge un joueur réel
-	char* cheminLibrairie_2 = "./libJoueur.so";
+	char* cheminLibrairie_1 = "./Commun/libJoueur.so";		// on charge un joueur réel
+	char* cheminLibrairie_2 = "./Commun/libJoueur.so";
 
 
 	// on récupère les librairies entrées (qui sont optionnels)
