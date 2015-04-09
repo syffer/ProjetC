@@ -95,13 +95,15 @@ int DoubleStack( const SGameState * const gameState ) {
 
 	//if( gameState -> stake * 2 >= scoreAdverse ) return 0;
 
+	// on récupère le placement de nos pions par rapport à la sortie
 	int coefficientEloignementOut = getCoefficientEloignementOut( gameState, bot.maCouleur );
 	int coefficientEloignementOut_adverse = getCoefficientEloignementOut( gameState, getCouleurAdverse(bot.maCouleur) );
 
 	// si nos pions sont trop éloignés on ne double pas la mise
 	//if( coefficientEloignementOut > 90 ) return 0;
+	
 	// si nos pions sont près de la sortie et que ce n'est pas le cas de l'adversaire
-	if (coefficientEloignementOut_adverse>90 && coefficientEloignementOut<90) return 1;
+	if (coefficientEloignementOut_adverse<15 && coefficientEloignementOut==15) return 1;
 	else return 0;	// dans les autres cas on ne double pas la mise
 }
 
@@ -135,10 +137,22 @@ int TakeDouble( const SGameState * const gameState ) {
 
 	//if( monScore < scoreAdverse ) return 1;
 
+	// on récupère le placement de nos pions par rapport à la sortie
 	int coefficientEloignementOut = getCoefficientEloignementOut( gameState, bot.maCouleur );
 	int coefficientEloignementOut_adverse = getCoefficientEloignementOut( gameState, getCouleurAdverse(bot.maCouleur) );
 
-	if( coefficientEloignementOut > 90 ) {
+
+// à revoir => par exemple en cas de partie équilibrée si le doublement permet à l'adversaire de gagner ou non (position des pions && différences des scores)
+
+	if( coefficientEloignementOut<15 && coefficientEloignementOut_adverse==15 ) return 0 // l'adversaire est avantagé
+	else if (coefficientEloignementOut==15 && coefficientEloignementOut_adverse==15){ // cas où la partie est équibilibrée
+		if( gameState -> stake*2 >= scoreRestant_adverse ) return 0; // si cela peut permettre de faire gagner l'adversaire alors abandonné
+		else return 1; // sinon accepté
+	}
+	else if (coefficientEloignementOut==15) return 1; // on a l'avantage
+	else return 1; // sinon on accepte
+	
+	/*if( coefficientEloignementOut<90 ){
 		if( coefficientEloignementOut_adverse > 90 ) return 1;	// partie équilibrée
 		else return 0;		// l'adversaire a l'avantage 
 	}
@@ -146,7 +160,7 @@ int TakeDouble( const SGameState * const gameState ) {
 
 		if( coefficientEloignementOut_adverse > 90 ) return 1;	// j'ai l'avantage
 		else return 0;		// partie équilibrée
-	}	
+	}*/	
 }
 
 /**
