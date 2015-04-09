@@ -90,7 +90,7 @@ int DoubleStack( const SGameState * const gameState ) {
 	int scoreRestant = bot.scoreCible - monScore;
 	int scoreRestant_adverse = bot.scoreCible - scoreAdverse;
 
-	if( gameState -> stake * 2 >= scoreAdverse ) return 0;
+	//if( gameState -> stake * 2 >= scoreAdverse ) return 0;
 
 	int coefficientEloignementOut = getCoefficientEloignementOut( gameState, bot.maCouleur );
 	int coefficientEloignementOut_adverse = getCoefficientEloignementOut( gameState, getCouleurAdverse(bot.maCouleur) );

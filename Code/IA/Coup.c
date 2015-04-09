@@ -174,7 +174,7 @@ int comparerCoups_ProbabilitesPertePion( Coup* c1, Coup* c2 ) {
 // fonction qui compare deux coups en fonctions de plusieurs critères, permettant de définir quel coup est le moins dangereux
 int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
 
-	int comparaison = comparerCoups_nbMouvements( c1, c2 );		// on cherche le coup ayant le plus de mouvements possible en priorité
+	int comparaison = comparerCoups_nbMouvements( c1, c2 );		// on cherche le coup ayant le plus de mouvements possibles en priorité
 	if( comparaison != 0 ) return comparaison;
 
 	comparaison = comparerCoups_PionsSorties( c1, c2 );
@@ -200,8 +200,14 @@ int comparerCoups_Securitee( Coup* c1, Coup* c2 ) {
 
 
 int comparerCoups_BotParfait( Coup* c1, Coup* c2 ) {
+	
+	int comparaison = comparerCoups_nbMouvements( c1, c2 );		// on cherche le coup ayant le plus de mouvements possibles en priorité
+	if( comparaison != 0 ) return comparaison;
 
-	int comparaison = comparerCoups_CasesRepas(c1,c2);
+	comparaison = comparerCoups_PionsSorties( c1, c2 );
+	if( comparaison != 0 ) return comparaison;
+
+	comparaison = comparerCoups_CasesRepas(c1,c2);
 	if (comparaison != 0) return comparaison;
 
 	comparaison = comparerCoups_ProbabilitesPertePion( c1, c2 );
@@ -248,7 +254,7 @@ int comparerCoups_BotParfait( Coup* c1, Coup* c2 ) {
  * */
 int comparerAntiJeu( Coup* c1, Coup* c2 ) {
 
-	int comparaison = comparerCoups_nbMouvements( c1, c2 );		// on cherche le coup ayant le plus de mouvements possible en priorité
+	int comparaison = comparerCoups_nbMouvements( c1, c2 );		// on cherche le coup ayant le plus de mouvements possibles en priorité
 	if( comparaison != 0 ) return comparaison;
 
 	int nbPointsC1 = calculerCout( &(c1 -> gameState) );
