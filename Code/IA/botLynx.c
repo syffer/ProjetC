@@ -91,8 +91,6 @@ int DoubleStack( const SGameState * const gameState ) {
 	int scoreRestant_adverse = bot.scoreCible - scoreAdverse;
 	
 	// pas la peine de doubler mise si le nombre de points est déjà supérieur au score qu'il nous reste à atteindre
-	printf("_________________________________________________________________________________ %i\n",gameState->stake);
-	printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$ %i\n",scoreRestant);
 	if ( gameState -> stake >= scoreRestant) return 0;
 
 	//if( gameState -> stake * 2 >= scoreAdverse ) return 0;
@@ -106,6 +104,7 @@ int DoubleStack( const SGameState * const gameState ) {
 	
 	// si nos pions sont près de la sortie et que ce n'est pas le cas de l'adversaire
 	if (coefficientEloignementOut_adverse>0 && coefficientEloignementOut==0) return 1;
+	else if (coefficientEloignementOut_adverse>7 && coefficientEloignementOut<3) return 1;
 	else return 0;	// dans les autres cas on ne double pas la mise
 }
 
