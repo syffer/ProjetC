@@ -144,7 +144,7 @@ int TakeDouble( const SGameState * const gameState ) {
 
 // à revoir => par exemple en cas de partie équilibrée si le doublement permet à l'adversaire de gagner ou non (position des pions && différences des scores)
 
-	if( coefficientEloignementOut>0 && coefficientEloignementOut_adverse==0 ) return 0 // l'adversaire est avantagé
+	if( coefficientEloignementOut>0 && coefficientEloignementOut_adverse==0 ) return 0; // l'adversaire est avantagé
 	else if (coefficientEloignementOut==0 && coefficientEloignementOut_adverse==0){ // cas où la partie est équibilibrée
 		if( gameState -> stake*2 >= scoreRestant_adverse ) return 0; // si cela peut permettre de faire gagner l'adversaire alors abandonner
 		else return 1; // sinon accepter
