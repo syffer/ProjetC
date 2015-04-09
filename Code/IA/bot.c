@@ -1,15 +1,16 @@
+/*
+	Base pour la création d'un bot
+	Ce bot ne fait rien du tout
+*/
 
-#include "backgammon.h"
 #include <stdio.h>
 #include <string.h>
 
-//////////////////////////////////////////////////////////
-// Dans la librairie
-//
+#include "../Commun/backgammon.h"
+#include "ListeChainee.h"
+#include "fonctionsBot.h"
 
-unsigned int score;
-static Player maCouleur;
-
+static Bot bot;
 
 /**
  * Initialiser la librairie
@@ -17,11 +18,11 @@ static Player maCouleur;
  *	nom associé à la librairie
  */
 void InitLibrary( char name[50] ) {
-	strcpy(name,"AlphaBot");
-	score = 0;
-	maCouleur = NOBODY;
+	strcpy( bot.nom, "BaseBot" );
+	bot.maCouleur = NOBODY;
+	bot.scoreCible = 0;
+	strcpy( name, bot.nom );
 }
-
 
 /**
  * Initialiser l'IA pour un match
@@ -29,40 +30,27 @@ void InitLibrary( char name[50] ) {
  *	score cible pour gagner un match
  */
 void StartMatch( const unsigned int target_score ) {
-	score = target_score;
+	bot.scoreCible = target_score;
 }
-
 
 /**
  * Initialiser l'IA pour une manche (d'un match)
  */
 void StartGame(Player p) {
-	//printf("StartGame\n");
-	maCouleur = p;
+	bot.maCouleur = p;
 }
-
 
 /**
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	//printf("EndGame\n");
 }
-
 
 /**
  * Fin d'un match
  */
 void EndMatch() {
-	//printf("EndMatch\n");
-
-
-	///////////////////////////////////////////////
-	// LIBERATION PROPRE DE TOUTES LES RESSOURCES
-	//						TOUTES
-	///////////////////////////////////////////////
 }
-
 
 /**
  * Doubler la mise
@@ -72,10 +60,9 @@ void EndMatch() {
  *	vrai si on propose de doubler : faux sinon
  */
 int DoubleStack( const SGameState * const gameState ) {
-	printf("DoubleStack\n");
-	return(0);
+	// on ne double jamais la mise
+	return(0);		
 }
-
 
 /**
  * Accepter ou refuser la nouvelle mise
@@ -85,10 +72,9 @@ int DoubleStack( const SGameState * const gameState ) {
  *	vrai si on accepte la nouvelle mise ; faux sinon
  */
 int TakeDouble( const SGameState * const gameState ) {
-	//printf("TakeDouble\n");
+	// on ne refuse jamais la nouvelle mise
 	return(1);
 }
-
 
 /**
  * Prise de décision de la part de l'IA
@@ -99,17 +85,10 @@ int TakeDouble( const SGameState * const gameState ) {
  * @param unsigned int tries
  *	nombre d'essais restants (3 initialement).
  */
-void PlayTurn( const SGameState * const gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	printf("PlayTurn\n");
-
-
-	if( dices[0] == dices[1] ) {
-		printf("dedoublement des des/dices \n");
-	}
-
-
+void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
+	// on a enlever les 'const' de 'dameState' pour pouvoir le manipuler
+	*nbMove = 0;
 }
-
 
 
 

@@ -1,0 +1,24 @@
+### toutes parties
+=> correction commentaires  (pauline)
+
+### partie arbitre
+=> correction des erreurs   (titouan)
+=> ajouter les appels des fonctions graphiques  (titouan + cyril)
+=> modifier l'arbitre pour prendre en compte un joueur réel     (titouan + maxime)
+=> verification de TOUS les bots    (titouan + pauline)
+=> virer les printf inutiles    (titouan)
+=> ecrire dans un fichier log   (titouan)
+=> commenter bien   (titouan)
+
+### partie graphique 
+=> terminer la fonction déplacer un pion (selon un smove)   (cyril)
+=======> depuis le plateau
+=======> depuis la barre
+=======> vers le out 
+=======> virer la trainée 
+=> afficher les nombres d'essais des joueurs    (cyril)
+=> liberation des variables (TOUTES) SDL non utilisées avec SDL_FREESURFACE     (cyril + maxime)
+=> commenter    (cyril)
+=> virer parties inutiles   (cyril)
+
+### partie main		(done)
