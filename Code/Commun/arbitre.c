@@ -67,10 +67,6 @@ int remplirCase( Square board[], int laCase, int couleurJoueur, int nbDames ) {
 
 	board[laCase].owner = couleurJoueur;
 	board[laCase].nbDames = nbDames;
-	if(nbDames != 0){
-	remplirCaseX(laCase, couleurJoueur, nbDames);//mettre le nombre de pions qu'il faut dans chaque case !
-	}
-
 
 	return 0;
 }
@@ -180,7 +176,7 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
     int initialiserFenetre();
     updateScoreCibleGraphique(score);
 
-    int etatValide, continuerPartie = 1;//continuerPartie : boolean a 0 lorsque la partie est terminée
+    int continuerPartie = 1; //boolean a 0 lorsque la partie est terminée
 
 
     int i;
