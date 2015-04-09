@@ -7,10 +7,10 @@
 ===========================================================================
 
 Ce projet a été réalisé par :
-- Cyril CARON
-- Pauline HOULGATTE
-- Titouan PASQUET
-- Maxime PINEAU
+- Cyril CARON 				(gui)
+- Titouan PASQUET			(gui)
+- Pauline HOULGATTE			(ia)
+- Maxime PINEAU				(ia)
 
 Ce fichier contient les informations concernants les différentes stratégies
 du bot, les informations nécessaires à la compilation et l'exécution.
@@ -29,6 +29,15 @@ Sommaire :
 La compilation se fait via l'exécution du makefile : 
 - se rendre dans le dossier du Makefile
 - $make
+
+Vous pouvez également compiler les trois parties (commune, ia et graphique) de façon indépendante en utilisant les commandes suivantes:
+- $make gui
+- $make ia
+- $make commun
+
+Enfin, il est également possible de supprimer les fichiers temporaires, et tous les fichiers créés avec :
+- $make clean
+- $make reset
 
 2) Execution
 Le programme prend trois paramètres : 
