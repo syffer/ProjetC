@@ -38,6 +38,7 @@ typedef struct{
     int posY;
     int largeur;
     int hauteur;
+    Case caseOut;
 
 } OutGraphique;
 
@@ -60,6 +61,7 @@ typedef struct{
     int hauteur;
     int largeur;
     OutGraphique outGraphique[2];
+    Case barGraphique[2];
 
 } Plateau;
 
@@ -94,7 +96,7 @@ SDL_Rect positionnerPion(Case *case_pos, int numCase);
 void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);
-void deplacerPionVers(Pion *pion);
+void deplacerPionVers(Pion *pion, Case* case_dest);
 void updateOutGraphic(int numJoueur);
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau);
 void drawEmptyRect(SDL_Surface* surf,int posX, int posY, int width, int length, int R, int G, int B);
