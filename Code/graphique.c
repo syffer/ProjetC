@@ -543,13 +543,11 @@ void pause() {
                         move.dest_point = 25;
                         move.src_point = 12;
                         deplacerPionGraphique(move, WHITE);
-                       // updateOutGraphic(1);
                     break;
                     case SDLK_h:
                         move.dest_point = 25;
                         move.src_point = 13;
                         deplacerPionGraphique(move, BLACK);
-                       // updateOutGraphic(0);
                     break;
                     default:
 
@@ -658,7 +656,7 @@ void updateOutGraphic(int numJoueur)
     int hauteurARemplir = nbOut*epaisseurPion;
     SDL_Rect posOut;
 
-    SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, hauteurARemplir, 32, 0, 0, 0, 0);
+    SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 65, hauteurARemplir, 32, 0, 0, 0, 0);
     if(numJoueur == WHITE){
 
         SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 255, 255, 255));
@@ -797,7 +795,6 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                         graphique.plateau.barGraphique[couleur] = case_src;
                         graphique.plateau.tabCases[dest] = case_dest;
-
                     }
 
                 }
@@ -1042,20 +1039,20 @@ void initCases(Plateau *plateau)
     outG.valeur = 0;
     outG.hauteur = 150;
     outG.largeur = 50;
-    outG.posX = 40;
+    outG.posX = 25;
     outG.posY = 100;
 
-    case_b.posX = 40;
+    case_b.posX = 25;
     case_b.posY = 100;
 
     outG.caseOut = case_b;
 
     plateau ->outGraphique[0] = outG;
 
-    case_b.posY = 400;
+    case_b.posY = 450;
 
     outG.caseOut = case_b;
-    outG.posY = 400;
+    outG.posY = 450;
     plateau ->outGraphique[1] = outG;
 
 }
