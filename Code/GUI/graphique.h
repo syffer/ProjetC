@@ -61,14 +61,14 @@ typedef struct{
 
 
 
-int initialiserFenetre();
-void fermerFenetre();
-void initialiserPlateauGraphique( SGameState* gameState );
-void updateDesGraphique( unsigned char dices[2] );
+int initialiserFenetre(); //checked
+void fermerFenetre(); //checked
+void initialiserPlateauGraphique( SGameState* gameState ); //checked
+void updateDesGraphique( unsigned char dices[2] ); //checked
 void deplacerPionGraphique( SMove mouvement );
 void updateTourJoueurGraphique( Player joueur );
 void updateScoreJoueurBlanc(int score);
-void updateScoreJoueurNoir(int score);
+void updateScoreJoueurgameStateNoir(int score);
 void updateScoreCibleGraphique( int scoreCible );
 void updateMiseCouranteGraphique( int nouvelleMise );
 
