@@ -33,6 +33,16 @@ typedef struct{
 
 typedef struct{
 
+    int valeur;
+    int posX;
+    int posY;
+    int largeur;
+    int hauteur;
+
+} OutGraphique;
+
+typedef struct{
+
     int posX;
     int posY;
     Pion tabPions[15];
@@ -49,6 +59,7 @@ typedef struct{
     int out[2];
     int hauteur;
     int largeur;
+    OutGraphique outGraphique[2];
 
 } Plateau;
 
@@ -62,11 +73,12 @@ typedef struct{
 
 
 
+
 int initialiserFenetre();
 void fermerFenetre();
 void initialiserPlateauGraphique( SGameState* gameState );
 void updateDesGraphique( unsigned char dices[2] );
-void deplacerPionGraphique( SMove move );
+void deplacerPionGraphique(SMove move, Player couleur);
 void updateTourJoueurGraphique( Player joueur );
 void updateScoreJoueurBlanc(int score);
 void updateScoreJoueurNoir(int score);
