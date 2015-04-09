@@ -1,0 +1,7 @@
+// hors ajout de code
+
+==> corriger les commentaires
+==> renommer bot parfait en bot fusion
+==> supprimer le code inutile
+==> réaliser une documentation des fonctions
+==> renommer certaines fonctions

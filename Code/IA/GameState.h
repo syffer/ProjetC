@@ -35,7 +35,7 @@ double getProbabilitePerdreUnPion( SGameState* gameState, Player maCouleur ) ;
 void getEloignementsPointsNonSecurisees( SGameState* gameState, Player maCouleur, int eloignements[25] );
 double getProbabiliteeDeFaireUnDesDes( int valeurDes[25] );
 
-int getCoefficientEloignementOut( SGameState* gameState, Player maCouleur );
+int getEloignementOut( SGameState* gameState, Player maCouleur );
 
 int randomINT( int min, int max );
 

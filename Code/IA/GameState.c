@@ -445,9 +445,9 @@ int getNbPionsOrJarInterieur( SGameState* gameState, Player maCouleur ) {
 
 
 
-int getCoefficientEloignementOut( SGameState* gameState, Player maCouleur ) {
+int getEloignementOut( SGameState* gameState, Player maCouleur ) {
 	// déclaration des variables
-	int nbPions = 0;
+	int nbPions = 15;
 	Square laCase;
 	int i;
 	int j = (maCouleur==WHITE) ? 25 : 6;
@@ -463,16 +463,15 @@ int getCoefficientEloignementOut( SGameState* gameState, Player maCouleur ) {
 	for( i = j-6; i == j; i++ ) {
 		laCase = getCaseReelle( gameState, maCouleur, i );
 
-		if( caseEstAuJoueur(laCase,maCouleur) && casePossedeDesPions(laCase) ) coefficient++;
+		if( caseEstAuJoueur(laCase,maCouleur) && casePossedeDesPions(laCase) ) nbPions--;
 
 		/*if( maCouleur == BLACK && i == 0 ) eloignement = 25;	// la barre noire est la plus éloignée du out blanc (mais elle est représentée par 0)
 		else eloignement = abs( depart - i ); 
 
 		coefficient += laCase.nbDames * eloignement;*/
 	}
-	if (coefficient!=15) coefficient=15-coefficient;
 	
-	return coefficient;
+	return nbPions;
 }
 
 /**
