@@ -136,6 +136,9 @@ const SGameState const copierEtatJeux( SGameState* etatJeux ) {
 	}
 	copie.turn = etatJeux->turn;
 	copie.stake = etatJeux->stake;
+
+	copie.whiteScore = etatJeux->whiteScore;
+	copie.blackScore = etatJeux->blackScore;
 	//pour l'instant on copie que ça
 	return copie;
 }
