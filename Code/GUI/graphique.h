@@ -68,7 +68,7 @@ void updateDesGraphique( unsigned char dices[2] );
 void deplacerPionGraphique( SMove mouvement );
 void updateTourJoueurGraphique( Player joueur );
 void updateScoreJoueurBlanc(int score);
-void updateScoreJoueurgameStateNoir(int score);
+void updateScoreJoueurNoir(int score);
 void updateScoreCibleGraphique( int scoreCible );
 void updateMiseCouranteGraphique( int nouvelleMise );
 
