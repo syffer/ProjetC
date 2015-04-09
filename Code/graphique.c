@@ -6,10 +6,16 @@
 
 #include <math.h>
 
+
 #define HAUTEUR_FENETRE 1280
 #define LARGEUR_FENETRE 752
 
 #define TAILLE_TEXTE 30
+
+#define LARGEUR_CASE        84 // 84 px de large pour chaque case
+#define HAUTEUR_CASE        260
+#define NB_CASES_LARGEUR    12 // 12 cases de largeur
+
 
 struct Graphique {
 
@@ -356,6 +362,151 @@ void updateMiseCouranteGraphique( int nouvelleMise ) {
 
 }
 
+
+
+
+
+
+
+
+
+// pour libJoueur.h
+// retourne la position de la case graphique sélectionnée par l'utilisateur (avec la souris)
+int selectionnerCaseGraphique() {
+
+    // SDL event clic souris sur une des cases
+
+    return -1;
+}
+
+
+// retourne 1 si le joueur a cliqué sur "OUI", 0 sinon
+int getChoixUtilisateurGraphique() {
+
+
+    // sdl event clic souris sur bouton "YES/NO"
+    SDL_Event event;
+
+    int posX, posY;
+
+    while( 1 ) {
+
+        SDL_WaitEvent(&event);
+
+        switch(event.type) {
+
+            /*
+            case SDL_QUIT:
+                continuer = 0;
+                break;
+            */
+
+            case SDL_MOUSEBUTTONUP:
+
+                if (event.button.button == SDL_BUTTON_LEFT ) {
+
+                    posX = event.motion.x;
+                    posY = event.motion.y;
+
+                    /*
+                    if( ... <= posY && posY <= ... ) {
+
+                        if( ... <= posX && posX <= ... ) {      // bouton "OUI"
+                            return 1;
+                        }
+                        else if( ... <= posX && posX <= ... ) { // bouton "NON"
+                            return 0;
+                        }
+                        // sinon, on est pas dans l'une des zones des boutons
+
+                    }
+                    // sinon on est pas dans la zone des boutons
+                    */
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    return 0;
+}
+
+
+void ouvrirFenetreDoublerMiseGraphique( int miseCourante ) {
+    char message[50];
+    sprintf( message, "Mise actuelle : %i ", miseCourante );
+    creerFenetrePopup( message, "Voulez-vous doubler la mise ?" );
+}
+
+void ouvrirFenetreAccepterDoublerMise( int nouvelleMise ) {
+    char message[50];
+    sprintf( message, "Nouvelle mise : %i ", nouvelleMise );
+    creerFenetrePopup( message, "Acceptez-vous la nouvelle mise (le refus entraine un abandon de la partie en cours) ?" );
+}
+
+
+void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
+
+    // chargement de l'image
+    SDL_Surface* imagePopup = SDL_LoadBMP("./Images/popup.bmp");
+    if ( ! imagePopup ) {
+        printf("Impossible de charger l'image de la fenetre popup : %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
+
+    // création du texte de la fenêtre
+    SDL_Color couleurNoire = {0, 0, 0};
+    SDL_Surface* texteMessageMise = TTF_RenderText_Blended( graphique.police, messageMise, couleurNoire );
+    if ( ! texteMessageMise ) {
+        printf("Impossible de creer le texte de la fenetre popup : %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
+
+    SDL_Surface* texteMessageQuestion = TTF_RenderText_Blended( graphique.police, messageQuestion, couleurNoire );
+    if ( ! texteMessageQuestion ) {
+        printf("Impossible de creer le texte de la fenetre popup : %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
+
+
+    // affichage de la fenetre
+    SDL_Rect position;
+    position.x = 0;
+    position.y = 0;
+    SDL_BlitSurface( imagePopup, NULL, graphique.ecran, &position );
+
+    // affichage du texte de la fenetre
+    position.x = 0;
+    position.y = 0;
+    SDL_BlitSurface( texteMessageMise, NULL, graphique.ecran, &position );
+
+    position.x = 0;
+    position.y = 0;
+    SDL_BlitSurface( texteMessageQuestion, NULL, graphique.ecran, &position );
+
+
+    // liberation des ressources non utilisés
+    SDL_FreeSurface( texteMessageMise );
+    SDL_FreeSurface( texteMessageQuestion );
+    SDL_FreeSurface( imagePopup );
+
+
+    // mise à jour de l'écran
+    SDL_Flip( graphique.ecran );
+}
+
+
+
+
+
+
+
+
+
+
 /**
 * Met en pause le jeu en attendant un évènement
 */
@@ -433,6 +584,8 @@ void pause() {
     }
 }
 
+
+
 /**
 * retourne le chemin de l'image selon la valeur retournée par le lancement de dés
 */
@@ -457,223 +610,6 @@ char* retournerPathDe(char dice)
     }
 }
 
-
-// Permet d'afficher la fenêtre de jeu
-int afficherJeu()
-{
-
-    // Initialisation de la SDL
-    if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0 )
-    {
-        printf( "Impossible de démarrer la fenêtre SDL : %s\n", SDL_GetError() );
-        return 1;
-    }
-
-    //démarrage de la bibliothèque ttf pour écrire du texte
-    if(TTF_Init() == -1)
-    {
-    fprintf(stderr, "Erreur d'initialisation de TTF_Init : %s\n", TTF_GetError());
-    exit(EXIT_FAILURE);
-    }
-    // make sure SDL cleans up before exit
-    atexit(SDL_Quit);
-
-    const SDL_VideoInfo *videoInfo = SDL_GetVideoInfo();
-
-  // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(1280, 752, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
-    SDL_Surface* de1;
-    SDL_Surface* de2;
-
-    char* pathCompletDe1 = "./Images/Des/de1.bmp";
-    char* pathCompletDe2 = "./Images/Des/de1.bmp";
-    SDL_Event event;
-
-    Plateau s_plateau;
-
-    unsigned char dices[2];
-
-    if ( !screen )
-    {
-        printf("Impossible d'afficher l'écran : %s\n", SDL_GetError());
-        return 1;
-    }
-
-    // Titre de la fenêtre
-    SDL_WM_SetCaption("Backgammon", NULL);
-
-
-    // chargement de l'image du plateau
-    SDL_Surface* plateau = SDL_LoadBMP("./Images/plateau.bmp");
-
-    if (!plateau)
-    {
-        printf("Impossible de charger l'image bitmap: %s\n", SDL_GetError());
-        return 1;
-    }
-
-    // centrer l'image à l'écran
-    SDL_Rect dstrect;
-    dstrect.x = (screen->w - plateau->w) / 2;
-    dstrect.y = (screen->h - plateau->h) / 2;
-
-    SDL_Rect posDe1; // rect du dé1
-    SDL_Rect posDe2; // rect du dé2
-
-    //initialisation des dés
-    de1 = SDL_LoadBMP(pathCompletDe1);
-    de2 = SDL_LoadBMP(pathCompletDe2);
-
-    SDL_Rect posStake;
-    posStake.x = 80;
-    posStake.y = 300;
-
-    //mise courante de la partie
-    TTF_Font *stake = TTF_OpenFont("angelina.ttf", 30);
-
-    SDL_Color couleurNoire = {0, 0, 0};
-    SDL_Surface* s_stake;
-    s_stake = TTF_RenderGlyph_Blended(stake, "Blabla", couleurNoire);
-
-    // si impossible de charger les images des dés
-    if (!de1 || !de2)
-    {
-        printf("Impossible de charger l'image : %s", SDL_GetError());
-        return 1;
-    }
-
-    positionnerDes(&posDe1, &posDe2);
-    creerPlateau(&s_plateau);
-    //création des cases et affectation de leur position
-    initCases(&s_plateau);
-    //initPions(&s_plateau, etatJeux);
-    Pion p = creerPion(130, 100, "./Images/noir.bmp");
-    Pion p2 = creerPion(200, 200, "./Images/blanc.bmp");
-
-    s_plateau.tabCases[0].tabPions[0] = p;
-    s_plateau.tabCases[0].tabPions[1] = p2;
-    s_plateau.tabCases[0].nbPions = 2;
-
-
-
-    SDL_Surface *out1;
-
-    SDL_TimerID timer;
-    Deplacement deplacement;
-    deplacement.plateau = s_plateau;
-
-    //movePion(move, &s_plateau, tempsPrecedent);
-    SDL_SetColorKey(p.imagePion, SDL_SRCCOLORKEY, SDL_MapRGB(p.imagePion->format, 255, 255, 255));
-    SDL_SetColorKey(p2.imagePion, SDL_SRCCOLORKEY, SDL_MapRGB(p2.imagePion->format, 255, 255, 255));
-    // program main loop
-    int done = 0;
-
-
-    while (done != 1)
-    {
-        // message processing loop
-        SDL_WaitEvent(&event);
-
-            // Gestion des évènements
-            switch (event.type)
-            {
-                // sortie si on ferme la fenêtre
-            case SDL_QUIT:
-                done = 1;
-                break;
-
-                // check for keypresses
-            case SDL_KEYDOWN:
-                {
-                    switch(event.key.keysym.sym)
-                    {
-                        // si appui sur touche echap
-                        case SDLK_ESCAPE:
-                            done = 1;
-                        break;
-                        // si appui sur touche espace
-                        case SDLK_SPACE:
-                                lancerLesDes(dices);
-
-                            // on actualise le chemin de l'image des dés
-                            pathCompletDe1 = retournerPathDe(dices[0]);
-                            pathCompletDe2 = retournerPathDe(dices[1]);
-
-                            printf("%i - %i\n", dices[0], dices[1]);
-                            de1 = SDL_LoadBMP(pathCompletDe1);
-                            de2 = SDL_LoadBMP(pathCompletDe2);
-
-                        break;
-
-                        default:
-                            break;
-                    }
-                }
-                break;
-
-                case SDL_MOUSEBUTTONUP:
-                    if (event.button.button == SDL_BUTTON_LEFT)
-                    {
-                        SMove move;
-                        move.src_point = 1;
-                        move.dest_point = retournerNumCase(event.motion.x, event.motion.y, s_plateau)+1;
-
-                       // movePion(move, &s_plateau);
-
-                        deplacement.source = move.src_point;
-                        deplacement.dest = move.dest_point;
-
-                    }
-                break;
-
-            default:
-                break;
-        }
-
-
-        // Début de la partie pour redessiner les éléments
-        // réinitialisation de l'écran
-        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
-//        updateOutGraphic(out1, 1, &s_plateau, screen);
-
-        /*int numJoueur = -1;
-        out1 = SDL_CreateRGBSurface(SDL_HWSURFACE, 220, 180, 32, 0, 0, 0, 0);
-        if(numJoueur == WHITE)
-            SDL_FillRect(out1, 0, SDL_MapRGB(screen->format, 255, 255, 255));
-        else if(numJoueur == BLACK)
-            SDL_FillRect(out1, 0, SDL_MapRGB(screen->format, 0, 0, 0));*/
-
-        // on applique l'image de fond
-        SDL_BlitSurface(plateau, 0, screen, &dstrect);
-
-       // SDL_BlitSurface(out1, 0, screen, &dstrect);
-
-        SDL_BlitSurface(deplacement.plateau.tabCases[0].tabPions[0].imagePion, 0, screen, &deplacement.plateau.tabCases[0].tabPions[0].posPion);
-        SDL_BlitSurface(deplacement.plateau.tabCases[0].tabPions[1].imagePion, 0, screen, &deplacement.plateau.tabCases[0].tabPions[1].posPion);
-        //SDL_BlitSurface(p2.imagePion, 0, screen, &p2.posPion);
-
-        // on applique l'image des dés
-        SDL_BlitSurface(de1, 0, screen, &posDe1);
-        SDL_BlitSurface(de2, 0, screen, &posDe2);
-        SDL_BlitSurface(s_stake, NULL, plateau, &posStake);
-        // On met à jour l'écran
-        SDL_Flip(screen);
-    } // end main loop
-
-    // libération des surfaces
-    SDL_FreeSurface(plateau);
-    SDL_FreeSurface(de1);
-    SDL_FreeSurface(de2);
-    //freePlateau(&s_plateau);
-    SDL_FreeSurface(p.imagePion);
-    SDL_FreeSurface(p2.imagePion);
-    SDL_FreeSurface(s_stake);
-
-    TTF_CloseFont(stake); //fermeture dela police d'écriture
-    TTF_Quit();
-    printf("Terminé correctement\n");
-    return 0;
-}
 
 /**
 *Initialisation de la position des dés
@@ -929,6 +865,7 @@ void deplacerPionGraphique(SMove move, Player couleur)
             }
 
         }
+
         rafraichirGraphique();
     }
 }

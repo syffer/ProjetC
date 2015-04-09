@@ -24,6 +24,12 @@ int main( int argc, char* argv[] ) {
     //afficherJeu();
 	// lancerLesDes( dices );
 
+
+	pause();
+
+	ouvrirFenetreDoublerMiseGraphique(10);
+	    
+
 	pause();
 
 	updateMiseCouranteGraphique(12);

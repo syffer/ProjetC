@@ -1,28 +1,19 @@
 #ifndef _graphique
 	#define _graphique
 
+
+
 #include <SDL/SDL_ttf.h>
-#ifdef _WIN32
-	#include <SDL.h>
-
-#else
-	#include "SDL/SDL.h"
-#endif
-
 #include "backgammon.h"
 
-#ifndef DEF_CONSTANTES
-#define DEF_CONSTANTES
+#ifdef _WIN32
+    #include <SDL.h>
 
-    #define LARGEUR_CASE        84 // 84 px de large pour chaque case
-    #define HAUTEUR_CASE        260
-    #define NB_CASES_LARGEUR    12 // 12 cases de largeur
+#else
+    #include "SDL/SDL.h"
+#endif
 
-#endif // DEF_CONSTANTES
-int afficherJeu();
-char* retournerPathDe(char dice);
-void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
-void remplirCaseX(/*LA STRUCTURE MAGIQUE*/);
+
 
 typedef struct{
 
@@ -89,6 +80,17 @@ void updateScoreJoueurNoir(int score);
 void updateScoreCibleGraphique( int scoreCible );
 void updateMiseCouranteGraphique( int nouvelleMise );
 
+
+// pour libJoueur.h
+int selectionnerCaseGraphique();
+void ouvrirFenetreDoublerMiseGraphique( int miseCourante );
+void ouvrirFenetreAccepterDoublerMise( int nouvelleMise );
+int getChoixUtilisateurGraphique();
+void creerFenetrePopup( char* messageMise, char* messageQuestion );
+
+
+
+
 void pause();   // a virer plus tard
 
 
@@ -102,6 +104,10 @@ void deplacerPionVers(Pion *pion, Case* case_dest);
 void updateOutGraphic(int numJoueur);
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau);
 void drawEmptyRect(SDL_Surface* surf,int posX, int posY, int width, int length, int R, int G, int B);
+
+char* retournerPathDe(char dice);
+void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
+
 
 
 
