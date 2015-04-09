@@ -75,8 +75,34 @@ void EndMatch() {
  */
 int DoubleStack( const SGameState * const gameState ) {
 	printf("DoubleStack\n");
-	// on ne double jamais la mise
-	return(0);		
+	int monScore;
+	int scoreAdverse;
+
+	// on récupère les scores
+	if( bot.maCouleur == WHITE ) {
+		monScore = gameState -> whiteScore;
+		scoreAdverse = gameState -> blackScore;
+	}	
+	else {
+		monScore = gameState -> blackScore;
+		scoreAdverse = gameState -> whiteScore;
+	}
+
+	// on regarde les points manquants pour atteindre l'objectif
+	int scoreRestant = bot.scoreCible - monScore;
+	int scoreRestant_adverse = bot.scoreCible - scoreAdverse;
+	
+	// pas la peine de doubler mise si le nombre de points est déjà supérieur au score qu'il nous reste à atteindre
+	if ( gameState -> stake >= scoreRestant) return 0;
+
+	// on récupère le placement de nos pions par rapport à la sortie
+	int coefficientEloignementOut = getEloignementOut( gameState, bot.maCouleur );
+	int coefficientEloignementOut_adverse = getEloignementOut( gameState, getCouleurAdverse(bot.maCouleur) );
+
+	// si nos pions sont près de la sortie et que ce n'est pas le cas de l'adversaire ou si peu de nos pions sont éloignés
+	if (coefficientEloignementOut_adverse>0 && coefficientEloignementOut==0) return 1;
+	else if (coefficientEloignementOut_adverse>7 && coefficientEloignementOut<3) return 1;
+	else return 0;	// dans les autres cas on ne double pas la mise
 }
 
 /**
@@ -88,8 +114,37 @@ int DoubleStack( const SGameState * const gameState ) {
  */
 int TakeDouble( const SGameState * const gameState ) {
 	printf("TakeDouble\n");
-	// on ne refuse jamais la nouvelle mise
-	return(1);
+	int monScore;
+	int scoreAdverse;
+
+	// on récupère les scores
+	if( bot.maCouleur == WHITE ) {
+		monScore = gameState -> whiteScore;
+		scoreAdverse = gameState -> blackScore;
+	}	
+	else {
+		monScore = gameState -> blackScore;
+		scoreAdverse = gameState -> whiteScore;
+	}
+
+	// on récupère les points qu'ils manquent
+	int scoreRestant = bot.scoreCible - monScore;
+	int scoreRestant_adverse = bot.scoreCible - scoreAdverse;
+
+	if( gameState -> stake >= scoreRestant_adverse ) return 1;	// on n'abandonne pas une partie qui nous fait perdre le match
+
+	// on récupère le placement de nos pions par rapport à la sortie
+	int coefficientEloignementOut = getEloignementOut( gameState, bot.maCouleur );
+	int coefficientEloignementOut_adverse = getEloignementOut( gameState, getCouleurAdverse(bot.maCouleur) );
+
+	if( coefficientEloignementOut>0 && coefficientEloignementOut_adverse==0 ) return 0; // l'adversaire est avantagé
+	else if (coefficientEloignementOut==0 && coefficientEloignementOut_adverse==0){ // cas où la partie est équibilibrée
+		if( gameState -> stake*2 >= scoreRestant_adverse ) return 0; // si cela peut permettre de faire gagner l'adversaire alors abandonner
+		else return 1; // sinon accepter
+	}
+	else if (coefficientEloignementOut==0) return 1; // on a l'avantage
+	else if (coefficientEloignementOut<coefficientEloignementOut_adverse && coefficientEloignementOut<4) return 1; // si il nous reste moins de pions à ramener que l'adversaire et qu'ils sont peu nombreux
+	else return 0; // sinon on refuse
 }
 
 /**
@@ -116,7 +171,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 	// on cherche le meilleur coup
 	Coup meilleurCoup;
-	if( getDonneeMax( coups, comparerCoups_BotParfait, &meilleurCoup ) ) {		// si une erreur apparait, la liste est vide, et donc pas de coup possible
+	if( getDonneeMax( coups, comparerCoups_BotFusion, &meilleurCoup ) ) {		// si une erreur apparait, la liste est vide, et donc pas de coup possible
 		*nbMove = 0;
 		return;
 	}

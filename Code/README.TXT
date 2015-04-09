@@ -18,15 +18,16 @@ du bot, les informations nécessaires à la compilation et l'exécution.
 Sommaire :
 1) Compilation
 2) Execution
-3) Le fonctionnement des bots
+3) Organisation des fichiers
+4) Le fonctionnement des bots
 	a. botSimplet
 	b. botTricheur
 	c. botRandom
 	d. botAntiJeu
 	e. botLynx
 	f. botFusion
-4) Le fonctionnement pour un joueur réel
-5) Les problèmes non résolus
+5) Le fonctionnement pour un joueur réel
+6) Les problèmes non résolus
 
 
 1) Compilation
@@ -54,7 +55,15 @@ en mode "joueur réel".
 exemple : ./backgammon 5 IA/libBotLynx.so IA/libBotRandom.so
 
 
-3) Le fonctionnement des bots
+3) Organisation des fichiers
+Nous avons séparé ce projet en 3 sous dossiers :
+- IA : contient tous les fichiers concernant les librairies (bots)
+- GUI : contient tous les fichiers concernant l'affichage graphique du plateau (images...)
+- Commun : contient le fichier contenant le main(), la librairie du joueur réel, et les fichiers 
+relatifs aux chargements des librairies.
+
+
+4) Le fonctionnement des bots
 
 	a. botSimplet
 Ce bot est simpliste. Il ne prend pas en compte l'état du terrain (placement de 
@@ -86,10 +95,10 @@ Ce bot est une fusion des bots AntiJeu et Lynx. Il favorise la prise de pions
 adversaises et la sécurité des siens.
 
 
-4) Le fonctionnement pour un joueur réel
+5) Le fonctionnement pour un joueur réel
 
 
 
-5) Les problèmes non résolus
+6) Les problèmes non résolus
 
 
