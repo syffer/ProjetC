@@ -37,7 +37,8 @@ Commun/verifications.o: Commun/verifications.c Commun/verifications.h
 
 
 ################## IA
-ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotParfait.so IA/libJoueur.so
+ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotParfait.so 
+#IA/libJoueur.so
 
 
 ###### librairie joueur
