@@ -89,14 +89,20 @@ int DoubleStack( const SGameState * const gameState ) {
 	// on regarde les points manquants pour atteindre l'objectif
 	int scoreRestant = bot.scoreCible - monScore;
 	int scoreRestant_adverse = bot.scoreCible - scoreAdverse;
+	
+	// pas la peine de doubler mise si le nombre de points est déjà supérieur au score qu'il nous reste à atteindre
+	if ( gameState -> stake >= scoreRestant) return 0;
 
 	//if( gameState -> stake * 2 >= scoreAdverse ) return 0;
 
 	int coefficientEloignementOut = getCoefficientEloignementOut( gameState, bot.maCouleur );
 	int coefficientEloignementOut_adverse = getCoefficientEloignementOut( gameState, getCouleurAdverse(bot.maCouleur) );
 
-	if( coefficientEloignementOut > 90 ) return 0;
-	else return 1;	// on double la mise s'il n'y a plus beaucoup de pions
+	// si nos pions sont trop éloignés on ne double pas la mise
+	//if( coefficientEloignementOut > 90 ) return 0;
+	// si nos pions sont près de la sortie et que ce n'est pas le cas de l'adversaire
+	if (coefficientEloignementOut_adverse>90 && coefficientEloignementOut<90) return 1;
+	else return 0;	// dans les autres cas on ne double pas la mise
 }
 
 /**
