@@ -139,7 +139,7 @@ int TakeDouble( const SGameState * const gameState ) {
 	else {
 
 		if( coefficientEloignementOut_adverse > 90 ) return 1;	// j'ai l'avantage
-		else return 1;		// partie équilibrée
+		else return 0;		// partie équilibrée
 	}	
 }
 
