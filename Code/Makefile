@@ -11,11 +11,10 @@ all:: ia gui commun
 ################## Commun
 
 ##### creation de l'executable du jeu
-commun:: backgammon
+commun:: backgammon Commun/libJoueur.so
 
 backgammon: Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o
-	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o -o backgammon -ldl 
-	#`sdl-config --cflags --libs` -lSDL -lSDL_ttf
+	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o -o backgammon -ldl `sdl-config --cflags --libs` -lSDL -lSDL_ttf
 
 
 
@@ -32,32 +31,29 @@ Commun/verifications.o: Commun/verifications.c Commun/verifications.h
 	gcc $(CFLAGS) -c Commun/verifications.c -o Commun/verifications.o
 
 
+###### librairie joueur réel
+Commun/libJoueur.so: Commun/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so
+	gcc -shared Commun/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so -o Commun/libJoueur.so 
 
-
-
-
-################## IA
-ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotParfait.so IA/libJoueur.so
-
-
-###### librairie joueur
-IA/libJoueur.so: IA/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so
-	gcc -shared IA/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so -o IA/libJoueur.so 
-
-IA/libJoueur.o: IA/libJoueur.c 
-	gcc $(CFLAGS) -o IA/libJoueur.o -fpic -c IA/libJoueur.c 
+Commun/libJoueur.o: Commun/libJoueur.c 
+	gcc $(CFLAGS) -o Commun/libJoueur.o -fpic -c Commun/libJoueur.c 
 
 GUI/graphique_joueur.o: GUI/graphique.c GUI/graphique.h  
 	gcc $(CFLAGS) -o GUI/graphique_joueur.o -fpic -c GUI/graphique.c
 
 
 
-###### bot parfait
-IA/libBotParfait.so: IA/botParfait.o IA/fonctionsBot.so 
-	gcc -shared IA/botParfait.o IA/fonctionsBot.so -o IA/libBotParfait.so 
 
-IA/botParfait.o: IA/botParfait.c 
-	gcc $(CFLAGS) -o IA/botParfait.o -fpic -c IA/botParfait.c 
+################## IA
+ia:: IA/libBotTricheur.so IA/libBotRandom.so IA/libBotSimplet.so IA/libBotLynx.so IA/libBotAntiJeu.so IA/libBotFusion.so 
+
+
+###### bot parfait
+IA/libBotFusion.so: IA/botFusion.o IA/fonctionsBot.so 
+	gcc -shared IA/botFusion.o IA/fonctionsBot.so -o IA/libBotFusion.so 
+
+IA/botFusion.o: IA/botFusion.c 
+	gcc $(CFLAGS) -o IA/botFusion.o -fpic -c IA/botFusion.c 
 
 
 ###### bot anti jeu
