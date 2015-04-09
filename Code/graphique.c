@@ -259,8 +259,6 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
     int j;
     for(i = 0; i < 24; i++)//pour chaque Square
     {
-        Case case_b = graphique.plateau.tabCases[i];
-
         for(j = 0; j < gameState-> board[i].nbDames; j++) // pour chaque dame dans la case, on créé un pion et on l'ajoute à la case
         {
             Pion pion;
@@ -407,7 +405,7 @@ int selectionnerCaseGraphique() {
 
 // retourne 1 si le joueur a cliqué sur "OUI", 0 sinon
 int getChoixUtilisateurGraphique() {
-    
+
 
     // sdl event clic souris sur bouton "YES/NO"
     SDL_Event event;
@@ -524,7 +522,7 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
     // liberation des ressources non utilisés
     SDL_FreeSurface( texteMessageMise );
     SDL_FreeSurface( texteMessageQuestion );
-    SDL_FreeSurface( imagePopup );   
+    SDL_FreeSurface( imagePopup );
 
 
     // mise à jour de l'écran
@@ -548,10 +546,8 @@ void pause() {
     int continuer = 1;
     SDL_Event event;
 
-
-    unsigned char dices[2];
     SMove move;
-    int numCase;
+
     while (continuer) {
 
         SDL_WaitEvent(&event);
@@ -580,13 +576,11 @@ void pause() {
                         move.dest_point = 25;
                         move.src_point = 12;
                         deplacerPionGraphique(move, WHITE);
-                       // updateOutGraphic(1);
                     break;
                     case SDLK_h:
                         move.dest_point = 25;
                         move.src_point = 13;
                         deplacerPionGraphique(move, BLACK);
-                       // updateOutGraphic(0);
                     break;
                     default:
 
@@ -676,7 +670,6 @@ Pion creerPion(int posX, int posY, char* image)
 
 void updateOutGraphic(int numJoueur)
 {
-    int i;
     int epaisseurPion = 10;
 
     int nbOut;
@@ -696,7 +689,7 @@ void updateOutGraphic(int numJoueur)
     int hauteurARemplir = nbOut*epaisseurPion;
     SDL_Rect posOut;
 
-    SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 30, hauteurARemplir, 32, 0, 0, 0, 0);
+    SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 65, hauteurARemplir, 32, 0, 0, 0, 0);
     if(numJoueur == WHITE){
 
         SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 255, 255, 255));
@@ -754,7 +747,7 @@ SDL_Rect positionnerPion(Case *case_pos, int numCase){
 */
 void deplacerPionGraphique(SMove move, Player couleur)
 {
-    if(move.src_point != move.dest_point)
+    if(move.src_point != move.dest_point && move.src_point != 25)
     {
         if(move.dest_point >=0)
         {
@@ -779,8 +772,6 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                     if(nbPionsSrc > 0)
                     {
-                        //transfert du pion d'une case à une autre
-                        Pion pion = case_src.tabPions[nbPionsSrc-1];
 
                         graphique.plateau.tabCases[src] = case_src;
                         graphique.plateau.barGraphique[couleur] = case_dest;
@@ -817,8 +808,6 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                     if(nbPionsSrc > 0)
                     {
-                        //transfert du pion d'une case à une autre
-                        Pion pion = case_src.tabPions[nbPionsSrc-1];
 
                         graphique.plateau.barGraphique[couleur] = case_src;
                         graphique.plateau.tabCases[dest] = case_dest;
@@ -839,7 +828,6 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                         graphique.plateau.barGraphique[couleur] = case_src;
                         graphique.plateau.tabCases[dest] = case_dest;
-
                     }
 
                 }
@@ -847,9 +835,34 @@ void deplacerPionGraphique(SMove move, Player couleur)
             }//bar
             else if(dest == 25) // out
             {
-                graphique.plateau.tabCases[src-1].nbPions --;
-                graphique.plateau.out[couleur] ++; // on ajoute 1 dans le comteur des pions sortis du joueur
-                updateOutGraphic(couleur);
+                int nbDames = graphique.plateau.tabCases[src - 1].nbPions -1;
+
+                Case case_src = graphique.plateau.tabCases[src - 1];
+                Case case_dest = graphique.plateau.outGraphique[couleur].caseOut;
+                case_dest.nbPions = 0;
+                //graphique.plateau.tabCases[src-1].nbPions --;
+
+                int nbPionsSrc = case_src.nbPions;
+
+               // graphique.plateau.outGraphique[couleur].caseOut.nbPions ++;
+                if(nbPionsSrc > 0)
+                {
+                    //déplacement du pion vers le out
+                    deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
+
+                    //on diminue le nombre de pions de la source
+                    case_src.nbPions --;
+
+                    case_dest.tabPions[0] = case_src.tabPions[nbPionsSrc-1]; // on affecte tout le temps à la première case du tableau le pion que l'on veut retirer
+
+                    graphique.plateau.tabCases[src-1] = case_src;
+                    graphique.plateau.outGraphique[couleur].caseOut = case_dest;
+
+                    graphique.plateau.out[couleur] ++; // on ajoute 1 dans le compteur des pions sortis du joueur
+                    freePion(&graphique.plateau.tabCases[src -1].tabPions[nbDames]); // on libère la surface du pion
+                    updateOutGraphic(couleur);
+                }
+
             }
             else{
 
@@ -867,8 +880,6 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                 if(nbPionsSrc > 0)
                 {
-                    //transfert du pion d'une case à une autre
-                    Pion pion = case_src.tabPions[nbPionsSrc-1];
 
                     graphique.plateau.tabCases[src] = case_src;
                     graphique.plateau.tabCases[dest] = case_dest;
@@ -922,7 +933,6 @@ void deplacerPionVers(Pion *pion, Case* case_dest)
     int distanceY = fabs(pion->posPion.y - y);
 
     int incrementPos = 1;
-    int deplacement = 1;
 
     while(distanceX > 1 || distanceY > 1)
     {
@@ -1062,20 +1072,20 @@ void initCases(Plateau *plateau)
     outG.valeur = 0;
     outG.hauteur = 150;
     outG.largeur = 50;
-    outG.posX = 20;
-    outG.posY = 150;
+    outG.posX = 25;
+    outG.posY = 100;
 
-    case_b.posX = 20;
-    case_b.posY = 150;
+    case_b.posX = 25;
+    case_b.posY = 100;
 
     outG.caseOut = case_b;
 
     plateau ->outGraphique[0] = outG;
 
-    case_b.posY = 400;
+    case_b.posY = 450;
 
     outG.caseOut = case_b;
-    outG.posY = 400;
+    outG.posY = 450;
     plateau ->outGraphique[1] = outG;
 
 }
@@ -1089,14 +1099,20 @@ void creerPlateau(Plateau *plateau)
     plateau -> largeur = 1270;
 }
 
-
+/**
+* Libère la surface d'un pion
+*/
+void freePion(Pion *pion)
+{
+    SDL_FreeSurface(pion ->imagePion);
+}
 /**
 * Retourne le numéro de la case dans laquelle on clique
 */
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
 {
     int i;
-    int numCase;
+
     Case case_b;
 
     for(i = 0; i <= 12; i++) //cases du bas
@@ -1147,12 +1163,11 @@ void surlignerCase(int numCase)
     drawEmptyRect(graphique.plateau.tabCases[numCase-1].imageCase, x, y, hauteur, largeur, 0,255,0 );
 
     SDL_Rect posCase;
-    SDL_Rect posEcran;
+
     posCase.x = graphique.plateau.tabCases[numCase].posX;
     posCase.y = graphique.plateau.tabCases[numCase].posY;
 
-    posEcran.x = 0;
-    posEcran.y = 0;
+
     SDL_BlitSurface(graphique.plateau.tabCases[numCase].imageCase, NULL, graphique.fond, &posCase);
     //rafraichirGraphique();
     //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &posEcran);
