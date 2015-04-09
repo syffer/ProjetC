@@ -870,31 +870,32 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
          printf("move : src = %i, dest = %i\n", move.src_point, move.dest_point);
 
-        if(move.dest_point >=0 && move.src_point > 0)
+        if(move.dest_point >=0 && move.src_point >= 0)
         {
             int src = move.src_point;
             int dest = move.dest_point;
 
 
-    // pas de déplacement si déplacement sur lui même et pas de déplacement venant du out
-    if( move.src_point == move.dest_point ) return;
-    if( move.src_point == 25 ) return;
+        // pas de déplacement si déplacement sur lui même et pas de déplacement venant du out
+        if( move.src_point == move.dest_point ) return;
+        if( move.src_point == 25 ) return;
 
 
-    if( move.dest_point == -1 ) {
-        printf("___________ arrivee trop petit \n ");
-        return;
-    }
+        if( move.dest_point == -1 ) {
+            printf("___________ arrivee trop petit \n ");
+            return;
+        }
 
-    if( move.src_point == -1 ) {
-        printf(" _____________depart trop petit \n");
-        return;
-    }
+        if( move.src_point == -1 ) {
+            printf(" _____________depart trop petit \n");
+            return;
+        }
 
-    printf("OK\n");
+        printf("OK\n");
 
 
-    if( move.dest_point >= 0 && move.src_point >= 0 ) {
+        if( move.dest_point >= 0 && move.src_point >= 0 )
+        {
 
         int src = move.src_point;
         int dest = move.dest_point;
@@ -1010,7 +1011,8 @@ void deplacerPionGraphique(SMove move, Player couleur)
             }
 
         }
-        else{
+        else
+        {
 
             //on décrémente la source et la destination pour correspondre avec les bonnes valeurs du tableau
             src --;
@@ -1054,8 +1056,10 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
         }
         rafraichirGraphique();
-    }
+        }
+        }
 
+    }
 }
 
 /**
