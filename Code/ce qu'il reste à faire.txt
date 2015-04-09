@@ -1,9 +1,41 @@
-// hors ajout de code
+### toutes parties
+=> correction commentaires  (pauline)
+=> réaliser une documentation des fonctions (???)
+=> déplacer les fichiers dans les bons répertoires (maxime)
+======> corriger le make en conséquence et les imports
 
-==> corriger les commentaires (pauline)
-==> renommer bot parfait en bot fusion (maxime)
+### partie arbitre
+=> correction des erreurs   (titouan)
+=> ajouter les appels des fonctions graphiques  (titouan + cyril)
+=> modifier l'arbitre pour prendre en compte un joueur réel     (titouan + maxime)
+=> verification de TOUS les bots    (titouan + pauline)
+=> virer les printf inutiles    (titouan)
+=> ecrire dans un fichier log   (titouan)
+=> commenter bien   (titouan)
+
+### partie IA
+=> le videau à terminer     (pauline)
+=====> double
+=====> take 
+=====> copier/coller les fonctions dans les fichiers de bots correspondants (Fusion)
+=> terminer bot parfait     (pauline)
+=> renommer bot parfait en "botFusion"      (maxime)
+=> commenter (pauline & maxime)
 ==> supprimer le code inutile (pauline)
-==> réaliser une documentation des fonctions (???)
 ==> renommer certaines fonctions (???)
 
-==> corriger arbitre (titouan)
+### partie graphique 
+=> terminer la fonction déplacer un pion (selon un smove)   (cyril)
+=======> depuis le plateau
+=======> depuis la barre
+=======> vers le out 
+=======> virer la trainée 
+=> afficher les nombres d'essais des joueurs    (cyril)
+=> liberation des variables (TOUTES) SDL non utilisées avec SDL_FREESURFACE     (cyril + maxime)
+=> textes à repositionner   (cyril)
+=> commenter    (cyril)
+=> virer parties inutiles   (cyril)
+
+### partie main
+=> modifier pour prendre en compte les joueur réel      (maxime)
+=> modifier les fichiers par défaut (les mettre en joueur réel)     (maxime)
