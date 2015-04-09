@@ -412,7 +412,7 @@ int selectionnerCaseGraphique() {
             case SDL_QUIT:
                 return 0;
                 break;
-            
+
             case SDL_MOUSEBUTTONUP:
 
                 if (event.button.button == SDL_BUTTON_LEFT ) {
@@ -457,12 +457,6 @@ int getChoixUtilisateurGraphique() {
             case SDL_QUIT:
                 return 0;
                 break;
-<<<<<<< HEAD
-
-
-=======
-            
->>>>>>> origin/graphique
             case SDL_MOUSEBUTTONUP:
 
                 if (event.button.button == SDL_BUTTON_LEFT ) {
@@ -1100,7 +1094,7 @@ void initCases(Plateau *plateau)
     plateau ->barGraphique[0] = case_b;
 
     case_b.posX = 650;
-    case_b.posY = 400;
+    case_b.posY = 500;
 
     plateau ->barGraphique[1] = case_b;
 

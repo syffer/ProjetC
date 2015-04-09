@@ -20,25 +20,20 @@ int main( int argc, char* argv[] ) {
 	initialiserPlateau( gameState.board );
 	initialiserFenetre();
     initialiserPlateauGraphique(&gameState);
-
+    lancerLesDes(dices);
+    updateDesGraphique( dices );
     //afficherJeu();
 	// lancerLesDes( dices );
 
-
 	ouvrirFenetreDoublerMiseGraphique(10);
 	getChoixUtilisateurGraphique();
-	ouvrirFenetreAccepterDoublerMise(100);    
+	ouvrirFenetreAccepterDoublerMise(100);
 	getChoixUtilisateurGraphique();
 
 	updateMiseCouranteGraphique(12);
 
 	int numCase = selectionnerCaseGraphique();
 
-
-	/*
-	pause();
-
-	
 
 	pause();
 
@@ -49,7 +44,7 @@ int main( int argc, char* argv[] ) {
 
 	pause();
 
-	*/
+
 
 	fermerFenetre();
 
