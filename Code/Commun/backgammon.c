@@ -10,8 +10,29 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <unistd.h>	// dup2()
+#include <fcntl.h> 	// open()
+
 
 int main( int argc, char* argv[] ) {
+
+	/*
+	*	Création du fichier de log (redirection de la sortie standard vers se fichier)
+	*/
+	int fichier_log = open( "./backgammon.log", O_WRONLY | O_APPEND | O_CREAT , S_IRWXU | S_IRWXG | S_IRWXO );
+	if( fichier_log == -1 ) {
+		printf(" Erreur lors de l'ouverture ou la création du fichier de log.\n");
+		exit( EXIT_FAILURE );
+	}
+
+	// redirection de la sortie standard vers le fichier log
+	if( dup2( fichier_log, STDOUT_FILENO ) == -1 ) {
+		printf(" Erreur lors de la redirection de la sortie standard vers le fichier log \n");
+		exit( EXIT_FAILURE );
+	}
+	
+
+
 
 	/*
 	*	vérification des paramètres entrés par l'utilisateur
