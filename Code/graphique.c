@@ -418,11 +418,11 @@ int getChoixUtilisateurGraphique() {
 
         switch(event.type) {
 
-            
+
             case SDL_QUIT:
                 return 0;
                 break;
-            
+
 
             case SDL_MOUSEBUTTONUP:
 
@@ -438,7 +438,7 @@ int getChoixUtilisateurGraphique() {
 
                         if( ZONE_CLIC_X_YES_INF <= posX && posX <= ZONE_CLIC_X_YES_SUP ) {      // bouton "OUI"
                             return 1;
-                        }   
+                        }
                         else if( ZONE_CLIC_X_NO_INF <= posX && posX <= ZONE_CLIC_X_NO_SUP ) { // bouton "NON"
                             return 0;
                         }
@@ -446,7 +446,7 @@ int getChoixUtilisateurGraphique() {
 
                     }
                     // sinon on est pas dans la zone des boutons
-                    
+
                 }
 
                 break;
@@ -747,6 +747,8 @@ SDL_Rect positionnerPion(Case *case_pos, int numCase){
 */
 void deplacerPionGraphique(SMove move, Player couleur)
 {
+    printf("SOURCE : %i, DESTINATION : %i\n", move.src_point, move.dest_point);
+
     if(move.src_point != move.dest_point && move.src_point != 25)
     {
         if(move.dest_point >=0)
@@ -770,7 +772,7 @@ void deplacerPionGraphique(SMove move, Player couleur)
                     int nbPionsSrc = case_src.nbPions; //nombre de pions dans la case source
                     int nbPionsDest = case_dest.nbPions; // nombre de pions dans la case destination
 
-                    if(nbPionsSrc > 0)
+                    if(nbPionsSrc > 0 && nbPionsDest < 15)
                     {
 
                         graphique.plateau.tabCases[src] = case_src;
@@ -796,7 +798,7 @@ void deplacerPionGraphique(SMove move, Player couleur)
                     }
                 }
 
-                else if(src == 0) // on sort le pion du bar
+                else if(src == 0 && dest != 25) // on sort le pion du bar
                 {
                     dest --;
 
@@ -1053,7 +1055,7 @@ void initCases(Plateau *plateau)
 
     Case case_b;
 
-    case_b.hauteur = HAUTEUR_CASE;
+    case_b.hauteur = HAUTEUR_CASE *2;
     case_b.largeur = LARGEUR_CASE;
     case_b.nbPions = 0;
     case_b.posX = 650;
@@ -1122,13 +1124,13 @@ int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
                 //bar du haut
             if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
                 return 0;
-            else{
+            else{ // bar du bas
                 case_b = plateau.barGraphique[1];
                 if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
                     return 0;
             }
         }
-        else{
+        else{ // on calcule la position pour les cases normales du bas
             case_b = plateau.tabCases[i-1];
             if(sourisX >= case_b.posX &&
             sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY && sourisY >= case_b.posY - case_b.hauteur)
@@ -1140,9 +1142,19 @@ int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
     i = 12;
     for(i = 12; i <= 25; i++)//cases du haut
     {
-        if( i == 25)
-            return 25;
-        else{
+        if( i == 25){
+            case_b = plateau.outGraphique[0].caseOut;
+                //out du haut
+            if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
+                return 25;
+            else
+            { // out du bas
+                case_b = plateau.outGraphique[1].caseOut;
+                if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
+                    return 25;
+            }
+        }
+        else{ // on calcule la position pour les cases normales du haut
             case_b = plateau.tabCases[i];
             if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY <= case_b.posY + case_b.hauteur && sourisY >= case_b.posY)
                 return i+1;
