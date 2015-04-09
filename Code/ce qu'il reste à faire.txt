@@ -5,3 +5,5 @@
 ==> supprimer le code inutile (pauline)
 ==> réaliser une documentation des fonctions (???)
 ==> renommer certaines fonctions (???)
+
+==> corriger arbitre (titouan)
