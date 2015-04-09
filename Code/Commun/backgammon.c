@@ -1,4 +1,7 @@
+/*
+	Fichier contenant la fonction main du programme.
 
+*/
 #include "verifications.h"
 #include "joueur.h"
 #include "arbitre.h"
@@ -20,15 +23,21 @@ int main( int argc, char* argv[] ) {
 		exit( EXIT_FAILURE );
 	}
 
-
-	char* cheminLibrairie_1 = "./IA/libBotSimplet.so";	// chargement par défaut
-	char* cheminLibrairie_2 = "./IA/libBotSimplet.so";
+	// chargement par défaut
+	char* cheminLibrairie_1 = "./libJoueur.so";		// on charge un joueur réel
+	char* cheminLibrairie_2 = "./libJoueur.so";
 
 
 	// on récupère les librairies entrées (qui sont optionnels)
-	if( argc >= 3 ) cheminLibrairie_1 = argv[2];
-	if( argc >= 4 ) cheminLibrairie_2 = argv[3];
-
+	int estUnBot[2] = {0};
+	if( argc >= 3 ) {
+		estUnBot[ BLACK ] = 1;
+		cheminLibrairie_1 = argv[2];
+	}
+	if( argc >= 4 ) {
+		estUnBot[ WHITE ] = 1;
+		cheminLibrairie_2 = argv[3];
+	}
 
 
 	// on récupère le nombre de parties à jouer
@@ -45,34 +54,20 @@ int main( int argc, char* argv[] ) {
 	char librairie_1[ tailleLibrairie_1 + 10 ]; 	// "./" + chemin + ".copy"
 	char librairie_2[ tailleLibrairie_2 + 10 ];
 
-	printf(" librairies avant changements : \n");
-	printf(" - %s \n", cheminLibrairie_1);
-	printf(" - %s \n", cheminLibrairie_2);
-	printf(" - %s \n", librairie_1);
-	printf(" - %s \n", librairie_2);
-
-
-	int librairie_copiee;
+	int librairie_copiee;	// est à vrai si une librairie a été copiée
 	if( verifierLibrairies( cheminLibrairie_1, cheminLibrairie_2, librairie_1, librairie_2, &librairie_copiee ) ) {
 		printf( " Erreur lors de la copie de la librairie. \n" );
-
-		printf("\n librairies apres changements : \n");
-		printf(" - %s \n", cheminLibrairie_1);
-		printf(" - %s \n", cheminLibrairie_2);
-		printf(" - %s \n", librairie_1);
-		printf(" - %s \n", librairie_2);
-
 		exit( EXIT_FAILURE );
 	}
 
 
 
 	// chargement des joueurs
-	Joueur joueur1 = chargerJoueur( librairie_1 );
-	Joueur joueur2 = chargerJoueur( librairie_2 );
+	Joueur joueurs[2];
+	joueurs[ BLACK ] = chargerJoueur( librairie_1 );
+	joueurs[ WHITE ] = chargerJoueur( librairie_2 );
 
-
-	jouerPartie( nbPoints, joueur1, joueur2 );
+	jouerPartie( nbPoints, joueurs, estUnBot );
 
 
 	/*

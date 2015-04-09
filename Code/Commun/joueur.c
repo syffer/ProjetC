@@ -1,5 +1,10 @@
+/*
+	Fichier contenant toutes les fonctions concernant le chargement des libraires.
+	Les fonctions d'une librairie chargée seront stockées dans une structure Joueur, 
+	celle-ci ne contient que des pionteurs de fonctions.
 
 
+*/
 
 #include "joueur.h"
 
@@ -80,6 +85,7 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 
 
 #ifdef _WIN32
+	// la fonction dlerror() n'a pas d'équivalent sur windows, il faut la fabriquer manuellement
     char* getError() {
 
 		DWORD errorMessageID = GetLastError();

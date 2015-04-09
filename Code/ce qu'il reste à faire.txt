@@ -18,12 +18,11 @@
 =====> double
 =====> take 
 =====> copier/coller les fonctions dans les fichiers de bots correspondants (Fusion)
-=> terminer bot parfait     (pauline)
-=> renommer bot parfait en "botFusion"      (maxime)
+=> terminer bot fusion     (pauline)
 ==> renommer certaines fonctions (???)
 
 => commenter (pauline & maxime)
--- .c - bot / botantijeu / botlynx / botfusion / botrandom / botsimplet / coup / fonctionsBot / gameState
+-- .c - botantijeu / botlynx / botfusion / botrandom / botsimplet / coup / fonctionsBot / gameState
 -- .h - coup /fonctionsBot / gameState
 ==> supprimer le code inutile (pauline)
 
@@ -35,10 +34,7 @@
 =======> virer la trainée 
 => afficher les nombres d'essais des joueurs    (cyril)
 => liberation des variables (TOUTES) SDL non utilisées avec SDL_FREESURFACE     (cyril + maxime)
-=> textes à repositionner   (cyril)
 => commenter    (cyril)
 => virer parties inutiles   (cyril)
 
-### partie main
-=> modifier pour prendre en compte les joueur réel      (maxime)
-=> modifier les fichiers par défaut (les mettre en joueur réel)     (maxime)
+### partie main		(done)
