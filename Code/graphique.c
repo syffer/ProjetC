@@ -6,10 +6,16 @@
 
 #include <math.h>
 
+
 #define HAUTEUR_FENETRE 1280
 #define LARGEUR_FENETRE 752
 
 #define TAILLE_TEXTE 30
+
+#define LARGEUR_CASE        84 // 84 px de large pour chaque case
+#define HAUTEUR_CASE        260
+#define NB_CASES_LARGEUR    12 // 12 cases de largeur
+
 
 struct Graphique {
 
@@ -350,24 +356,138 @@ void updateMiseCouranteGraphique( int nouvelleMise ) {
 
 
 
+
+
 // pour libJoueur.h
 // retourne la position de la case graphique sélectionnée par l'utilisateur (avec la souris)
 int selectionnerCaseGraphique() {
+
+    // SDL event clic souris sur une des cases
+
     return -1;
 }
 
-void ouvrirFenetreDoublerMiseGraphique() {
-
-}
-
-void ouvrirFenetreAccepterDoublerMise() {
-
-}
 
 // retourne 1 si le joueur a cliqué sur "OUI", 0 sinon
 int getChoixUtilisateurGraphique() {
+    
+
+    // sdl event clic souris sur bouton "YES/NO"
+    SDL_Event event;
+
+    int posX, posY;
+
+    while( 1 ) {
+
+        SDL_WaitEvent(&event);
+
+        switch(event.type) {
+
+            /*
+            case SDL_QUIT:
+                continuer = 0;
+                break;
+            */
+
+            case SDL_MOUSEBUTTONUP:
+
+                if (event.button.button == SDL_BUTTON_LEFT ) {
+
+                    posX = event.motion.x;
+                    posY = event.motion.y;
+
+                    /*
+                    if( ... <= posY && posY <= ... ) {
+
+                        if( ... <= posX && posX <= ... ) {      // bouton "OUI"
+                            return 1;
+                        }   
+                        else if( ... <= posX && posX <= ... ) { // bouton "NON"
+                            return 0;
+                        }
+                        // sinon, on est pas dans l'une des zones des boutons
+
+                    }
+                    // sinon on est pas dans la zone des boutons
+                    */
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
+
     return 0;
 }
+
+
+void ouvrirFenetreDoublerMiseGraphique( int miseCourante ) {
+    char message[50];
+    sprintf( message, "Mise actuelle : %i ", miseCourante );
+    creerFenetrePopup( message, "Voulez-vous doubler la mise ?" );
+}
+
+void ouvrirFenetreAccepterDoublerMise( int nouvelleMise ) {
+    char message[50];
+    sprintf( message, "Nouvelle mise : %i ", nouvelleMise );
+    creerFenetrePopup( message, "Acceptez-vous la nouvelle mise (le refus entraine un abandon de la partie en cours) ?" );
+}
+
+
+void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
+
+    // chargement de l'image
+    SDL_Surface* imagePopup = SDL_LoadBMP("./Images/popup.bmp");
+    if ( ! imagePopup ) {
+        printf("Impossible de charger l'image de la fenetre popup : %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
+
+    // création du texte de la fenêtre
+    SDL_Color couleurNoire = {0, 0, 0};
+    SDL_Surface* texteMessageMise = TTF_RenderText_Blended( graphique.police, messageMise, couleurNoire );
+    if ( ! texteMessageMise ) {
+        printf("Impossible de creer le texte de la fenetre popup : %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
+
+    SDL_Surface* texteMessageQuestion = TTF_RenderText_Blended( graphique.police, messageQuestion, couleurNoire );
+    if ( ! texteMessageQuestion ) {
+        printf("Impossible de creer le texte de la fenetre popup : %s\n", SDL_GetError());
+        exit(EXIT_FAILURE);
+    }
+
+
+    // affichage de la fenetre
+    SDL_Rect position;
+    position.x = 0;
+    position.y = 0;
+    SDL_BlitSurface( imagePopup, NULL, graphique.ecran, &position );
+
+    // affichage du texte de la fenetre
+    position.x = 0;
+    position.y = 0;
+    SDL_BlitSurface( texteMessageMise, NULL, graphique.ecran, &position );
+
+    position.x = 0;
+    position.y = 0;
+    SDL_BlitSurface( texteMessageQuestion, NULL, graphique.ecran, &position );
+
+
+    // liberation des ressources non utilisés
+    SDL_FreeSurface( texteMessageMise );
+    SDL_FreeSurface( texteMessageQuestion );
+    SDL_FreeSurface( imagePopup );   
+
+
+    // mise à jour de l'écran
+    SDL_Flip( graphique.ecran );
+}
+
+
+
 
 
 

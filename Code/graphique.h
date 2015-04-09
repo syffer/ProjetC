@@ -15,12 +15,6 @@
 
 
 
-#define LARGEUR_CASE        84 // 84 px de large pour chaque case
-#define HAUTEUR_CASE        260
-#define NB_CASES_LARGEUR    12 // 12 cases de largeur
-
-
-
 typedef struct{
 
     SDL_Rect posPion;
@@ -85,9 +79,11 @@ void updateMiseCouranteGraphique( int nouvelleMise );
 
 // pour libJoueur.h
 int selectionnerCaseGraphique();
-void ouvrirFenetreDoublerMiseGraphique();
-void ouvrirFenetreAccepterDoublerMise();
+void ouvrirFenetreDoublerMiseGraphique( int miseCourante );
+void ouvrirFenetreAccepterDoublerMise( int nouvelleMise );
 int getChoixUtilisateurGraphique();
+void creerFenetrePopup( char* messageMise, char* messageQuestion );
+
 
 
 
