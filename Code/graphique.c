@@ -382,7 +382,7 @@ int selectionnerCaseGraphique() {
 
 // retourne 1 si le joueur a cliqué sur "OUI", 0 sinon
 int getChoixUtilisateurGraphique() {
-    
+
 
     // sdl event clic souris sur bouton "YES/NO"
     SDL_Event event;
@@ -413,7 +413,7 @@ int getChoixUtilisateurGraphique() {
 
                         if( ... <= posX && posX <= ... ) {      // bouton "OUI"
                             return 1;
-                        }   
+                        }
                         else if( ... <= posX && posX <= ... ) { // bouton "NON"
                             return 0;
                         }
@@ -491,7 +491,7 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
     // liberation des ressources non utilisés
     SDL_FreeSurface( texteMessageMise );
     SDL_FreeSurface( texteMessageQuestion );
-    SDL_FreeSurface( imagePopup );   
+    SDL_FreeSurface( imagePopup );
 
 
     // mise à jour de l'écran
@@ -643,7 +643,6 @@ Pion creerPion(int posX, int posY, char* image)
 
 void updateOutGraphic(int numJoueur)
 {
-    int i;
     int epaisseurPion = 10;
 
     int nbOut;
@@ -721,7 +720,7 @@ SDL_Rect positionnerPion(Case *case_pos, int numCase){
 */
 void deplacerPionGraphique(SMove move, Player couleur)
 {
-    if(move.src_point != move.dest_point)
+    if(move.src_point != move.dest_point && move.src_point != 25)
     {
         if(move.dest_point >=0)
         {
@@ -746,8 +745,6 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                     if(nbPionsSrc > 0)
                     {
-                        //transfert du pion d'une case à une autre
-                        Pion pion = case_src.tabPions[nbPionsSrc-1];
 
                         graphique.plateau.tabCases[src] = case_src;
                         graphique.plateau.barGraphique[couleur] = case_dest;
@@ -784,8 +781,6 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                     if(nbPionsSrc > 0)
                     {
-                        //transfert du pion d'une case à une autre
-                        Pion pion = case_src.tabPions[nbPionsSrc-1];
 
                         graphique.plateau.barGraphique[couleur] = case_src;
                         graphique.plateau.tabCases[dest] = case_dest;
@@ -814,8 +809,13 @@ void deplacerPionGraphique(SMove move, Player couleur)
             }//bar
             else if(dest == 25) // out
             {
+                int nbDames = graphique.plateau.tabCases[src -1].nbPions -1;
+                freePion(&graphique.plateau.tabCases[src -1].tabPions[nbDames]);
                 graphique.plateau.tabCases[src-1].nbPions --;
-                graphique.plateau.out[couleur] ++; // on ajoute 1 dans le comteur des pions sortis du joueur
+
+                graphique.plateau.outGraphique.caseOut.nbPions++;
+                deplacerPionGraphique(move, couleur);
+                graphique.plateau.out[couleur] ++; // on ajoute 1 dans le compteur des pions sortis du joueur
                 updateOutGraphic(couleur);
             }
             else{
@@ -1029,11 +1029,11 @@ void initCases(Plateau *plateau)
     outG.valeur = 0;
     outG.hauteur = 150;
     outG.largeur = 50;
-    outG.posX = 20;
-    outG.posY = 150;
+    outG.posX = 40;
+    outG.posY = 100;
 
-    case_b.posX = 20;
-    case_b.posY = 150;
+    case_b.posX = 40;
+    case_b.posY = 100;
 
     outG.caseOut = case_b;
 
@@ -1056,7 +1056,13 @@ void creerPlateau(Plateau *plateau)
     plateau -> largeur = 1270;
 }
 
-
+/**
+* Libère la surface d'un pion
+*/
+void freePion(Pion *pion)
+{
+    SDL_FreeSurface(pion ->imagePion);
+}
 /**
 * Retourne le numéro de la case dans laquelle on clique
 */
