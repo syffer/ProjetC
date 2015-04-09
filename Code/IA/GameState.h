@@ -12,6 +12,8 @@
 
 
 void getDices( const unsigned char dices[2], unsigned char newDices[4] );
+int rechercherPositionValeurDe( unsigned char dices[2], char valeurDe );
+int peutEncoreJoueur( SGameState* gameState, Player maCouleur, unsigned char dices[2] );
 
 Player getCouleurAdverse( Player maCouleur );
 
@@ -49,8 +51,7 @@ int calculerCout( SGameState* gameState );
 
 
 
-int rechercherPositionValeurDe( unsigned char dices[2], char valeurDe );
-int peutEncoreJoueur( SGameState* gameState, Player maCouleur, unsigned char dices[2] );
+
 
 
 
