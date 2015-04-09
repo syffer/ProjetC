@@ -79,7 +79,7 @@ void updateScoreJoueurBlanc(int score);
 void updateScoreJoueurNoir(int score);
 void updateScoreCibleGraphique( int scoreCible );
 void updateMiseCouranteGraphique( int nouvelleMise );
-
+void updatePionsGraphique();
 
 // pour libJoueur.h
 int selectionnerCaseGraphique();
@@ -107,6 +107,8 @@ void drawEmptyRect(SDL_Surface* surf,int posX, int posY, int width, int length, 
 
 char* retournerPathDe(char dice);
 void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
+void freePion(Pion *pion);
+void rafraichirDes();
 
 
 

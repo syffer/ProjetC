@@ -234,8 +234,6 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
     int j;
     for(i = 0; i < 24; i++)//pour chaque Square
     {
-        Case case_b = graphique.plateau.tabCases[i];
-
         for(j = 0; j < gameState-> board[i].nbDames; j++) // pour chaque dame dans la case, on créé un pion et on l'ajoute à la case
         {
             Pion pion;
@@ -515,10 +513,8 @@ void pause() {
     int continuer = 1;
     SDL_Event event;
 
-
-    unsigned char dices[2];
     SMove move;
-    int numCase;
+
     while (continuer) {
 
         SDL_WaitEvent(&event);
@@ -810,12 +806,12 @@ void deplacerPionGraphique(SMove move, Player couleur)
             else if(dest == 25) // out
             {
                 int nbDames = graphique.plateau.tabCases[src -1].nbPions -1;
-                freePion(&graphique.plateau.tabCases[src -1].tabPions[nbDames]);
-                graphique.plateau.tabCases[src-1].nbPions --;
+              //  graphique.plateau.tabCases[src-1].nbPions --;
 
-                graphique.plateau.outGraphique.caseOut.nbPions++;
+                graphique.plateau.outGraphique[couleur].caseOut.nbPions ++;
                 deplacerPionGraphique(move, couleur);
                 graphique.plateau.out[couleur] ++; // on ajoute 1 dans le compteur des pions sortis du joueur
+                freePion(&graphique.plateau.tabCases[src -1].tabPions[nbDames]);
                 updateOutGraphic(couleur);
             }
             else{
@@ -834,8 +830,6 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                 if(nbPionsSrc > 0)
                 {
-                    //transfert du pion d'une case à une autre
-                    Pion pion = case_src.tabPions[nbPionsSrc-1];
 
                     graphique.plateau.tabCases[src] = case_src;
                     graphique.plateau.tabCases[dest] = case_dest;
@@ -889,7 +883,6 @@ void deplacerPionVers(Pion *pion, Case* case_dest)
     int distanceY = fabs(pion->posPion.y - y);
 
     int incrementPos = 1;
-    int deplacement = 1;
 
     while(distanceX > 1 || distanceY > 1)
     {
@@ -1069,7 +1062,7 @@ void freePion(Pion *pion)
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
 {
     int i;
-    int numCase;
+
     Case case_b;
 
     for(i = 0; i <= 12; i++) //cases du bas
@@ -1120,12 +1113,11 @@ void surlignerCase(int numCase)
     drawEmptyRect(graphique.plateau.tabCases[numCase-1].imageCase, x, y, hauteur, largeur, 0,255,0 );
 
     SDL_Rect posCase;
-    SDL_Rect posEcran;
+
     posCase.x = graphique.plateau.tabCases[numCase].posX;
     posCase.y = graphique.plateau.tabCases[numCase].posY;
 
-    posEcran.x = 0;
-    posEcran.y = 0;
+
     SDL_BlitSurface(graphique.plateau.tabCases[numCase].imageCase, NULL, graphique.fond, &posCase);
     //rafraichirGraphique();
     //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &posEcran);
