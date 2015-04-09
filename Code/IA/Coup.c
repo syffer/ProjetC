@@ -248,6 +248,9 @@ int comparerCoups_BotParfait( Coup* c1, Coup* c2 ) {
  * */
 int comparerAntiJeu( Coup* c1, Coup* c2 ) {
 
+	int comparaison = comparerCoups_nbMouvements( c1, c2 );		// on cherche le coup ayant le plus de mouvements possible en priorité
+	if( comparaison != 0 ) return comparaison;
+
 	int nbPointsC1 = calculerCout( &(c1 -> gameState) );
 	int nbPointsC2 = calculerCout( &(c2 -> gameState) );
 
