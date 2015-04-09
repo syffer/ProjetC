@@ -18,7 +18,7 @@
 #define BORNE_SUP_Y_BOUTON 309
 
 #define BORNE_INF_X_YES 53
-#define BORNE_SUP_X_YES 208
+#define BORNE_SUP_X_YES 280
 
 #define BORNE_INF_X_NO 311
 #define BORNE_SUP_X_NO 539
@@ -398,6 +398,41 @@ void updateMiseCouranteGraphique( int nouvelleMise ) {
 int selectionnerCaseGraphique() {
 
     // SDL event clic souris sur une des cases
+    int posX, posY;
+
+    int numeroCase;
+
+    SDL_Event event;
+    while( 1 ) {
+
+        SDL_WaitEvent(&event);
+
+        switch(event.type) {
+
+            case SDL_QUIT:
+                return 0;
+                break;
+            
+            case SDL_MOUSEBUTTONUP:
+
+                if (event.button.button == SDL_BUTTON_LEFT ) {
+
+                    posX = event.motion.x;
+                    posY = event.motion.y;
+
+                    numeroCase = retournerNumCase( event.motion.x, event.motion.y, graphique.plateau );
+
+                    if( numeroCase != -1 ) return numeroCase;
+                    // sinon, le joueur n'a pas cliqué sur uen zone valide
+
+                }
+
+                break;
+
+            default:
+                break;
+        }
+    }
 
     return -1;
 }
@@ -422,17 +457,18 @@ int getChoixUtilisateurGraphique() {
             case SDL_QUIT:
                 return 0;
                 break;
+<<<<<<< HEAD
 
 
+=======
+            
+>>>>>>> origin/graphique
             case SDL_MOUSEBUTTONUP:
 
                 if (event.button.button == SDL_BUTTON_LEFT ) {
 
                     posX = event.motion.x;
                     posY = event.motion.y;
-
-                    printf(" X= %i , Y= %i  \n %i <= Y <= %i , \n %i <= X YES <= %i \n", posX, posY, ZONE_CLIC_Y_INF, ZONE_CLIC_Y_SUP, ZONE_CLIC_X_YES_INF, ZONE_CLIC_X_YES_SUP );
-
 
                     if( ZONE_CLIC_Y_INF <= posY && posY <= ZONE_CLIC_Y_SUP ) {
 
