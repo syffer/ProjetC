@@ -324,8 +324,8 @@ double getProbabilitePerdreUnPion( SGameState* gameState, Player maCouleur ) {
 		le tableau contiendra (si l'on considère le joueur blanc) :
 			- tab[0] = 0
 			- tab[1] = 0 	
-			- tab[2] = 1  	car un pion blanc est éloigné d'une case par rapport à TOUS les pions noirs
-			- tab[3] = 1 	car un pion blanc est éloigné de 2 cases par rapport à TOUS les pions noirs
+			- tab[2] = 1  	car un pion blanc est éloigné de 2 cases par rapport à TOUS les pions noirs
+			- tab[3] = 1 	car un pion blanc est éloigné de 3 cases par rapport à TOUS les pions noirs
 */
 void getEloignementsPointsNonSecurisees( SGameState* gameState, Player maCouleur, int eloignements[25] ) {
 
