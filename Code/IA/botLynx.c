@@ -91,6 +91,7 @@ int DoubleStack( const SGameState * const gameState ) {
 	int scoreRestant_adverse = bot.scoreCible - scoreAdverse;
 	
 	// pas la peine de doubler mise si le nombre de points est déjà supérieur au score qu'il nous reste à atteindre
+	printf("_________________________________________________________________________________ %i\n",gameState->stake);
 	if ( gameState -> stake >= scoreRestant) return 0;
 
 	//if( gameState -> stake * 2 >= scoreAdverse ) return 0;
