@@ -234,14 +234,14 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
                 }
 
                 //si le joueur est un humain, on remet l'état du jeu à l'état ou il était avant son tour
-                if(estBot[etatJeux.turn])
+                if(!estBot[etatJeux.turn])
                     initialiserPlateauGraphique(&etatJeux);
 
             //ici, on a un joeur qui a fait une faute, la valeur de etatValide n'est donc pas modifiée, il recommence à jouer (sauf s'il a déjà perdu)
             }else{
             printf("coup valide !\n");
 
-                if(!estBot[etatJeux.turn]){
+                if(estBot[etatJeux.turn]){
                     //le joueur n'est pas humain
                     //coup valide, on modifie la gameState, on appele les fonctions graphiques et on passe le tour
                     for(i=0;i<nbMoves;i++){
@@ -253,6 +253,8 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
                         jouerCoup(&etatJeux,bonsCoups[i],etatJeux.turn);
                         deplacerPionGraphique(bonsCoups[i]);
                     }
+                }else{
+                    etatJeux = etatCopie;
                 }
             }//fin tour
             if(finPartie(&etatJeux,triesw,triesb,&winner)){
