@@ -1,5 +1,4 @@
 /*
-
 	Bot ayant pour but de gagner le match au premier tour en trichant.
 	
 	Ce bot va essayer de modifier les valeurs de la variable GameState, 

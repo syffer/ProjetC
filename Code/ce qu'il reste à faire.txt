@@ -23,7 +23,7 @@
 ==> renommer certaines fonctions (???)
 
 => commenter (pauline & maxime)
--- .c - bot / botantijeu / botlynx / botparfait / botrandom / botsimplet / bottricheur / coup / fonctionsBot / gameState / libJoueur
+-- .c - bot / botantijeu / botlynx / botfusion / botrandom / botsimplet / coup / fonctionsBot / gameState
 -- .h - coup /fonctionsBot / gameState
 ==> supprimer le code inutile (pauline)
 
