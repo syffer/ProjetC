@@ -1,9 +1,9 @@
 /*
 	Fichier contenant la fonction main du programme.
-	
+
 	Auteurs :
 	- Pauline HOULGATTE
-	- Maxime PINEAU	
+	- Maxime PINEAU
 
 */
 #include "verifications.h"
@@ -20,7 +20,7 @@
 
 int main( int argc, char* argv[] ) {
 
-	
+
 
 	/*
 	*	Création du fichier de log (redirection de la sortie standard vers se fichier)
@@ -36,8 +36,8 @@ int main( int argc, char* argv[] ) {
 		perror(" Erreur lors de la redirection de la sortie standard vers le fichier log \n");
 		exit( EXIT_FAILURE );
 	}
-	
-	
+
+
 
 	/*
 	*	vérification des paramètres entrés par l'utilisateur
@@ -66,13 +66,13 @@ int main( int argc, char* argv[] ) {
 	if( argc >= 3 ) {
 
 		cheminLibrairie_1 = argv[2];
-		
+
 
 
 		if( argc >= 4 ) {
 
 			cheminLibrairie_2 = argv[3];
-			
+
 			if( verifierLibrairies( cheminLibrairie_1, cheminLibrairie_2, librairie_1, librairie_2, &librairie_copiee ) ) {
 				perror( " Erreur lors de la copie de la librairie. \n" );
 				exit( EXIT_FAILURE );
@@ -86,7 +86,7 @@ int main( int argc, char* argv[] ) {
 		joueurs[0] = chargerJoueur( librairie_1 );
 
 	}
-	
+
 
 
 	// on récupère le nombre de parties à jouer
@@ -123,7 +123,7 @@ int main( int argc, char* argv[] ) {
 	libererJoueur( joueurs[ BLACK ] );		// attention, on ne peut plus appeler les fonctions du joueur
 	libererJoueur( joueurs[ WHITE ] );
 
-	
+
 	if( librairie_copiee ) {
 
 		if( remove(librairie_2) ) {
@@ -131,7 +131,7 @@ int main( int argc, char* argv[] ) {
 		}
 
 	}
-	
+
 
 
 	return 0;

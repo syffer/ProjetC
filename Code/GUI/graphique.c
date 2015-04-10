@@ -262,25 +262,25 @@ void fermerFenetre() {
     SDL_FreeSurface(graphique.texte_Tour);
 
 
-    
+
     SDL_FreeSurface(graphique.texte_LabelMiseCourante);
     SDL_FreeSurface(graphique.texte_LabelScoreBlanc);
     SDL_FreeSurface(graphique.texte_LabelScoreNoir);
     SDL_FreeSurface(graphique.texte_LabelScoreCible);
 
 
-    
+
     SDL_FreeSurface( graphique.de1 );
     SDL_FreeSurface( graphique.de2 );
 
 
     SDL_FreeSurface(graphique.fond);
     SDL_FreeSurface(graphique.ecran);
-    
+
 
     freeTousLesPions();
 
-    
+
     SDL_Quit();
 
     printf("(graphique) Termin� correctement\n");
@@ -494,9 +494,12 @@ void updateScoreJoueurNoir(int score) {
 */
 void updateScoreCibleGraphique( int scoreCible ) {
 
+    printf("score cible : %d||||||||||||||\n",scoreCible);
     SDL_Color couleurNoire = {0, 0, 0};
     char chaine[15];
     sprintf( chaine, "%d", scoreCible );
+
+    printf("score cible : %s||||||||||||||\n", chaine);
 
     SDL_FreeSurface(graphique.texte_ScoreCible);
     graphique.texte_ScoreCible = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );

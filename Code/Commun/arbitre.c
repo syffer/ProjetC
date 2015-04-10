@@ -189,7 +189,7 @@ void jouerPartie( int score, Joueur joueurs[2] ) {
     int continuerPartie = 1; //boolean a 0 lorsque la partie est terminée
 
 
-    int i;
+    int i = 0;
     while(etatJeux.whiteScore < score && etatJeux.blackScore < score) {
 
         printf("(arbitre) -> partie %i \n", i+1 );

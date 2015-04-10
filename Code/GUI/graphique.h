@@ -104,6 +104,7 @@ char* retournerPathDe(char dice);
 void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
 void freePion(Pion *pion);
 void rafraichirDes();
+void rafraichirGraphique();
 void freeTousLesPions();
 
 

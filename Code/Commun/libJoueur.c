@@ -85,8 +85,10 @@ int DoubleStack( const SGameState * const gameState ) {
 	*/
 
 	ouvrirFenetreDoublerMiseGraphique( gameState -> stake );
+    int choix = getChoixUtilisateurGraphique();
+    rafraichirGraphique();
 
-	return getChoixUtilisateurGraphique();
+	return choix;
 
 }
 
@@ -145,9 +147,9 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	int positionCaseDepart;
 	int positionCaseArrivee;
 
-	Square caseDepart;
+	Square caseDepart, caseArrivee;
 
-	SMove mouvement;
+	SMove mouvement, mouvementPourManger;
 
 
 	while( peutEncoreJoueur( gameState, gameState -> turn, lesDes ) ) {
@@ -195,6 +197,14 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 			initialiserMouvement( &mouvement, gameState -> turn, positionCaseDepart, valeurDe );
 			moves[ *nbMove ] = mouvement;
 			*nbMove += 1;
+
+            //cas ou on mange l'adversaire
+            caseArrivee = getCaseReelle( gameState, gameState -> turn, positionCaseArrivee );
+            if( ! caseEstAuJoueur( caseArrivee, gameState -> turn ) ){
+                mouvementPourManger.src_point = positionCaseArrivee;
+                mouvementPourManger.dest_point = 0;
+                deplacerPionGraphique(mouvementPourManger,!gameState->turn);
+            }
 
 			// on modifie l'état du jeu
 			deplacerUnPion( gameState, gameState -> turn, mouvement );
