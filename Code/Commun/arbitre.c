@@ -263,17 +263,25 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
                         jouerCoup(&etatJeux,bonsCoups[i],etatJeux.turn);
                         deplacerPionGraphique( bonsCoups[i], etatJeux.turn );
                     }
+
                 }else{
                     etatJeux = etatCopie;
                 }
             }//fin tour
+
+
+
             if(finPartie(&etatJeux,triesw,triesb,&winner)){
                 continuerPartie = 0;
             }else{
                 //on change le tour du joueur
                 etatJeux.turn = !etatJeux.turn;
-                updateTourJoueurGraphique(etatJeux.turn);
 
+                printf("_________ (arbitre) graphique update tour joueur \n");
+
+                updateTourJoueurGraphique( etatJeux.turn );
+
+                printf("_________ (arbitre) fin graphique update tour joueur \n");
 
                 //videau
                 if(videau != etatJeux.turn){

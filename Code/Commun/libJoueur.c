@@ -155,9 +155,13 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 		selectionTerminee = 0;
 		while( ! selectionTerminee ) {
 
+
+			printf("__________________ jouer joueur reel \n");
 			// arrêter animation pions
 
 			positionCaseDepart = selectionnerCaseGraphique();
+
+			printf("__________________ case selectionnee %i \n", positionCaseDepart );
 
 			caseDepart = getCaseReelle( gameState, bot.maCouleur, positionCaseDepart );
 

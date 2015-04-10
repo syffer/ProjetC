@@ -132,7 +132,6 @@ void rafraichirGraphique()
     updatePionsGraphique();
 
     SDL_Flip( graphique.ecran );
-
 }
 
 int initialiserFenetre() {
@@ -354,6 +353,7 @@ void updatePionsGraphique()
             SDL_BlitSurface(pion.imagePion, NULL, graphique.ecran, &pion.posPion);
         }
     }
+
 }
 
 /**
@@ -390,9 +390,11 @@ void rafraichirDes()
 
 void updateTourJoueurGraphique( Player joueur ) {
 
-SDL_Color couleurNoire = {0, 0, 0};
+    printf("__________________ (graphique) graphique update tour joueur \n");
 
-    char chaine[15];
+    SDL_Color couleurNoire = {0, 0, 0};
+
+    char chaine[50];
     if(joueur == WHITE)
         sprintf( chaine, "Au tour de WHITE de jouer");
     if(joueur == BLACK)
@@ -400,8 +402,10 @@ SDL_Color couleurNoire = {0, 0, 0};
 
    // SDL_FreeSurface(graphique.texte_);
     //graphique.texte_MiseCourante = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
-
+    
     rafraichirGraphique();
+
+    printf("__________________ (graphique) fin graphique update tour joueur \n");
 }
 
 /**
@@ -487,7 +491,7 @@ int selectionnerCaseGraphique() {
         switch(event.type) {
 
             case SDL_QUIT:
-                return 0;
+                exit( EXIT_SUCCESS );   // pas bien de faire comme ça
                 break;
 
             case SDL_MOUSEBUTTONUP:
@@ -497,7 +501,12 @@ int selectionnerCaseGraphique() {
                     posX = event.motion.x;
                     posY = event.motion.y;
 
+
+
                     numeroCase = retournerNumCase( event.motion.x, event.motion.y, graphique.plateau );
+
+                    printf("(graphique selectionner case) %i %i %i \n", posX, posY, numeroCase );
+
 
                     if( numeroCase != -1 ) return numeroCase;
                     // sinon, le joueur n'a pas cliqué sur uen zone valide
@@ -872,7 +881,7 @@ void deplacerPionGraphique(SMove move, Player couleur)
     if(move.src_point != move.dest_point && move.src_point != 25) // pas de déplacement si déplacement sur lui même et pas de déplacement venant du out
     {
 
-         printf("move : src = %i, dest = %i\n", move.src_point, move.dest_point);
+        printf( "(graphique) move : src = %i, dest = %i\n", move.src_point, move.dest_point );
 
         if(move.dest_point >=0 && move.src_point >= 0)
         {
@@ -886,16 +895,12 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
 
         if( move.dest_point == -1 ) {
-            printf("___________ arrivee trop petit \n ");
             return;
         }
 
         if( move.src_point == -1 ) {
-            printf(" _____________depart trop petit \n");
             return;
         }
-
-        printf("OK\n");
 
 
         if( move.dest_point >= 0 && move.src_point >= 0 )
@@ -941,7 +946,7 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
                     graphique.plateau.tabCases[src] = case_src;
                     graphique.plateau.barGraphique[couleur] = case_dest;
-                    printf("Nb cases dans dest : %i\n", nbPionsDest);
+                    printf("(graphique) Nb cases dans dest : %i\n", nbPionsDest);
                 }
             }
 
@@ -1304,6 +1309,7 @@ int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
         if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
             return 0;
 
+    printf(" --------------------------------------------------------------> (graphique) fonction retournerNumCase() ==> ne devrait pas arrver la, car il retourne -1 \n");
 
     return -1;
 }
