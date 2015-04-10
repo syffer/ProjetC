@@ -68,6 +68,8 @@ typedef struct{
 } Deplacement;
 
 
+
+
 int initialiserFenetre();
 void fermerFenetre();
 void initialiserPlateauGraphique( SGameState* gameState );
@@ -104,6 +106,8 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
 void freePion(Pion *pion);
 void rafraichirDes();
 void freeTousLesPions();
+
+
 
 
 

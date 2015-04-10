@@ -4,7 +4,7 @@
 
 	Auteurs :
 	- Pauline HOULGATTE
-	- Maxime PINEAU	
+	- Maxime PINEAU
 
 */
 
@@ -54,7 +54,7 @@ void StartGame(Player p) {
  * Fin d'une manche (d'un match)
  */
 void EndGame() {
-	
+
 }
 
 
@@ -78,7 +78,7 @@ void EndMatch() {
  *	vrai si on propose de doubler : faux sinon
  */
 int DoubleStack( const SGameState * const gameState ) {
-	
+
 
 	/*
 		lancer une fenetre pour savoir si le joueur veut doubler la mise
@@ -87,7 +87,7 @@ int DoubleStack( const SGameState * const gameState ) {
 	ouvrirFenetreDoublerMiseGraphique( gameState -> stake );
 
 	return getChoixUtilisateurGraphique();
-	
+
 }
 
 
@@ -103,7 +103,7 @@ int TakeDouble( const SGameState * const gameState ) {
 
 	/*
 		lancer une fenetre pour savoir si le joueur accepte la nouvelle mise
-	*/	
+	*/
 
 	ouvrirFenetreAccepterDoublerMise( (gameState -> stake) * 2 );
 
@@ -120,14 +120,14 @@ int TakeDouble( const SGameState * const gameState ) {
  *	nombre d'essais restants (3 initialement).
  */
 void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves[4], unsigned int *nbMove, unsigned int tries ) {
-	
+
 
 	/*
 		gestion des evenements SDL / horizon des évenements SDL
 
 	*/
 
-	
+
 	*nbMove = 0;
 
 	// on récupère les dés
@@ -163,7 +163,6 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 			printf("(joueur reel) j'ai selectionnee le pion sur la case %i \n", positionCaseDepart );
 
-
 			caseDepart = getCaseReelle( gameState, gameState -> turn, positionCaseDepart );
 
 			// la case de départ sélectionnée n'appartient pas au joueur
@@ -173,19 +172,22 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 			positionCaseArrivee = selectionnerCaseGraphique();
 
+            printf("positionCaseArrivee : %i\n", positionCaseArrivee);
 
 			if( positionCaseDepart == positionCaseArrivee ) continue;	// on annule le coup
+
 
 
 			valeurDe = abs( positionCaseArrivee - positionCaseDepart );
 
 			// le joueur ne peut pas déplacer ce pion
-			if( ! peutDeplacerUnPion( gameState, gameState -> turn, positionCaseDepart, valeurDe ) ) continue;	
+
+			if( ! peutDeplacerUnPion( gameState, gameState -> turn, positionCaseDepart, valeurDe ) ) continue;
 
 
 			// le joueur n'a pas utilisé l'un de ses dés
 			positionDe = rechercherPositionValeurDe( lesDes, valeurDe );
-			if( positionDe == -1 ) continue;	
+			if( positionDe == -1 ) continue;
 
 
 			// ajout du mouvement dans la liste des mouvements

@@ -177,10 +177,6 @@ void jouerPartie( int score, Joueur joueurs[2] ) {
     printf("envoi du startMatch aux joueurs\n");
     joueurBlanc.StartMatch(score);
     joueurNoir.StartMatch(score);
-    int initialiserFenetre();
-
-
-
 
 
     initialiserFenetre();
@@ -213,9 +209,9 @@ void jouerPartie( int score, Joueur joueurs[2] ) {
         joueurNoir.StartGame(BLACK);
         continuerPartie = 1;
 
+
         initialiserPlateauGraphique(&etatJeux);
-        usleep(2);
-        
+
         // on lance les dés jusqu'a ce que l'on obtienne deux nombre différents
         do
         {
@@ -231,7 +227,6 @@ void jouerPartie( int score, Joueur joueurs[2] ) {
             afficherEtatJeu(etatJeux);
             printf("\n\n");
 
-            usleep(1);
 
             //On lui donne ici normalement l'état copié
             if(etatJeux.turn == WHITE) joueurBlanc.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesw );
@@ -266,11 +261,10 @@ void jouerPartie( int score, Joueur joueurs[2] ) {
                             move.src_point = bonsCoups[i].dest_point;
                             move.dest_point = 0;
                             deplacerPionGraphique( move, !etatJeux.turn );
-                            usleep(1);
                         }
                         jouerCoup(&etatJeux,bonsCoups[i],etatJeux.turn);
                         deplacerPionGraphique( bonsCoups[i], etatJeux.turn );
-                        usleep(1);
+
                     }
 
                 }else{
@@ -285,13 +279,9 @@ void jouerPartie( int score, Joueur joueurs[2] ) {
             }else{
                 //on change le tour du joueur
                 etatJeux.turn = !etatJeux.turn;
-                usleep(1);
 
-                printf("_________ (arbitre) graphique update tour joueur \n");
 
                 updateTourJoueurGraphique( etatJeux.turn );
-
-                printf("_________ (arbitre) fin graphique update tour joueur \n");
 
                 //videau
                 if(videau != etatJeux.turn){
@@ -338,7 +328,6 @@ void jouerPartie( int score, Joueur joueurs[2] ) {
                 //on lance les dés
                 lancerLesDes(dices);
                 afficherDes(dices);
-                usleep(1);
             }
 
         }
@@ -379,7 +368,6 @@ void jouerPartie( int score, Joueur joueurs[2] ) {
     }
     joueurBlanc.EndMatch();
     joueurNoir.EndMatch();
-    
     fermerFenetre();
 }
 
