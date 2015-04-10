@@ -119,7 +119,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	}
 
 	// on en tire un aléatoirement
-	int aleatoire = randomINT( 0, getNbElements(coups) - 1 );
+	int aleatoire = randomInteger( 0, getNbElements(coups) - 1 );
 	
 	Coup coupAleatoire;
 	Cellule* cellule = getPremierElement(coups);

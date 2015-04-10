@@ -43,6 +43,9 @@
 
 
 struct Joueur {
+
+	int estUnBot;
+
 	Librairie librairie;
 
 	pfInitLibrary InitLibrary;
@@ -58,6 +61,7 @@ typedef struct Joueur Joueur;
 
 
 Joueur chargerJoueur( char nomLibrairie[] );
+Joueur chargerJoueurReel();
 int dlerrorDetectee();
 void libererJoueur( Joueur joueur );
 

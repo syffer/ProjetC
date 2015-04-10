@@ -16,8 +16,10 @@
 #include "../Commun/backgammon.h"
 #include "../GUI/graphique.h"
 #include "../IA/fonctionsBot.h"
+#include "../IA/GameState.h"
 
-static Bot bot;
+#include "./libJoueur.h"
+
 
 /**
  * Initialiser la librairie
@@ -26,11 +28,7 @@ static Bot bot;
  */
 void InitLibrary( char name[50] ) {
 
-	strcpy( bot.nom, "Joueur " );
-	bot.maCouleur = NOBODY;
-	bot.scoreCible = 0;
-
-	strcpy( name, bot.nom );
+	strcpy( name, "Joueur " );
 }
 
 
@@ -41,7 +39,6 @@ void InitLibrary( char name[50] ) {
  */
 void StartMatch( const unsigned int target_score ) {
 
-	bot.scoreCible = target_score;
 }
 
 
@@ -50,7 +47,6 @@ void StartMatch( const unsigned int target_score ) {
  */
 void StartGame(Player p) {
 
-	bot.maCouleur = p;
 }
 
 
@@ -154,7 +150,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	SMove mouvement;
 
 
-	while( peutEncoreJoueur( gameState, bot.maCouleur, lesDes ) ) {
+	while( peutEncoreJoueur( gameState, gameState -> turn, lesDes ) ) {
 
 		selectionTerminee = 0;
 		while( ! selectionTerminee ) {
@@ -167,10 +163,10 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 			printf("__________________ case selectionnee %i \n", positionCaseDepart );
 
-			caseDepart = getCaseReelle( gameState, bot.maCouleur, positionCaseDepart );
+			caseDepart = getCaseReelle( gameState, gameState -> turn, positionCaseDepart );
 
 			// la case de départ sélectionnée n'appartient pas au joueur
-			if( ! caseEstAuJoueur( caseDepart, bot.maCouleur ) || ! casePossedeDesPions(caseDepart) ) continue;
+			if( ! caseEstAuJoueur( caseDepart, gameState -> turn ) || ! casePossedeDesPions(caseDepart) ) continue;
 
 			// animerPionGraphique(caseDepart);
 
@@ -183,7 +179,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 			valeurDe = abs( positionCaseArrivee - positionCaseDepart );
 
 			// le joueur ne peut pas déplacer ce pion
-			if( ! peutDeplacerUnPion( gameState, bot.maCouleur, positionCaseDepart, valeurDe ) ) continue;	
+			if( ! peutDeplacerUnPion( gameState, gameState -> turn, positionCaseDepart, valeurDe ) ) continue;	
 
 
 			// le joueur n'a pas utilisé l'un de ses dés
@@ -193,15 +189,13 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 
 			// ajout du mouvement dans la liste des mouvements
 			mouvement = moves[ *nbMove ];
-			initialiserMouvement( &mouvement, bot.maCouleur, positionCaseDepart, valeurDe );
+			initialiserMouvement( &mouvement, gameState -> turn, positionCaseDepart, valeurDe );
 			moves[ *nbMove ] = mouvement;
 			*nbMove += 1;
 
 			// on modifie l'état du jeu
-			deplacerUnPion( gameState, bot.maCouleur, mouvement );
-			///////////////////////////////////////////////////////////
-			/////////////////////////////////////////////////////////////////////////////////////////////////////// MODIFIER LE GRAPHIQUE ICI AUSSI !!!!
-			///////////////////////////////////////////////////////////
+			deplacerUnPion( gameState, gameState -> turn, mouvement );
+			deplacerPionGraphique( mouvement, gameState -> turn );
 
 			lesDes[ positionDe ] = 0;		// on indique que le dé a été utilisé
 

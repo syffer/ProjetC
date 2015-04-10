@@ -11,10 +11,10 @@ all:: ia gui commun
 ################## Commun
 
 ##### creation de l'executable du jeu
-commun:: backgammon Commun/libJoueur.so
+commun:: backgammon
 
-backgammon: Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o
-	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o -o backgammon -ldl `sdl-config --cflags --libs` -lSDL -lSDL_ttf
+backgammon: Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o Commun/libJoueur.o IA/fonctionsBot_bis.o IA/ListeChainee_bis.o IA/Coup_bis.o IA/GameState_bis.o
+	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o Commun/libJoueur.o IA/fonctionsBot_bis.o IA/ListeChainee_bis.o IA/Coup_bis.o IA/GameState_bis.o -o backgammon -ldl `sdl-config --cflags --libs` -lSDL -lSDL_ttf
 
 
 
@@ -30,16 +30,22 @@ Commun/joueur.o: Commun/joueur.c Commun/joueur.h
 Commun/verifications.o: Commun/verifications.c Commun/verifications.h 
 	gcc $(CFLAGS) -c Commun/verifications.c -o Commun/verifications.o
 
-
 # librairie joueur réel
-Commun/libJoueur.so: Commun/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so
-	gcc -shared Commun/libJoueur.o GUI/graphique_joueur.o IA/fonctionsBot.so -o Commun/libJoueur.so 
+Commun/libJoueur.o: Commun/libJoueur.c Commun/libJoueur.h 
+	gcc $(CFLAGS) -c Commun/libJoueur.c -o Commun/libJoueur.o
 
-Commun/libJoueur.o: Commun/libJoueur.c 
-	gcc $(CFLAGS) -o Commun/libJoueur.o -fpic -c Commun/libJoueur.c 
+IA/fonctionsBot_bis.o: IA/fonctionsBot.c IA/fonctionsBot.h 
+	gcc $(CFLAGS) -o IA/fonctionsBot_bis.o -c IA/fonctionsBot.c 
 
-GUI/graphique_joueur.o: GUI/graphique.c GUI/graphique.h  
-	gcc $(CFLAGS) -o GUI/graphique_joueur.o -fpic -c GUI/graphique.c
+IA/ListeChainee_bis.o: IA/ListeChainee.c IA/ListeChainee.h 
+	gcc $(CFLAGS) -o IA/ListeChainee_bis.o -c IA/ListeChainee.c 
+
+IA/Coup_bis.o: IA/Coup.c IA/Coup.h 
+	gcc $(CFLAGS) -o IA/Coup_bis.o -c IA/Coup.c 
+
+IA/GameState_bis.o: IA/GameState.c IA/GameState.h
+	gcc $(CFLAGS) -o IA/GameState_bis.o -c IA/GameState.c 
+
 
 
 

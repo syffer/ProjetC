@@ -144,7 +144,11 @@ const SGameState const copierEtatJeux( SGameState* etatJeux ) {
 }
 
 
-void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
+void jouerPartie( int score, Joueur joueurs[2] ) {
+
+    int estBot[2];
+    estBot[0] = joueurs[0].estUnBot;
+    estBot[1] = joueurs[1].estUnBot;
 
 	char nomJoueurBlanc[50];
 	char nomJoueurNoir[50];
@@ -224,7 +228,7 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
             etatCopie = copierEtatJeux(&etatJeux);
 
             printf("ETAT DU PLATEAU :\n\n");
-            afficherGameState(etatJeux);
+            afficherEtatJeu(etatJeux);
             printf("\n\n");
 
             usleep(1);
@@ -760,7 +764,7 @@ SMove faireMove(int src, int numDe, int couleur){
 
 
 
-void afficherGameState( SGameState gameState ) {
+void afficherEtatJeu( SGameState gameState ) {
 
     char* nom;
 

@@ -49,21 +49,32 @@ int main( int argc, char* argv[] ) {
 		exit( EXIT_FAILURE );
 	}
 
-	// chargement par défaut
-	char* cheminLibrairie_1 = "./Commun/libJoueur.so";		// on charge un joueur réel
-	char* cheminLibrairie_2 = "./Commun/libJoueur.so";
+
+	// chargement des joueurs
+	Joueur joueurs[2];
+	joueurs[0] = chargerJoueurReel();
+	joueurs[1] = chargerJoueurReel();
+
+	char* cheminLibrairie_1 = "";
+	char* cheminLibrairie_2 = "";
 
 
-	// on récupère les librairies entrées (qui sont optionnels)
-	int estUnBot[2] = {0};
 	if( argc >= 3 ) {
-		estUnBot[ BLACK ] = 1;
+
 		cheminLibrairie_1 = argv[2];
+		joueurs[0] = chargerJoueur( cheminLibrairie_1 );
+
+
+		if( argc >= 4 ) {
+
+
+			cheminLibrairie_2 = argv[3];
+			joueurs[1] = chargerJoueur( cheminLibrairie_2 );
+
+		}
+
 	}
-	if( argc >= 4 ) {
-		estUnBot[ WHITE ] = 1;
-		cheminLibrairie_2 = argv[3];
-	}
+	
 
 
 	// on récupère le nombre de parties à jouer
@@ -75,6 +86,8 @@ int main( int argc, char* argv[] ) {
 	}
 
 
+
+	/*
 	int tailleLibrairie_1 = strlen( cheminLibrairie_1 );
 	int tailleLibrairie_2 = strlen( cheminLibrairie_2 );
 	char librairie_1[ tailleLibrairie_1 + 10 ]; 	// "./" + chemin + ".copy"
@@ -88,12 +101,13 @@ int main( int argc, char* argv[] ) {
 
 
 
-	// chargement des joueurs
-	Joueur joueurs[2];
+	
 	joueurs[ BLACK ] = chargerJoueur( librairie_1 );
 	joueurs[ WHITE ] = chargerJoueur( librairie_2 );
+	*/
 
-	jouerPartie( nbPoints, joueurs, estUnBot );
+
+	jouerPartie( nbPoints, joueurs );
 
 
 	/*
@@ -103,7 +117,7 @@ int main( int argc, char* argv[] ) {
 	libererJoueur( joueurs[ BLACK ] );		// attention, on ne peut plus appeler les fonctions du joueur
 	libererJoueur( joueurs[ WHITE ] );
 
-
+	/*
 	if( librairie_copiee ) {
 
 		if( remove(librairie_2) ) {
@@ -111,6 +125,8 @@ int main( int argc, char* argv[] ) {
 		}
 
 	}
+	*/
+
 
 	return 0;
 }
