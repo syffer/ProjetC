@@ -1,6 +1,11 @@
 /*
 	Fichier contenant toutes les fonctions et structures concernant la liste chainée
 	Cette liste est utilisée pour stocker des structures Coup
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #ifndef _ListeChainee

@@ -3,6 +3,11 @@
 	
 	Ce bot calcule tous les coups possibles,
 	et en tire un aléatoirement.
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include <stdio.h>

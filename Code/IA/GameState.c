@@ -1,5 +1,10 @@
 /*
 	Fichier contenant les fonctions concernant l'état du jeu (GameState, SMove, Square, Player...)
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include "GameState.h"

@@ -3,6 +3,11 @@
 	
 	Ce bot avance les pions les plus éloignés si possibles, 
 	il ne double jamais la mise, et accepte toujours une nouvelle mise.
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include <stdio.h>

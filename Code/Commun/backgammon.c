@@ -1,5 +1,9 @@
 /*
 	Fichier contenant la fonction main du programme.
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
 
 */
 #include "verifications.h"

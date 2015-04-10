@@ -1,5 +1,10 @@
 /*
 	Bot qui calcule tous les coups possibles, et en choisit un selon certain critère
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include <stdio.h>

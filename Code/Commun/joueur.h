@@ -2,7 +2,10 @@
 	Fichier contenant toutes les fonctions concernant le chargement des libraires.
 	Les fonctions d'une librairie chargée seront stockées dans une structure Joueur, 
 	celle-ci ne contient que des pionteurs de fonctions.
-
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
 
 */
 

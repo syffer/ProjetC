@@ -3,7 +3,10 @@
 	On regarde si les librairies ont le même nom, et si c'est le cas (le même fichier), 
 	on crée une copie de la librairie ( extention .copy )
 
-
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
 
 */
 

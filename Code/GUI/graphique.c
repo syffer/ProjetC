@@ -325,6 +325,7 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
     int j;
     for(i = 0; i < 24; i++)//pour chaque Square
     {
+        //graphique.plateau.tabCases[i].nbPions = 0;
         for(j = 0; j < gameState-> board[i].nbDames; j++) // pour chaque dame dans la case, on créé un pion et on l'ajoute à la case
         {
             Pion pion;

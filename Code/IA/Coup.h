@@ -1,5 +1,10 @@
 /*
 	Fichier regroupant toutes les fonctions concernant la structure Coup
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #ifndef _Coup
