@@ -368,7 +368,8 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
     }
     joueurBlanc.EndMatch();
     joueurNoir.EndMatch();
-    void fermerFenetre();
+    
+    fermerFenetre();
 }
 
 int finPartie(SGameState* etatJeux, int triesw, int triesb , int* winner){
