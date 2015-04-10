@@ -1,12 +1,15 @@
+/*
+	Fichier contenant toutes les fonctions concernant la vérification des librairies.
+	On regarde si les librairies ont le même nom, et si c'est le cas (le même fichier), 
+	on crée une copie de la librairie ( extention .copy )
 
 
+
+*/
 
 #include "verifications.h"
 #include <stdio.h>		// fopen(), FILE
 #include <string.h>		// strlen(), strcat(), strcmp()
-
-// #include "backgammon.h"
-// #include <stdlib.h>		// malloc
 
 
 
@@ -46,6 +49,9 @@ int stringToPositiveInteger( const char* string, int* nombre ) {
 
 /*
 * Copie le contenu d'un fichier source vers un fichier destination (ecrase le contenu existant)
+*
+* @return int
+*	retourne 0 si tout s'est bine passé, -1 sinon (peut désigner une erreur d'ouverture de l'un des deux fichiers).
 */
 int copierFichier( char* source, char* destination ) {
 
@@ -75,11 +81,27 @@ int copierFichier( char* source, char* destination ) {
 
 
 
-
+/*
+* Ajoute les caractères "./" au debut d'une chaine s'il ne sont pas déjà présent.
+* La nouvelle chaine résultante sera placée dans le tableau nouveauChemin.
+*
+* @param char* chemin
+*	pointeur vers la chaine où l'on veut ajouter "./" au début
+*
+* @param char nouveauChemin[]
+*	tableau qui contiendra le nouveau chemin (avec "./" au debut)
+*
+*/
 void ajouterRepertoireCourant( char* chemin, char nouveauChemin[] ) {
 	
+	#ifdef _WIN32
+		strcpy(nouveauChemin, chemin);	// on ajoute pas la racine dans le cas de windows
+		return;
+	#endif
+
 	int taille = strlen(chemin);
 	
+	// il y a déjà la racine "./" au début de la chaine
 	if( taille > 2 && chemin[0] == '.' && chemin[1] == '/' ) strcpy(nouveauChemin,chemin);
 	else {
 		strcpy(nouveauChemin, "./" );
@@ -89,7 +111,29 @@ void ajouterRepertoireCourant( char* chemin, char nouveauChemin[] ) {
 }
 
 
-// retourne -1 si il y a eu une erreur lors de la copie, 0 sinon
+/*
+* Vérifie si les librairies entrées en paramètres représentes des fichiers différents.
+* Si ce n'est pas le cas, effectue une copie de cette librairie (la copie aura pour extention ".copy" en plus du chemin)
+*
+* @param char* cheminLibrairie_1
+*	chemin de la première librairie 
+*
+* @param char* cheminLibrairie_2
+*	chemin de la deuxième librairie
+*
+* @param char* librairie_1
+*	chemin de la première librairie après modification et copie (ajout du répertoire "./" possible)
+*
+* @param char* librairie_2
+*	chemin de la deuxième librairies après modification et copie (jout du répertoire "./", et de ".copy" en fin possible)
+*
+* @param int copieEffectuee
+*	booléen. est à vrai si une copie a été effectuée, faux sinon.
+*
+* @return int
+*	retourne 0 si tout s'est bine passé, -1 sinon (erreur de copie).
+*
+*/
 int verifierLibrairies( char* cheminLibrairie_1, char* cheminLibrairie_2, char* librairie_1, char* librairie_2, int* copieEffectuee ) {
 
 	// on ajoute les caracteres "./"

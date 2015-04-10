@@ -1,10 +1,8 @@
 #ifndef _graphique
 	#define _graphique
 
-
-
 #include <SDL/SDL_ttf.h>
-#include "backgammon.h"
+#include "../Commun/backgammon.h"
 
 #ifdef _WIN32
     #include <SDL.h>
@@ -12,7 +10,6 @@
 #else
     #include "SDL/SDL.h"
 #endif
-
 
 
 typedef struct{
@@ -30,10 +27,13 @@ typedef struct{
     int nbPions;
     int hauteur;
     int largeur;
+
     SDL_Surface* imageCase;
+
 } Case;
 
 typedef struct{
+
 
     int valeur;
     int posX;
@@ -53,6 +53,7 @@ typedef struct{
     int out[2];
     int hauteur;
     int largeur;
+
     OutGraphique outGraphique[2];
     Case barGraphique[2];
 
@@ -65,8 +66,6 @@ typedef struct{
     Plateau plateau;
 
 } Deplacement;
-
-
 
 
 int initialiserFenetre();
@@ -89,14 +88,12 @@ int getChoixUtilisateurGraphique();
 void creerFenetrePopup( char* messageMise, char* messageQuestion );
 
 
-void pause();   // a virer plus tard
-
-
 Pion creerPion(int posX, int posY, char* image);
 SDL_Rect positionnerPion(Case *case_pos, int numCase);
 void initCases(Plateau *plateau);
 void initPions(Plateau *plateau, SGameState gameState);
 void creerPlateau(Plateau *plateau);
+
 void deplacerPionVers(Pion *pion, Case* case_dest);
 void updateOutGraphic(int numJoueur);
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau);
@@ -107,6 +104,7 @@ void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
 void freePion(Pion *pion);
 void rafraichirDes();
 void freeTousLesPions();
+
 
 
 

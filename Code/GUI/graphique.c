@@ -1,5 +1,6 @@
+
 #include "graphique.h"
-#include "arbitre.h"
+//#include "arbitre.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -637,6 +638,7 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
 /**
 * Met en pause le jeu en attendant un évènement
 */
+/*
 void pause() {
 
     int continuer = 1;
@@ -728,7 +730,7 @@ void pause() {
         }
     }
 }
-
+*/
 
 
 /**

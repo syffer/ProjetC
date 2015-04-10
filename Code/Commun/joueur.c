@@ -1,5 +1,10 @@
+/*
+	Fichier contenant toutes les fonctions concernant le chargement des libraires.
+	Les fonctions d'une librairie chargée seront stockées dans une structure Joueur, 
+	celle-ci ne contient que des pionteurs de fonctions.
 
 
+*/
 
 #include "joueur.h"
 
@@ -9,10 +14,11 @@
 
 
 
+
 /*
 * Charge une librairie statégie et retourne la structure joueur correspondante.
 * La structure joueur contiendra sa librairie (pour pouvoir la fermée plus tard) et ses propres fonctions
-*
+* 
 * Attention, cette fonction termine le programme avec exit(-1) si elle n'arrive pas à charger la librairie ou l'une des fonctions attendues
 *
 * @param char* nomLibrairie
@@ -21,8 +27,9 @@
 * @return Joueur
 *	la structure joueur contenant la librairie et les fonctions qui lui sont associé.
 */
-
 Joueur chargerJoueur( char nomLibrairie[] ) {
+	
+	//printf(" --> %s \n", nomLibrairie );
 
 	// on charge la librairie
 	Librairie lib = chargerLibrairie( nomLibrairie );
@@ -33,7 +40,6 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 	}
 	getError();    /* Clear any existing error */
 
-    printf("%s\n",nomLibrairie);
 
 	int nbErreursDetectees = 0;
 
@@ -41,36 +47,28 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 
 	joueur.librairie = lib;
 
-    printf("init\n");
-
 	joueur.InitLibrary = (pfInitLibrary) extraireLibrairie( lib, "InitLibrary" );	// on extrait la fonction
 	nbErreursDetectees += dlerrorDetectee();
-
-    printf("start %p\n", joueur.InitLibrary );
 
 	joueur.StartMatch = (pfStartMatch) extraireLibrairie( lib, "StartMatch" );
 	nbErreursDetectees += dlerrorDetectee();
 
-    printf("game\n");
 	joueur.StartGame = (pfStartGame) extraireLibrairie( lib, "StartGame" );
 	nbErreursDetectees += dlerrorDetectee();
-
-    printf("end\n");
 
 	joueur.EndGame = (pfEndGame) extraireLibrairie( lib, "EndGame" );
 	nbErreursDetectees += dlerrorDetectee();
 
-    printf("end\n");
-
 	joueur.EndMatch = (pfEndMatch) extraireLibrairie( lib, "EndMatch" );
 	nbErreursDetectees += dlerrorDetectee();
-
-    printf("double\n");
 
 	joueur.DoubleStack = (pfDoubleStack) extraireLibrairie( lib, "DoubleStack" );
 	nbErreursDetectees += dlerrorDetectee();
 
 	joueur.TakeDouble = (pfTakeDouble) extraireLibrairie( lib, "TakeDouble" );
+	nbErreursDetectees += dlerrorDetectee();
+
+	joueur.PlayTurn = (pfPlayTurn) extraireLibrairie( lib, "PlayTurn" );
 	nbErreursDetectees += dlerrorDetectee();
 
 
@@ -85,9 +83,11 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 }
 
 
+
 #ifdef _WIN32
+	// la fonction dlerror() n'a pas d'équivalent sur windows, il faut la fabriquer manuellement
     char* getError() {
-        return NULL;
+
 		DWORD errorMessageID = GetLastError();
 
 		if( errorMessageID == 0 ) return NULL;
@@ -103,7 +103,7 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 
 
 /*
-* Si une erreur est renvoyée par dlerror(), alors on affiche cette erreur et l'on renvoie 1,
+* Si une erreur est renvoyée par dlerror(), alors on affiche cette erreur et l'on renvoie 1, 
 * sinon on renvoie 0.
 *
 */
