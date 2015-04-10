@@ -8,7 +8,7 @@
 #include <time.h>		// time
 #include <stdlib.h> 	// srand
 #include <stdio.h>		// printf()
-#include <unistd.h>
+#include <unistd.h>     // usleep() 
 
 
 #define ICI printf("ICIIIIII\n");
@@ -226,7 +226,7 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
             afficherGameState(etatJeux);
             printf("\n\n");
 
-
+            usleep(1);
 
             //On lui donne ici normalement l'état copié
             if(etatJeux.turn == WHITE) joueurBlanc.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesw );

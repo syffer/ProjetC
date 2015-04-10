@@ -21,4 +21,40 @@
 => commenter    (cyril)
 => virer parties inutiles   (cyril)
 
+
+
+
+===============================================
+
+erreurs : 
+
+- partie graphique :
+	
+	la fonction retournerNumCase() retourne toujours -1, donc impossible pour un joueur de sélectionner une case
+
+	erreur dans la fonction deplacerPion ==> entraine une segmentation fault
+
+	il manque un texte a bien afficher à la bonne place
+
+	la mise n'est pas actualisée
+
+
+- partie arbitre :
+	l'arbitre autorise des coups qu'il ne devrait pas (encore) 
+		==> lors de la verification de prise de pion, si le pion est tout seul et est quand même à moi, il se rend sur la barre
+		==> autorise des sorties de pions (out) qu'il ne devrait pas (car il y a des pions sur la barre)
+
+	oublie de l'appel pour afficher le score cible ?
+
+	bien afficher à la fin qui est le gagnant / perdant ====> AVEC LES NOMS DES BOTS + leurs couleurs
+
+
+- partie IA :
+	bot anti-jeu ne joue pas à partir d'un moment (a vérifier, car avec les autres erreurs, le pc chauffe pour rien....)
+
+
+===============================================
+
+
+
 ### partie main		(done)

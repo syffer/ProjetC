@@ -57,6 +57,7 @@ struct Graphique {
     SDL_Surface* texte_ScoreBlanc;
     SDL_Surface* texte_ScoreNoir;
     SDL_Surface* texte_ScoreCible;
+    SDL_Surface* texte_Tour;
 
     SDL_Surface* texte_LabelMiseCourante;
     SDL_Surface* texte_LabelScoreBlanc;
@@ -124,6 +125,20 @@ void rafraichirGraphique()
     position.x = 580;
     position.y = 30;
     SDL_BlitSurface( graphique.texte_LabelScoreCible, NULL, graphique.ecran, &position );
+
+    /*
+    *
+    *
+    *   TOUR !!!!
+    *
+    *
+    *
+    */
+    position.x = 580;
+    position.y = 30;
+    SDL_BlitSurface( graphique.texte_Tour, NULL, graphique.ecran, &position );
+
+
 
 
     //Rafraichissement des dés
@@ -213,7 +228,7 @@ int initialiserFenetre() {
     graphique.texte_ScoreBlanc = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
     graphique.texte_ScoreNoir = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
     graphique.texte_ScoreCible = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
-
+    graphique.texte_Tour = TTF_RenderText_Blended( graphique.police, "", couleurNoire );
 
     //rafraichissement de l'image
     rafraichirGraphique();
@@ -232,26 +247,31 @@ int initialiserFenetre() {
 void fermerFenetre() {
 
 
-    TTF_CloseFont( graphique.police ); //fermeture de la police d'écriture
+    TTF_CloseFont(graphique.police); //fermeture de la police d'écriture
     TTF_Quit();
 
-    SDL_FreeSurface( graphique.fond );
-    SDL_FreeSurface( graphique.ecran );
+    SDL_FreeSurface(graphique.fond);
+    SDL_FreeSurface(graphique.ecran);
+
     SDL_FreeSurface(graphique.texte_MiseCourante);
     SDL_FreeSurface(graphique.texte_ScoreBlanc);
     SDL_FreeSurface(graphique.texte_ScoreNoir);
     SDL_FreeSurface(graphique.texte_ScoreCible);
+    SDL_FreeSurface(graphique.texte_Tour);
+
     SDL_FreeSurface(graphique.texte_LabelMiseCourante);
     SDL_FreeSurface(graphique.texte_LabelScoreBlanc);
     SDL_FreeSurface(graphique.texte_LabelScoreNoir);
     SDL_FreeSurface(graphique.texte_LabelScoreCible);
+
+    SDL_FreeSurface( graphique.de1 );
+    SDL_FreeSurface( graphique.de2 );
+
     freeTousLesPions();
 
     SDL_Quit();
 
-    printf("Terminé correctement\n");
-
-
+    printf("(graphique) Terminé correctement\n");
 }
 
 void freeTousLesPions()
@@ -265,6 +285,7 @@ void freeTousLesPions()
         case_b = graphique.plateau.tabCases[i];
         for( j = 0; j < case_b.nbPions -1; j++)
         {
+            SDL_FreeSurface( &case_b.tabPions[j].imagePion );
             freePion(&case_b.tabPions[j]);
         }
     }
@@ -278,6 +299,7 @@ void freeTousLesPions()
         {
             if(g.caseOut.nbPions > 0) // si il y a au moins1 pion dans le bar
             {
+                SDL_FreeSurface( &g.caseOut.tabPions[j].imagePion );
                 freePion(&g.caseOut.tabPions[j]);
             }
         }
@@ -321,7 +343,7 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
     updateScoreJoueurNoir( gameState -> blackScore );
     updateMiseCouranteGraphique( gameState -> stake );
     updateScoreCibleGraphique(0);
-    // updateTourJoueurGraphique( gameState -> turn );
+    updateTourJoueurGraphique( gameState -> turn );
 }
 
 /**
@@ -364,6 +386,9 @@ void updateDesGraphique( unsigned char dices[2] ) {
     char* pathCompletDe1 = retournerPathDe( dices[0] );
     char* pathCompletDe2 = retournerPathDe( dices[1] );
 
+    SDL_FreeSurface( graphique.de1 );
+    SDL_FreeSurface( graphique.de2 );
+
     graphique.de1 = SDL_LoadBMP(pathCompletDe1);
     graphique.de2 = SDL_LoadBMP(pathCompletDe2);
 
@@ -400,8 +425,8 @@ void updateTourJoueurGraphique( Player joueur ) {
     if(joueur == BLACK)
         sprintf( chaine, "Au tour de BLACK de jouer");
 
-   // SDL_FreeSurface(graphique.texte_);
-    //graphique.texte_MiseCourante = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
+    SDL_FreeSurface(graphique.texte_Tour);
+    graphique.texte_Tour = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
     
     rafraichirGraphique();
 
@@ -449,8 +474,7 @@ void updateScoreCibleGraphique( int scoreCible ) {
     char chaine[15];
     sprintf( chaine, "%d", scoreCible );
 
-    //SDL_FreeSurface(graphique.texte_ScoreCible);
-    
+    SDL_FreeSurface(graphique.texte_ScoreCible);
     graphique.texte_ScoreCible = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
 
     rafraichirGraphique();
@@ -594,7 +618,7 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
     // chargement de l'image
     SDL_Surface* imagePopup = SDL_LoadBMP("./GUI/Images/popup.bmp");
     if ( ! imagePopup ) {
-        printf("Impossible de charger l'image de la fenetre popup : %s\n", SDL_GetError());
+        fprintf( stderr, "Impossible de charger l'image de la fenetre popup : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
@@ -602,7 +626,7 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
     SDL_Color couleurNoire = {0, 0, 0};
     SDL_Surface* texteMessageMise = TTF_RenderText_Blended( graphique.police, messageMise, couleurNoire );
     if ( ! texteMessageMise ) {
-        printf("Impossible de creer le texte de la fenetre popup : %s\n", SDL_GetError());
+        fprintf( stderr, "Impossible de creer le texte de la fenetre popup : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
@@ -610,7 +634,7 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
 
     SDL_Surface* texteMessageQuestion = TTF_RenderText_Blended( graphique.police, messageQuestion, couleurNoire );
     if ( ! texteMessageQuestion ) {
-        printf("Impossible de creer le texte de la fenetre popup : %s\n", SDL_GetError());
+        fprintf( stderr, "Impossible de creer le texte de la fenetre popup : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
@@ -620,7 +644,8 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
     SDL_Rect position;
     position.x = ( LARGEUR_FENETRE / 2 ) - ( LARGEUR_POPUP / 2 );
     position.y = ( HAUTEUR_FENETRE / 2 ) - ( HAUTEUR_POPUP / 2 );
-    SDL_SetColorKey( imagePopup, SDL_SRCCOLORKEY, SDL_MapRGB(imagePopup->format, 255, 255, 255) );
+    SDL_Surface* mapRGB = SDL_MapRGB(imagePopup->format, 255, 255, 255);
+    SDL_SetColorKey( imagePopup, SDL_SRCCOLORKEY, mapRGB );
     SDL_BlitSurface( imagePopup, NULL, graphique.ecran, &position );
 
     // affichage du texte de la fenetre
@@ -640,6 +665,8 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
     SDL_FreeSurface( texteMessageQuestion );
     SDL_FreeSurface( imagePopup );
 
+    SDL_FreeSurface( mapRGB );
+    
 
     // mise à jour de l'écran
     SDL_Flip( graphique.ecran );
@@ -1110,9 +1137,11 @@ void deplacerPionVers(Pion *pion, Case* case_dest)
         distanceY = fabs(pion->posPion.y - y);
         //updatePionsGraphique();
 
+        /*
         SDL_Rect pos;
         pos.x = 0;
         pos.y = 0;
+        */
 
         //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &pos);
         SDL_BlitSurface(pion->imagePion, NULL, graphique.ecran, &pion ->posPion);
