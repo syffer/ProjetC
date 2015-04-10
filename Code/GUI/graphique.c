@@ -136,10 +136,9 @@ void rafraichirGraphique()
     *
     *
     */
-    position.x = 580;
-    position.y = 30;
+    position.x = 1280;
+    position.y = 360;
     SDL_BlitSurface( graphique.texte_Tour, NULL, graphique.ecran, &position );
-
 
 
 
@@ -268,7 +267,8 @@ void fermerFenetre() {
     SDL_FreeSurface(graphique.texte_LabelScoreNoir);
     SDL_FreeSurface(graphique.texte_LabelScoreCible);
 
-
+    SDL_FreeSurface(graphique.plateau.outGraphique[WHITE].imagePionOut);
+    SDL_FreeSurface(graphique.plateau.outGraphique[BLACK].imagePionOut);
 
     SDL_FreeSurface( graphique.de1 );
     SDL_FreeSurface( graphique.de2 );
@@ -329,14 +329,25 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
 
 
     //on r�initialise le nombre de pions sortis
-    graphique.plateau.out[0] = 0;
-    graphique.plateau.out[1] = 0;
+    graphique.plateau.out[WHITE] = 0;
+    graphique.plateau.out[BLACK] = 0;
 
     // on r�initialise le nombre de pions de chaque bar
-    graphique.plateau.barGraphique[0].nbPions = 0;
-    graphique.plateau.barGraphique[1].nbPions = 0;
+    graphique.plateau.barGraphique[WHITE].nbPions = 0;
+    graphique.plateau.barGraphique[BLACK].nbPions = 0;
 
-    //updateOutGraphic(gameState ->turn);
+    pos.x = graphique.plateau.outGraphique[WHITE].posX;
+    pos.y = graphique.plateau.outGraphique[WHITE].posY;
+
+
+
+    graphique.plateau.outGraphique[WHITE].imagePionOut = SDL_CreateRGBSurface(SDL_HWSURFACE, 0, 0, 32, 0, 0, 0, 0);
+    SDL_BlitSurface( graphique.plateau.outGraphique[WHITE].imagePionOut, NULL, graphique.fond, &pos );
+
+    pos.x = graphique.plateau.outGraphique[BLACK].posX;
+    pos.y = graphique.plateau.outGraphique[BLACK].posY;
+    graphique.plateau.outGraphique[BLACK].imagePionOut = SDL_CreateRGBSurface(SDL_HWSURFACE, 0, 0, 32, 0, 0, 0, 0);
+    SDL_BlitSurface( graphique.plateau.outGraphique[BLACK].imagePionOut, NULL, graphique.fond, &pos );
 
     for(i = 0; i < 24; i++)//pour chaque Square
     {
@@ -445,9 +456,9 @@ void updateTourJoueurGraphique( Player joueur ) {
 
     char chaine[50];
     if(joueur == WHITE)
-        sprintf( chaine, "Au tour de WHITE de jouer");
+        sprintf( chaine, "WHITE");
     if(joueur == BLACK)
-        sprintf( chaine, "Au tour de BLACK de jouer");
+        sprintf( chaine, "BLACK");
 
     SDL_FreeSurface(graphique.texte_Tour);
     graphique.texte_Tour = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
@@ -869,22 +880,25 @@ void updateOutGraphic(int numJoueur)
     int hauteurARemplir = nbOut*epaisseurPion;
     SDL_Rect posOut;
 
-    SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 120, hauteurARemplir, 32, 0, 0, 0, 0);
+    //SDL_Surface *outJoueur = SDL_CreateRGBSurface(SDL_HWSURFACE, 120, hauteurARemplir, 32, 0, 0, 0, 0);
     if(numJoueur == BLACK){
 
-        SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 0, 0, 0));
+        graphique.plateau.outGraphique[BLACK].imagePionOut = SDL_CreateRGBSurface(SDL_HWSURFACE, 120, hauteurARemplir, 32, 0, 0, 0, 0);
+        //on rempli la surface avec un rectangle de la couleur du joueur et de la bonne hauteur selon le nombre de pions sortis
+        SDL_FillRect(graphique.plateau.outGraphique[BLACK].imagePionOut, NULL, SDL_MapRGB(graphique.ecran->format, 0, 0, 0));
         posOut.x = graphique.plateau.outGraphique[BLACK].posX;
         posOut.y = graphique.plateau.outGraphique[BLACK].posY;
 
-        SDL_BlitSurface(outJoueur, NULL, graphique.fond, &posOut);
+        SDL_BlitSurface(graphique.plateau.outGraphique[BLACK].imagePionOut, NULL, graphique.fond, &posOut);
     }
     else if(numJoueur == WHITE){
 
-        SDL_FillRect(outJoueur, NULL, SDL_MapRGB(graphique.ecran->format, 255, 255, 255));
+        graphique.plateau.outGraphique[WHITE].imagePionOut = SDL_CreateRGBSurface(SDL_HWSURFACE, 120, hauteurARemplir, 32, 0, 0, 0, 0);
+        SDL_FillRect(graphique.plateau.outGraphique[WHITE].imagePionOut, NULL, SDL_MapRGB(graphique.ecran->format, 255, 255, 255));
         posOut.x = graphique.plateau.outGraphique[WHITE].posX;
         posOut.y = graphique.plateau.outGraphique[WHITE].posY;
 
-        SDL_BlitSurface(outJoueur, NULL, graphique.fond, &posOut);
+        SDL_BlitSurface(graphique.plateau.outGraphique[WHITE].imagePionOut, NULL, graphique.fond, &posOut);
 
     }
 
@@ -1351,7 +1365,6 @@ int retournerNumCase(int sourisX, int sourisY, Plateau plateau)
         if(sourisX >= case_b.posX && sourisX <= case_b.posX + case_b.largeur && sourisY >= case_b.posY && sourisY <= case_b.posY + case_b.hauteur)
             return 0;
 
-    //printf(" --------------------------------------------------------------> (graphique) fonction retournerNumCase() ==> ne devrait pas arriver la, car il retourne -1 \n");
 
     return -1;
 }

@@ -41,7 +41,7 @@ typedef struct{
     int largeur;
     int hauteur;
     Case caseOut;
-
+    SDL_Surface* imagePionOut;
 } OutGraphique;
 
 
