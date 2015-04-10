@@ -3,7 +3,7 @@
 	Cas où un joueur joue et non un bot
 
 	Auteurs :
-	- Pauline HOULGATTE
+	- Titouan PASQUET
 	- Maxime PINEAU
 
 */

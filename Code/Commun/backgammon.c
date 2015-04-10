@@ -57,21 +57,33 @@ int main( int argc, char* argv[] ) {
 
 	char* cheminLibrairie_1 = "";
 	char* cheminLibrairie_2 = "";
-
+	int tailleLibrairie_1 = strlen( cheminLibrairie_1 );
+	int tailleLibrairie_2 = strlen( cheminLibrairie_2 );
+	char librairie_1[ tailleLibrairie_1 + 20 ]; 	// "./" + chemin + ".copy"
+	char librairie_2[ tailleLibrairie_2 + 20 ];
+	int librairie_copiee = 0;	// est à vrai si une librairie a été copiée
 
 	if( argc >= 3 ) {
 
 		cheminLibrairie_1 = argv[2];
-		joueurs[0] = chargerJoueur( cheminLibrairie_1 );
+		
 
 
 		if( argc >= 4 ) {
 
-
 			cheminLibrairie_2 = argv[3];
-			joueurs[1] = chargerJoueur( cheminLibrairie_2 );
+			
+			if( verifierLibrairies( cheminLibrairie_1, cheminLibrairie_2, librairie_1, librairie_2, &librairie_copiee ) ) {
+				perror( " Erreur lors de la copie de la librairie. \n" );
+				exit( EXIT_FAILURE );
+			}
+
+			joueurs[1] = chargerJoueur( librairie_2 );
 
 		}
+		else ajouterRepertoireCourant( cheminLibrairie_1, librairie_1 );
+
+		joueurs[0] = chargerJoueur( librairie_1 );
 
 	}
 	
@@ -98,12 +110,6 @@ int main( int argc, char* argv[] ) {
 		perror( " Erreur lors de la copie de la librairie. \n" );
 		exit( EXIT_FAILURE );
 	}
-
-
-
-	
-	joueurs[ BLACK ] = chargerJoueur( librairie_1 );
-	joueurs[ WHITE ] = chargerJoueur( librairie_2 );
 	*/
 
 
@@ -117,7 +123,7 @@ int main( int argc, char* argv[] ) {
 	libererJoueur( joueurs[ BLACK ] );		// attention, on ne peut plus appeler les fonctions du joueur
 	libererJoueur( joueurs[ WHITE ] );
 
-	/*
+	
 	if( librairie_copiee ) {
 
 		if( remove(librairie_2) ) {
@@ -125,7 +131,7 @@ int main( int argc, char* argv[] ) {
 		}
 
 	}
-	*/
+	
 
 
 	return 0;
