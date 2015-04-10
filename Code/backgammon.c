@@ -33,6 +33,7 @@ int main( int argc, char* argv[] ) {
 	updateMiseCouranteGraphique(12);
 
 	int numCase = selectionnerCaseGraphique();
+    printf("dans backgammon .c, numCase = %i\n", numCase);
 
 	pause();
 

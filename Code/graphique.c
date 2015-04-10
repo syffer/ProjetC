@@ -493,7 +493,7 @@ int selectionnerCaseGraphique() {
 
                     posX = event.motion.x;
                     posY = event.motion.y;
-
+                    printf("------- mouseX : %i - mouseY : %i\n", posX, posY);
                     numeroCase = retournerNumCase( event.motion.x, event.motion.y, graphique.plateau );
 
                     if( numeroCase != -1 ) return numeroCase;
@@ -708,7 +708,7 @@ void pause() {
             break;
 
             case SDL_MOUSEBUTTONUP:
-                if (event.button.button == SDL_BUTTON_LEFT)
+                /*if (event.button.button == SDL_BUTTON_LEFT)
                 {
                     move.dest_point = retournerNumCase(event.motion.x, event.motion.y, graphique.plateau);
                     printf("destination : %i\n", move.dest_point);
@@ -720,7 +720,7 @@ void pause() {
                     move.src_point = retournerNumCase(event.motion.x, event.motion.y, graphique.plateau);
                     printf("source : %i\n", move.src_point);
                    // surlignerCase(move.src_point);
-                }
+                }*/
             break;
 
             default:
