@@ -13,8 +13,8 @@ all:: ia gui commun
 ##### creation de l'executable du jeu
 commun:: backgammon
 
-backgammon: Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o Commun/libJoueur.o IA/fonctionsBot_bis.o IA/ListeChainee_bis.o IA/Coup_bis.o IA/GameState_bis.o
-	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o Commun/libJoueur.o IA/fonctionsBot_bis.o IA/ListeChainee_bis.o IA/Coup_bis.o IA/GameState_bis.o -o backgammon -ldl `sdl-config --cflags --libs` -lSDL -lSDL_ttf
+backgammon: Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o Commun/libJoueur.o IA/fonctionsBot_reel.o IA/ListeChainee_reel.o IA/Coup_reel.o IA/GameState_reel.o
+	gcc $(CFLAGS) Commun/backgammon.o Commun/arbitre.o GUI/graphique.o Commun/joueur.o Commun/verifications.o Commun/libJoueur.o IA/fonctionsBot_reel.o IA/ListeChainee_reel.o IA/Coup_reel.o IA/GameState_reel.o -o backgammon -ldl `sdl-config --cflags --libs` -lSDL -lSDL_ttf
 
 
 
@@ -34,17 +34,17 @@ Commun/verifications.o: Commun/verifications.c Commun/verifications.h
 Commun/libJoueur.o: Commun/libJoueur.c Commun/libJoueur.h 
 	gcc $(CFLAGS) -c Commun/libJoueur.c -o Commun/libJoueur.o
 
-IA/fonctionsBot_bis.o: IA/fonctionsBot.c IA/fonctionsBot.h 
-	gcc $(CFLAGS) -o IA/fonctionsBot_bis.o -c IA/fonctionsBot.c 
+IA/fonctionsBot_reel.o: IA/fonctionsBot.c IA/fonctionsBot.h 
+	gcc $(CFLAGS) -o IA/fonctionsBot_reel.o -c IA/fonctionsBot.c 
 
-IA/ListeChainee_bis.o: IA/ListeChainee.c IA/ListeChainee.h 
-	gcc $(CFLAGS) -o IA/ListeChainee_bis.o -c IA/ListeChainee.c 
+IA/ListeChainee_reel.o: IA/ListeChainee.c IA/ListeChainee.h 
+	gcc $(CFLAGS) -o IA/ListeChainee_reel.o -c IA/ListeChainee.c 
 
-IA/Coup_bis.o: IA/Coup.c IA/Coup.h 
-	gcc $(CFLAGS) -o IA/Coup_bis.o -c IA/Coup.c 
+IA/Coup_reel.o: IA/Coup.c IA/Coup.h 
+	gcc $(CFLAGS) -o IA/Coup_reel.o -c IA/Coup.c 
 
-IA/GameState_bis.o: IA/GameState.c IA/GameState.h
-	gcc $(CFLAGS) -o IA/GameState_bis.o -c IA/GameState.c 
+IA/GameState_reel.o: IA/GameState.c IA/GameState.h
+	gcc $(CFLAGS) -o IA/GameState_reel.o -c IA/GameState.c 
 
 
 

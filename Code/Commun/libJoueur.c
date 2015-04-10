@@ -156,12 +156,13 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 		while( ! selectionTerminee ) {
 
 
-			printf("__________________ jouer joueur reel \n");
+			printf("(joueur reel) je dois selectionner un pion\n");
 			// arrêter animation pions
 
 			positionCaseDepart = selectionnerCaseGraphique();
 
-			printf("__________________ case selectionnee %i \n", positionCaseDepart );
+			printf("(joueur reel) j'ai selectionnee le pion sur la case %i \n", positionCaseDepart );
+
 
 			caseDepart = getCaseReelle( gameState, gameState -> turn, positionCaseDepart );
 
