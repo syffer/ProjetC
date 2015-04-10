@@ -8,7 +8,7 @@
 #include <time.h>		// time
 #include <stdlib.h> 	// srand
 #include <stdio.h>		// printf()
-#include <unistd.h>     // usleep() 
+#include <unistd.h>     // usleep()
 
 
 #define ICI printf("ICIIIIII\n");
@@ -210,7 +210,7 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
         continuerPartie = 1;
 
         initialiserPlateauGraphique(&etatJeux);
-
+        sleep(8);
         // on lance les dés jusqu'a ce que l'on obtienne deux nombre différents
         do
         {
@@ -255,13 +255,17 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
                     //le joueur n'est pas humain
                     //coup valide, on modifie la gameState, on appele les fonctions graphiques et on passe le tour
                     for(i=0;i<nbMoves;i++){
+                        printf("DEST POINT : src : %d\n",bonsCoups[i].src_point);
+                        printf("DEST POINT : dest : %d\n",bonsCoups[i].dest_point);
                         if(etatJeux.board[bonsCoups[i].dest_point-1].owner == !etatJeux.turn){ //on vérifie ici pour afficher le déplacement d'un jeton mangé
                             move.src_point = bonsCoups[i].dest_point;
                             move.dest_point = 0;
-                            deplacerPionGraphique( move, etatJeux.turn );
+                            deplacerPionGraphique( move, !etatJeux.turn );
+                            sleep(1);
                         }
                         jouerCoup(&etatJeux,bonsCoups[i],etatJeux.turn);
                         deplacerPionGraphique( bonsCoups[i], etatJeux.turn );
+                        sleep(1);
                     }
 
                 }else{
@@ -276,6 +280,7 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
             }else{
                 //on change le tour du joueur
                 etatJeux.turn = !etatJeux.turn;
+                sleep(1);
 
                 printf("_________ (arbitre) graphique update tour joueur \n");
 
@@ -328,6 +333,7 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
                 //on lance les dés
                 lancerLesDes(dices);
                 afficherDes(dices);
+                sleep(1);
             }
 
         }
@@ -500,7 +506,6 @@ void transformerDesEnCoups(unsigned char dices[2], unsigned int coups[4], int* n
 
 //retourne le nombre de coups joués
 int jouerBar(SGameState* etatJeux, unsigned int coups[4],int* nbCoups, int couleur){
-    printf("RENTRE DANS LE BAR\n");
     if(etatJeux->bar[couleur] == 0){
         printf("BAR : pas de bar détecté\n");
         return 0;
