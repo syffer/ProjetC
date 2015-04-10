@@ -173,10 +173,6 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
     printf("envoi du startMatch aux joueurs\n");
     joueurBlanc.StartMatch(score);
     joueurNoir.StartMatch(score);
-    int initialiserFenetre();
-
-
-
 
 
     initialiserFenetre();
@@ -209,8 +205,9 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
         joueurNoir.StartGame(BLACK);
         continuerPartie = 1;
 
+
         initialiserPlateauGraphique(&etatJeux);
-        sleep(8);
+
         // on lance les dés jusqu'a ce que l'on obtienne deux nombre différents
         do
         {
@@ -226,7 +223,6 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
             afficherGameState(etatJeux);
             printf("\n\n");
 
-            usleep(1);
 
             //On lui donne ici normalement l'état copié
             if(etatJeux.turn == WHITE) joueurBlanc.PlayTurn( &etatCopie, dices, moves, &nbMoves, triesw );
@@ -261,11 +257,9 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
                             move.src_point = bonsCoups[i].dest_point;
                             move.dest_point = 0;
                             deplacerPionGraphique( move, !etatJeux.turn );
-                            sleep(1);
                         }
                         jouerCoup(&etatJeux,bonsCoups[i],etatJeux.turn);
                         deplacerPionGraphique( bonsCoups[i], etatJeux.turn );
-                        sleep(1);
                     }
 
                 }else{
@@ -280,7 +274,6 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
             }else{
                 //on change le tour du joueur
                 etatJeux.turn = !etatJeux.turn;
-                sleep(1);
 
                 printf("_________ (arbitre) graphique update tour joueur \n");
 
@@ -333,7 +326,6 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
                 //on lance les dés
                 lancerLesDes(dices);
                 afficherDes(dices);
-                sleep(1);
             }
 
         }
@@ -374,7 +366,7 @@ void jouerPartie( int score, Joueur joueurs[2], int estBot[2] ) {
     }
     joueurBlanc.EndMatch();
     joueurNoir.EndMatch();
-    void fermerFenetre();
+    fermerFenetre();
 }
 
 int finPartie(SGameState* etatJeux, int triesw, int triesb , int* winner){
