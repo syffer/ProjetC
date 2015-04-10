@@ -3,6 +3,11 @@
 	
 	Ce bot calcule tous les coups possibles,
 	et en tire un aléatoirement.
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include <stdio.h>
@@ -114,7 +119,7 @@ void PlayTurn( SGameState * gameState, const unsigned char dices[2], SMove moves
 	}
 
 	// on en tire un aléatoirement
-	int aleatoire = randomINT( 0, getNbElements(coups) - 1 );
+	int aleatoire = randomInteger( 0, getNbElements(coups) - 1 );
 	
 	Coup coupAleatoire;
 	Cellule* cellule = getPremierElement(coups);

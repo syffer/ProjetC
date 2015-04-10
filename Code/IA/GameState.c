@@ -1,5 +1,10 @@
 /*
 	Fichier contenant les fonctions concernant l'état du jeu (GameState, SMove, Square, Player...)
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include "GameState.h"
@@ -431,7 +436,7 @@ int calculerCout( SGameState* gameState ) {
  * @param max : le maximum
  * @return : un entier
  * */
-int randomINT( int min, int max ) {
+int randomInteger( int min, int max ) {
 	// on vérifie si le générateur aléatoire a été initialisé
 	static int generateurInitialise = 0;
     if( ! generateurInitialise ) {		// si ce n'est pas le cas, on l'initialise

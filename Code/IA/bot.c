@@ -1,6 +1,11 @@
 /*
 	Base pour la création d'un bot
 	Ce bot ne fait rien du tout
+
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include <stdio.h>

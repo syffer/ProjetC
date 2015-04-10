@@ -2,6 +2,10 @@
 	Fichier contenant la structure Bot, et les fonctions de calcul des différents coups possibles
 	(utilise à la fois le fichier Coup.h et ListeChainee.h) 
 
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #ifndef _fonctionsBot

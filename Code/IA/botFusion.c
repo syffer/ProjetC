@@ -1,5 +1,10 @@
 /*
 	Bot fusion de AntiJeu & Lynx
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include <stdio.h>

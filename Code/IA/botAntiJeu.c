@@ -1,5 +1,10 @@
 /*
 	Bot dont le but est de gagner en bloquant au maximum le coup de ses adversaires
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include <stdio.h>

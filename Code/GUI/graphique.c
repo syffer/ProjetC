@@ -187,7 +187,12 @@ int initialiserFenetre() {
 
 
     // avoir un fonc blanc au cas ou
-    SDL_FillRect( graphique.ecran, NULL, SDL_MapRGB( graphique.ecran->format, 255, 255, 255) );
+    SDL_FillRect( graphique.ecran, NULL, SDL_MapRGB( graphique.ecran->format, 255, 255, 255 ) );
+
+
+    //SDL_FreeSurface(mapRGB);
+
+
 
     // on applique l'image de fond sur l'écran
     SDL_Rect position;
@@ -283,6 +288,7 @@ void freeTousLesPions()
 {
     int i, j;
     Case case_b;
+    SDL_Surface* imagePion;
 
     //libération des pions du tableau
     for( i = 0; i < 24; i++)
@@ -290,7 +296,8 @@ void freeTousLesPions()
         case_b = graphique.plateau.tabCases[i];
         for( j = 0; j < case_b.nbPions -1; j++)
         {
-            SDL_FreeSurface( &case_b.tabPions[j].imagePion );
+            imagePion = case_b.tabPions[j].imagePion;
+            SDL_FreeSurface( imagePion );
             freePion(&case_b.tabPions[j]);
         }
     }
@@ -304,7 +311,8 @@ void freeTousLesPions()
         {
             if(g.caseOut.nbPions > 0) // si il y a au moins1 pion dans le bar
             {
-                SDL_FreeSurface( &g.caseOut.tabPions[j].imagePion );
+                imagePion = g.caseOut.tabPions[j].imagePion;
+                SDL_FreeSurface( imagePion );
                 freePion(&g.caseOut.tabPions[j]);
             }
         }
@@ -371,13 +379,16 @@ void updatePionsGraphique()
 {
     int i, j;
 
+    Case case_b;
+    Pion pion;
+
     //blit des pions du plateau
     for(i = 0; i < 24; i++)
     {
-        Case case_b = graphique.plateau.tabCases[i];
+        case_b = graphique.plateau.tabCases[i];
         for(j = 0; j < case_b.nbPions; j++)
         {
-            Pion pion = case_b.tabPions[j];
+            pion = case_b.tabPions[j];
             SDL_BlitSurface(pion.imagePion, NULL, graphique.ecran, &pion.posPion);
         }
     }
@@ -385,11 +396,11 @@ void updatePionsGraphique()
     // blit des pions du bar
     for(i = 0; i < 2; i++)
     {
-        Case case_b = graphique.plateau.barGraphique[i];
+        case_b = graphique.plateau.barGraphique[i];
 
         for(j = 0; j < case_b.nbPions; j++)
         {
-            Pion pion = case_b.tabPions[j];
+            pion = case_b.tabPions[j];
             SDL_BlitSurface(pion.imagePion, NULL, graphique.ecran, &pion.posPion);
         }
     }
@@ -661,8 +672,7 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
     SDL_Rect position;
     position.x = ( LARGEUR_FENETRE / 2 ) - ( LARGEUR_POPUP / 2 );
     position.y = ( HAUTEUR_FENETRE / 2 ) - ( HAUTEUR_POPUP / 2 );
-    SDL_Surface* mapRGB = SDL_MapRGB(imagePopup->format, 255, 255, 255);
-    SDL_SetColorKey( imagePopup, SDL_SRCCOLORKEY, mapRGB );
+    SDL_SetColorKey( imagePopup, SDL_SRCCOLORKEY, SDL_MapRGB(imagePopup->format, 255, 255, 255) );
     SDL_BlitSurface( imagePopup, NULL, graphique.ecran, &position );
 
     // affichage du texte de la fenetre
@@ -680,10 +690,8 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
     // liberation des ressources non utilisés
     SDL_FreeSurface( texteMessageMise );
     SDL_FreeSurface( texteMessageQuestion );
+
     SDL_FreeSurface( imagePopup );
-
-    SDL_FreeSurface( mapRGB );
-
 
     // mise à jour de l'écran
     SDL_Flip( graphique.ecran );
@@ -885,6 +893,10 @@ void updateOutGraphic(int numJoueur)
         //drawEmptyRect(outJoueur, posOut.x-1, posOut.y-1, 150, 50, 255, 0, 0 );
     }
 
+
+    SDL_FreeSurface(outJoueur);
+
+
     rafraichirGraphique();
 }
 
@@ -929,187 +941,184 @@ void deplacerPionGraphique(SMove move, Player couleur)
 
         if(move.dest_point >=0 && move.src_point >= 0)
         {
-            int src = move.src_point;
-            int dest = move.dest_point;
+
+            // pas de déplacement si déplacement sur lui même et pas de déplacement venant du out
+            if( move.src_point == move.dest_point ) return;
+            if( move.src_point == 25 ) return;
 
 
-        // pas de déplacement si déplacement sur lui même et pas de déplacement venant du out
-        if( move.src_point == move.dest_point ) return;
-        if( move.src_point == 25 ) return;
+            if( move.dest_point == -1 ) {
+                return;
+            }
+
+            if( move.src_point == -1 ) {
+                return;
+            }
 
 
-        if( move.dest_point == -1 ) {
-            return;
-        }
-
-        if( move.src_point == -1 ) {
-            return;
-        }
-
-
-        if( move.dest_point >= 0 && move.src_point >= 0 )
-        {
-
-        int src = move.src_point;
-        int dest = move.dest_point;
-
-        graphique.deplacement.dest = dest;
-        graphique.deplacement.source = src;
-
-        if(src == 0 || dest == 0){ // on teste si le mouvement concerne le bar
-
-            if(dest == 0) // on déplace le pion vers le bar
+            if( move.dest_point >= 0 && move.src_point >= 0 )
             {
-                src --;
 
-                Case case_src = graphique.plateau.tabCases[src];
-                Case case_dest = graphique.plateau.barGraphique[couleur];
+                int src = move.src_point;
+                int dest = move.dest_point;
 
-                int nbPionsSrc = case_src.nbPions; //nombre de pions dans la case source
-                int nbPionsDest = case_dest.nbPions; // nombre de pions dans la case destination
+                graphique.deplacement.dest = dest;
+                graphique.deplacement.source = src;
 
-                if(nbPionsSrc > 0 && nbPionsDest < 15)
+                if(src == 0 || dest == 0){ // on teste si le mouvement concerne le bar
+
+                    if(dest == 0) // on déplace le pion vers le bar
+                    {
+                        src --;
+
+                        Case case_src = graphique.plateau.tabCases[src];
+                        Case case_dest = graphique.plateau.barGraphique[couleur];
+
+                        int nbPionsSrc = case_src.nbPions; //nombre de pions dans la case source
+                        int nbPionsDest = case_dest.nbPions; // nombre de pions dans la case destination
+
+                        if(nbPionsSrc > 0 && nbPionsDest < 15)
+                        {
+
+                            graphique.plateau.tabCases[src] = case_src;
+                            graphique.plateau.barGraphique[couleur] = case_dest;
+
+                            //on effectue le déplacement
+                            deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
+
+                            case_dest.nbPions++;// on augmente le nombre de pions de la case destinataire
+                            nbPionsDest = case_dest.nbPions;
+
+                            // affectation du pion à la nouvelle case
+                            case_dest.tabPions[nbPionsDest-1] = case_src.tabPions[nbPionsSrc-1];
+
+                            case_src.nbPions --; // on décrémente le nombre de pions de la source
+                            // printf("Après déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
+                            nbPionsSrc = case_src.nbPions ;
+                            nbPionsDest = case_dest.nbPions;
+
+                            graphique.plateau.tabCases[src] = case_src;
+                            graphique.plateau.barGraphique[couleur] = case_dest;
+                            printf("(graphique) Nb cases dans dest : %i\n", nbPionsDest);
+                        }
+                    }
+
+                    else if(src == 0 && dest != 25) // on sort le pion du bar
+                    {
+                        dest --;
+
+                        Case case_src = graphique.plateau.barGraphique[couleur];
+                        Case case_dest = graphique.plateau.tabCases[dest];
+
+                        int nbPionsSrc = case_src.nbPions; //nombre de pions dans la case source
+                        int nbPionsDest = case_dest.nbPions; // nombre de pions dans la case destination
+
+                        //printf("Nb cases dans src : %i\n", nbPionsSrc);
+
+                        if(nbPionsSrc > 0)
+                        {
+
+                            graphique.plateau.barGraphique[couleur] = case_src;
+                            graphique.plateau.tabCases[dest] = case_dest;
+
+                            //on effectue le déplacement
+                            deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
+
+                            case_dest.nbPions++;// on augmente le nombre de pions de la case destinataire
+                            nbPionsDest = case_dest.nbPions;
+
+                            // affectation du pion à la nouvelle case
+                            case_dest.tabPions[nbPionsDest-1] = case_src.tabPions[nbPionsSrc-1];
+
+                            case_src.nbPions --; // on décrémente le nombre de pions de la source
+                            // printf("Après déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
+                            nbPionsSrc = case_src.nbPions ;
+                            nbPionsDest = case_dest.nbPions;
+
+                            graphique.plateau.barGraphique[couleur] = case_src;
+                            graphique.plateau.tabCases[dest] = case_dest;
+                        }
+
+                    }
+
+                }//bar
+                else if(dest == 25) // out
+                {
+                    int nbDames = graphique.plateau.tabCases[src - 1].nbPions -1;
+
+                    Case case_src = graphique.plateau.tabCases[src - 1];
+                    Case case_dest = graphique.plateau.outGraphique[couleur].caseOut;
+                    case_dest.nbPions = 0;
+                    //graphique.plateau.tabCases[src-1].nbPions --;
+
+                    int nbPionsSrc = case_src.nbPions;
+
+                    // graphique.plateau.outGraphique[couleur].caseOut.nbPions ++;
+                    if(nbPionsSrc > 0)
+                    {
+                        //déplacement du pion vers le out
+                        deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
+
+                        //on diminue le nombre de pions de la source
+                        case_src.nbPions --;
+
+                        case_dest.tabPions[0] = case_src.tabPions[nbPionsSrc-1]; // on affecte tout le temps à la première case du tableau le pion que l'on veut retirer
+
+                        graphique.plateau.tabCases[src-1] = case_src;
+                        graphique.plateau.outGraphique[couleur].caseOut = case_dest;
+
+                        graphique.plateau.out[couleur] ++; // on ajoute 1 dans le compteur des pions sortis du joueur
+                        freePion(&graphique.plateau.tabCases[src -1].tabPions[nbDames]); // on libère la surface du pion
+                        updateOutGraphic(couleur);
+                    }
+
+                }
+                else
                 {
 
-                    graphique.plateau.tabCases[src] = case_src;
-                    graphique.plateau.barGraphique[couleur] = case_dest;
+                    //on décrémente la source et la destination pour correspondre avec les bonnes valeurs du tableau
+                    src --;
+                    dest --;
 
-                    //on effectue le déplacement
-                    deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
+                    Case case_src = graphique.plateau.tabCases[src];
+                    Case case_dest = graphique.plateau.tabCases[dest];
 
-                    case_dest.nbPions++;// on augmente le nombre de pions de la case destinataire
-                    nbPionsDest = case_dest.nbPions;
+                    //printf("Case %i possède %i pions\n", src, case_src.nbPions);
 
-                    // affectation du pion à la nouvelle case
-                    case_dest.tabPions[nbPionsDest-1] = case_src.tabPions[nbPionsSrc-1];
+                    int nbPionsSrc = case_src.nbPions; //nombre de pions dans la case source
+                    int nbPionsDest = case_dest.nbPions; // nombre de pions dans la case destination
 
-                    case_src.nbPions --; // on décrémente le nombre de pions de la source
-                   // printf("Après déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
-                    nbPionsSrc = case_src.nbPions ;
-                    nbPionsDest = case_dest.nbPions;
+                    if(nbPionsSrc > 0)
+                    {
 
-                    graphique.plateau.tabCases[src] = case_src;
-                    graphique.plateau.barGraphique[couleur] = case_dest;
-                    printf("(graphique) Nb cases dans dest : %i\n", nbPionsDest);
-                }
-            }
+                        graphique.plateau.tabCases[src] = case_src;
+                        graphique.plateau.tabCases[dest] = case_dest;
 
-            else if(src == 0 && dest != 25) // on sort le pion du bar
-            {
-                dest --;
+                        //on effectue le déplacement
+                        deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
 
-                Case case_src = graphique.plateau.barGraphique[couleur];
-                Case case_dest = graphique.plateau.tabCases[dest];
+                        case_dest.nbPions++;// on augmente le nombre de pions de la case destinataire
+                        nbPionsDest = case_dest.nbPions;
 
-                int nbPionsSrc = case_src.nbPions; //nombre de pions dans la case source
-                int nbPionsDest = case_dest.nbPions; // nombre de pions dans la case destination
+                        // affectation du pion à la nouvelle case
+                        case_dest.tabPions[nbPionsDest-1] = case_src.tabPions[nbPionsSrc-1];
 
-                //printf("Nb cases dans src : %i\n", nbPionsSrc);
+                        case_src.nbPions --; // on décrémente le nombre de pions de la source
+                        // printf("Après déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
+                        nbPionsSrc = case_src.nbPions ;
+                        nbPionsDest = case_dest.nbPions;
 
-                if(nbPionsSrc > 0)
-                {
+                        graphique.plateau.tabCases[src] = case_src;
+                        graphique.plateau.tabCases[dest] = case_dest;
 
-                    graphique.plateau.barGraphique[couleur] = case_src;
-                    graphique.plateau.tabCases[dest] = case_dest;
+                        // printf("Après deplacement : src contient %i pions, dest contient %i pions\n", case_src.nbPions, case_dest.nbPions);
+                        //printf("[Case tableau]Après deplacement : src contient %i pions, dest contient %i pions\n", graphique.plateau.tabCases[src].nbPions, graphique.plateau.tabCases[dest].nbPions);
 
-                    //on effectue le déplacement
-                    deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
-
-                    case_dest.nbPions++;// on augmente le nombre de pions de la case destinataire
-                    nbPionsDest = case_dest.nbPions;
-
-                    // affectation du pion à la nouvelle case
-                    case_dest.tabPions[nbPionsDest-1] = case_src.tabPions[nbPionsSrc-1];
-
-                    case_src.nbPions --; // on décrémente le nombre de pions de la source
-                   // printf("Après déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
-                    nbPionsSrc = case_src.nbPions ;
-                    nbPionsDest = case_dest.nbPions;
-
-                    graphique.plateau.barGraphique[couleur] = case_src;
-                    graphique.plateau.tabCases[dest] = case_dest;
+                    }
                 }
 
+                rafraichirGraphique();
             }
-
-        }//bar
-        else if(dest == 25) // out
-        {
-            int nbDames = graphique.plateau.tabCases[src - 1].nbPions -1;
-
-            Case case_src = graphique.plateau.tabCases[src - 1];
-            Case case_dest = graphique.plateau.outGraphique[couleur].caseOut;
-            case_dest.nbPions = 0;
-            //graphique.plateau.tabCases[src-1].nbPions --;
-
-            int nbPionsSrc = case_src.nbPions;
-
-           // graphique.plateau.outGraphique[couleur].caseOut.nbPions ++;
-            if(nbPionsSrc > 0)
-            {
-                //déplacement du pion vers le out
-                deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
-
-                //on diminue le nombre de pions de la source
-                case_src.nbPions --;
-
-                case_dest.tabPions[0] = case_src.tabPions[nbPionsSrc-1]; // on affecte tout le temps à la première case du tableau le pion que l'on veut retirer
-
-                graphique.plateau.tabCases[src-1] = case_src;
-                graphique.plateau.outGraphique[couleur].caseOut = case_dest;
-
-                graphique.plateau.out[couleur] ++; // on ajoute 1 dans le compteur des pions sortis du joueur
-                freePion(&graphique.plateau.tabCases[src -1].tabPions[nbDames]); // on libère la surface du pion
-                updateOutGraphic(couleur);
-            }
-
-        }
-        else
-        {
-
-            //on décrémente la source et la destination pour correspondre avec les bonnes valeurs du tableau
-            src --;
-            dest --;
-
-            Case case_src = graphique.plateau.tabCases[src];
-            Case case_dest = graphique.plateau.tabCases[dest];
-
-            //printf("Case %i possède %i pions\n", src, case_src.nbPions);
-
-            int nbPionsSrc = case_src.nbPions; //nombre de pions dans la case source
-            int nbPionsDest = case_dest.nbPions; // nombre de pions dans la case destination
-
-            if(nbPionsSrc > 0)
-            {
-
-                graphique.plateau.tabCases[src] = case_src;
-                graphique.plateau.tabCases[dest] = case_dest;
-
-                //on effectue le déplacement
-                deplacerPionVers(&case_src.tabPions[nbPionsSrc -1], &case_dest);
-
-                case_dest.nbPions++;// on augmente le nombre de pions de la case destinataire
-                nbPionsDest = case_dest.nbPions;
-
-                // affectation du pion à la nouvelle case
-                case_dest.tabPions[nbPionsDest-1] = case_src.tabPions[nbPionsSrc-1];
-
-                case_src.nbPions --; // on décrémente le nombre de pions de la source
-               // printf("Après déplacement, pos pion : x = %i, y = %i\n", graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.x, graphique.plateau.tabCases[src].tabPions[nbPionsSrc-1].posPion.y);
-                nbPionsSrc = case_src.nbPions ;
-                nbPionsDest = case_dest.nbPions;
-
-                graphique.plateau.tabCases[src] = case_src;
-                graphique.plateau.tabCases[dest] = case_dest;
-
-               // printf("Après deplacement : src contient %i pions, dest contient %i pions\n", case_src.nbPions, case_dest.nbPions);
-                //printf("[Case tableau]Après deplacement : src contient %i pions, dest contient %i pions\n", graphique.plateau.tabCases[src].nbPions, graphique.plateau.tabCases[dest].nbPions);
-
-            }
-
-        }
-        rafraichirGraphique();
-        }
         }
 
     }
@@ -1178,9 +1187,10 @@ void initCases(Plateau *plateau)
     int width = plateau ->largeur;
     int height = plateau -> hauteur;
 
+    Case case_b;
     for(i = 0; i <= 5; i++) // partie inférieure droite
     {
-        Case case_b;
+
         width -= LARGEUR_CASE;
         case_b.posX = width;
 
@@ -1188,9 +1198,6 @@ void initCases(Plateau *plateau)
         case_b.nbPions = 0;
         case_b.largeur = LARGEUR_CASE;
         case_b.hauteur = HAUTEUR_CASE;
-
-        SDL_Surface* surface;
-        case_b.imageCase = surface;
 
         plateau -> tabCases[i] = case_b;
 
@@ -1199,7 +1206,6 @@ void initCases(Plateau *plateau)
     width = 760;
     for(i = 18; i <= 23; i++) // partie supérieure droite
     {
-        Case case_b;
 
         case_b.posX = width;
         width += LARGEUR_CASE;
@@ -1208,17 +1214,14 @@ void initCases(Plateau *plateau)
         case_b.largeur = LARGEUR_CASE;
         case_b.hauteur = HAUTEUR_CASE;
 
-        SDL_Surface* surface;
-        case_b.imageCase = surface;
-
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
 
+
     width = 640; // début de la partie inferieure droite - le bord noir
     for(i = 6; i <= 11; i++) // partie inférieure gauche
     {
-        Case case_b;
         width -= LARGEUR_CASE;
         case_b.posX = width;
 
@@ -1227,16 +1230,12 @@ void initCases(Plateau *plateau)
         case_b.largeur = LARGEUR_CASE;
         case_b.hauteur = HAUTEUR_CASE;
 
-        SDL_Surface* surface;
-        case_b.imageCase = surface;
-
         plateau -> tabCases[i] = case_b;
        // printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
     width = 140;
     for(i = 12; i <= 17; i++) // partie superieure gauche
     {
-        Case case_b;
 
         case_b.posX = width;
         width += LARGEUR_CASE;
@@ -1245,16 +1244,11 @@ void initCases(Plateau *plateau)
         case_b.largeur = LARGEUR_CASE;
         case_b.hauteur = HAUTEUR_CASE;
 
-        SDL_Surface* surface;
-        case_b.imageCase = surface;
-
         plateau -> tabCases[i] = case_b;
       //  printf("%i : x : %i - y : %i\n", i, case_b.posX, case_b.posY);
     }
 
     //initialisation du bar
-
-    Case case_b;
 
     case_b.hauteur = HAUTEUR_CASE *2;
     case_b.largeur = LARGEUR_CASE;
@@ -1379,10 +1373,7 @@ void surlignerCase(int numCase)
 
     posCase.x = graphique.plateau.tabCases[numCase].posX;
     posCase.y = graphique.plateau.tabCases[numCase].posY;
-    SDL_Rect posEcran;
 
-    posEcran.x = 0;
-    posEcran.y = 0;
     SDL_BlitSurface(graphique.plateau.tabCases[numCase].imageCase, NULL, graphique.fond, &posCase);
     //rafraichirGraphique();
     //SDL_BlitSurface(graphique.fond, NULL, graphique.ecran, &posEcran);
@@ -1397,7 +1388,6 @@ void drawEmptyRect(SDL_Surface* surf,int posX, int posY, int width, int length, 
 	ligneHaut.y = posY-1;
 	ligneHaut.w = length;
 	ligneHaut.h = 1;
-
 	SDL_FillRect(surf, &ligneHaut, SDL_MapRGB(surf->format, R, G, B));
 
 	SDL_Rect ligneDroite;

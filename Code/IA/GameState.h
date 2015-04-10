@@ -1,5 +1,10 @@
 /*
 	Fichier contenant les fonctions concernant l'état du jeu (GameState, SMove, Square, Player...)
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #ifndef _GameState
@@ -37,7 +42,7 @@ double getProbabiliteeDeFaireUnDesDes( int valeurDes[25] );
 
 int getEloignementOut( SGameState* gameState, Player maCouleur );
 
-int randomINT( int min, int max );
+int randomInteger( int min, int max );
 
 int calculerCout( SGameState* gameState );
 

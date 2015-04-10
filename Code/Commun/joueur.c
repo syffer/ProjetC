@@ -2,11 +2,16 @@
 	Fichier contenant toutes les fonctions concernant le chargement des libraires.
 	Les fonctions d'une librairie chargée seront stockées dans une structure Joueur, 
 	celle-ci ne contient que des pionteurs de fonctions.
-
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
 
 */
 
 #include "joueur.h"
+#include "backgammon.h"
+#include "libJoueur.h"
 
 #include <stdlib.h> 	// malloc()
 #include <stdio.h>
@@ -45,6 +50,8 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 
 	Joueur joueur;
 
+	joueur.estUnBot = 1;
+
 	joueur.librairie = lib;
 
 	joueur.InitLibrary = (pfInitLibrary) extraireLibrairie( lib, "InitLibrary" );	// on extrait la fonction
@@ -82,6 +89,24 @@ Joueur chargerJoueur( char nomLibrairie[] ) {
 	return joueur;
 }
 
+
+Joueur chargerJoueurReel() {
+	Joueur joueur;
+
+	joueur.estUnBot = 0;
+	joueur.librairie = NULL;
+
+	joueur.InitLibrary = InitLibrary;
+	joueur.StartMatch = StartMatch;
+	joueur.StartGame = StartGame;
+	joueur.EndGame = EndGame;
+	joueur.EndMatch = EndMatch;
+	joueur.DoubleStack = DoubleStack;
+	joueur.TakeDouble = TakeDouble;
+	joueur.PlayTurn = PlayTurn;
+
+	return joueur;
+}
 
 
 #ifdef _WIN32

@@ -2,7 +2,10 @@
 	Fichier contenant toutes les fonctions concernant le chargement des libraires.
 	Les fonctions d'une librairie chargée seront stockées dans une structure Joueur, 
 	celle-ci ne contient que des pionteurs de fonctions.
-
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
 
 */
 
@@ -40,6 +43,9 @@
 
 
 struct Joueur {
+
+	int estUnBot;
+
 	Librairie librairie;
 
 	pfInitLibrary InitLibrary;
@@ -55,6 +61,7 @@ typedef struct Joueur Joueur;
 
 
 Joueur chargerJoueur( char nomLibrairie[] );
+Joueur chargerJoueurReel();
 int dlerrorDetectee();
 void libererJoueur( Joueur joueur );
 

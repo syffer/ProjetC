@@ -4,6 +4,11 @@
 	Ce bot va essayer de modifier les valeurs de la variable GameState, 
 	mais ne donne pas de mouvements à l'arbitre.
 	
+	
+	Auteurs :
+	- Pauline HOULGATTE
+	- Maxime PINEAU	
+
 */
 
 #include <stdio.h>
