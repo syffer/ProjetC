@@ -1,4 +1,11 @@
+/*
 
+    Gestion de l'arbitre du jeu
+
+    Auteurs :
+    - Titouan PASQUET
+
+*/
 #include "arbitre.h"
 
 #include "backgammon.h"

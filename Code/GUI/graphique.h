@@ -1,3 +1,12 @@
+/*
+
+    Gestion de la partie graphique du jeu
+
+    Auteurs :
+    - Cyril CARON
+
+*/
+
 #ifndef _graphique
 	#define _graphique
 

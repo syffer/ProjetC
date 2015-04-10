@@ -1,3 +1,11 @@
+/*
+
+    Gestion de la partie graphique du jeu
+
+    Auteurs :
+    - Cyril CARON
+
+*/
 
 #include "graphique.h"
 //#include "arbitre.h"
@@ -128,21 +136,13 @@ void rafraichirGraphique()
     position.y = 30;
     SDL_BlitSurface( graphique.texte_LabelScoreCible, NULL, graphique.ecran, &position );
 
-    /*
-    *
-    *
-    *   TOUR !!!!
-    *
-    *
-    *
-    */
+
     position.x = 1280;
     position.y = 360;
     SDL_BlitSurface( graphique.texte_Tour, NULL, graphique.ecran, &position );
 
 
-
-    //Rafraichissement des d�s
+    //Rafraichissement des dés
     rafraichirDes();
 
     updatePionsGraphique();
@@ -338,7 +338,6 @@ void initialiserPlateauGraphique( SGameState* gameState ) {
 
     pos.x = graphique.plateau.outGraphique[WHITE].posX;
     pos.y = graphique.plateau.outGraphique[WHITE].posY;
-
 
 
     graphique.plateau.outGraphique[WHITE].imagePionOut = SDL_CreateRGBSurface(SDL_HWSURFACE, 0, 0, 32, 0, 0, 0, 0);
@@ -703,103 +702,6 @@ void creerFenetrePopup( char* messageMise, char* messageQuestion ) {
 
     // mise � jour de l'�cran
     SDL_Flip( graphique.ecran );
-}
-
-
-/**
-* Met en pause le jeu en attendant un �v�nement
-*/
-
-void pause() {
-
-    int continuer = 1;
-    SDL_Event event;
-
-    SMove move;
-
-    while (continuer) {
-
-        SDL_WaitEvent(&event);
-
-        switch(event.type) {
-
-            case SDL_QUIT:
-                continuer = 0;
-                break;
-
-            case SDL_KEYDOWN:
-
-                switch(event.key.keysym.sym) {
-
-                    case SDLK_ESCAPE:
-                        printf("leave \n");
-                        continuer = 0;
-                        break;
-
-                    case SDLK_SPACE:
-                        printf("leave \n");
-                        continuer = 0;
-
-                        break;
-                    case SDLK_g: // mettre pion blanc dans le out
-                        move.dest_point = 25;
-                        move.src_point = 12;
-                        deplacerPionGraphique(move, WHITE);
-                    break;
-                    case SDLK_h: // mettre pion noir dans le out
-                        move.dest_point = 25;
-                        move.src_point = 13;
-                        deplacerPionGraphique(move, BLACK);
-                    break;
-                    case SDLK_j: // mettre pion blanc dans le bar
-                        move.dest_point = 0;
-                        move.src_point = 12;
-                        deplacerPionGraphique(move, WHITE);
-                    break;
-                    case SDLK_k: // mettre pion noir dans le bar
-                        move.dest_point = 0;
-                        move.src_point = 13;
-                        deplacerPionGraphique(move, BLACK);
-                    break;
-
-                    case SDLK_l: // enlever pion blanc du bar
-                        move.dest_point = 12;
-                        move.src_point = 0;
-                        deplacerPionGraphique(move, WHITE);
-                    break;
-                    case SDLK_a: // enlever pion noir du bar
-                        move.dest_point = 13;
-                        move.src_point = 0;
-                        deplacerPionGraphique(move, BLACK);
-                    break;
-
-                    default:
-
-                        break;
-                }
-
-            break;
-
-            case SDL_MOUSEBUTTONUP:
-                if (event.button.button == SDL_BUTTON_LEFT)
-                {
-                    move.dest_point = retournerNumCase(event.motion.x, event.motion.y, graphique.plateau);
-                    printf("destination : %i\n", move.dest_point);
-                    deplacerPionGraphique(move, 0);
-
-                }
-                else if (event.button.button == SDL_BUTTON_RIGHT)
-                {
-                    move.src_point = retournerNumCase(event.motion.x, event.motion.y, graphique.plateau);
-                    printf("source : %i\n", move.src_point);
-                   // surlignerCase(move.src_point);
-                }
-            break;
-
-            default:
-                break;
-        }
-    }
 }
 
 

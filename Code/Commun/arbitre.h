@@ -1,3 +1,12 @@
+/*
+
+    Gestion de l'arbitre du jeu
+
+    Auteurs :
+    - Titouan PASQUET
+
+*/
+
 #ifndef _arbitre
     #define _arbitre
 
