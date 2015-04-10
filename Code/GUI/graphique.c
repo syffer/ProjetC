@@ -361,13 +361,16 @@ void updatePionsGraphique()
 {
     int i, j;
 
+    Case case_b;
+    Pion pion;
+
     //blit des pions du plateau
     for(i = 0; i < 24; i++)
     {
-        Case case_b = graphique.plateau.tabCases[i];
+        case_b = graphique.plateau.tabCases[i];
         for(j = 0; j < case_b.nbPions; j++)
         {
-            Pion pion = case_b.tabPions[j];
+            pion = case_b.tabPions[j];
             SDL_BlitSurface(pion.imagePion, NULL, graphique.ecran, &pion.posPion);
         }
     }
@@ -375,11 +378,11 @@ void updatePionsGraphique()
     // blit des pions du bar
     for(i = 0; i < 2; i++)
     {
-        Case case_b = graphique.plateau.barGraphique[i];
+        case_b = graphique.plateau.barGraphique[i];
 
         for(j = 0; j < case_b.nbPions; j++)
         {
-            Pion pion = case_b.tabPions[j];
+            pion = case_b.tabPions[j];
             SDL_BlitSurface(pion.imagePion, NULL, graphique.ecran, &pion.posPion);
         }
     }
