@@ -99,7 +99,6 @@ void creerPlateau(Plateau *plateau);
 void deplacerPionVers(Pion *pion, Case* case_dest);
 void updateOutGraphic(int numJoueur);
 int retournerNumCase(int sourisX, int sourisY, Plateau plateau);
-void drawEmptyRect(SDL_Surface* surf,int posX, int posY, int width, int length, int R, int G, int B);
 
 char* retournerPathDe(char dice);
 void positionnerDes(SDL_Rect* posDe1, SDL_Rect* posDe2);
