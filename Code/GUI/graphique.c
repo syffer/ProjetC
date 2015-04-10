@@ -449,8 +449,6 @@ void rafraichirDes()
 
 void updateTourJoueurGraphique( Player joueur ) {
 
-    printf("__________________ (graphique) graphique update tour joueur \n");
-
     SDL_Color couleurNoire = {0, 0, 0};
 
     char chaine[50];
@@ -463,8 +461,6 @@ void updateTourJoueurGraphique( Player joueur ) {
     graphique.texte_Tour = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
 
     rafraichirGraphique();
-
-    printf("__________________ (graphique) fin graphique update tour joueur \n");
 }
 
 /**
@@ -504,12 +500,10 @@ void updateScoreJoueurNoir(int score) {
 */
 void updateScoreCibleGraphique( int scoreCible ) {
 
-    printf("score cible : %d||||||||||||||\n",scoreCible);
+
     SDL_Color couleurNoire = {0, 0, 0};
     char chaine[15];
     sprintf( chaine, "%d", scoreCible );
-
-    printf("score cible : %s||||||||||||||\n", chaine);
 
     SDL_FreeSurface(graphique.texte_ScoreCible);
     graphique.texte_ScoreCible = TTF_RenderText_Blended( graphique.police, chaine, couleurNoire );
