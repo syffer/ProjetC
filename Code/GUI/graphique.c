@@ -156,7 +156,7 @@ int initialiserFenetre() {
 
     // Initialisation de la SDL
     if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0 ) {      // | SDL_INIT_TIMER
-        printf( "Impossible de charger SDL : %s\n", SDL_GetError() );
+        fprintf( stderr,  "Impossible de charger SDL : %s\n", SDL_GetError() );
         exit(EXIT_FAILURE);
         //return -1;
     }
@@ -164,7 +164,7 @@ int initialiserFenetre() {
     // create a new window
     graphique.ecran = SDL_SetVideoMode( LARGEUR_FENETRE, HAUTEUR_FENETRE, 32, SDL_HWSURFACE | SDL_DOUBLEBUF );
     if ( ! graphique.ecran ) {
-        printf("Impossible d'afficher la fenetre SDL a l'ecran : %s\n", SDL_GetError());
+        fprintf( stderr, "Impossible d'afficher la fenetre SDL a l'ecran : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
@@ -176,7 +176,7 @@ int initialiserFenetre() {
     graphique.fond = SDL_LoadBMP("./GUI/Images/plateau.bmp");
 
     if ( ! graphique.fond ) {
-        printf("Impossible de charger l'image de fond du plateau : %s\n", SDL_GetError());
+        fprintf( stderr, "Impossible de charger l'image de fond du plateau : %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
         //return -1;
     }
